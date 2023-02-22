@@ -238,7 +238,8 @@ def popper(settings):
                             pruned_sub_inconsistent = explain_inconsistent(settings, generator, tester, prog, rule_ordering, new_cons, all_handles)
                 else:
                     # if consistent, prune specialisations
-                    add_spec = True
+                    if settings.threshold == 0:
+                        add_spec = True
 
                 # if consistent and partially complete test whether functional
                 if not inconsistent and settings.functional_test and num_pos_covered > 0 and tester.is_non_functional(prog):
@@ -285,7 +286,7 @@ def popper(settings):
                 subsumed = False
 
                 # WHY DO WE HAVE A RECURSIVE CHECK???
-                if num_pos_covered > 0 and not is_recursive:
+                if num_pos_covered > 0 and not is_recursive and settings.threshold == 0:
                 # if num_pos_covered > 0:
                     subsumed = pos_covered in success_sets or any(pos_covered.issubset(xs) for xs in success_sets)
                     # if so, prune specialisations
@@ -294,7 +295,6 @@ def popper(settings):
 
                 # micro-optimisiations
                 if not settings.recursion_enabled:
-
                     # if we already have a solution, a new rule must cover at least two examples
                     if not add_spec and combiner.solution_found and num_pos_covered == 1:
                         add_spec = True
@@ -342,7 +342,7 @@ def popper(settings):
                             seen_incomplete_spec = set()
 
                 seen_better_rec = False
-                if is_recursive and not inconsistent and not subsumed and not add_gen and num_pos_covered > 0:
+                if is_recursive and not inconsistent and not subsumed and not add_gen and num_pos_covered > 0 and settings.threshold == 0:
                     seen_better_rec = pos_covered in rec_success_sets or any(pos_covered.issubset(xs) for xs in rec_success_sets)
 
                 # if consistent, covers at least one example, is not subsumed, and has no redundancy, try to find a solution
@@ -360,7 +360,7 @@ def popper(settings):
 
                     # if we find a new solution, update the maximum program size
                     # if only adding nogoods, eliminate larger programs
-                    if new_solution_found:
+                    if new_solution_found and settings.threshold == 0:
                         settings.max_literals = combiner.max_size-1
                         if size >= settings.max_literals:
                             return
@@ -374,7 +374,14 @@ def popper(settings):
 
                 # if non-separable program covers all examples, stop
                 if not inconsistent and num_pos_covered == num_pos:
-                    return
+                    if settings.threshold == 0:
+                        return
+                    else:
+                        score = combiner.best_score
+                        if score >= settings.threshold:
+                            return
+                        else:
+                            add_gen = True
 
                 # BUILD CONSTRAINTS
                 if add_spec and not pruned_sub_incomplete:

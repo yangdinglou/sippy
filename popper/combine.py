@@ -2,7 +2,7 @@ import clingo
 import time
 import pickle
 import itertools
-from . util import format_rule, prog_size, format_prog, flatten, reduce_prog, prog_is_recursive, rule_size, rule_is_recursive, order_rule
+from . util import format_rule, order_prog, prog_size, format_prog, flatten, reduce_prog, prog_is_recursive, rule_size, rule_is_recursive, order_rule
 
 # for when we have a complete solution
 # same as above but no weak constraint over examples covered
@@ -52,6 +52,7 @@ class Combiner:
         self.prog_coverage = {}
 
         self.solution_found = False
+        self.best_score = 0
         self.best_prog = None
         self.num_covered = 0
         self.max_size = None
@@ -248,7 +249,8 @@ class Combiner:
             # this encoding has a hard constraint to ensure the program is complete
             this_encoding.add(FIND_SUBSET_PROG2)
             # add size constraint to only find programs smaller than the best one so far
-            this_encoding.add(':- #sum{K,R : rule(R), size(R,K)} >= ' + f'{self.max_size}.')
+            if self.settings.threshold == 0:
+                this_encoding.add(':- #sum{K,R : rule(R), size(R,K)} >= ' + f'{self.max_size}.')
         else:
             # this encoding has a soft constraint to cover as many positive examples as possible
             this_encoding.add(FIND_SUBSET_PROG1)
@@ -307,38 +309,93 @@ class Combiner:
         return [self.ruleid_to_rule[k] for k in model_rules], fn
 
     def update_best_prog(self, prog, pos_covered):
-        # with self.settings.stats.duration('combine_update_prog_index'):
-        self.update_prog_index(prog, pos_covered)
+        if self.settings.threshold == 0:
+            # with self.settings.stats.duration('combine_update_prog_index'):
+            self.update_prog_index(prog, pos_covered)
 
-        self.to_add.append(prog)
-        if not self.solution_found and pos_covered.issubset(self.pos_covered):
-            # self.skip_count += 1
-            # print('skip_count', self.skip_count)
-            return False
-        new_solution, fn = self.select_solution()
-        # TMP!!!
-        self.to_add = []
 
-        if len(new_solution) == 0:
-            return False
+            self.to_add.append(prog)
+            if not self.solution_found and pos_covered.issubset(self.pos_covered):
+                # self.skip_count += 1
+                # print('skip_count', self.skip_count)
+                return False
+            new_solution, fn = self.select_solution()
+            # TMP!!!
+            self.to_add = []
 
-        new_solution = reduce_prog(new_solution)
-        self.settings.solution = new_solution
-        size = prog_size(new_solution)
+            if len(new_solution) == 0:
+                return False
 
-        tn = self.tester.num_neg
-        fp = 0
+            new_solution = reduce_prog(new_solution)
+            self.settings.solution = new_solution
+            size = prog_size(new_solution)
 
-        if fn > 0:
-            tp = self.tester.num_pos - fn
-            self.num_covered = tp
-            self.settings.print_incomplete_solution(new_solution, tp, fn, size)
-            self.settings.best_prog_score = (tp, fn, tn, fp, size)
-            return False
+            tn = self.tester.num_neg
+            fp = 0
 
-        self.settings.print_incomplete_solution(new_solution, self.tester.num_pos, 0, size)
-        self.solution_found = True
-        self.max_size = size
-        self.best_prog = new_solution
-        self.settings.best_prog_score = (self.tester.num_pos, 0, tn, fp, size)
-        return True
+            if fn > 0:
+                tp = self.tester.num_pos - fn
+                self.num_covered = tp
+                self.settings.print_incomplete_solution(new_solution, tp, fn, size)
+                self.settings.best_prog_score = (tp, fn, tn, fp, size)
+                return False
+
+            self.settings.print_incomplete_solution(new_solution, self.tester.num_pos, 0, size)
+            self.solution_found = True
+            self.max_size = size
+            self.best_prog = new_solution
+            self.settings.best_prog_score = (self.tester.num_pos, 0, tn, fp, size)
+            return True
+        else:
+            # with self.settings.stats.duration('combine_update_prog_index'):
+            self.update_prog_index(prog, pos_covered)
+
+            prog2 = prog
+
+            new_score = -1
+            if len(pos_covered) == self.tester.num_pos:
+                new_score = self.tester.get_pos_score(prog2)
+
+            for rule in order_prog(prog):
+                self.settings.logger.info(format_rule(order_rule(rule)))
+            self.settings.logger.info(f'score:{new_score}')
+            self.to_add.append(prog)
+            if not self.solution_found and pos_covered.issubset(self.pos_covered):
+                # self.skip_count += 1
+                # print('skip_count', self.skip_count)
+                return False
+            new_solution, fn = self.select_solution()
+            # TMP!!!
+            self.to_add = []
+
+            if len(new_solution) == 0:
+                if len(pos_covered) < self.tester.num_pos:
+                    return False
+                elif new_score <= self.best_score:
+                    return False
+
+            new_solution = reduce_prog(new_solution)
+            new_score2 = self.tester.get_pos_score(new_solution)
+            if new_score > new_score2:
+                new_solution = prog
+                new_score2 = new_score
+            self.best_score = new_score2
+            self.settings.solution = new_solution
+            size = prog_size(new_solution)
+
+            tn = self.tester.num_neg
+            fp = 0
+
+            if fn > 0:
+                tp = self.tester.num_pos - fn
+                self.num_covered = tp
+                self.settings.print_incomplete_solution(new_solution, tp, fn, size)
+                self.settings.best_prog_score = (tp, fn, tn, fp, size)
+                return False
+
+            self.settings.print_incomplete_solution(new_solution, self.tester.num_pos, 0, size)
+            self.solution_found = True
+            self.max_size = size
+            self.best_prog = new_solution
+            self.settings.best_prog_score = (self.tester.num_pos, 0, tn, fp, size)
+            return True

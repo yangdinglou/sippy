@@ -492,7 +492,7 @@ base_clause(C,P,A):-
 :-
     C > 0,
     recursive_clause(C,P,A),
-    #count{Vars : body_literal(C,P,A,Vars)} > 1.
+    #count{Vars : body_literal(C,P,A,Vars)} > 2.
 
 %% PREVENT LEFT RECURSION
 %% TODO: GENERALISE FOR ARITY > 3

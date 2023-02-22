@@ -11,7 +11,7 @@ from .core import Literal
 clingo.script.enable_python()
 
 TIMEOUT=600
-EVAL_TIMEOUT=0.001
+EVAL_TIMEOUT=0.1
 MAX_LITERALS=40
 MAX_SOLUTIONS=1
 CLINGO_ARGS=''
@@ -19,6 +19,8 @@ MAX_RULES=2
 MAX_VARS=6
 MAX_BODY=6
 MAX_EXAMPLES=10000
+
+STOP_SCORE=0
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Popper is an ILP system based on learning from failures')
@@ -35,6 +37,7 @@ def parse_args():
     parser.add_argument('--max-rules', type=int, default=MAX_RULES, help=f'Maximum number of rules allowed in recursive program (default: {MAX_RULES})')
     parser.add_argument('--max-examples', type=int, default=MAX_EXAMPLES, help=f'Maximum number of examples per label (positive or negative) to learn from (default: {MAX_EXAMPLES})')
     parser.add_argument('--functional-test', default=False, action='store_true', help='Run functional test')
+    parser.add_argument('--threshold', type=int, default=STOP_SCORE, help='Specified version (the input is the threshold score)')
     parser.add_argument('--bkcons', default=False, action='store_true', help='EXPERIMENTAL FEATURE: deduce background constraints from Datalog background')
     return parser.parse_args()
 
@@ -242,7 +245,7 @@ def flatten(xs):
     return [item for sublist in xs for item in sublist]
 
 class Settings:
-    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False):
+    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE):
 
         if cmd_line:
             args = parse_args()
@@ -259,6 +262,7 @@ class Settings:
             max_vars = args.max_vars
             max_rules = args.max_rules
             functional_test = args.functional_test
+            threshold = args.threshold
         else:
             if kbpath:
                 self.bk_file, self.ex_file, self.bias_file = load_kbpath(kbpath)
@@ -286,6 +290,7 @@ class Settings:
         self.bkcons = bkcons
         self.max_literals = max_literals
         self.functional_test = functional_test
+        self.threshold = threshold
         self.timeout = timeout
         self.eval_timeout = eval_timeout
         self.max_examples = max_examples

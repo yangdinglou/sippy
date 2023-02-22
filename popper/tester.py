@@ -48,6 +48,10 @@ class Tester():
         self.settings.pos_index = self.pos_index
         self.settings.neg_index = self.neg_index
 
+        self.pos_exs = []
+        if self.settings.threshold != 0:
+            self.pos_exs = list(self.prolog.query('findall(Atom, pos(Atom), X)'))[0]['X']
+
         if self.settings.recursion_enabled:
             self.prolog.assertz(f'timeout({self.settings.eval_timeout})')
 
@@ -211,3 +215,10 @@ class Tester():
         return None
 
 
+    def get_pos_score(self, rules):
+        with self.using(rules):
+            score = 0
+            for x in self.pos_exs:
+                new_query = "eval_head(" + x + ",X)"
+                score += list(self.prolog.query(new_query))[0]['X']
+            return score
