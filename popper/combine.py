@@ -357,45 +357,40 @@ class Combiner:
                 new_score = self.tester.get_pos_score(prog2)
 
             for rule in order_prog(prog):
-                self.settings.logger.info(format_rule(order_rule(rule)))
-            self.settings.logger.info(f'score:{new_score}')
+                self.settings.logger.debug(format_rule(order_rule(rule)))
+            self.settings.logger.debug(f'score:{new_score}')
+
+            if new_score != -1:
+                self.settings.logger.info(f'CURRENT')
+                for rule in order_prog(prog):
+                    self.settings.logger.info(format_rule(order_rule(rule)))
+                self.settings.logger.info(f'score:{new_score}')
             self.to_add.append(prog)
             if not self.solution_found and pos_covered.issubset(self.pos_covered):
                 # self.skip_count += 1
                 # print('skip_count', self.skip_count)
                 return False
-            new_solution, fn = self.select_solution()
-            # TMP!!!
-            self.to_add = []
-
-            if len(new_solution) == 0:
-                if len(pos_covered) < self.tester.num_pos:
-                    return False
-                elif new_score <= self.best_score:
-                    return False
-
-            new_solution = reduce_prog(new_solution)
-            new_score2 = self.tester.get_pos_score(new_solution)
-            if new_score > new_score2:
-                new_solution = prog
-                new_score2 = new_score
-            self.best_score = new_score2
-            self.settings.solution = new_solution
-            size = prog_size(new_solution)
+            if len(pos_covered) < self.tester.num_pos:
+                return False
+            elif new_score <= self.best_score:
+                return False
+            self.best_score = new_score
+            self.settings.solution = prog
+            size = prog_size(prog)
 
             tn = self.tester.num_neg
             fp = 0
 
-            if fn > 0:
-                tp = self.tester.num_pos - fn
-                self.num_covered = tp
-                self.settings.print_incomplete_solution(new_solution, tp, fn, size)
-                self.settings.best_prog_score = (tp, fn, tn, fp, size)
-                return False
+            # if fn > 0:
+            #     tp = self.tester.num_pos - fn
+            #     self.num_covered = tp
+            #     self.settings.print_incomplete_solution(prog, tp, fn, size)
+            #     self.settings.best_prog_score = (tp, fn, tn, fp, size)
+            #     return False
 
-            self.settings.print_incomplete_solution(new_solution, self.tester.num_pos, 0, size)
+            self.settings.print_incomplete_solution(prog, self.tester.num_pos, 0, size)
             self.solution_found = True
             self.max_size = size
-            self.best_prog = new_solution
+            self.best_prog = prog
             self.settings.best_prog_score = (self.tester.num_pos, 0, tn, fp, size)
             return True

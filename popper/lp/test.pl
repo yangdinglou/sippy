@@ -105,7 +105,8 @@ eval_head(Ex, 0) :- =(Ex, !), !.
 eval_head(Ex, 1) :- clause(Ex, true), call(Ex), !.
 
 
-eval_head(Ex, 12) :- functor(Ex, P, _), call(Ex), member(P,[min_list, delete, max_list, select, zero, one, diff_lessthanone, add, minus, my_succ, my_prev, maxnum, minnum,gt_list, lt_list, ord_union, insert]), !.
+% eval_head(Ex, 4) :- functor(Ex, P, _), call(Ex), member(P,[diff_lessthanone]), !.
+eval_head(Ex, 8) :- functor(Ex, P, _), call(Ex), member(P,[diff_lessthanone, min_list, delete, max_list, select, zero, one, add, minus, my_succ, my_prev, maxnum, minnum,gt_list, lt_list, ord_union, insert]), !.
 eval_head(Ex, V) :- clause(Ex, RawbodyList), call(RawbodyList), eval_body(RawbodyList, V).
 
 eval_body(RawbodyList, V) :- RawbodyList =..BodyList, first_rest(BodyList, ',', Bodyss), first_rest(Bodyss, H, Bodys), eval_head(H, V0), first_rest(Bodys, Body, _), eval_body(Body, V1), plus(V0, V1, V), !.

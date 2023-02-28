@@ -243,6 +243,12 @@ Popper supports non-observational predicate learning, where it must learn defini
 See the example 'non-OPL'.
  -->
 
+### Learning from positive-only
+
+To use this feature, one threshold score is needed.
+
+`python ./popper.py ./predicates/srtl/ --threshold 200`
+
 ### Popper settings
 
 To run with statistics use the flag `--stats` (default: false)

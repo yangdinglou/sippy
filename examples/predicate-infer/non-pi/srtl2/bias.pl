@@ -5,7 +5,6 @@
 max_vars(5).
 max_body(5).
 max_clauses(2).
-enable_recursion.
 
 head_pred(f,2).
 body_pred(nullptr,1).
@@ -17,6 +16,7 @@ body_pred(zero,1).
 body_pred(empty,1).
 body_pred(value,2).
 body_pred(pointer,2).
+body_pred(q,2).
 
 
 type(f,(element,list)).
@@ -29,16 +29,18 @@ type(zero,(integer,)).
 type(one,(integer,)).
 type(value,(element,integer)).
 type(pointer,(element,element)).
+type(q,(element,list)).
 
 direction(f,(in,in)).
 direction(nullptr,(out,)).
 direction(delete,(in,in,out)).
-direction(min_list,(in,in)).
+direction(min_list,(in,out)).
 direction(empty,(out,)).
 direction(zero,(out,)).
 direction(one,(out,)).
 direction(value,(out,out)).
 direction(pointer,(out,out)).
+direction(q,(out,out)).
 
 % :-
 %     body_size(0,1).
@@ -50,13 +52,13 @@ direction(pointer,(out,out)).
 
 
 :-
-	not body_literal(0,nullptr,_,_).
+	body_literal(0,q,_,_).
 :-
     not clause(1).
 
 % :-
 %     #count{A,Vars : body_literal(1,q,A,Vars)} != 1.
-:-
-	#count{A,Vars : body_literal(1,pointer,A,Vars)} != 1.
-:-
-	#count{A,Vars : body_literal(1,value,A,Vars)} != 1.
+% :-
+% 	#count{A,Vars : body_literal(1,pointer,A,Vars)} != 1.
+% :-
+% 	#count{A,Vars : body_literal(1,value,A,Vars)} = 0.

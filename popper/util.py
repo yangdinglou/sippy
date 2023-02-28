@@ -270,14 +270,13 @@ class Settings:
                 self.ex_file = ex_file
                 self.bk_file = bk_file
                 self.bias_file = bias_file
-
         self.logger = logging.getLogger("popper")
 
         if quiet:
             pass
         elif debug:
             log_level = logging.DEBUG
-            logging.basicConfig(format='%(asctime)s %(message)s', level=log_level, datefmt='%H:%M:%S')
+            logging.basicConfig(filename='example.log', filemode='w', format='%(asctime)s %(message)s', level=log_level, datefmt='%H:%M:%S')
         elif info:
             log_level = logging.INFO
             logging.basicConfig(format='%(asctime)s %(message)s', level=log_level, datefmt='%H:%M:%S')
