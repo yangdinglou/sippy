@@ -52,7 +52,8 @@ next(pp33, null).
 % value(pp32, v).
 % value(pp33, v).
 
-p(A):-nullptr(A).
-p(A):-inv1(B),child(A,B),next(A,C),p(C).
-inv1(A):-nullptr(A).
-inv1(A):-next(A,C),inv1(C).
+% p(A):-nullptr(A).
+% p(A):-inv1(B),child(A,B),next(A,C),p(C).
+% inv1(A):-nullptr(A).
+% inv1(A):-next(A,C),inv1(C).
+

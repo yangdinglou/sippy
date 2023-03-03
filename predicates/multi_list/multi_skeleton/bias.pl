@@ -4,7 +4,7 @@
 % inv1(A):-next(A,C),inv1(C).
 
 max_vars(3).
-max_body(5).
+max_body(4).
 max_clauses(4).
 enable_recursion.
 
@@ -35,11 +35,16 @@ direction(next,(in,out)).
 % direction(height,(in, out)).
 direction(nullptr,(out,)).
 
-% :-
-% 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} = 0.
-% :-
-% 	#count{A,Vars : body_literal(2,nullptr,A,Vars)} = 0.
+:-
+	#count{A,Vars : body_literal(0,nullptr,A,Vars)} = 0.
+:-
+	#count{A,Vars : body_literal(2,nullptr,A,Vars)} = 0.
 
+:-
+    #count{P,Vars : body_literal(0,P,_,Vars)} != 1.
+
+:-
+    #count{P,Vars : body_literal(2,P,_,Vars)} != 1.
 :-
     not clause(1).
 :-
@@ -55,6 +60,6 @@ direction(nullptr,(out,)).
     head_literal(1,P,_,_),
     head_literal(2,P,_,_).
 
-% :-
-%     head_literal(2,P,_,_),
-%     not head_literal(3,P,_,_).
+:-
+    head_literal(2,P,_,_),
+    not head_literal(3,P,_,_).

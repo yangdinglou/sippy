@@ -21,8 +21,8 @@
 % Total operation time: 44.50s
 % Total execution time: 51.27s
 
-max_vars(8).
-max_body(11).
+max_vars(7).
+max_body(10).
 max_clauses(2).
 enable_recursion.
 
