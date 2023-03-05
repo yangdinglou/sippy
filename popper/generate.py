@@ -11,6 +11,9 @@ from clingo import Function, Number, Tuple_
 
 arg_lookup = {clingo.Number(i):chr(ord('A') + i) for i in range(100)}
 
+def args_to_string(args):
+    return '(' + ','.join(str(arg.number) for arg in args) + ',)'
+
 def arg_to_symbol(arg):
     if isinstance(arg, tuple):
         return Tuple_(tuple(arg_to_symbol(a) for a in arg))
@@ -104,22 +107,28 @@ def parse_model(model):
     rule_index_to_head = {}
     rule_index_ordering = defaultdict(set)
 
+    new_constraint = set()
+
     for atom in model:
         args = atom.arguments
 
         if atom.name == 'body_literal':
+            
             rule_index = args[0].number
             predicate = args[1].name
             atom_args = args[3].arguments
+            new_constraint.add(f'body_literal({rule_index}, {predicate}, {len(atom_args)}, {args_to_string(atom_args)})')
             atom_args = tuple(arg_lookup[arg] for arg in atom_args)
             arity = len(atom_args)
             body_literal = (predicate, atom_args, arity)
             rule_index_to_body[rule_index].add(body_literal)
+            
 
         elif atom.name == 'head_literal':
             rule_index = args[0].number
             predicate = args[1].name
             atom_args = args[3].arguments
+            new_constraint.add(f'head_literal({rule_index}, {predicate}, {len(atom_args)}, {args_to_string(atom_args)})')
             atom_args = tuple(arg_lookup[arg] for arg in atom_args)
             arity = len(atom_args)
             head_literal = (predicate, atom_args, arity)
@@ -164,7 +173,7 @@ def parse_model(model):
         r1 = rule_lookup[r1_index]
         rule_ordering[r1] = set(rule_lookup[r2_index] for r2_index in lower_rule_indices)
 
-    return frozenset(prog), rule_ordering, directions
+    return frozenset(prog), rule_ordering, directions, new_constraint
 
 def build_rule_literals(rule, rule_var):
     literals = []

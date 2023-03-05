@@ -11,7 +11,7 @@ from .core import Literal
 clingo.script.enable_python()
 
 TIMEOUT=600
-EVAL_TIMEOUT=0.1
+EVAL_TIMEOUT=1
 MAX_LITERALS=40
 MAX_SOLUTIONS=1
 CLINGO_ARGS=''

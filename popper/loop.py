@@ -190,7 +190,7 @@ def popper(settings):
                     if model is None:
                         break
                     atoms = model.symbols(shown = True)
-                    prog, rule_ordering, directions = parse_model(atoms)
+                    prog, rule_ordering, directions, current_cons = parse_model(atoms)
 
                 is_recursive = settings.recursion_enabled and prog_is_recursive(prog)
                 has_invention = settings.pi_enabled and prog_has_invention(prog)
@@ -356,7 +356,7 @@ def popper(settings):
 
                     # COMBINE
                     with settings.stats.duration('combine'):
-                        new_solution_found = combiner.update_best_prog(prog, pos_covered)
+                        new_solution_found = combiner.update_best_prog(prog, pos_covered, current_cons)
 
                     # if we find a new solution, update the maximum program size
                     # if only adding nogoods, eliminate larger programs

@@ -92,10 +92,12 @@ class Explainer:
     def explain_totally_incomplete(self, prog, directions):
         return self.explain_totally_incomplete_aux(prog, directions, 0, set(), set())
 
+    
+    
     def explain_totally_incomplete_aux(self, prog, directions, depth, sat=set(), unsat=set()):
         has_recursion = prog_is_recursive(prog)
-
-        for subprog in find_subprogs(prog, has_recursion):
+        subprogs = list (x for x in find_subprogs(prog, has_recursion) if not self.valid_prog(x))
+        for subprog in subprogs:
             headless = is_headless(subprog)
 
             if headless:
@@ -143,6 +145,9 @@ class Explainer:
                 yield from xs
             else:
                 yield subprog, headless
+
+    def valid_prog(self, prog):
+        return self.tester.is_valid(prog)
 
 def has_valid_directions(rule):
     head, body = rule

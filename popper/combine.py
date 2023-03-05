@@ -54,6 +54,7 @@ class Combiner:
         self.solution_found = False
         self.best_score = 0
         self.best_prog = None
+        self.best_cons = None
         self.num_covered = 0
         self.max_size = None
 
@@ -308,7 +309,7 @@ class Combiner:
         model_rules, fn = self.find_combination(encoding)
         return [self.ruleid_to_rule[k] for k in model_rules], fn
 
-    def update_best_prog(self, prog, pos_covered):
+    def update_best_prog(self, prog, pos_covered, current_cons):
         if self.settings.threshold == 0:
             # with self.settings.stats.duration('combine_update_prog_index'):
             self.update_prog_index(prog, pos_covered)
@@ -362,10 +363,11 @@ class Combiner:
 
             if new_score != -1:
                 self.settings.logger.info(f'CURRENT')
-                for rule in order_prog(prog):
+                # self.settings.logger.info(f'{prog}')
+                for rule in prog:
                     self.settings.logger.info(format_rule(order_rule(rule)))
                 self.settings.logger.info(f'score:{new_score}')
-            self.to_add.append(prog)
+                # self.settings.logger.info(f'{current_cons}')
             if not self.solution_found and pos_covered.issubset(self.pos_covered):
                 # self.skip_count += 1
                 # print('skip_count', self.skip_count)
@@ -376,6 +378,7 @@ class Combiner:
                 return False
             self.best_score = new_score
             self.settings.solution = prog
+            self.best_cons = current_cons
             size = prog_size(prog)
 
             tn = self.tester.num_neg

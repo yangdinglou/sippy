@@ -71,6 +71,14 @@ class Tester():
 
         return pos_covered, inconsistent
 
+    def is_valid(self, prog):
+        try:
+            with self.using(prog):
+                pos_covered = frozenset(self.query('pos_covered(Xs)', 'Xs'))
+                return True
+        except PrologError as err:
+            return False
+        
     def test_single_rule(self, prog):
         try:
             rule = list(prog)[0]
@@ -148,8 +156,15 @@ class Tester():
             x = f'{head},{x},!'
             return self.bool_query(x)
         else:
-            with self.using(prog):
-                return self.bool_query('sat')
+            try:
+                with self.using(prog):
+                    return self.bool_query('sat')
+            except PrologError as err:
+                self.settings.logger.info('PROLOG ERROR')
+                for rule in prog:
+                    self.settings.logger.info(format_rule(rule))
+                # print('PROLOG ERROR',err)
+                return False
 
     def is_body_sat(self, body):
         _, ordered_body = order_rule((None,body))
