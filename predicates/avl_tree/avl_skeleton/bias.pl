@@ -39,7 +39,7 @@ body_pred(nullptr,1).
 body_pred(diff_lessthanone,2).
 % body_pred(add,3).
 % body_pred(minus,3).
-body_pred(my_succ,2).
+% body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
 % body_pred(minnum,3).
@@ -71,7 +71,7 @@ type(nullptr,(element,)).
 type(diff_lessthanone,(integer,integer)).
 % type(add,(integer,integer,integer)).
 % type(minus,(integer,integer,integer)).
-type(my_succ,(integer,integer)).
+% type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
 % type(minnum,(integer,integer,integer)).
@@ -102,9 +102,9 @@ direction(nullptr,(out,)).
 direction(diff_lessthanone,(in,in)).
 % direction(add,(out,in,in)).
 % direction(minus,(out,in,in)).
-direction(my_succ,(in,out)).
+% direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
-direction(maxnum,(out,in,in)).
+direction(maxnum,(in,in,out)).
 % direction(minnum,(out,in,in)).
 % direction(gt,(in,in)).
 % direction(ge,(in,in)).
@@ -199,26 +199,26 @@ direction(maxnum,(out,in,in)).
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == C2,
-	A1 == B2.
+	B1 == A2,
+	C1 == B2.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == C2,
-	A1 == B2.
+	A1 == A2,
+	C1 == B2.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
 	B1 == B2,
-	A1 == C2.
+	C1 == A2.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == B2,
-	A1 == C2.
+	A1 == B2,
+	C1 == A2.
 
 
 % ********** SOLUTION **********
@@ -247,27 +247,27 @@ direction(maxnum,(out,in,in)).
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	A2 == B1,
-	A1 == B2.
+	C1 == B2,
+	C2 == B1.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	A2 == B1,
-	A1 == C2.
+	C1 == B2,
+	C2 == A1.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	A2 == C1,
-	A1 == C2.
+	C1 == A2,
+	C2 == A1.
 
 
 :-
 	body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == C2,
-	C1 == B2.
+	B1 == A2,
+	A1 == B2.
 
 
 
@@ -275,15 +275,15 @@ direction(maxnum,(out,in,in)).
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 != C2,
+	A1 != A2,
 	B1 == B2,
-	A1 == A2.
+	C1 == C2.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == C2,
-	A1 == A2.
+	B1 == A2,
+	C1 == C2.
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
@@ -303,6 +303,13 @@ direction(maxnum,(out,in,in)).
 
 
 
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)), 
+	not A1 > A2.
+
+:-
+	body_literal(T, maxnum, _, (A1, A2, _)), 
+	not A1 > A2.
 
 
 :-
@@ -311,19 +318,19 @@ direction(maxnum,(out,in,in)).
 
 :-
 	body_literal(T, my_prev, _, (X, Y)), 
-	body_literal(T, maxnum, _, (_, Y, X)).
+	body_literal(T, maxnum, _, (X, Y, _)).
 
 :-
 	body_literal(T, my_prev, _, (X, Y)), 
-	body_literal(T, maxnum, _, (_, X, Y)).
+	body_literal(T, maxnum, _, (Y, X, _)).
 
 :-
 	body_literal(T, my_succ, _, (X, Y)), 
-	body_literal(T, maxnum, _, (_, Y, X)).
+	body_literal(T, maxnum, _, (X, Y, _)).
 
 :-
 	body_literal(T, my_succ, _, (X, Y)), 
-	body_literal(T, maxnum, _, (_, X, Y)).
+	body_literal(T, maxnum, _, (Y, X, _)).
 
 
 :-

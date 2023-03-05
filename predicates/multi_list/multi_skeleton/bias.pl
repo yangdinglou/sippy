@@ -30,7 +30,7 @@ type(nullptr,(element,)).
 direction(p,(in,)).
 direction(child,(in,out)).
 % direction(pointer,(in,out)).
-direction(next,(in,out)).
+direction(next,(out,out)).
 % direction(right,(in,out)).
 % direction(height,(in, out)).
 direction(nullptr,(out,)).
@@ -63,3 +63,5 @@ direction(nullptr,(out,)).
 :-
     head_literal(2,P,_,_),
     not head_literal(3,P,_,_).
+
+
