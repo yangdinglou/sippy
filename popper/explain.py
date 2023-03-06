@@ -96,7 +96,7 @@ class Explainer:
     
     def explain_totally_incomplete_aux(self, prog, directions, depth, sat=set(), unsat=set()):
         has_recursion = prog_is_recursive(prog)
-        subprogs = list (x for x in find_subprogs(prog, has_recursion) if not self.valid_prog(x))
+        subprogs = list (x for x in find_subprogs(prog, has_recursion) if self.valid_prog(x))
         for subprog in subprogs:
             headless = is_headless(subprog)
 

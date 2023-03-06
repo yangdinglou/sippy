@@ -39,10 +39,10 @@ body_pred(nullptr,1).
 body_pred(diff_lessthanone,2).
 % body_pred(add,3).
 % body_pred(minus,3).
-% body_pred(my_succ,2).
+body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
-% body_pred(minnum,3).
+body_pred(minnum,3).
 % body_pred(gt,2).
 % body_pred(ge,2).
 
@@ -71,10 +71,10 @@ type(nullptr,(element,)).
 type(diff_lessthanone,(integer,integer)).
 % type(add,(integer,integer,integer)).
 % type(minus,(integer,integer,integer)).
-% type(my_succ,(integer,integer)).
+type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
-% type(minnum,(integer,integer,integer)).
+type(minnum,(integer,integer,integer)).
 % type(gt,(integer,integer)).
 % type(ge,(integer,integer)).
 
@@ -102,10 +102,10 @@ direction(nullptr,(out,)).
 direction(diff_lessthanone,(in,in)).
 % direction(add,(out,in,in)).
 % direction(minus,(out,in,in)).
-% direction(my_succ,(in,out)).
+direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
 direction(maxnum,(in,in,out)).
-% direction(minnum,(out,in,in)).
+direction(minnum,(in,in,out)).
 % direction(gt,(in,in)).
 % direction(ge,(in,in)).
 
@@ -158,8 +158,8 @@ direction(maxnum,(in,in,out)).
     body_literal(T, height, _, (A, B2)),
 	B1 != B2.
 
-:-
-	#count{A,Vars : body_literal(1,height,A,Vars)} != 3.
+% :-
+% 	#count{A,Vars : body_literal(1,height,A,Vars)} != 3.
 
 
 % ********** SOLUTION **********
@@ -332,6 +332,11 @@ direction(maxnum,(in,in,out)).
 	body_literal(T, my_succ, _, (X, Y)), 
 	body_literal(T, maxnum, _, (Y, X, _)).
 
+:-
+	body_literal(T, my_succ, _, (A1, B1)),
+	body_literal(T, my_succ, _, (A2, B2)),
+	B1 == B2,
+	A1 != A2.
 
 :-
     body_literal(T, min_list, _, (A, B1)),
@@ -349,9 +354,243 @@ direction(maxnum,(in,in,out)).
 	B1 != B2.
 
 :-
+	body_literal(T, my_succ, _, (A1, B)),
+	body_literal(T, my_succ, _, (A2, B)),
+	A1 != A2.
+
+:-
+	body_literal(T, my_prev, _, (A1, B)),
+	body_literal(T, my_prev, _, (A2, B)),
+	A1 != A2.
+
+:-
 	body_literal(T, my_succ, _, (_, A)),
 	body_literal(T, my_prev, _, (A, _)).
 
 :-
 	body_literal(T, my_prev, _, (_, A)),
 	body_literal(T, my_succ, _, (A, _)).
+
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == A2,
+	C1 == B2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	A1 == A2,
+	C1 == B2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == B2,
+	C1 == A2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	A1 == B2,
+	C1 == A2.
+
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	C1 == B2,
+	C2 == B1.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	C1 == B2,
+	C2 == A1.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	C1 == A2,
+	C2 == A1.
+
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == A2,
+	A1 == B2.
+
+
+
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	A1 != A2,
+	B1 == B2,
+	C1 == C2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == A2,
+	C1 == C2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 != B2,
+	C1 == C2,
+	A1 == A2.
+
+
+:-
+	body_literal(T, minnum, _, (A1, A2, _)), 
+	not A1 > A2.
+
+:-
+	body_literal(T, my_prev, _, (X, Y)), 
+	body_literal(T, minnum, _, (X, Y, _)).
+
+:-
+	body_literal(T, my_prev, _, (X, Y)), 
+	body_literal(T, minnum, _, (Y, X, _)).
+
+:-
+	body_literal(T, my_succ, _, (X, Y)), 
+	body_literal(T, minnum, _, (X, Y, _)).
+
+:-
+	body_literal(T, my_succ, _, (X, Y)), 
+	body_literal(T, minnum, _, (Y, X, _)).
+
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == A2,
+	C1 == B2.
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	A1 == A2,
+	C1 == B2.
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == B2,
+	C1 == A2.
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	A1 == B2,
+	C1 == A2.
+
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	C1 == B2,
+	C2 == B1.
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	C1 == B2,
+	C2 == A1.
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	C1 == A2,
+	C2 == A1.
+
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == A2,
+	A1 == B2.
+
+
+
+
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	B1 == A2,
+	C1 == B2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	A1 == A2,
+	C1 == B2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	B1 == B2,
+	C1 == A2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	A1 == B2,
+	C1 == A2.
+
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	C1 == B2,
+	C2 == B1.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	C1 == B2,
+	C2 == A1.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	C1 == A2,
+	C2 == A1.
+
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	B1 == A2,
+	A1 == B2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	B1 == B2,
+	C1 == C2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	B1 == A2,
+	C1 == C2.
+
+:-
+    body_literal(T, maxnum, _, (A1, B1, C1)),
+    body_literal(T, minnum, _, (A2, B2, C2)),
+	B1 == A2,
+	C1 == C2.
+
+:-
+    body_literal(T, minnum, _, (A1, B1, C1)),
+    body_literal(T, maxnum, _, (A2, B2, C2)),
+	C1 == C2,
+	A1 == A2.

@@ -18,10 +18,10 @@ lt_list(A, B) :-
 % prev(A, B) :- succ(B, A).
 
 maxnum(A, B, C) :-
-    A is max(B, C).
+    C is max(A, B).
 
 minnum(A, B, C) :-
-    A is min(B, C).
+    C is min(A, B).
 
 value(aa, 10).
 left(aa, bb).

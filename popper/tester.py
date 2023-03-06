@@ -160,7 +160,7 @@ class Tester():
                 with self.using(prog):
                     return self.bool_query('sat')
             except PrologError as err:
-                self.settings.logger.info('PROLOG ERROR')
+                self.settings.logger.info('PROLOG ERROR in is_sat')
                 for rule in prog:
                     self.settings.logger.info(format_rule(rule))
                 # print('PROLOG ERROR',err)

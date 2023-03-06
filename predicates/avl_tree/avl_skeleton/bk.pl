@@ -21,7 +21,7 @@ maxnum(A, B, C) :-
     C is max(A, B).
 
 minnum(A, B, C) :-
-    A is min(B, C).
+    C is min(A, B).
 
 value(aa, 10).
 left(aa, bb).

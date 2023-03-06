@@ -156,6 +156,11 @@ direction(insert,(in,in,out)).
 :-
     #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
 
+% :-
+%     #count{A,Vars : body_literal(1,gt_list,A,Vars)} != 1.
+% :-
+%     #count{A,Vars : body_literal(1,lt_list,A,Vars)} != 1.
+
 :-
 	head_literal(1, p, _,(Var,_)),
 	not body_literal(1,value,_,(Var,_)).
@@ -244,24 +249,24 @@ direction(insert,(in,in,out)).
 	body_literal(T, ord_union, _, (A1, A2, _)), 
 	not A1 > A2.
 
-% :-
-%     body_literal(T, insert, _, (A1, B1, C1)),
-%     body_literal(T, insert, _, (A2, B2, C2)),
-% 	A1 == A2,
-% 	B1 == B2,
-% 	C1 != C2.
+:-
+    body_literal(T, insert, _, (A1, B1, C1)),
+    body_literal(T, insert, _, (A2, B2, C2)),
+	A1 == A2,
+	B1 == B2,
+	C1 != C2.
 
-% :-
-%     body_literal(T, insert, _, (A1, B1, C1)),
-%     body_literal(T, insert, _, (A2, B2, C2)),
-% 	C1 == A2,
-% 	B1 == B2.
+:-
+    body_literal(T, insert, _, (A1, B1, C1)),
+    body_literal(T, insert, _, (A2, B2, C2)),
+	C1 == A2,
+	B1 == B2.
 
-% :-
-% 	body_literal(T, empty, _, (A1,)),
-% 	body_literal(T, ord_union, _, (A2, B2, C2)),
-% 	A1 == A2.
-% :-
-% 	body_literal(T, empty, _, (A1,)),
-% 	body_literal(T, ord_union, _, (A2, B2, C2)),
-% 	A1 == B2.
+:-
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, ord_union, _, (A2, B2, C2)),
+	A1 == A2.
+:-
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, ord_union, _, (A2, B2, C2)),
+	A1 == B2.
