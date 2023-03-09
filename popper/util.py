@@ -135,7 +135,7 @@ def format_rule(rule):
     body_str = ','.join(format_literal(literal) for literal in body)
     return f'{head_str}:- {body_str}.'
 
-def print_prog_score(prog, score):
+def print_prog_score(prog, score, cons):
     tp, fn, tn, fp, size = score
     precision = 'n/a'
     if (tp+fp) > 0:
@@ -146,6 +146,7 @@ def print_prog_score(prog, score):
     print('*'*10 + ' SOLUTION ' + '*'*10)
     print(f'Precision:{precision} Recall:{recall} TP:{tp} FN:{fn} TN:{tn} FP:{fp} Size:{size}')
     print(format_prog(order_prog(prog)))
+    print(cons)
     print('*'*30)
 
 def prog_size(prog):
@@ -299,6 +300,7 @@ class Settings:
 
         self.solution = None
         self.best_prog_score = None
+        self.best_cons = None
 
         solver = clingo.Control(['-Wnone'])
         with open(self.bias_file) as f:

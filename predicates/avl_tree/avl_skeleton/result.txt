@@ -1,0 +1,47 @@
+********** SOLUTION ********** with knowledge of tree (two recursive instances)
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:13
+p(A):- nullptr(A).
+p(A):- right(A,C),height(C,G),left(A,F),height(A,B),height(F,D),diff_lessthanone(G,D),maxnum(G,D,E),my_succ(E,B),p(F),p(C).
+{'body_literal(1, height, 2, (2,6,))', 'body_literal(1, diff_lessthanone, 2, (6,3,))', 'head_literal(0, p, 1, (0,))', 'body_literal(1, my_succ, 2, (4,1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, p, 1, (2,))', 'body_literal(1, height, 2, (5,3,))', 'body_literal(1, right, 2, (0,2,))', 'body_literal(1, left, 2, (0,5,))', 'head_literal(1, p, 1, (0,))', 'body_literal(1, p, 1, (5,))', 'body_literal(1, maxnum, 3, (6,3,4,))', 'body_literal(1, height, 2, (0,1,))'}
+******************************
+Num. programs: 15771
+Generate:
+        Called: 15783 times      Total: 51.61    Mean: 0.003     Max: 4.699      Percentage: 33%
+Constrain:
+        Called: 15770 times      Total: 32.41    Mean: 0.002     Max: 0.102      Percentage: 20%
+Find Mucs:
+        Called: 1345 times       Total: 23.67    Mean: 0.018     Max: 1.046      Percentage: 15%
+Ground:
+        Called: 15770 times      Total: 20.69    Mean: 0.001     Max: 1.075      Percentage: 13%
+Init:
+        Called: 13 times         Total: 17.60    Mean: 1.354     Max: 15.919     Percentage: 11%
+Test:
+        Called: 15771 times      Total: 6.33     Mean: 0.000     Max: 0.013      Percentage: 4%
+Combine:
+        Called: 14426 times      Total: 2.11     Mean: 0.000     Max: 0.009      Percentage: 1%
+Total operation time: 154.43s
+Total execution time: 193.43s
+
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:13
+p(A):- nullptr(A).
+p(A):- right(A,F),height(A,G),left(A,E),height(E,C),height(F,B),maxnum(C,B,D),my_prev(G,D),diff_lessthanone(C,B),p(E),p(F).
+{'head_literal(1, p, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, my_prev, 2, (6,3,))', 'body_literal(1, maxnum, 3, (2,1,3,))', 'body_literal(1, height, 2, (5,1,))', 'body_literal(1, height, 2, (0,6,))', 'body_literal(1, left, 2, (0,4,))', 'body_literal(1, p, 1, (5,))', 'body_literal(1, p, 1, (4,))', 'body_literal(1, height, 2, (4,2,))', 'body_literal(1, diff_lessthanone, 2, (2,1,))', 'body_literal(1, right, 2, (0,5,))'}
+******************************
+Num. programs: 106619
+Generate:
+        Called: 106631 times     Total: 165.44   Mean: 0.002     Max: 1.843      Percentage: 48%
+Test:
+        Called: 106619 times     Total: 46.14    Mean: 0.000     Max: 0.935      Percentage: 13%
+Constrain:
+        Called: 106618 times     Total: 36.22    Mean: 0.000     Max: 0.142      Percentage: 10%
+Init:
+        Called: 13 times         Total: 28.29    Mean: 2.176     Max: 15.593     Percentage: 8%
+Find Mucs:
+        Called: 1728 times       Total: 28.21    Mean: 0.016     Max: 1.265      Percentage: 8%
+Ground:
+        Called: 106618 times     Total: 23.20    Mean: 0.000     Max: 1.712      Percentage: 6%
+Combine:
+        Called: 104891 times     Total: 15.61    Mean: 0.000     Max: 0.014      Percentage: 4%
+Total operation time: 343.10s
+Total execution time: 409.71s

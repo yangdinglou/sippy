@@ -54,7 +54,6 @@ class Combiner:
         self.solution_found = False
         self.best_score = 0
         self.best_prog = None
-        self.best_cons = None
         self.num_covered = 0
         self.max_size = None
 
@@ -378,7 +377,7 @@ class Combiner:
                 return False
             self.best_score = new_score
             self.settings.solution = prog
-            self.best_cons = current_cons
+            self.settings.best_cons = current_cons
             size = prog_size(prog)
 
             tn = self.tester.num_neg

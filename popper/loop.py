@@ -419,4 +419,4 @@ def popper(settings):
 
 def learn_solution(settings):
     timeout(settings, popper, (settings,), timeout_duration=int(settings.timeout),)
-    return settings.solution, settings.best_prog_score, settings.stats
+    return settings.solution, settings.best_prog_score, settings.stats, settings.best_cons

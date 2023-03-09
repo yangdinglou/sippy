@@ -5,9 +5,9 @@ from popper.loop import learn_solution
 
 if __name__ == '__main__':
     settings = Settings(cmd_line=True)
-    prog, score, stats = learn_solution(settings)
+    prog, score, stats, cons = learn_solution(settings)
     if prog != None:
-        print_prog_score(prog, score)
+        print_prog_score(prog, score, cons)
     else:
         print('NO SOLUTION')
     if settings.show_stats:

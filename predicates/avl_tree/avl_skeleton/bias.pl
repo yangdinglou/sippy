@@ -119,13 +119,7 @@ direction(minnum,(in,in,out)).
 % direction(ord_union,(in,in,out)).
 % % direction(insert,(in,in,out)).
 
-% :-
-%     body_size(0,1).
 
-% :-
-% 	body_literal(Rule1,q,_,_),
-% 	body_literal(Rule2,q,_,_),
-% 	Rule1 != Rule2.
 :-
     #count{P,Vars : body_literal(0,P,_,Vars)} != 1.
 
@@ -134,14 +128,19 @@ direction(minnum,(in,in,out)).
 :-
     not clause(1).
 
-:-
-    #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
+% :-
+%     #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
 
 :-
 	head_literal(1, p, _,(Var,)),
 	not body_literal(1,left,_,(Var,_)).
 :-
 	#count{A,Vars : body_literal(1,left,A,Vars)} != 1.
+
+% :-
+%     body_literal(T, left, _, (A, B1)),
+%     body_literal(T, left, _, (A, B2)),
+% 	B1 != B2.
 
 :-
 	head_literal(1, p, _,(Var,)),
@@ -150,16 +149,19 @@ direction(minnum,(in,in,out)).
 	#count{A,Vars : body_literal(1,right,A,Vars)} != 1.
 
 % :-
-%     body_literal(T, height, _, (A1, _)),
-%     body_literal(T, height, _, (A2, _)),
-% 	A1 == A2.
+%     body_literal(T, right, _, (A, B1)),
+%     body_literal(T, right, _, (A, B2)),
+% 	B1 != B2.
+
+:-
+	head_literal(1, p, _,(Var,)),
+	not body_literal(1,height,_,(Var,_)).
 :-
     body_literal(T, height, _, (A, B1)),
     body_literal(T, height, _, (A, B2)),
 	B1 != B2.
 
-% :-
-% 	#count{A,Vars : body_literal(1,height,A,Vars)} != 3.
+
 
 
 % ********** SOLUTION **********
@@ -264,15 +266,6 @@ direction(minnum,(in,in,out)).
 
 
 :-
-	body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == A2,
-	A1 == B2.
-
-
-
-
-:-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, maxnum, _, (A2, B2, C2)),
 	A1 != A2,
@@ -292,6 +285,10 @@ direction(minnum,(in,in,out)).
 	C1 == C2,
 	A1 == A2.
 
+:-
+	body_literal(T, maxnum, _, (A1, A2, _)), 
+	not A1 > A2.
+
 %% height-based predicates
 :-
 	body_literal(T, diff_lessthanone, _, (X, Y)),
@@ -307,14 +304,9 @@ direction(minnum,(in,in,out)).
 	body_literal(T, diff_lessthanone, _, (A1, A2)), 
 	not A1 > A2.
 
-:-
-	body_literal(T, maxnum, _, (A1, A2, _)), 
-	not A1 > A2.
 
 
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)), 
-	body_literal(T, diff_lessthanone, _, (A2, A1)).
+
 
 :-
 	body_literal(T, my_prev, _, (X, Y)), 
@@ -416,11 +408,6 @@ direction(minnum,(in,in,out)).
 	C2 == A1.
 
 
-:-
-	body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == A2,
-	A1 == B2.
 
 
 
@@ -594,3 +581,52 @@ direction(minnum,(in,in,out)).
     body_literal(T, maxnum, _, (A2, B2, C2)),
 	C1 == C2,
 	A1 == A2.
+
+
+% :-
+% 	head_literal(1, p, _,(A,)),
+% 	not body_literal(1, left, _,(A,_)).
+
+% :-
+% 	head_literal(1, p, _,(A,)),
+% 	not body_literal(1, right, _,(A,_)).
+
+
+% :-
+% 	head_literal(1, p, _,(A,)),
+% 	not body_literal(1, height, _,(A,_)).
+
+% :-
+% 	body_literal(1, left, _,(_,B)),
+% 	not body_literal(1, height, _,(B,_)).
+
+% :-
+% 	body_literal(1, left, _,(_,B)),
+% 	not body_literal(1, p, _,(B,)).
+
+% :-
+% 	body_literal(1, right, _,(_,B)),
+% 	not body_literal(1, height, _,(B,_)).
+
+% :-
+% 	body_literal(1, right, _,(_,B)),
+% 	not body_literal(1, p, _,(B,)).
+
+% :-
+% 	head_literal(1, p, _,(A,)),
+% 	body_literal(1, height, _,(A,B)),
+% 	not body_literal(1, my_prev, _,(B,_)).
+
+% :-
+% 	body_literal(1, left, _,(A1,B1)),
+% 	body_literal(1, height, _,(B1,C1)),
+% 	body_literal(1, right, _,(A2,B2)),
+% 	body_literal(1, height, _,(B2,C2)),
+% 	not body_literal(1, diff_lessthanone, _,(C1,C2)).
+
+% :-
+% 	body_literal(1, left, _,(A1,B1)),
+% 	body_literal(1, height, _,(B1,C1)),
+% 	body_literal(1, right, _,(A2,B2)),
+% 	body_literal(1, height, _,(B2,C2)),
+% 	not body_literal(1, maxnum, _,(C1,C2,_)).
