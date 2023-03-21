@@ -52,7 +52,10 @@ class Combiner:
         self.prog_coverage = {}
 
         self.solution_found = False
-        self.best_score = 0
+        self.best_factnum = 0
+        self.best_factv = 0.0
+        self.best_specv = 0
+
         self.best_prog = None
         self.num_covered = 0
         self.max_size = None
@@ -308,6 +311,16 @@ class Combiner:
         model_rules, fn = self.find_combination(encoding)
         return [self.ruleid_to_rule[k] for k in model_rules], fn
 
+    def better_prog(self, factnum, factv, specv):
+        if factnum > self.best_factnum:
+            return True
+        elif factnum == self.best_factnum:
+            if (factv > self.best_factv) and (abs(factv - self.best_factv) > 0.0001):
+                return True
+            elif factv == self.best_factv:
+                if specv > self.best_specv:
+                    return True
+        return False
     def update_best_prog(self, prog, pos_covered, current_cons):
         if self.settings.threshold == 0:
             # with self.settings.stats.duration('combine_update_prog_index'):
@@ -352,20 +365,22 @@ class Combiner:
 
             prog2 = prog
 
-            new_score = -1
+            new_factnum = None
+            new_factv = None
+            new_specv = None
             if len(pos_covered) == self.tester.num_pos:
-                new_score = self.tester.get_pos_score(prog2)
+                new_factnum, new_factv, new_specv = self.tester.get_score(prog2)
 
             for rule in order_prog(prog):
                 self.settings.logger.debug(format_rule(order_rule(rule)))
-            self.settings.logger.debug(f'score:{new_score}')
+            self.settings.logger.debug(f'score:{new_factnum}, {new_factv}, {new_specv}')
 
-            if new_score != -1:
+            if new_factnum != None:
                 self.settings.logger.info(f'CURRENT')
                 # self.settings.logger.info(f'{prog}')
                 for rule in prog:
                     self.settings.logger.info(format_rule(order_rule(rule)))
-                self.settings.logger.info(f'score:{new_score}')
+                self.settings.logger.info(f'score:{new_factnum}, {new_factv}, {new_specv}')
                 # self.settings.logger.info(f'{current_cons}')
             if not self.solution_found and pos_covered.issubset(self.pos_covered):
                 # self.skip_count += 1
@@ -373,9 +388,11 @@ class Combiner:
                 return False
             if len(pos_covered) < self.tester.num_pos:
                 return False
-            elif new_score <= self.best_score:
+            elif not self.better_prog(new_factnum, new_factv, new_specv):
                 return False
-            self.best_score = new_score
+            self.best_factnum = new_factnum
+            self.best_factv = new_factv
+            self.best_specv = new_specv
             self.settings.solution = prog
             self.settings.best_cons = current_cons
             size = prog_size(prog)

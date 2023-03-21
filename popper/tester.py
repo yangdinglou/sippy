@@ -251,6 +251,7 @@ class Tester():
         return None
 
 
+# Old version
     def get_pos_score(self, rules):
         with self.using(rules):
             score = 0
@@ -258,3 +259,17 @@ class Tester():
                 new_query = "eval_head(" + x + ",X)"
                 score += list(self.prolog.query(new_query))[0]['X']
             return score
+        
+    def get_score(self, rules):
+        with self.using(rules):
+            factnum = 0
+            allfactv = 0.0
+            callnum = 0
+            specv = 0
+            for x in self.pos_exs:
+                new_query = "scores(" + x + ",A,B,C,D)"
+                factnum += list(self.prolog.query(new_query))[0]['A']
+                allfactv += list(self.prolog.query(new_query))[0]['B']
+                callnum += list(self.prolog.query(new_query))[0]['C']
+                specv += list(self.prolog.query(new_query))[0]['D']
+            return factnum, allfactv/callnum, specv
