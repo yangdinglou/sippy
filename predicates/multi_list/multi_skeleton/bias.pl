@@ -27,6 +27,7 @@ type(next,(element,element)).
 % type(height,(element,integer)).
 type(nullptr,(element,)).
 
+% direction(inv1, (out,)).
 direction(p,(in,)).
 direction(child,(in,out)).
 % direction(pointer,(in,out)).
@@ -41,10 +42,10 @@ direction(nullptr,(out,)).
 	#count{A,Vars : body_literal(2,nullptr,A,Vars)} = 0.
 
 :-
-    #count{P,Vars : body_literal(0,P,_,Vars)} != 1.
+    #count{P,Vars : body_literal(0,P,_,Vars)} > 2.
 
 :-
-    #count{P,Vars : body_literal(2,P,_,Vars)} != 1.
+    #count{P,Vars : body_literal(2,P,_,Vars)} > 2.
 :-
     not clause(1).
 :-
@@ -64,4 +65,21 @@ direction(nullptr,(out,)).
     head_literal(2,P,_,_),
     not head_literal(3,P,_,_).
 
+:-
+	head_literal(1, p, _,(Var,)),
+	not body_literal(1,next,_,(Var,_)).
 
+:-
+	head_literal(1, p, _,(Var,)),
+	not body_literal(1,child,_,(Var,_)).
+
+
+:-
+    body_literal(T, child, _, (A, B1)),
+    body_literal(T, child, _, (A, B2)),
+	B1 != B2.
+
+:-
+    body_literal(T, next, _, (A, B1)),
+    body_literal(T, next, _, (A, B2)),
+	B1 != B2.

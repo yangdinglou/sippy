@@ -84,9 +84,11 @@ direction(insert,(in,in,out)).
 	body_literal(1,right,_,(Var,R)),
     not body_literal(1, p, _, (R,_)).
 
+% Not pruning a lot, but make the search faster a lot!
 :-
     body_literal(1,left,_,(A,B)),
     body_literal(1,right,_,(A,B)).
+
 
 :-
     body_literal(1,lt_list,_,(A,B)),

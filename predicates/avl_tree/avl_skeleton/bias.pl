@@ -120,16 +120,17 @@ direction(minnum,(in,in,out)).
 % % direction(insert,(in,in,out)).
 
 
-:-
-    #count{P,Vars : body_literal(0,P,_,Vars)} != 1.
+% :-
+%     #count{P,Vars : body_literal(0,P,_,Vars)} != 1.
 
 :-
-	not body_literal(0,nullptr,_,_).
+	head_literal(0, p, _,(Var,)),
+	not body_literal(0,nullptr,_,(Var,)).
 :-
     not clause(1).
 
-% :-
-%     #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
+:-
+    #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
 
 :-
 	head_literal(1, p, _,(Var,)),

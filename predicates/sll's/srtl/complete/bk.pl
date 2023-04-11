@@ -2,25 +2,18 @@ use_module(library(lists)).
 empty([]).
 zero(0).
 one(1).
+nullptr(null).
 
 value(p1,1).
 value(p2,2).
 value(p3,3).
 value(p4,4).
-value(n1,2).
-value(n2,1).
-value(n3,3).
-value(n4,4).
 
 pointer(p1, p2).
 pointer(p2, p3).
 pointer(p3, p4).
 pointer(p4, null).
-pointer(n1, n2).
-pointer(n2, n3).
-pointer(n3, n4).
-pointer(n4, null).
-nullptr(null).
+
 
 value(pp1,5).
 value(pp2,8).

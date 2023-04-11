@@ -1,5 +1,5 @@
 % f(A,B):-nullptr(A),empty(B).
-% f(A,B):-min_list(B,D),value(A,D),q(E,C),pointer(A,E),delete(B,D,C).
+% f(A,B):-min_list(B,D),value(A,D),f(E,C),pointer(A,E),insert(C,D,B).
 %  python popper.py ./examples/predicate-infer/srtl2/ --info --eval-timeout=10 --stats
 
 max_vars(5).

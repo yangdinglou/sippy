@@ -1,25 +1,3 @@
-% ********** SOLUTION **********
-% Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:13
-% p(A):- nullptr(A).
-% p(A):- height(A,C),my_prev(C,F),left(A,D),height(D,B),right(A,E),height(E,G),diff_lessthanone(B,G),maxnum(F,B,G),p(E),p(D).
-% ******************************
-% Num. programs: 7019
-% Generate:
-%         Called: 7031 times       Total: 15.01    Mean: 0.002     Max: 2.823      Percentage: 33%
-% Constrain:
-%         Called: 7018 times       Total: 8.71     Mean: 0.001     Max: 0.084      Percentage: 19%
-% Find Mucs:
-%         Called: 232 times        Total: 7.41     Mean: 0.032     Max: 0.371      Percentage: 16%
-% Ground:
-%         Called: 7018 times       Total: 7.24     Mean: 0.001     Max: 0.432      Percentage: 16%
-% Test:
-%         Called: 7019 times       Total: 3.24     Mean: 0.000     Max: 0.022      Percentage: 7%
-% Init:
-%         Called: 13 times         Total: 2.68     Mean: 0.206     Max: 2.577      Percentage: 6%
-% Combine:
-%         Called: 6783 times       Total: 0.21     Mean: 0.000     Max: 0.001      Percentage: 0%
-% Total operation time: 44.50s
-% Total execution time: 51.27s
 
 max_vars(7).
 max_body(7).
@@ -36,7 +14,7 @@ body_pred(right,2).
 body_pred(nullptr,1).
 body_pred(zero,1).
 % body_pred(one,1).
-body_pred(minusone,1).
+% body_pred(minusone,1).
 body_pred(diff_lessthanone,2).
 % body_pred(add,3).
 % body_pred(minus,3).
@@ -69,7 +47,7 @@ type(right,(element,element)).
 type(nullptr,(element,)).
 type(zero,(integer,)).
 % type(one,(integer,)).
-type(minusone,(integer,)).
+% type(minusone,(integer,)).
 type(diff_lessthanone,(integer,integer)).
 % type(add,(integer,integer,integer)).
 % type(minus,(integer,integer,integer)).
@@ -100,7 +78,7 @@ direction(right,(in,out)).
 direction(nullptr,(out,)).
 direction(zero,(out,)).
 % direction(one,(out,)).
-direction(minusone,(out,)).
+% direction(minusone,(out,)).
 
 direction(diff_lessthanone,(in,in)).
 % direction(add,(out,in,in)).
@@ -124,7 +102,7 @@ direction(minnum,(in,in,out)).
 
 
 :-
-    #count{P,Vars : body_literal(0,P,_,Vars)} != 2.
+    #count{P,Vars : body_literal(0,P,_,Vars)} > 4.
 
 :-
 	head_literal(0, p, _,(Var,_)),
@@ -150,10 +128,10 @@ direction(minnum,(in,in,out)).
 :-
 	#count{A,Vars : body_literal(1,left,A,Vars)} != 1.
 
-% :-
-%     body_literal(T, left, _, (A, B1)),
-%     body_literal(T, left, _, (A, B2)),
-% 	B1 != B2.
+:-
+    body_literal(T, left, _, (A, B1)),
+    body_literal(T, left, _, (A, B2)),
+	B1 != B2.
 
 :-
 	head_literal(1, p, _,(Var,_)),
@@ -161,6 +139,10 @@ direction(minnum,(in,in,out)).
 :-
 	#count{A,Vars : body_literal(1,right,A,Vars)} != 1.
 
+:-
+    body_literal(T, right, _, (A, B1)),
+    body_literal(T, right, _, (A, B2)),
+	B1 != B2.
 
 
 :-
@@ -543,13 +525,13 @@ direction(minnum,(in,in,out)).
 	A1 == A2.
 
 
-:-
-	head_literal(1, p, _,(A,_)),
-	not body_literal(1, left, _,(A,_)).
+% :-
+% 	head_literal(1, p, _,(A,_)),
+% 	not body_literal(1, left, _,(A,_)).
 
-:-
-	head_literal(1, p, _,(A,_)),
-	not body_literal(1, right, _,(A,_)).
+% :-
+% 	head_literal(1, p, _,(A,_)),
+% 	not body_literal(1, right, _,(A,_)).
 
 
 % :-
@@ -590,3 +572,7 @@ direction(minnum,(in,in,out)).
 % 	body_literal(1, right, _,(A2,B2)),
 % 	body_literal(1, height, _,(B2,C2)),
 % 	not body_literal(1, maxnum, _,(C1,C2,_)).
+
+:-
+    body_literal(1,left,_,(A,B)),
+    body_literal(1,right,_,(A,B)).
