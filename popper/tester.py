@@ -272,4 +272,6 @@ class Tester():
                 allfactv += list(self.prolog.query(new_query))[0]['B']
                 callnum += list(self.prolog.query(new_query))[0]['C']
                 specv += list(self.prolog.query(new_query))[0]['D']
+            if callnum == 0:
+                return 0, 0, 0
             return factnum, allfactv/callnum, specv

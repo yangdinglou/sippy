@@ -10,8 +10,8 @@ from .core import Literal
 
 clingo.script.enable_python()
 
-TIMEOUT=600
-EVAL_TIMEOUT=1
+TIMEOUT=2000
+EVAL_TIMEOUT=5
 MAX_LITERALS=40
 MAX_SOLUTIONS=1
 CLINGO_ARGS=''
@@ -209,6 +209,13 @@ def order_rule(rule):
     while body_literals:
         selected_literal = None
         for literal in body_literals:
+            if(literal.predicate.startswith('inv')):
+                filter_literal = [x for x in body_literals if not x.predicate.startswith('inv')]
+                if len(filter_literal) == 0:
+                    selected_literal = literal
+                    break
+                else:
+                    continue
             if len(literal.outputs) == len(literal.arguments):
                 selected_literal = literal
                 break

@@ -147,6 +147,8 @@ class Explainer:
                 yield subprog, headless
 
     def valid_prog(self, prog):
+        if is_headless(prog):
+            return True
         return self.tester.is_valid(prog)
 
 def has_valid_directions(rule):

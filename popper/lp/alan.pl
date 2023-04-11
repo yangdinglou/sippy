@@ -11,6 +11,7 @@
 #defined enable_recursion/0.
 #defined non_datalog/0.
 #defined allow_singletons/0.
+#defined body_singletons/0.
 #defined custom_max_size/1.
 
 #show head_literal/4.
@@ -334,6 +335,11 @@ before(C1,C2):-
 :-
     not allow_singletons,
     clause_var(C,Var),
+    #count{P,Vars : var_in_literal(C,P,Vars,Var)} == 1.
+
+:-
+    not body_singletons,
+    body_var(C,Var),
     #count{P,Vars : var_in_literal(C,P,Vars,Var)} == 1.
 
 %% MUST BE CONNECTED
@@ -797,6 +803,10 @@ var_type(C2,Var2,Type):-
 %%     direction(P2,Pos2,in),
 %%     #count{P3,Vars3: body_literal(Clause,P3,_,Vars3),var_pos(Var,Vars3,Pos3),direction(P3,Pos2,out)} == 0.
 
+:-
+    invented(P,A),
+    head_literal(C,P,A,Vars),
+    body_literal(C,P,A,Vars).
 
 %% PRUNES SINGLE CLAUSE/LITERAL INVENTIONS
 %% inv(A,B):-right(A,B).
