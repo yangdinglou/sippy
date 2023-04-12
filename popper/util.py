@@ -135,6 +135,38 @@ def format_rule(rule):
     body_str = ','.join(format_literal(literal) for literal in body)
     return f'{head_str}:- {body_str}, !.'
 
+def format_body(body):
+    pred = None
+    pure = []
+    spatial = []
+    for literal in body:
+        if literal.predicate == 'nullptr':
+            pred = f'{literal.arguments[0]}==0'
+        elif literal.predicate in ['insert', 'delete','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'minnum', 'zero']:
+            pure.append(format_literal(literal))
+        else:
+            spatial.append(format_literal(literal))
+    return pred, pure, spatial
+
+def to_sl_preds(rules):
+    preds = dict()
+    for rule in rules:
+        head, body = rule
+        head_str = format_literal(head)
+        if head_str in preds:
+            preds[head_str].append(body)
+        else:
+            preds[head_str] = [body]
+    output = []
+    for head in preds:
+        output.append(f'predicate {head} ')
+        output.append('{')
+        for body in preds[head]:
+            # body_str = ','.join(format_literal(literal) for literal in body)
+            pred, pure, spatial = format_body(body)
+            output.append(f'|  {pred} ;; {pure} ;; {spatial}')
+    return output
+
 def print_prog_score(prog, score, cons):
     tp, fn, tn, fp, size = score
     precision = 'n/a'
@@ -146,6 +178,7 @@ def print_prog_score(prog, score, cons):
     print('*'*10 + ' SOLUTION ' + '*'*10)
     print(f'Precision:{precision} Recall:{recall} TP:{tp} FN:{fn} TN:{tn} FP:{fp} Size:{size}')
     print(format_prog(order_prog(prog)))
+    print(to_sl_preds(order_prog(prog)))
     print(cons)
     print('*'*30)
 

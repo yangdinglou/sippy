@@ -374,7 +374,10 @@ class Combiner:
             for rule in order_prog(prog):
                 self.settings.logger.debug(format_rule(order_rule(rule)))
             self.settings.logger.debug(f'score:{new_factnum}, {new_factv}, {new_specv}')
-
+            # Pruning non SL programs
+            if new_factv != None and abs(new_factv - 1.0) > 0.0001:
+                self.settings.logger.debug(f'Pruning non SL program')
+                return None
             if new_factnum != None:
                 self.settings.logger.info(f'CURRENT')
                 # self.settings.logger.info(f'{prog}')

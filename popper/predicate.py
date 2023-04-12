@@ -7,19 +7,20 @@ def pts_basic(names, types):
 def constraints_mainpts(pred_name, arity, names):
     str = ','.join(['_']* (arity-1))
     
-    return [f''':-
-                body_literal(1, {pred_name}, {arity}, (Var,{str})),
-                not body_literal(1, {name}, _, (Var,_)).
-            :-
-                #count{{A, Vars: body_literal(1, {name}, A, Vars)}} != 1.
-            :-
-                body_literal(T, {name}, _, (A, B1)),
-                body_literal(T, {name}, _, (A, B2)),
-                B1 != B2.
-            ''' for name in names]
+    return [f'''
+:-
+    head_literal(1, {pred_name}, {arity}, (Var,{str})),
+    not body_literal(1, {name}, _, (Var,_)).
+:-
+    #count{{A, Vars: body_literal(1, {name}, A, Vars)}} != 1.
+:-
+    body_literal(T, {name}, _, (A, B1)),
+    body_literal(T, {name}, _, (A, B2)),
+    B1 != B2.
+''' for name in names]
 
 
 
 
 print(pts_basic(['p', 'q', 'r'], {'p': 'pointer', 'q': 'int', 'r': 'int'}))
-print(constraints_mainpts('p', 2, ['q', 'r']))
+print(constraints_mainpts('f', 2, ['pointer'])[0])

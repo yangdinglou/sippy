@@ -357,7 +357,9 @@ def popper(settings):
                     # COMBINE
                     with settings.stats.duration('combine'):
                         new_solution_found = combiner.update_best_prog(prog, pos_covered, current_cons)
-
+                    if new_solution_found == None:
+                        add_spec = True
+                        new_solution_found = False
                     # if we find a new solution, update the maximum program size
                     # if only adding nogoods, eliminate larger programs
                     if new_solution_found and settings.threshold == 0:
