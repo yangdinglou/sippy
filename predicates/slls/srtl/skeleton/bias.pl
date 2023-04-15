@@ -36,4 +36,11 @@ direction(pointer,(out,out)).
 
 
 :-
-	#count{A,Vars : body_literal(1,pointer,A,Vars)} != 1.
+    head_literal(1, f, 1, (Var,)),
+    not body_literal(1, pointer, _, (Var,_)).
+:-
+    #count{A, Vars: body_literal(1, pointer, A, Vars)} != 1.
+:-
+    body_literal(T, pointer, _, (A, B1)),
+    body_literal(T, pointer, _, (A, B2)),
+    B1 != B2.

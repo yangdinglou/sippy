@@ -1,11 +1,3 @@
-% p(This, Sz) :- nullptr(This), zero(Sz).
-
-% p(This) :- next(This, Nxt), p(Nxt), child(This, tail), q(tail).
-
-% q(This) :- nullptr(This), zero(Sz).
-
-% q(This) :- next(This, Nxt),value(This, n), nullptr(n), q(Nxt).
-
 %learned:
 % BEST PROG 13:
 % p(A):-nullptr(A).

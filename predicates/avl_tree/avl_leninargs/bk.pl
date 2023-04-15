@@ -125,9 +125,9 @@ my_succ(A, B) :-
 my_prev(A, B) :-
     B is A - 1.
 
-countt(List, T, Count) :-
-    include(=(T), List, Filtered),
-    length(Filtered, Count).
+% countt(List, T, Count) :-
+%     include(=(T), List, Filtered),
+%     length(Filtered, Count).
 
 % eval_head(Ex, Inlist, 0, 0, Inlist) :- =(Ex, !), !.
 % eval_head(Ex, Inlist, 0, 8, Inlist) :- functor(Ex, P, _), call(Ex), member(P,[equal, diff_lessthanone, min_list, delete, max_list, select, zero, one, minusone, add, minus, my_succ, my_prev, maxnum, minnum, gt_list, lt_list, ord_union, insert, nullptr]), !.

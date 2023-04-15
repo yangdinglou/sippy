@@ -13,6 +13,8 @@
 #defined allow_singletons/0.
 #defined body_singletons/0.
 #defined custom_max_size/1.
+#defined max_pi_arity/1.
+#defined not_ordering/0.
 
 #show head_literal/4.
 #show body_literal/4.
@@ -641,7 +643,8 @@ inv_symbol(P):-
 {invented(P,A)}:-
     enable_pi,
     inv_symbol(P),
-    max_arity(MaxA),
+    % max_arity(MaxA),
+    max_pi_arity(MaxA),
     A = 1..MaxA.
 
 %% CANNOT INVENT A PREDICATE WITH MULTIPLE ARITIES
@@ -701,12 +704,13 @@ appears_before(P,A):-
     inv_lower(Q,P),
     not invented(Q,_).
 
-%% FORCE ORDERING
-%% inv2(A):- inv1(A)
-:-
-    head_literal(C,P,_,_),
-    body_literal(C,Q,_,_),
-    lower(Q,P).
+% %% FORCE ORDERING
+% %% inv2(A):- inv1(A)
+% :-
+%     not not_ordering,
+%     head_literal(C,P,_,_),
+%     body_literal(C,Q,_,_),
+%     lower(Q,P).
 
 %% USE INVENTED SYMBOLS IN ORDER
 %% f(A):- inv2(A)

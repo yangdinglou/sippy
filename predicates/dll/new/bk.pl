@@ -1,4 +1,5 @@
 nullptr(X):- X = null.
+anypointer(_).
 next(p1, p2).
 next(p2, p3).
 next(p3, p4).

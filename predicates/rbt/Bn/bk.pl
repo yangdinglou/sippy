@@ -1,6 +1,7 @@
 
 red(0).
 black(1).
+zero(0).
 
 left(p1, p2).
 left(p2, null).
@@ -35,11 +36,17 @@ nullptr(null).
 anycolor(0).
 anycolor(1).
 
-rbt(null, 1, 0).
+my_succ(A, B) :-
+    B is A + 1.
 
-% rbt(X, Col, Bn) :- nullptr(X), zero(Col), one(Bn).
-rbt(X, Col, Bn) :- left(X, L), right(X, R), color(X, Col), inv1(L, R, Col, Bn).
+my_prev(A, B) :-
+    B is A - 1.
 
-inv1(L, R, Col, Bn) :- red(Col), black(C), rbt(L, C, Bn), rbt(R, C, Bn).
+% rbt(null, 1, 0).
 
-inv1(L, R, Col, Bn) :- black(Col), Bnl is Bn - 1, Bnr is Bnl, rbt(L, C1, Bnl), rbt(R, C2, Bnr).
+rbt(X, Bn) :- nullptr(X), zero(Bn).
+rbt(X, Bn) :- left(X, L), right(X, R), inv1(L, R, Bn).
+
+inv1(L, R, Bn) :- rbt(L, Bn), rbt(R, Bn).
+
+inv1(L, R, Bn) :- my_prev(Bn, Bnl), is(Bnl, Bnr), rbt(L, Bnl), rbt(R, Bnr).

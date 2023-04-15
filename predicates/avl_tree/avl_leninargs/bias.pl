@@ -3,6 +3,8 @@ max_vars(7).
 max_body(7).
 max_clauses(2).
 enable_recursion.
+non_datalog.
+allow_singletons.
 
 head_pred(p,2).
 % body_pred(value,2).
@@ -524,6 +526,15 @@ direction(minnum,(in,in,out)).
 	C1 == C2,
 	A1 == A2.
 
+:-
+	body_literal(T, zero, _, (A1,)),
+	body_literal(T, zero, _, (A2, )),
+	body_literal(T, maxnum, _, (A1, A2, _)).
+
+:-
+	body_literal(T, zero, _, (A1,)),
+	body_literal(T, zero, _, (A2, )),
+	body_literal(T, minnum, _, (A1, A2, _)).
 
 % :-
 % 	head_literal(1, p, _,(A,_)),
