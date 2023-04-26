@@ -1,0 +1,23 @@
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:8
+f(A,B):- empty(B),nullptr(A), !.
+f(A,B):- next(A,C),value(A,E),f(C,D),insert(D,E,B), !.
+['predicate f(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(D,E,B)'] ;; ['next(A,C)', 'f(C,D)', 'value(A,E)']"]
+{'body_literal(1, value, 2, (0,4,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next, 2, (0,2,))', 'head_literal(1, f, 2, (0,1,))', 'head_literal(0, f, 2, (0,1,))', 'body_literal(1, insert, 3, (3,4,1,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, f, 2, (2,3,))'}
+******************************
+Num. programs: 4
+Test:
+        Called: 4 times          Total: 0.02     Mean: 0.005     Max: 0.016      Percentage: 26%
+Init:
+        Called: 10 times         Total: 0.02     Mean: 0.002     Max: 0.003      Percentage: 25%
+Generate:
+        Called: 14 times         Total: 0.02     Mean: 0.001     Max: 0.006      Percentage: 23%
+Find Mucs:
+        Called: 3 times          Total: 0.01     Mean: 0.003     Max: 0.005      Percentage: 10%
+Ground:
+        Called: 4 times          Total: 0.00     Mean: 0.001     Max: 0.002      Percentage: 6%
+Combine:
+        Called: 1 times          Total: 0.00     Mean: 0.004     Max: 0.004      Percentage: 5%
+Constrain:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 1%
+Total operation time: 0.07s
+Total execution time: 0.18s

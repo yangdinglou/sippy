@@ -7,10 +7,10 @@
 max_vars(5).
 max_body(5).
 max_clauses(4).
-max_pi_arity(4).
+% max_pi_arity(4).
 enable_recursion.
 enable_pi.
-not_ordering.
+% not_ordering.
 
 head_pred(rbt,2).
 body_pred(nullptr,1).
@@ -59,46 +59,46 @@ direction(red,(out,)).
     not head_literal(3,P,_,_).
 
 
-:-
-    head_literal(1, rbt, 2, (Var,_)),
-    not body_literal(1, left, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, left, A, Vars)} != 1.
-:-
-    body_literal(T, left, _, (A, B1)),
-    body_literal(T, left, _, (A, B2)),
-    B1 != B2.
+% :-
+%     head_literal(1, rbt, 2, (Var,_)),
+%     not body_literal(1, left, _, (Var,_)).
+% :-
+%     #count{A, Vars: body_literal(1, left, A, Vars)} != 1.
+% :-
+%     body_literal(T, left, _, (A, B1)),
+%     body_literal(T, left, _, (A, B2)),
+%     B1 != B2.
 
 
-:-
-    head_literal(1, rbt, 2, (Var,_)),
-    not body_literal(1, right, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, right, A, Vars)} != 1.
-:-
-    body_literal(T, right, _, (A, B1)),
-    body_literal(T, right, _, (A, B2)),
-    B1 != B2.
+% :-
+%     head_literal(1, rbt, 2, (Var,_)),
+%     not body_literal(1, right, _, (Var,_)).
+% :-
+%     #count{A, Vars: body_literal(1, right, A, Vars)} != 1.
+% :-
+%     body_literal(T, right, _, (A, B1)),
+%     body_literal(T, right, _, (A, B2)),
+%     B1 != B2.
 
 
-:-
-    head_literal(1, rbt, 2, (Var,_)),
-    not body_literal(1, color, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, color, A, Vars)} != 1.
-:-
-    body_literal(T, color, _, (A, B1)),
-    body_literal(T, color, _, (A, B2)),
-    B1 != B2.
+% :-
+%     head_literal(1, rbt, 2, (Var,_)),
+%     not body_literal(1, color, _, (Var,_)).
+% :-
+%     #count{A, Vars: body_literal(1, color, A, Vars)} != 1.
+% :-
+%     body_literal(T, color, _, (A, B1)),
+%     body_literal(T, color, _, (A, B2)),
+%     B1 != B2.
 
 :-
     #count{P,A,Vars : body_literal(0,P,A,Vars)} !=2.
 :-
     #count{P,A,Vars : body_literal(1,P,A,Vars)} !=4.
-:-
-    #count{P,A,Vars : body_literal(2,P,A,Vars)} !=4.
-:-
-    #count{P,A,Vars : body_literal(3,P,A,Vars)} !=5.
+% :-
+%     #count{P,A,Vars : body_literal(2,P,A,Vars)} !=4.
+% :-
+%     #count{P,A,Vars : body_literal(3,P,A,Vars)} !=5.
 
 :-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
@@ -112,22 +112,25 @@ direction(red,(out,)).
 %     #count{A,Vars : body_literal(3,rbt,A,Vars)} != 2.
 
 :-
-	#count{A,Vars : body_literal(2,left,A,Vars)} > 0.
+    head_literal(T, P, A, _),
+    body_literal(T, P, A, _).
+% :-
+% 	#count{A,Vars : body_literal(2,left,A,Vars)} > 0.
 
-:-
-	#count{A,Vars : body_literal(2,right,A,Vars)} > 0.
+% :-
+% 	#count{A,Vars : body_literal(2,right,A,Vars)} > 0.
 
-:-
-	#count{A,Vars : body_literal(3,left,A,Vars)} > 0.
+% :-
+% 	#count{A,Vars : body_literal(3,left,A,Vars)} > 0.
 
-:-
-	#count{A,Vars : body_literal(3,right,A,Vars)} > 0.
+% :-
+% 	#count{A,Vars : body_literal(3,right,A,Vars)} > 0.
 
-:-
-	#count{A,Vars : body_literal(1,nullptr,A,Vars)} > 0.
+% :-
+% 	#count{A,Vars : body_literal(1,nullptr,A,Vars)} > 0.
 
-:-
-	#count{A,Vars : body_literal(2,nullptr,A,Vars)} > 0.
+% :-
+% 	#count{A,Vars : body_literal(2,nullptr,A,Vars)} > 0.
 
-:-
-	#count{A,Vars : body_literal(3,nullptr,A,Vars)} > 0.
+% :-
+% 	#count{A,Vars : body_literal(3,nullptr,A,Vars)} > 0.

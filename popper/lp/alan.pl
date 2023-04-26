@@ -13,8 +13,6 @@
 #defined allow_singletons/0.
 #defined body_singletons/0.
 #defined custom_max_size/1.
-#defined max_pi_arity/1.
-#defined not_ordering/0.
 
 #show head_literal/4.
 #show body_literal/4.
@@ -506,6 +504,7 @@ base_clause(C,P,A):-
 
 %% DISALLOW TWO RECURSIVE CALLS
 %% WHY DID WE ADD THIS??
+% YDL
 :-
     C > 0,
     recursive_clause(C,P,A),
@@ -643,8 +642,7 @@ inv_symbol(P):-
 {invented(P,A)}:-
     enable_pi,
     inv_symbol(P),
-    % max_arity(MaxA),
-    max_pi_arity(MaxA),
+    max_arity(MaxA),
     A = 1..MaxA.
 
 %% CANNOT INVENT A PREDICATE WITH MULTIPLE ARITIES
@@ -707,7 +705,6 @@ appears_before(P,A):-
 % %% FORCE ORDERING
 % %% inv2(A):- inv1(A)
 % :-
-%     not not_ordering,
 %     head_literal(C,P,_,_),
 %     body_literal(C,Q,_,_),
 %     lower(Q,P).

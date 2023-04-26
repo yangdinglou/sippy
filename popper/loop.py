@@ -379,7 +379,7 @@ def popper(settings):
                     if settings.threshold == 0:
                         return
                     else:
-                        score = combiner.best_specv
+                        score = combiner.best_factnum + combiner.best_specv/1000
                         # TODO: should judge more than just specv
                         if score >= settings.threshold:
                             return

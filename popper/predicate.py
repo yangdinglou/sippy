@@ -22,6 +22,6 @@ def constraints_mainpts(pred_name, arity, names):
 
 
 
-print(pts_basic(['p', 'q', 'r'], {'p': 'pointer', 'q': 'int', 'r': 'int'}))
-for rule in constraints_mainpts('rbt', 3, ['left', 'right', 'color']):
+print(pts_basic(['next', 'value'], {'next': 'pointer', 'value': 'int'}))
+for rule in constraints_mainpts('p', 2, ['left','right', 'value']):
     print(rule)

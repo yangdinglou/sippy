@@ -10,10 +10,10 @@ height(null,-1).
 % ge(A, B) :- A >= B.
 gt_list(_, []).
 gt_list(A, B) :-
-    min_list(B, C), A > C.
+    max_list(B, C), A > C.
 lt_list(_, []).
 lt_list(A, B) :-
-    max_list(B, C), A < C.
+    min_list(B, C), A < C.
 
 % prev(A, B) :- succ(B, A).
 

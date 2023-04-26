@@ -38,14 +38,13 @@ direction(nullptr,(out,)).
 
 :-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} = 0.
-:-
-	#count{A,Vars : body_literal(2,nullptr,A,Vars)} = 0.
+
 
 :-
-    #count{P,Vars : body_literal(0,P,_,Vars)} > 2.
+    #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
 
 :-
-    #count{P,Vars : body_literal(2,P,_,Vars)} > 2.
+    #count{P,Vars : body_literal(2,P,_,Vars)} > 3.
 :-
     not clause(1).
 :-
@@ -70,9 +69,14 @@ direction(nullptr,(out,)).
 	not body_literal(1,next,_,(Var,_)).
 
 :-
+    #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
+
+:-
 	head_literal(1, p, _,(Var,)),
 	not body_literal(1,child,_,(Var,_)).
 
+:-
+    #count{A, Vars: body_literal(1, child, A, Vars)} != 1.
 
 :-
     body_literal(T, child, _, (A, B1)),

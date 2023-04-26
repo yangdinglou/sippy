@@ -9,7 +9,7 @@ height(null,-1).
 % gt(A, B) :- A > B.
 % ge(A, B) :- A >= B.
 gt_list(_, []).
-gt_list(A, B) :-
+
     min_list(B, C), A > C.
 lt_list(_, []).
 lt_list(A, B) :-

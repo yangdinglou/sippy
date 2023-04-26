@@ -28,8 +28,8 @@ body_pred(minnum,3).
 % body_pred(ge,2).
 
 body_pred(empty,1).
-% body_pred(gt_list,2).
-% body_pred(lt_list,2).
+body_pred(gt_list,2).
+body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
@@ -57,8 +57,8 @@ type(minnum,(integer,integer,integer)).
 % type(ge,(integer,integer)).
 
 type(empty,(list,)).
-% type(gt_list,(integer,list)).
-% type(lt_list,(integer,list)).
+type(gt_list,(integer,list)).
+type(lt_list,(integer,list)).
 type(ord_union,(list,list,list)).
 type(insert,(list,integer,list)).
 
@@ -85,20 +85,44 @@ direction(minnum,(in,in,out)).
 % direction(ge,(in,in)).
 
 direction(empty,(out,)).
-% direction(gt_list,(in,in)).
-% direction(lt_list,(in,in)).
+direction(gt_list,(in,in)).
+direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
 direction(insert,(in,in,out)).
 
 
-% :-
-%     #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
+:-
+    #count{P,Vars : body_literal(0,P,_,Vars)} != 4.
 
-% :-
-% 	head_literal(0, p, _,(Var,_,_)),
-% 	not body_literal(0,nullptr,_,(Var,)).
-% :-
-%     not clause(1).
+:-
+	not body_literal(0,nullptr,_,_).
+
+:-
+	not body_literal(0,zero,_,_).
+
+:-
+	not body_literal(0,my_prev,_,_).
+
+:-
+	not body_literal(0,empty,_,_).
+
+:-
+	not body_literal(1,gt_list,_,_).
+
+:-
+	not body_literal(1,lt_list,_,_).
+
+:-
+	not body_literal(1,insert,_,_).
+
+:-
+	not body_literal(1,ord_union,_,_).
+
+:-
+	head_literal(0, p, _,(Var,_,_)),
+	not body_literal(0,nullptr,_,(Var,)).
+:-
+    not clause(1).
 
 % % :-
 % % 	body_literal(1, nullptr, _, (_,)).
@@ -109,35 +133,35 @@ direction(insert,(in,in,out)).
 % % :-
 % % 	body_literal(1, minusone, _, (_,)).
 
-% % :-
-% %     #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
+:-
+    #count{A,Vars : body_literal(1,p,A,Vars)} != 2.
+
+:-
+	head_literal(1, p, _,(Var,_,_)),
+	not body_literal(1,left,_,(Var,_)).
+:-
+	#count{A,Vars : body_literal(1,left,A,Vars)} != 1.
 
 % :-
-% 	head_literal(1, p, _,(Var,_,_)),
-% 	not body_literal(1,left,_,(Var,_)).
-% :-
-% 	#count{A,Vars : body_literal(1,left,A,Vars)} != 1.
+%     body_literal(T, left, _, (A, B1)),
+%     body_literal(T, left, _, (A, B2)),
+% 	B1 != B2.
 
-% % :-
-% %     body_literal(T, left, _, (A, B1)),
-% %     body_literal(T, left, _, (A, B2)),
-% % 	B1 != B2.
+:-
+	head_literal(1, p, _,(Var,_,_)),
+	not body_literal(1,right,_,(Var,_)).
+:-
+	#count{A,Vars : body_literal(1,right,A,Vars)} != 1.
 
-% :-
-% 	head_literal(1, p, _,(Var,_,_)),
-% 	not body_literal(1,right,_,(Var,_)).
-% :-
-% 	#count{A,Vars : body_literal(1,right,A,Vars)} != 1.
+:-
+	head_literal(1, p, _,(Var,_,_)),
+	not body_literal(1,value,_,(Var,_)).
+:-
+	#count{A,Vars : body_literal(1,value,A,Vars)} != 1.
 
-% :-
-% 	head_literal(1, p, _,(Var,_,_)),
-% 	not body_literal(1,value,_,(Var,_)).
-% :-
-% 	#count{A,Vars : body_literal(1,value,A,Vars)} != 1.
-
-% :-
-%     body_literal(1,left,_,(A,B)),
-%     body_literal(1,right,_,(A,B)).
+:-
+    body_literal(1,left,_,(A,B)),
+    body_literal(1,right,_,(A,B)).
 
 % :-
 %     body_literal(T, maxnum, _, (A1, B1, C1)),

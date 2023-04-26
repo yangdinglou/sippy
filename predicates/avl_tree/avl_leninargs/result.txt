@@ -21,3 +21,45 @@ Combine:
         Called: 2980 times       Total: 0.07     Mean: 0.000     Max: 0.009      Percentage: 0%
 Total operation time: 28.65s
 Total execution time: 31.80s
+
+
+
+:- >4
+
+Num. programs: 101627
+Generate:
+        Called: 101643 times     Total: 178.66   Mean: 0.002     Max: 5.227      Percentage: 75%
+Test:
+        Called: 101627 times     Total: 31.33    Mean: 0.000     Max: 0.922      Percentage: 13%
+Constrain:
+        Called: 101627 times     Total: 7.60     Mean: 0.000     Max: 0.048      Percentage: 3%
+Init:
+        Called: 16 times         Total: 6.39     Mean: 0.399     Max: 3.222      Percentage: 2%
+Find Mucs:
+        Called: 2947 times       Total: 6.12     Mean: 0.002     Max: 0.476      Percentage: 2%
+Ground:
+        Called: 101627 times     Total: 5.34     Mean: 0.000     Max: 0.268      Percentage: 2%
+Combine:
+        Called: 98680 times      Total: 1.94     Mean: 0.000     Max: 0.009      Percentage: 0%
+Find Sub Inconsistent:
+        Called: 37 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 237.37s
+Total execution time: 252.94s
+
+Num. programs: 14481
+Generate:
+        Called: 14497 times      Total: 31.57    Mean: 0.002     Max: 2.546      Percentage: 67%
+Test:
+        Called: 14481 times      Total: 4.18     Mean: 0.000     Max: 0.149      Percentage: 8%
+Find Mucs:
+        Called: 1293 times       Total: 3.35     Mean: 0.003     Max: 0.121      Percentage: 7%
+Constrain:
+        Called: 14481 times      Total: 3.25     Mean: 0.000     Max: 0.005      Percentage: 6%
+Init:
+        Called: 16 times         Total: 2.44     Mean: 0.152     Max: 1.319      Percentage: 5%
+Ground:
+        Called: 14481 times      Total: 1.80     Mean: 0.000     Max: 0.043      Percentage: 3%
+Combine:
+        Called: 13188 times      Total: 0.28     Mean: 0.000     Max: 0.009      Percentage: 0%
+Total operation time: 46.87s
+Total execution time: 51.02s

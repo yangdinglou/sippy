@@ -5,6 +5,8 @@ max_body(3).
 max_vars(3).
 max_clauses(2).
 enable_recursion.
+allow_singletons.
+non_datalog.
 
 head_pred(dll, 2).
 body_pred(nullptr, 1).

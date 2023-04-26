@@ -13,10 +13,11 @@ body_pred(prev, 2).
 body_pred(anypointer, 1).
 
 
-% direction(dll, (in, out)).
-% direction(nullptr, (out, )).
-% direction(next, (in, out)).
-% direction(prev, (in, out)).
+direction(dll, (in, out)).
+direction(nullptr, (out, )).
+direction(next, (in, out)).
+direction(prev, (in, out)).
+direction(anypointer, (out, )).
 
 % :-
 %     head_literal(0, dll, _, (A, _)),
@@ -31,6 +32,8 @@ body_pred(anypointer, 1).
 
 % :-
 % 	#count{A,Vars : body_literal(0,prev,A,Vars)} != 1.
+% :-
+% 	not body_literal(0,nullptr,_,_).
 
 :-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
@@ -53,6 +56,9 @@ body_pred(anypointer, 1).
 :-
 	#count{A,Vars : body_literal(1,prev,A,Vars)} != 1.
 
+:-
+    body_literal(T, anypointer, _, (A,)),
+    not head_var(T, A).
 :-
     body_literal(T, anypointer, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
