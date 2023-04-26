@@ -1,65 +1,75 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:12
-p(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-p(A,B):- left(A,E),right(A,C),p(C,F),p(E,G),maxnum(G,F,D),my_succ(D,B),diff_lessthanone(G,F), !.
-{'head_literal(0, p, 2, (0,1,))', 'body_literal(1, my_succ, 2, (3,1,))', 'body_literal(0, zero, 1, (2,))', 'body_literal(1, p, 2, (2,5,))', 'body_literal(1, p, 2, (4,6,))', 'body_literal(1, diff_lessthanone, 2, (6,5,))', 'body_literal(1, right, 2, (0,2,))', 'body_literal(0, my_prev, 2, (2,1,))', 'body_literal(1, left, 2, (0,4,))', 'body_literal(1, maxnum, 3, (6,5,3,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))'}
+p(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+p(A,B):- right(A,D),left(A,F),p(D,G),p(F,C),maxnum(G,C,E),diff_lessthanone(G,C),my_succ(E,B), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; ['zero(C)', 'my_prev(C,B)'] ;; []", "|  None ;; ['my_succ(E,B)', 'maxnum(G,C,E)', 'diff_lessthanone(G,C)'] ;; ['right(A,D)', 'p(F,C)', 'left(A,F)', 'p(D,G)']"]
+{'body_literal(1, right, 2, (0,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, zero, 1, (2,))', 'body_literal(1, p, 2, (3,6,))', 'body_literal(1, left, 2, (0,5,))', 'body_literal(1, diff_lessthanone, 2, (6,2,))', 'body_literal(1, my_succ, 2, (4,1,))', 'body_literal(0, my_prev, 2, (2,1,))', 'body_literal(1, maxnum, 3, (6,2,4,))', 'body_literal(1, p, 2, (5,2,))', 'head_literal(1, p, 2, (0,1,))', 'head_literal(0, p, 2, (0,1,))'}
 ******************************
-Num. programs: 4189
+Num. programs: 13168
 Generate:
-        Called: 4205 times       Total: 17.16    Mean: 0.004     Max: 0.916      Percentage: 59%
-Find Mucs:
-        Called: 1209 times       Total: 3.12     Mean: 0.003     Max: 0.124      Percentage: 10%
-Constrain:
-        Called: 4189 times       Total: 2.88     Mean: 0.001     Max: 0.005      Percentage: 10%
-Init:
-        Called: 16 times         Total: 2.26     Mean: 0.141     Max: 1.236      Percentage: 7%
-Ground:
-        Called: 4189 times       Total: 1.83     Mean: 0.000     Max: 0.137      Percentage: 6%
+        Called: 13184 times      Total: 35.15    Mean: 0.003     Max: 2.215      Percentage: 73%
 Test:
-        Called: 4189 times       Total: 1.34     Mean: 0.000     Max: 0.120      Percentage: 4%
+        Called: 13168 times      Total: 3.87     Mean: 0.000     Max: 0.133      Percentage: 8%
+Constrain:
+        Called: 13168 times      Total: 2.70     Mean: 0.000     Max: 0.008      Percentage: 5%
+Find Mucs:
+        Called: 1180 times       Total: 2.59     Mean: 0.002     Max: 0.033      Percentage: 5%
+Init:
+        Called: 16 times         Total: 1.90     Mean: 0.119     Max: 0.883      Percentage: 3%
+Ground:
+        Called: 13168 times      Total: 1.55     Mean: 0.000     Max: 0.104      Percentage: 3%
 Combine:
-        Called: 2980 times       Total: 0.07     Mean: 0.000     Max: 0.009      Percentage: 0%
-Total operation time: 28.65s
-Total execution time: 31.80s
+        Called: 11988 times      Total: 0.27     Mean: 0.000     Max: 0.009      Percentage: 0%
+Total operation time: 48.03s
+Total execution time: 51.96s
 
-
-
-:- >4
-
-Num. programs: 101627
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:12
+p(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+p(A,B):- right(A,F),left(A,E),p(F,C),p(E,G),maxnum(G,C,D),diff_lessthanone(G,D),my_succ(D,B), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; ['zero(C)', 'my_prev(C,B)'] ;; []", "|  None ;; ['maxnum(G,C,D)', 'my_succ(D,B)', 'diff_lessthanone(G,D)'] ;; ['p(E,G)', 'right(A,F)', 'p(F,C)', 'left(A,E)']"]
+{'body_literal(1, p, 2, (5,2,))', 'body_literal(1, my_succ, 2, (3,1,))', 'body_literal(1, left, 2, (0,4,))', 'body_literal(1, maxnum, 3, (6,2,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, diff_lessthanone, 2, (6,3,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(0, my_prev, 2, (2,1,))', 'body_literal(1, p, 2, (4,6,))', 'body_literal(0, zero, 1, (2,))', 'body_literal(1, right, 2, (0,5,))', 'head_literal(0, p, 2, (0,1,))'}
+******************************
+Num. programs: 73099
 Generate:
-        Called: 101643 times     Total: 178.66   Mean: 0.002     Max: 5.227      Percentage: 75%
+        Called: 73115 times      Total: 140.21   Mean: 0.002     Max: 17.047     Percentage: 75%
 Test:
-        Called: 101627 times     Total: 31.33    Mean: 0.000     Max: 0.922      Percentage: 13%
+        Called: 73099 times      Total: 22.10    Mean: 0.000     Max: 0.813      Percentage: 11%
 Constrain:
-        Called: 101627 times     Total: 7.60     Mean: 0.000     Max: 0.048      Percentage: 3%
-Init:
-        Called: 16 times         Total: 6.39     Mean: 0.399     Max: 3.222      Percentage: 2%
+        Called: 73099 times      Total: 6.76     Mean: 0.000     Max: 0.052      Percentage: 3%
 Find Mucs:
-        Called: 2947 times       Total: 6.12     Mean: 0.002     Max: 0.476      Percentage: 2%
+        Called: 2667 times       Total: 5.36     Mean: 0.002     Max: 0.227      Percentage: 2%
+Init:
+        Called: 16 times         Total: 5.24     Mean: 0.327     Max: 2.419      Percentage: 2%
 Ground:
-        Called: 101627 times     Total: 5.34     Mean: 0.000     Max: 0.268      Percentage: 2%
+        Called: 73099 times      Total: 4.44     Mean: 0.000     Max: 0.244      Percentage: 2%
 Combine:
-        Called: 98680 times      Total: 1.94     Mean: 0.000     Max: 0.009      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 37 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 237.37s
-Total execution time: 252.94s
+        Called: 70432 times      Total: 1.37     Mean: 0.000     Max: 0.009      Percentage: 0%
+Total operation time: 185.47s
+Total execution time: 198.29s
 
-Num. programs: 14481
+
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:12
+p(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+p(A,B):- left(A,E),right(A,C),p(E,D),p(C,F),maxnum(F,D,G),my_succ(G,B),diff_lessthanone(F,D), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; ['my_prev(C,B)', 'zero(C)'] ;; []", "|  None ;; ['maxnum(F,D,G)', 'my_succ(G,B)', 'diff_lessthanone(F,D)'] ;; ['left(A,E)', 'p(C,F)', 'p(E,D)', 'right(A,C)']"]
+{'body_literal(1, p, 2, (4,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, right, 2, (0,2,))', 'body_literal(0, zero, 1, (2,))', 'body_literal(1, left, 2, (0,4,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(0, my_prev, 2, (2,1,))', 'head_literal(0, p, 2, (0,1,))', 'body_literal(1, my_succ, 2, (6,1,))', 'body_literal(1, maxnum, 3, (5,3,6,))', 'body_literal(1, diff_lessthanone, 2, (5,3,))', 'body_literal(1, p, 2, (2,5,))'}
+******************************
+Num. programs: 239911
 Generate:
-        Called: 14497 times      Total: 31.57    Mean: 0.002     Max: 2.546      Percentage: 67%
+        Called: 239927 times     Total: 1412.41          Mean: 0.006     Max: 52.821     Percentage: 85%
 Test:
-        Called: 14481 times      Total: 4.18     Mean: 0.000     Max: 0.149      Percentage: 8%
-Find Mucs:
-        Called: 1293 times       Total: 3.35     Mean: 0.003     Max: 0.121      Percentage: 7%
+        Called: 239911 times     Total: 80.16    Mean: 0.000     Max: 2.467      Percentage: 4%
 Constrain:
-        Called: 14481 times      Total: 3.25     Mean: 0.000     Max: 0.005      Percentage: 6%
-Init:
-        Called: 16 times         Total: 2.44     Mean: 0.152     Max: 1.319      Percentage: 5%
+        Called: 239911 times     Total: 56.26    Mean: 0.000     Max: 0.424      Percentage: 3%
 Ground:
-        Called: 14481 times      Total: 1.80     Mean: 0.000     Max: 0.043      Percentage: 3%
+        Called: 239911 times     Total: 48.87    Mean: 0.000     Max: 1.581      Percentage: 2%
+Init:
+        Called: 16 times         Total: 26.46    Mean: 1.654     Max: 18.472     Percentage: 1%
 Combine:
-        Called: 13188 times      Total: 0.28     Mean: 0.000     Max: 0.009      Percentage: 0%
-Total operation time: 46.87s
-Total execution time: 51.02s
+        Called: 235684 times     Total: 14.14    Mean: 0.000     Max: 0.011      Percentage: 0%
+Find Mucs:
+        Called: 4227 times       Total: 8.16     Mean: 0.002     Max: 0.154      Percentage: 0%
+Total operation time: 1646.46s
+Total execution time: 1704.57s

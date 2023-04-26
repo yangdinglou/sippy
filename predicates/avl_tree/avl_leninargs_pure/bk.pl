@@ -4,6 +4,7 @@ zero(0).
 one(1).
 minusone(-1).
 nullptr(null).
+anypointer(_).
 % height(null,-1).
 
 
@@ -125,6 +126,9 @@ my_succ(A, B) :-
 my_prev(A, B) :-
     B is A - 1.
 
+insert(A, B, C) :-
+    is_ordset(A), ord_union([B], A, C).
+
 % countt(List, T, Count) :-
 %     include(=(T), List, Filtered),
 %     length(Filtered, Count).
@@ -147,5 +151,5 @@ my_prev(A, B) :-
 
 % scores(Ex, FactNum, AllFactV, Callnum, SpecV) :- eval_head(Ex, [], AllFactV, SpecV, Outlist), length(Outlist, Callnum), list_to_set(Outlist, Outset), length(Outset, FactNum).
 
-% p(A, B):- nullptr(A), minusone(B).
-% p(A, G):- right(A,F), left(A,E),p(E,C),p(F,B),maxnum(C,B,D),my_succ(D,G),diff_lessthanone(C,B).
+% p(A,B,X):- zero(C),my_prev(C,B),nullptr(A),empty(X), !.
+% p(A,B,X):- right(A,D),left(A,F),value(A,V),p(D,G,X1),p(F,C,X2),maxnum(G,C,E),diff_lessthanone(G,C),my_succ(E,B), ord_union(X1, X2, Xn), insert(Xn, V, X), !.

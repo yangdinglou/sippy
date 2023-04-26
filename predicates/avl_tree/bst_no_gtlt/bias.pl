@@ -230,3 +230,34 @@ direction(insert,(in,in,out)).
 	body_literal(T, empty, _, (A1,)),
 	body_literal(T, ord_union, _, (A2, B2, C2)),
 	A1 == B2.
+
+:- 
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, gt_list, _, (A2, B2)),
+	A1 == B2.
+
+:- 
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, lt_list, _, (A2, B2)),
+	A1 == B2.
+
+:- 
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, min_list, _, (A2, B2)),
+	A1 == A2.
+
+:- 
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, max_list, _, (A2, B2)),
+	A1 == A2.
+
+:-
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, insert, _, (A1, V, A2)),
+	body_literal(T, max_list, _, (A2, V)).
+
+:-
+	body_literal(T, empty, _, (A1,)),
+	body_literal(T, insert, _, (A1, V, A2)),
+	body_literal(T, min_list, _, (A2, V)).
+

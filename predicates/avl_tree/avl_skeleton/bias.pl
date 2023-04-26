@@ -454,6 +454,66 @@ direction(minnum,(in,in,out)).
 	body_literal(T, my_succ, _, (X, Y)), 
 	body_literal(T, minnum, _, (Y, X, _)).
 
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A2, A3)),
+	body_literal(T, minnum, _, (A1, A3, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A2, A3)),
+	body_literal(T, maxnum, _, (A1, A3, _)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A2, A3)),
+	body_literal(T, minnum, _, (A1, A3, _)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A2, A3)),
+	body_literal(T, maxnum, _, (A1, A3, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A2, A3)),
+	body_literal(T, minnum, _, (A3, A1, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A2, A3)),
+	body_literal(T, maxnum, _, (A3, A1, _)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A2, A3)),
+	body_literal(T, minnum, _, (A3, A1, _)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A2, A3)),
+	body_literal(T, maxnum, _, (A3, A1, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A1, A3)),
+	body_literal(T, minnum, _, (A2, A3, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A1, A3)),
+	body_literal(T, maxnum, _, (A2, A3, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A1, A3)),
+	body_literal(T, minnum, _, (A3, A2, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A1, A3)),
+	body_literal(T, maxnum, _, (A3, A2, _)).
+
 
 :-
     body_literal(T, maxnum, _, (A1, B1, C1)),
