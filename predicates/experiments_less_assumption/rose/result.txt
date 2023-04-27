@@ -1,0 +1,26 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:12
+inv1(A):- nullptr(A), !.
+p(A):- nullptr(A), !.
+p(A):- next1(A,B),inv1(B), !.
+inv1(A):- next2(A,B),pointto(A,C),p(C),inv1(B), !.
+['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['next2(A,B)', 'pointto(A,C)', 'inv1(B)', 'p(C)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['next1(A,B)', 'inv1(B)']"]
+{'body_literal(0, nullptr, 1, (0,))', 'body_literal(3, pointto, 2, (0,2,))', 'body_literal(3, next2, 2, (0,1,))', 'body_literal(1, inv1, 1, (1,))', 'head_literal(1, p, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(3, p, 1, (2,))', 'head_literal(3, inv1, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(3, inv1, 1, (1,))', 'body_literal(2, nullptr, 1, (0,))'}
+******************************
+Num. programs: 4195
+Test:
+        Called: 4195 times       Total: 70.70    Mean: 0.017     Max: 4.842      Percentage: 96%
+Ground:
+        Called: 4194 times       Total: 1.03     Mean: 0.000     Max: 0.004      Percentage: 1%
+Generate:
+        Called: 4206 times       Total: 0.96     Mean: 0.000     Max: 0.030      Percentage: 1%
+Constrain:
+        Called: 4194 times       Total: 0.30     Mean: 0.000     Max: 0.001      Percentage: 0%
+Combine:
+        Called: 529 times        Total: 0.10     Mean: 0.000     Max: 0.005      Percentage: 0%
+Init:
+        Called: 12 times         Total: 0.02     Mean: 0.002     Max: 0.008      Percentage: 0%
+Find Sub Inconsistent:
+        Called: 23 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 73.11s
+Total execution time: 74.17s

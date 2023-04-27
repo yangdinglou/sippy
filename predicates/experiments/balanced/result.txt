@@ -1,0 +1,24 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:12
+p(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+p(A,B):- right(A,C),left(A,E),p(C,G),p(E,F),maxnum(G,F,D),diff_lessthanone(G,D),my_succ(D,B), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; ['zero(C)', 'my_prev(C,B)'] ;; []", "|  None ;; ['diff_lessthanone(G,D)', 'maxnum(G,F,D)', 'my_succ(D,B)'] ;; ['p(E,F)', 'p(C,G)', 'right(A,C)', 'left(A,E)']"]
+{'body_literal(1, p, 2, (4,5,))', 'body_literal(1, diff_lessthanone, 2, (6,3,))', 'body_literal(1, right, 2, (0,2,))', 'body_literal(1, left, 2, (0,4,))', 'body_literal(0, zero, 1, (2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, p, 2, (2,6,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(0, my_prev, 2, (2,1,))', 'body_literal(1, my_succ, 2, (3,1,))', 'body_literal(1, maxnum, 3, (6,5,3,))', 'head_literal(0, p, 2, (0,1,))'}
+******************************
+Num. programs: 13128
+Generate:
+        Called: 13144 times      Total: 38.68    Mean: 0.003     Max: 4.496      Percentage: 73%
+Test:
+        Called: 13128 times      Total: 3.77     Mean: 0.000     Max: 0.129      Percentage: 7%
+Find Mucs:
+        Called: 1140 times       Total: 3.35     Mean: 0.003     Max: 0.168      Percentage: 6%
+Constrain:
+        Called: 13128 times      Total: 2.85     Mean: 0.000     Max: 0.006      Percentage: 5%
+Init:
+        Called: 16 times         Total: 1.93     Mean: 0.121     Max: 0.930      Percentage: 3%
+Ground:
+        Called: 13128 times      Total: 1.56     Mean: 0.000     Max: 0.007      Percentage: 2%
+Combine:
+        Called: 11988 times      Total: 0.27     Mean: 0.000     Max: 0.009      Percentage: 0%
+Total operation time: 52.42s
+Total execution time: 56.08s

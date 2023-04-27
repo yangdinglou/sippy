@@ -80,6 +80,10 @@ direction(insert,(in,in,out)).
 :-
 	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
 
+:-
+    body_literal(T, nullptr, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
     head_literal(1, dll, 3, (Var,_,_)),

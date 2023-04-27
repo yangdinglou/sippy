@@ -1,7 +1,7 @@
 % dll(A, B) :- nullptr(A).
 % dll(A, B) :- next(A, C), prev(A, B), dll(C, A).
 
-max_body(6).
+max_body(5).
 max_vars(6).
 max_clauses(2).
 enable_recursion.
@@ -80,12 +80,16 @@ direction(insert,(in,in,out)).
 :-
 	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
 
+:-
+    body_literal(T, nullptr, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
     head_literal(1, dll, 3, (Var,_,_)),
     not body_literal(1, key, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, key, A, Vars)} != 1.
+% :-
+%     #count{A, Vars: body_literal(1, key, A, Vars)} != 1.
 :-
     body_literal(T, key, _, (A, B1)),
     body_literal(T, key, _, (A, B2)),
@@ -95,8 +99,8 @@ direction(insert,(in,in,out)).
 :-
     head_literal(1, dll, 3, (Var,_,_)),
     not body_literal(1, next, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
+% :-
+%     #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
 :-
     body_literal(T, next, _, (A, B1)),
     body_literal(T, next, _, (A, B2)),
@@ -106,12 +110,13 @@ direction(insert,(in,in,out)).
 :-
     head_literal(1, dll, 3, (Var,_,_)),
     not body_literal(1, prev, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, prev, A, Vars)} != 1.
+% :-
+%     #count{A, Vars: body_literal(1, prev, A, Vars)} != 1.
 :-
     body_literal(T, prev, _, (A, B1)),
     body_literal(T, prev, _, (A, B2)),
     B1 != B2.
+
 :-
     body_literal(T, anypointer, _, (A,)),
     not head_var(T, A).
@@ -133,10 +138,10 @@ direction(insert,(in,in,out)).
     body_literal(1,lt_list,_,(A,B)),
     body_literal(1,gt_list,_,(A,B)).
 
-% :-
-%     body_literal(T, min_list, _, (A, B1)),
-%     body_literal(T, min_list, _, (A, B2)),
-% 	B1 != B2.
+:-
+    body_literal(T, min_list, _, (A, B1)),
+    body_literal(T, min_list, _, (A, B2)),
+	B1 != B2.
 
 :-
     body_literal(T, max_list, _, (A, B1)),
@@ -388,10 +393,10 @@ direction(insert,(in,in,out)).
 	B1 == B2,
 	A1 != A2.
 
-% :-
-%     body_literal(T, min_list, _, (A, B1)),
-%     body_literal(T, min_list, _, (A, B2)),
-% 	B1 != B2.
+:-
+    body_literal(T, min_list, _, (A, B1)),
+    body_literal(T, min_list, _, (A, B2)),
+	B1 != B2.
 
 :-
     body_literal(T, my_prev, _, (A, B1)),

@@ -80,12 +80,16 @@ direction(insert,(in,in,out)).
 :-
 	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
 
+:-
+    body_literal(T, nullptr, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
     head_literal(1, dll, 3, (Var,_,_)),
     not body_literal(1, key, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, key, A, Vars)} != 1.
+% :-
+%     #count{A, Vars: body_literal(1, key, A, Vars)} != 1.
 :-
     body_literal(T, key, _, (A, B1)),
     body_literal(T, key, _, (A, B2)),
@@ -95,8 +99,8 @@ direction(insert,(in,in,out)).
 :-
     head_literal(1, dll, 3, (Var,_,_)),
     not body_literal(1, next, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
+% :-
+%     #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
 :-
     body_literal(T, next, _, (A, B1)),
     body_literal(T, next, _, (A, B2)),
@@ -106,8 +110,8 @@ direction(insert,(in,in,out)).
 :-
     head_literal(1, dll, 3, (Var,_,_)),
     not body_literal(1, prev, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, prev, A, Vars)} != 1.
+% :-
+%     #count{A, Vars: body_literal(1, prev, A, Vars)} != 1.
 :-
     body_literal(T, prev, _, (A, B1)),
     body_literal(T, prev, _, (A, B2)),

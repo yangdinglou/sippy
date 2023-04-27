@@ -1,0 +1,24 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:11
+p(A,B):- empty(B),nullptr(A), !.
+p(A,B):- value(A,E),left(A,H),right(A,D),p(H,C),p(D,G),ord_union(G,C,F),insert(F,E,B), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(F,E,B)'] ;; ['ord_union(G,C,F)', 'p(D,G)', 'value(A,E)', 'left(A,H)', 'p(H,C)', 'right(A,D)']"]
+{'body_literal(1, right, 2, (0,3,))', 'body_literal(1, ord_union, 3, (6,2,5,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, left, 2, (0,7,))', 'body_literal(1, insert, 3, (5,4,1,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, p, 2, (3,6,))', 'body_literal(1, value, 2, (0,4,))', 'body_literal(1, p, 2, (7,2,))', 'head_literal(0, p, 2, (0,1,))'}
+******************************
+Num. programs: 28
+Generate:
+        Called: 44 times         Total: 77.54    Mean: 1.762     Max: 27.077         Percentage: 97%
+Ground:
+        Called: 28 times         Total: 0.57     Mean: 0.020     Max: 0.054  Percentage: 0%
+Find Mucs:
+        Called: 22 times         Total: 0.43     Mean: 0.019     Max: 0.057  Percentage: 0%
+Constrain:
+        Called: 28 times         Total: 0.30     Mean: 0.011     Max: 0.018  Percentage: 0%
+Init:
+        Called: 16 times         Total: 0.26     Mean: 0.016     Max: 0.192  Percentage: 0%
+Test:
+        Called: 28 times         Total: 0.03     Mean: 0.001     Max: 0.018  Percentage: 0%
+Combine:
+        Called: 6 times          Total: 0.02     Mean: 0.004     Max: 0.007  Percentage: 0%
+Total operation time: 79.15s
+Total execution time: 79.89s

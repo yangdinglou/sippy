@@ -1,0 +1,24 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:13
+p(A,B):- nullptr(A),empty(B), !.
+p(A,B):- value(A,C),right(A,D),left(A,F),p(F,E),gt_list(C,E),p(D,H),ord_union(H,E,G),insert(G,C,B),lt_list(C,H), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(G,C,B)'] ;; ['value(A,C)', 'gt_list(C,E)', 'right(A,D)', 'p(F,E)', 'p(D,H)', 'ord_union(H,E,G)', 'left(A,F)', 'lt_list(C,H)']"]
+{'body_literal(1, insert, 3, (6,2,1,))', 'body_literal(1, left, 2, (0,5,))', 'body_literal(1, p, 2, (3,7,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, ord_union, 3, (7,4,6,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(1, p, 2, (5,4,))', 'head_literal(0, p, 2, (0,1,))', 'body_literal(1, right, 2, (0,3,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, lt_list, 2, (2,7,))', 'body_literal(1, gt_list, 2, (2,4,))'}
+******************************
+Num. programs: 1192
+Generate:
+        Called: 1212 times       Total: 1862.50          Mean: 1.537     Max: 656.407    Percentage: 97%
+Find Mucs:
+        Called: 460 times        Total: 20.17    Mean: 0.044     Max: 0.590      Percentage: 1%
+Init:
+        Called: 20 times         Total: 10.56    Mean: 0.528     Max: 7.031      Percentage: 0%
+Constrain:
+        Called: 1192 times       Total: 10.28    Mean: 0.009     Max: 0.080      Percentage: 0%
+Ground:
+        Called: 1192 times       Total: 9.86     Mean: 0.008     Max: 0.320      Percentage: 0%
+Test:
+        Called: 1192 times       Total: 0.48     Mean: 0.000     Max: 0.063      Percentage: 0%
+Combine:
+        Called: 732 times        Total: 0.06     Mean: 0.000     Max: 0.008      Percentage: 0%
+Total operation time: 1913.91s
+Total execution time: 1923.16s

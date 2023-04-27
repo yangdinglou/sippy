@@ -1,0 +1,24 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:12
+p(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+p(A,B):- left(A,E),right(A,D),p(E,C),p(D,F),diff_lessthanone(F,C),maxnum(F,C,G),my_succ(G,B), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; ['my_prev(C,B)', 'zero(C)'] ;; []", "|  None ;; ['maxnum(F,C,G)', 'my_succ(G,B)', 'diff_lessthanone(F,C)'] ;; ['p(E,C)', 'p(D,F)', 'left(A,E)', 'right(A,D)']"]
+{'body_literal(1, left, 2, (0,4,))', 'body_literal(0, my_prev, 2, (2,1,))', 'body_literal(1, p, 2, (3,5,))', 'body_literal(1, maxnum, 3, (5,2,6,))', 'body_literal(1, p, 2, (4,2,))', 'body_literal(0, zero, 1, (2,))', 'head_literal(0, p, 2, (0,1,))', 'body_literal(1, diff_lessthanone, 2, (5,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, right, 2, (0,3,))', 'body_literal(1, my_succ, 2, (6,1,))', 'head_literal(1, p, 2, (0,1,))'}
+******************************
+Num. programs: 19171
+Generate:
+        Called: 19187 times      Total: 122.50   Mean: 0.006     Max: 11.296     Percentage: 82%
+Find Mucs:
+        Called: 1927 times       Total: 7.12     Mean: 0.004     Max: 0.228      Percentage: 4%
+Test:
+        Called: 19171 times      Total: 5.38     Mean: 0.000     Max: 0.195      Percentage: 3%
+Constrain:
+        Called: 19171 times      Total: 5.03     Mean: 0.000     Max: 0.008      Percentage: 3%
+Init:
+        Called: 16 times         Total: 3.99     Mean: 0.249     Max: 2.196      Percentage: 2%
+Ground:
+        Called: 19171 times      Total: 3.38     Mean: 0.000     Max: 0.260      Percentage: 2%
+Combine:
+        Called: 17244 times      Total: 0.35     Mean: 0.000     Max: 0.009      Percentage: 0%
+Total operation time: 147.76s
+Total execution time: 152.50s

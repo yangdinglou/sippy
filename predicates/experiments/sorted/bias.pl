@@ -1,17 +1,17 @@
-% dll(A, B) :- nullptr(A).
-% dll(A, B) :- next(A, C), prev(A, B), dll(C, A).
+% f(A,B):-nullptr(A),empty(B).
+% f(A,B):-min_list(B,D),value(A,D),f(E,C),pointer(A,E),insert(C,D,B).
+%  python popper.py ./examples/predicate-infer/srtl2/ --info --eval-timeout=10 --stats
 
-max_body(6).
-max_vars(6).
+max_vars(5).
+max_body(5).
 max_clauses(2).
 enable_recursion.
 
-head_pred(dll, 3).
-body_pred(next, 2).
-body_pred(prev, 2).
-body_pred(key, 2).
-body_pred(anypointer, 1).
+head_pred(f,2).
+body_pred(value,2).
+body_pred(next,2).
 
+body_pred(anypointer,1).
 body_pred(nullptr,1).
 body_pred(zero,1).
 body_pred(diff_lessthanone,2).
@@ -29,11 +29,10 @@ body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
-type(dll,(pointer,pointer,set)).
+
+type(f,(pointer,set)).
+type(value,(pointer,integer)).
 type(next,(pointer,pointer)).
-type(prev,(pointer,pointer)).
-type(key, (pointer, integer)).
-type(anypointer,(pointer,)).
 
 type(nullptr,(pointer,)).
 type(zero,(integer,)).
@@ -43,6 +42,7 @@ type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
 type(minnum,(integer,integer,integer)).
 
+type(anypointer, (pointer,)).
 type(empty,(set,)).
 type(min_list,(set,integer)).
 type(max_list,(set,integer)).
@@ -51,12 +51,12 @@ type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
 
-direction(dll, (in, out, out)).
-direction(next, (in, out)).
-direction(prev, (in, out)).
-direction(key, (in, out)).
-direction(anypointer, (out,)).
 
+direction(f,(in,out)).
+direction(value,(in,out)).
+direction(next,(in,out)).
+
+direction(anypointer, (out,)).
 direction(nullptr,(out,)).
 direction(zero,(out,)).
 direction(diff_lessthanone,(in,in)).
@@ -75,54 +75,21 @@ direction(insert,(in,in,out)).
 
 
 :-
-	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
-
-:-
-	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
-
-
-:-
-    head_literal(1, dll, 3, (Var,_,_)),
-    not body_literal(1, key, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, key, A, Vars)} != 1.
-:-
-    body_literal(T, key, _, (A, B1)),
-    body_literal(T, key, _, (A, B2)),
-    B1 != B2.
-
-
-:-
-    head_literal(1, dll, 3, (Var,_,_)),
-    not body_literal(1, next, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
-:-
-    body_literal(T, next, _, (A, B1)),
-    body_literal(T, next, _, (A, B2)),
-    B1 != B2.
-
-
-:-
-    head_literal(1, dll, 3, (Var,_,_)),
-    not body_literal(1, prev, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, prev, A, Vars)} != 1.
-:-
-    body_literal(T, prev, _, (A, B1)),
-    body_literal(T, prev, _, (A, B2)),
-    B1 != B2.
-:-
     body_literal(T, anypointer, _, (A,)),
     not head_var(T, A).
 :-
     body_literal(T, anypointer, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-% :-
-%     body_literal(T, next, _, (A, B)),
-%     body_literal(T, prev, _, (A, B)).
+:-
+	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
+:-
+	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
+
+:-
+    body_literal(T, nullptr, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 :-
 	#count{P,A,Vars : body_literal(0,P,A,Vars)} > 3.
 :-
@@ -133,10 +100,10 @@ direction(insert,(in,in,out)).
     body_literal(1,lt_list,_,(A,B)),
     body_literal(1,gt_list,_,(A,B)).
 
-% :-
-%     body_literal(T, min_list, _, (A, B1)),
-%     body_literal(T, min_list, _, (A, B2)),
-% 	B1 != B2.
+:-
+    body_literal(T, min_list, _, (A, B1)),
+    body_literal(T, min_list, _, (A, B2)),
+	B1 != B2.
 
 :-
     body_literal(T, max_list, _, (A, B1)),
@@ -388,10 +355,10 @@ direction(insert,(in,in,out)).
 	B1 == B2,
 	A1 != A2.
 
-% :-
-%     body_literal(T, min_list, _, (A, B1)),
-%     body_literal(T, min_list, _, (A, B2)),
-% 	B1 != B2.
+:-
+    body_literal(T, min_list, _, (A, B1)),
+    body_literal(T, min_list, _, (A, B2)),
+	B1 != B2.
 
 :-
     body_literal(T, my_prev, _, (A, B1)),
@@ -798,3 +765,24 @@ direction(insert,(in,in,out)).
     body_literal(T, gt_list, _, (V, S1)),
     body_literal(T, max_list, _, (S2, V)),
     body_literal(T, insert, _, (S1, V, S2)).
+
+:-
+    head_literal(1, p, 2, (Var,_)),
+    not body_literal(1, next, _, (Var,_)).
+:-
+    #count{A, Vars: body_literal(1, next, A, Vars)} != 1.
+:-
+    body_literal(T, next, _, (A, B1)),
+    body_literal(T, next, _, (A, B2)),
+    B1 != B2.
+
+
+:-
+    head_literal(1, p, 2, (Var,_)),
+    not body_literal(1, value, _, (Var,_)).
+:-
+    #count{A, Vars: body_literal(1, value, A, Vars)} != 1.
+:-
+    body_literal(T, value, _, (A, B1)),
+    body_literal(T, value, _, (A, B2)),
+    B1 != B2.
