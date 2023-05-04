@@ -22,3 +22,164 @@ Combine:
         Called: 3 times          Total: 0.01     Mean: 0.005     Max: 0.007  Percentage: 2%
 Total operation time: 0.46s
 Total execution time: 0.64s
+
+>4
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
+dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,A,E),insert(E,D,C),lt_list(D,E), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,D,C)'] ;; ['next(A,F)', 'dll(F,A,E)', 'lt_list(D,E)', 'key(A,D)', 'prev(A,B)']"]
+{'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(1, dll, 3, (5,0,4,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(1, key, 2, (0,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, lt_list, 2, (3,4,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, insert, 3, (4,3,2,))', 'head_literal(0, dll, 3, (0,1,2,))'}
+******************************
+Num. programs: 354
+Find Mucs:
+        Called: 351 times        Total: 0.96     Mean: 0.003     Max: 0.012      Percentage: 55%
+Generate:
+        Called: 368 times        Total: 0.34     Mean: 0.001     Max: 0.020      Percentage: 19%
+Ground:
+        Called: 354 times        Total: 0.15     Mean: 0.000     Max: 0.005      Percentage: 8%
+Constrain:
+        Called: 354 times        Total: 0.11     Mean: 0.000     Max: 0.002      Percentage: 6%
+Test:
+        Called: 354 times        Total: 0.11     Mean: 0.000     Max: 0.019      Percentage: 6%
+Init:
+        Called: 14 times         Total: 0.06     Mean: 0.004     Max: 0.020      Percentage: 3%
+Combine:
+        Called: 3 times          Total: 0.01     Mean: 0.005     Max: 0.007      Percentage: 0%
+Total operation time: 1.74s
+Total execution time: 1.94s
+
+>5
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
+dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+dll(A,B,C):- next(A,F),prev(A,B),key(A,E),dll(F,A,D),insert(D,E,C),min_list(C,E), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(D,E,C)'] ;; ['next(A,F)', 'dll(F,A,D)', 'min_list(C,E)', 'key(A,E)', 'prev(A,B)']"]
+{'body_literal(1, dll, 3, (5,0,3,))', 'body_literal(1, key, 2, (0,4,))', 'body_literal(1, min_list, 2, (2,4,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (3,4,2,))'}
+******************************
+Num. programs: 1574
+Find Mucs:
+        Called: 1571 times       Total: 4.43     Mean: 0.003     Max: 0.015      Percentage: 57%
+Generate:
+        Called: 1588 times       Total: 1.68     Mean: 0.001     Max: 0.173      Percentage: 21%
+Constrain:
+        Called: 1574 times       Total: 0.55     Mean: 0.000     Max: 0.004      Percentage: 7%
+Ground:
+        Called: 1574 times       Total: 0.44     Mean: 0.000     Max: 0.008      Percentage: 5%
+Test:
+        Called: 1574 times       Total: 0.42     Mean: 0.000     Max: 0.016      Percentage: 5%
+Init:
+        Called: 14 times         Total: 0.20     Mean: 0.014     Max: 0.091      Percentage: 2%
+Combine:
+        Called: 3 times          Total: 0.01     Mean: 0.004     Max: 0.005      Percentage: 0%
+Total operation time: 7.73s
+Total execution time: 8.05s
+
+(-1,0)
+
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:10
+dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(D,A,E),insert(E,F,C), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,F,C)'] ;; ['key(A,F)', 'dll(D,A,E)', 'next(A,D)', 'prev(A,B)']"]
+{'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next, 2, (0,3,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(1, key, 2, (0,5,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, insert, 3, (4,5,2,))', 'body_literal(1, dll, 3, (3,0,4,))', 'body_literal(0, anypointer, 1, (1,))', 'head_literal(1, dll, 3, (0,1,2,))'}
+******************************
+Num. programs: 37
+Find Mucs:
+        Called: 36 times         Total: 0.10     Mean: 0.003     Max: 0.014      Percentage: 36%
+Generate:
+        Called: 49 times         Total: 0.07     Mean: 0.001     Max: 0.010      Percentage: 26%
+Test:
+        Called: 37 times         Total: 0.03     Mean: 0.001     Max: 0.021      Percentage: 11%
+Init:
+        Called: 12 times         Total: 0.03     Mean: 0.002     Max: 0.004      Percentage: 11%
+Ground:
+        Called: 37 times         Total: 0.02     Mean: 0.001     Max: 0.004      Percentage: 8%
+Constrain:
+        Called: 37 times         Total: 0.01     Mean: 0.000     Max: 0.000      Percentage: 3%
+Combine:
+        Called: 1 times          Total: 0.01     Mean: 0.006     Max: 0.006      Percentage: 2%
+Total operation time: 0.26s
+Total execution time: 0.44s
+
+(-1,2)
+
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:10
+dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+dll(A,B,C):- prev(A,B),next(A,F),key(A,E),dll(F,A,D),insert(D,E,C), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['anypointer(B)', 'empty(C)']", "|  None ;; ['insert(D,E,C)'] ;; ['prev(A,B)', 'next(A,F)', 'dll(F,A,D)', 'key(A,E)']"]
+{'body_literal(0, empty, 1, (2,))', 'body_literal(1, key, 2, (0,4,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(1, dll, 3, (5,0,3,))', 'body_literal(0, nullptr, 1, (0,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (3,4,2,))'}
+******************************
+Num. programs: 39
+Generate:
+        Called: 51 times         Total: 18.66    Mean: 0.366     Max: 14.216     Percentage: 98%
+Find Mucs:
+        Called: 38 times         Total: 0.12     Mean: 0.003     Max: 0.010      Percentage: 0%
+Init:
+        Called: 12 times         Total: 0.06     Mean: 0.005     Max: 0.013      Percentage: 0%
+Ground:
+        Called: 39 times         Total: 0.05     Mean: 0.001     Max: 0.005      Percentage: 0%
+Test:
+        Called: 39 times         Total: 0.03     Mean: 0.001     Max: 0.020      Percentage: 0%
+Constrain:
+        Called: 39 times         Total: 0.03     Mean: 0.001     Max: 0.002      Percentage: 0%
+Combine:
+        Called: 1 times          Total: 0.01     Mean: 0.006     Max: 0.006      Percentage: 0%
+Total operation time: 18.96s
+Total execution time: 19.34s
+
+(0,2)
+
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
+dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+dll(A,B,C):- prev(A,B),next(A,D),key(A,E),dll(D,A,F),insert(F,E,C),min_list(C,E), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(F,E,C)'] ;; ['prev(A,B)', 'next(A,D)', 'dll(D,A,F)', 'min_list(C,E)', 'key(A,E)']"]
+{'body_literal(0, empty, 1, (2,))', 'body_literal(0, anypointer, 1, (1,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (5,4,2,))', 'body_literal(1, key, 2, (0,4,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next, 2, (0,3,))', 'body_literal(1, dll, 3, (3,0,5,))', 'body_literal(1, min_list, 2, (2,4,))'}
+******************************
+Num. programs: 176
+Generate:
+        Called: 190 times        Total: 146.71   Mean: 0.772     Max: 121.071    Percentage: 51%
+Find Mucs:
+        Called: 169 times        Total: 113.27   Mean: 0.670     Max: 9.868      Percentage: 39%
+Test:
+        Called: 176 times        Total: 20.45    Mean: 0.116     Max: 4.392      Percentage: 7%
+Combine:
+        Called: 7 times          Total: 2.43     Mean: 0.347     Max: 2.401      Percentage: 0%
+Constrain:
+        Called: 176 times        Total: 0.32     Mean: 0.002     Max: 0.005      Percentage: 0%
+Ground:
+        Called: 176 times        Total: 0.29     Mean: 0.002     Max: 0.015      Percentage: 0%
+Init:
+        Called: 14 times         Total: 0.19     Mean: 0.014     Max: 0.135      Percentage: 0%
+Find Sub Inconsistent:
+        Called: 5 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 283.66s
+Total execution time: 284.17s
+
+(1,0)
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
+dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,A,E),lt_list(D,E),insert(E,D,C), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,D,C)'] ;; ['lt_list(D,E)', 'next(A,F)', 'prev(A,B)', 'dll(F,A,E)', 'key(A,D)']"]
+{'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(1, dll, 3, (5,0,4,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (4,3,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(1, lt_list, 2, (3,4,))', 'body_literal(1, key, 2, (0,3,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))'}
+******************************
+Num. programs: 85
+Find Mucs:
+        Called: 82 times         Total: 0.24     Mean: 0.003     Max: 0.010      Percentage: 46%
+Generate:
+        Called: 101 times        Total: 0.13     Mean: 0.001     Max: 0.015      Percentage: 24%
+Init:
+        Called: 16 times         Total: 0.04     Mean: 0.003     Max: 0.006      Percentage: 8%
+Test:
+        Called: 85 times         Total: 0.04     Mean: 0.000     Max: 0.019      Percentage: 7%
+Ground:
+        Called: 85 times         Total: 0.04     Mean: 0.000     Max: 0.003      Percentage: 7%
+Constrain:
+        Called: 85 times         Total: 0.02     Mean: 0.000     Max: 0.001      Percentage: 3%
+Combine:
+        Called: 3 times          Total: 0.01     Mean: 0.005     Max: 0.007      Percentage: 2%
+Total operation time: 0.52s
+Total execution time: 0.72s

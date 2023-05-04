@@ -47,7 +47,7 @@ next(n1, n2).
 next(n2, n3).
 next(n3, null).
 
-prev(n1, null).
+prev(n1, n0).
 prev(n2, n1).
 prev(n3, n2).
 

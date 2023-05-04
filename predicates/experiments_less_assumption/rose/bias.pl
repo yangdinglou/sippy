@@ -13,21 +13,26 @@ enable_pi.
 head_pred(p,1).
 
 body_pred(nullptr,1).
-% body_pred(p,1).
+body_pred(anynumber,1).
 body_pred(pointto,2).
+body_pred(value,2).
 body_pred(next1,2).
 body_pred(next2,2).
 
 type(p,(pointer,)).
 
 type(nullptr,(pointer,)).
+type(anynumber,(integer,)).
 type(pointto,(pointer,pointer)).
+type(value,(pointer,integer)).
 type(next1,(pointer,pointer)).
 type(next2,(pointer,pointer)).
 
 direction(p,(in,)).
 direction(nullptr,(out,)).
+direction(anynumber,(out,)).
 direction(pointto,(out,out)).
+direction(value,(in,out)).
 direction(next1,(in,out)).
 direction(next2,(out,out)).
 
@@ -38,8 +43,6 @@ direction(next2,(out,out)).
 :-
     not clause(3).
 
-% :-
-%     not head_literal(2,_,1,_).
 
 :-
     head_literal(0,P,_,_),
@@ -53,6 +56,9 @@ direction(next2,(out,out)).
     head_literal(2,P,_,_),
     not head_literal(3,P,_,_).
 
+:-
+    body_literal(T, anynumber, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 :-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
@@ -72,9 +78,21 @@ direction(next2,(out,out)).
     not body_literal(1, next1, _, (Var,_)).
 % :-
 %     #count{A, Vars: body_literal(1, next1, A, Vars)} != 1.
+
+:-
+    head_literal(1, p, 1, (Var,)),
+    not body_literal(1, value, _, (Var,_)).
+% :-
+%     #count{A, Vars: body_literal(1, value, A, Vars)} != 1.
+
 :-
     body_literal(T, pointto, _, (A, B1)),
     body_literal(T, pointto, _, (A, B2)),
+    B1 != B2.
+
+:-
+    body_literal(T, value, _, (A, B1)),
+    body_literal(T, value, _, (A, B2)),
     B1 != B2.
 
 :-

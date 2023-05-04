@@ -1,10 +1,18 @@
 nullptr(null).
 
+anynumber(_).
+
 next1(p1,q11).
 next1(p11,q111).
 next1(p12,q121).
 next1(p121,null).
 next1(p112,q1121).
+
+value(p1,1).
+value(p11,1).
+value(p12,2).
+value(p121,2).
+value(p112,1).
 
 next2(q11,q12).
 next2(q12,null).

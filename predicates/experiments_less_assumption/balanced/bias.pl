@@ -1,6 +1,6 @@
 
 max_vars(7).
-max_body(9).
+max_body(7).
 max_clauses(2).
 enable_recursion.
 
@@ -334,6 +334,38 @@ direction(insert,(in,in,out)).
 	body_literal(T, diff_lessthanone, _, (A1, A2)), 
 	not A1 > A2.
 
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (A1, _, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (A2, _, A1)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (_, A1, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (_, A2, A1)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (A1, _, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (A2, _, A1)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (_, A1, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (_, A2, A1)).
+
 
 :-
 	body_literal(T, my_prev, _, (A1, A2)), 
@@ -559,6 +591,47 @@ direction(insert,(in,in,out)).
 
 
 :-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (A1, B2, _)).
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (B1, B2, _)).
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (B2, A1, _)).
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (B2, B1, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (A1, B2, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (B1, B2, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (B2, A1, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (B2, B1, _)).
+
+
+:-
     body_literal(T, maxnum, _, (A1, B1, C1)),
     body_literal(T, minnum, _, (A2, B2, C2)),
 	B1 == A2,
@@ -773,6 +846,26 @@ direction(insert,(in,in,out)).
 	body_literal(T, my_succ, _, (A1, A3)),
 	body_literal(T, diff_lessthanone, _, (A3, A2)).
 
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A3, A4)),
+	body_literal(T, maxnum, _, (A2, A4, _)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A3, A4)),
+	body_literal(T, minnum, _, (A2, A4, _)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A3, A4)),
+	body_literal(T, maxnum, _, (A2, A4, _)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)),
+	body_literal(T, my_prev, _, (A3, A4)),
+	body_literal(T, minnum, _, (A2, A4, _)).
+
 
 :-
 	body_literal(T, zero, _, (A1,)),
@@ -803,13 +896,6 @@ direction(insert,(in,in,out)).
 	body_literal(T, zero, _, (A2, )),
 	body_literal(T, my_succ, _, (A1, A3)),
 	body_literal(T, minnum, _, (A3, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, diff_lessthanone, _, (A3, A2)).
-
 
 :-
     body_literal(T, lt_list, _, (V, S1)),

@@ -120,7 +120,7 @@ direction(insert,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 :-
-    #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
+    #count{P,Vars : body_literal(0,P,_,Vars)} > 5.
 
 :-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
@@ -355,6 +355,38 @@ direction(insert,(in,in,out)).
 	body_literal(T, diff_lessthanone, _, (A1, A2)), 
 	not A1 > A2.
 
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (A1, _, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (A2, _, A1)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (_, A1, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, maxnum, _, (_, A2, A1)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (A1, _, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (A2, _, A1)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (_, A1, A2)).
+
+:-
+	body_literal(T, diff_lessthanone, _, (A1, A2)),
+	body_literal(T, minnum, _, (_, A2, A1)).
+
 
 :-
 	body_literal(T, my_prev, _, (A1, A2)), 
@@ -577,6 +609,47 @@ direction(insert,(in,in,out)).
 	body_literal(T, my_succ, _, (A1, A2)),
 	body_literal(T, my_prev, _, (A1, A3)),
 	body_literal(T, maxnum, _, (A3, A2, _)).
+
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (A1, B2, _)).
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (B1, B2, _)).
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (B2, A1, _)).
+
+:-
+	body_literal(T, maxnum, _, (A1, B1, C1)),
+	body_literal(T, my_succ, _, (C1, B2)),
+	body_literal(T, maxnum, _, (B2, B1, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (A1, B2, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (B1, B2, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (B2, A1, _)).
+
+:-
+	body_literal(T, minnum, _, (A1, B1, C1)),
+	body_literal(T, my_prev, _, (C1, B2)),
+	body_literal(T, minnum, _, (B2, B1, _)).
 
 
 :-
