@@ -1,8 +1,8 @@
 % dll(A, B) :- nullptr(A).
 % dll(A, B) :- next(A, C), prev(A, B), dll(C, A).
 
-max_body(7).
-max_vars(8).
+max_body(6).
+max_vars(6).
 max_clauses(2).
 enable_recursion.
 
