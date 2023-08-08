@@ -253,12 +253,12 @@ class Generator:
         if self.settings.single_solve:
             # solver = clingo.Control(["--heuristic=Domain", "-t2"])
             # solver = clingo.Control(["--heuristic=Domain", '-Wnone'])
-            solver = clingo.Control(['--heuristic=Domain','-Wnone'])
+            solver = clingo.Control(['--heuristic=Domain','-Wnone',"-t8"])
             # solver = clingo.Control(['-Wnone'])
         else:
             # solver = clingo.Control(["-t4"])
             # solver = clingo.Control([])
-            solver = clingo.Control(['-Wnone'])
+            solver = clingo.Control(['-Wnone',"-t8"])
             NUM_OF_LITERALS = """
             %%% External atom for number of literals in the program %%%%%
             #external size_in_literals(n).
@@ -825,7 +825,7 @@ class Grounder():
 
         # print('ASDASDA')
         # solver = clingo.Control()
-        solver = clingo.Control(['-Wnone'])
+        solver = clingo.Control(['-Wnone','-t8'])
         # solver = clingo.Control(["-t4"])
         # ask for all models
         solver.configuration.solve.models = 0
