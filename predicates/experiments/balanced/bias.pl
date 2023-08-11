@@ -1,6 +1,6 @@
 
-max_vars(7).
-max_body(7).
+max_vars(8).
+max_body(9).
 max_clauses(2).
 enable_recursion.
 
@@ -411,16 +411,22 @@ direction(insert,(in,in,out)).
     body_literal(T, min_list, _, (A, B2)),
 	B1 != B2.
 
-:-
-    body_literal(T, my_prev, _, (A, B1)),
-    body_literal(T, my_prev, _, (A, B2)),
-	B1 != B2.
+% :-
+%     body_literal(T, my_prev, _, (A, B1)),
+%     body_literal(T, my_prev, _, (A, B2)),
+% 	B1 != B2.
 
-:-
-    body_literal(T, my_succ, _, (A, B1)),
-    body_literal(T, my_succ, _, (A, B2)),
-	B1 != B2.
+% :-
+%     body_literal(T, my_succ, _, (A, B1)),
+%     body_literal(T, my_succ, _, (A, B2)),
+% 	B1 != B2.
 
+% :-
+%     func_head(Head), direction(Head, (in, out)), max_clauses(Mc), T = 0..Mc-1, max_vars(Mv), A = 0..Mv-1,
+%     #count{B: body_literal(T, Head, _, (A, B))} > 1.
+
+% func_head(my_prev).
+% func_head(my_succ).
 :-
 	body_literal(T, my_succ, _, (A1, B)),
 	body_literal(T, my_succ, _, (A2, B)),

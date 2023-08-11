@@ -114,11 +114,11 @@ direction(insert,(in,in,out)).
     not clause(1).
 
 
-:-
-    body_literal(1,lt_list,_,(A,B)),
-    body_literal(1,gt_list,_,(A,B)).
+% :-
+%     body_literal(1,lt_list,_,(A,B)),
+%     body_literal(1,gt_list,_,(A,B)).
 
-exclusive_head(gt_list, lt_list).
+% exclusive_head(gt_list, lt_list).
 
 
 
@@ -131,87 +131,23 @@ func_head(max_list).
 
 func_head(ord_union).
 
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == B2.
 
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	A1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	B1 == B2,
-	C1 == A2.
-
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	A1 == B2,
-	C1 == A2.
 
 
 partial_head(ord_union).
 
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == B1.
-
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == A1.
-
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	C1 == A2,
-	C2 == A1.
 
 % More on partial order
 
-
-:-
-	body_literal(T, ord_union, _, (A1, B1, C1)),
-	not A1 > B1.
 
 symmetric_head(ord_union).
 
 
 
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	A1 != A2,
-	B1 == B2,
-	C1 == C2.
 
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == C2.
-
-:-
-    body_literal(T, ord_union, _, (A1, B1, C1)),
-    body_literal(T, ord_union, _, (A2, B2, C2)),
-	B1 != B2,
-	C1 == C2,
-	A1 == A2.
 
 injective_head(ord_union).
 
-:-
-	body_literal(T, ord_union, _, (A1, A2, _)), 
-	not A1 > A2.
 
 
 
@@ -223,142 +159,34 @@ func_head(insert).
 	C1 == A2,
 	B1 == B2.
 
-partial_head(insert).
+% semantic-based
+
+
+% the buttom of partial order, deletable
 
 :-
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, ord_union, _, (A2, B2, C2)),
-	A1 == A2.
-:-
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, ord_union, _, (A2, B2, C2)),
-	A1 == B2.
-
-% the buttom of partial order
+	body_literal(T, insert, _, (_, _, C)),
+	body_literal(T, ord_union, _, (_, C, _)).
 
 :-
-	body_literal(T, insert, _, (A, _, C)),
-	body_literal(T, ord_union, _, (A, C, _)).
+	body_literal(T, insert, _, (_, _, C)),
+	body_literal(T, ord_union, _, (C, _, _)).
 
-:-
-	body_literal(T, insert, _, (A, _, C)),
-	body_literal(T, ord_union, _, (C, A, _)).
+% semantics-based
 
-% more on partial
-
-:- 
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, gt_list, _, (A2, B2)),
-	A1 == B2.
-
-:- 
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, lt_list, _, (A2, B2)),
-	A1 == B2.
-
-:- 
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, min_list, _, (A2, B2)),
-	A1 == A2.
-
-:- 
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, max_list, _, (A2, B2)),
-	A1 == A2.
-
-% The semantic-specific
-
-:-
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, insert, _, (A1, V, A2)),
-	body_literal(T, max_list, _, (A2, V)).
-
-:-
-	body_literal(T, empty, _, (A1,)),
-	body_literal(T, insert, _, (A1, V, A2)),
-	body_literal(T, min_list, _, (A2, V)).
-
-% Just avoid the empty list?
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	A1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == B2,
-	C1 == A2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	A1 == B2,
-	C1 == A2.
 
 partial_head(maxnum).
 
 
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == B1.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == A1.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == A2,
-	C2 == A1.
 
 % More on partial order
 
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	A1 != A2,
-	B1 == B2,
-	C1 == C2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == C2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 != B2,
-	C1 == C2,
-	A1 == A2.
 
 injective_head(maxnum).
 
-:-
-	body_literal(T, maxnum, _, (A1, A2, _)), 
-	not A1 > A2.
+
 
 symmetric_head(maxnum).
-
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)), 
-	not A1 > A2.
 
 symmetric_head(diff_lessthanone).
 
@@ -412,34 +240,7 @@ symmetric_head(diff_lessthanone).
 
 % semantic-based
 
-:-
-	body_literal(T, my_prev, _, (X, Y)), 
-	body_literal(T, maxnum, _, (X, Y, _)).
-
-:-
-	body_literal(T, my_prev, _, (X, Y)), 
-	body_literal(T, maxnum, _, (Y, X, _)).
-
-:-
-	body_literal(T, my_succ, _, (X, Y)), 
-	body_literal(T, maxnum, _, (X, Y, _)).
-
-:-
-	body_literal(T, my_succ, _, (X, Y)), 
-	body_literal(T, maxnum, _, (Y, X, _)).
-
-% partial_head(my_succ).
-% partial_head(my_prev).
-
-:-
-	body_literal(T, my_succ, _, (A1, B1)),
-	body_literal(T, my_succ, _, (A2, B2)),
-	B1 == B2,
-	A1 != A2.
-
-injective_head(my_succ).
-
-
+partial_head(maxnum).
 
 
 
@@ -449,17 +250,9 @@ func_head(my_prev).
 
 func_head(my_succ).
 
-:-
-	body_literal(T, my_succ, _, (A1, B)),
-	body_literal(T, my_succ, _, (A2, B)),
-	A1 != A2.
 
 injective_head(my_succ).
 
-:-
-	body_literal(T, my_prev, _, (A1, B)),
-	body_literal(T, my_prev, _, (A2, B)),
-	A1 != A2.
 
 injective_head(my_prev).
 
@@ -473,422 +266,41 @@ injective_head(my_prev).
 
 % semantic-based
 
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	A1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == B2,
-	C1 == A2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	A1 == B2,
-	C1 == A2.
 
 partial_head(minnum).
 
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == B1.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == A1.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	C1 == A2,
-	C2 == A1.
 
 % More on partial
 
 
-
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	A1 != A2,
-	B1 == B2,
-	C1 == C2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == C2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 != B2,
-	C1 == C2,
-	A1 == A2.
-
 injective_head(minnum).
 
-:-
-	body_literal(T, minnum, _, (A1, A2, _)), 
-	not A1 > A2.
 
 symmetric_head(minnum).
 
-:-
-	body_literal(T, my_prev, _, (X, Y)), 
-	body_literal(T, minnum, _, (X, Y, _)).
 
-:-
-	body_literal(T, my_prev, _, (X, Y)), 
-	body_literal(T, minnum, _, (Y, X, _)).
 
-:-
-	body_literal(T, my_succ, _, (X, Y)), 
-	body_literal(T, minnum, _, (X, Y, _)).
-
-:-
-	body_literal(T, my_succ, _, (X, Y)), 
-	body_literal(T, minnum, _, (Y, X, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_succ, _, (A2, A3)),
-	body_literal(T, minnum, _, (A1, A3, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_succ, _, (A2, A3)),
-	body_literal(T, maxnum, _, (A1, A3, _)).
-
-:-
-	body_literal(T, my_prev, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A2, A3)),
-	body_literal(T, minnum, _, (A1, A3, _)).
-
-:-
-	body_literal(T, my_prev, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A2, A3)),
-	body_literal(T, maxnum, _, (A1, A3, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_succ, _, (A2, A3)),
-	body_literal(T, minnum, _, (A3, A1, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_succ, _, (A2, A3)),
-	body_literal(T, maxnum, _, (A3, A1, _)).
-
-:-
-	body_literal(T, my_prev, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A2, A3)),
-	body_literal(T, minnum, _, (A3, A1, _)).
-
-:-
-	body_literal(T, my_prev, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A2, A3)),
-	body_literal(T, maxnum, _, (A3, A1, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, minnum, _, (A2, A3, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, maxnum, _, (A2, A3, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, minnum, _, (A3, A2, _)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, maxnum, _, (A3, A2, _)).
-
-% Partial partial, more on partial
-
-:-
-	body_literal(T, maxnum, _, (A1, B1, C1)),
-	body_literal(T, my_succ, _, (C1, B2)),
-	body_literal(T, maxnum, _, (A1, B2, _)).
-
-:-
-	body_literal(T, maxnum, _, (A1, B1, C1)),
-	body_literal(T, my_succ, _, (C1, B2)),
-	body_literal(T, maxnum, _, (B1, B2, _)).
-
-:-
-	body_literal(T, maxnum, _, (A1, B1, C1)),
-	body_literal(T, my_succ, _, (C1, B2)),
-	body_literal(T, maxnum, _, (B2, A1, _)).
-
-:-
-	body_literal(T, maxnum, _, (A1, B1, C1)),
-	body_literal(T, my_succ, _, (C1, B2)),
-	body_literal(T, maxnum, _, (B2, B1, _)).
-
-:-
-	body_literal(T, minnum, _, (A1, B1, C1)),
-	body_literal(T, my_prev, _, (C1, B2)),
-	body_literal(T, minnum, _, (A1, B2, _)).
-
-:-
-	body_literal(T, minnum, _, (A1, B1, C1)),
-	body_literal(T, my_prev, _, (C1, B2)),
-	body_literal(T, minnum, _, (B1, B2, _)).
-
-:-
-	body_literal(T, minnum, _, (A1, B1, C1)),
-	body_literal(T, my_prev, _, (C1, B2)),
-	body_literal(T, minnum, _, (B2, A1, _)).
-
-:-
-	body_literal(T, minnum, _, (A1, B1, C1)),
-	body_literal(T, my_prev, _, (C1, B2)),
-	body_literal(T, minnum, _, (B2, B1, _)).
-
-% Partial partial, more on partial
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	A1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == B2,
-	C1 == A2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	A1 == B2,
-	C1 == A2.
 
 % Still
 
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == B1.
 
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == A1.
+% Shouldn't be eliminated?
 
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	C1 == A2,
-	C2 == A1.
+% :-
+% 	body_literal(T, maxnum, _, (A1, B1, C1)),
+%     body_literal(T, minnum, _, (A2, B2, C2)),
+% 	B1 == A2,
+% 	A1 == B2.
 
-
-:-
-	body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == A2,
-	A1 == B2.
+% :-
+% 	body_literal(T, minnum, _, (A1, B1, C1)),
+%     body_literal(T, maxnum, _, (A2, B2, C2)),
+% 	B1 == A2,
+% 	A1 == B2.
 
 
 
-
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	A1 == A2,
-	C1 == B2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == B2,
-	C1 == A2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	A1 == B2,
-	C1 == A2.
-
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == B1.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == B2,
-	C2 == A1.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == A2,
-	C2 == A1.
-
-
-:-
-	body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == A2,
-	A1 == B2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == B2,
-	C1 == C2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == C2.
-
-:-
-    body_literal(T, maxnum, _, (A1, B1, C1)),
-    body_literal(T, minnum, _, (A2, B2, C2)),
-	B1 == A2,
-	C1 == C2.
-
-:-
-    body_literal(T, minnum, _, (A1, B1, C1)),
-    body_literal(T, maxnum, _, (A2, B2, C2)),
-	C1 == C2,
-	A1 == A2.
-
-% TODO!
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, maxnum, _, (A1, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, minnum, _, (A1, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, diff_lessthanone, _, (A2, A1)).
-
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, maxnum, _, (A2, A3, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, minnum, _, (A2, A3, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, diff_lessthanone, _, (A2, A3)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, maxnum, _, (A2, A3, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, minnum, _, (A2, A3, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, diff_lessthanone, _, (A2, A3)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, maxnum, _, (A3, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, minnum, _, (A3, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_prev, _, (A1, A3)),
-	body_literal(T, diff_lessthanone, _, (A3, A2)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, maxnum, _, (A3, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, minnum, _, (A3, A2, _)).
-
-:-
-	body_literal(T, zero, _, (A1,)),
-	body_literal(T, zero, _, (A2, )),
-	body_literal(T, my_succ, _, (A1, A3)),
-	body_literal(T, diff_lessthanone, _, (A3, A2)).
-
+func_head(zero).
 
 :-
 	body_literal(T, my_succ, _, (A1, A2)),

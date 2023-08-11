@@ -855,6 +855,12 @@ only_once(P,A):-
 
 % funcional head
 :-
+    func_head(Head), direction(Head, (out,)),
+    body_literal(T, Head, _, (B1,)),
+    body_literal(T, Head, _, (B2,)),
+    B1 != B2.
+
+:-
     func_head(Head), direction(Head, (in, out)), body_literal(T, Head, _, (A, B1)),
     body_literal(T, Head, _, (A, B2)),
     B1 != B2.
@@ -873,99 +879,109 @@ only_once(P,A):-
 %     func_head(Head), direction(Head, (in, in, out)), max_clauses(Mc), T = 0..Mc-1, max_vars(Mv), A1 = 0..Mv-1, A2 = 0..Mv-1,
 %     #count{B: body_literal(T, Head, _, (A1, A2, B))} > 1.
 
-% % partial head
+% partial head
 
 % partial_le(C, A, A) :-
 %     max_body(MaxN),
 %     C=0..MaxN-1,
 %     max_vars(Mv), A = 0..Mv-1.
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, integer),
-%     var_type(C, B, integer),
-%     body_literal(C, my_succ, _, (A, B)).
+partial_le(T, A, B) :-
+    var_type(T, A, integer),
+    var_type(T, B, integer),
+    body_literal(T, my_succ, _, (A, B)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, integer),
-%     var_type(C, B, integer),
-%     body_literal(C, my_prev, _, (B, A)). 
+partial_le(T, A, B) :-
+    var_type(T, A, integer),
+    var_type(T, B, integer),
+    body_literal(T, my_prev, _, (B, A)). 
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, integer),
-%     var_type(C, B, integer),
-%     body_literal(C, maxnum, _, (A, _, B)).
+partial_le(T, A, B) :-
+    var_type(T, A, integer),
+    var_type(T, B, integer),
+    body_literal(T, maxnum, _, (A, _, B)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, integer),
-%     var_type(C, B, integer),
-%     body_literal(C, maxnum, _, (_, A, B)).
+partial_le(T, A, B) :-
+    var_type(T, A, integer),
+    var_type(T, B, integer),
+    body_literal(T, maxnum, _, (_, A, B)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, integer),
-%     var_type(C, B, integer),
-%     body_literal(C, minnum, _, (B, _, A)).
+partial_le(T, A, B) :-
+    var_type(T, A, integer),
+    var_type(T, B, integer),
+    body_literal(T, minnum, _, (B, _, A)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, integer),
-%     var_type(C, B, integer),
-%     body_literal(C, minnum, _, (_, B, A)).
+partial_le(T, A, B) :-
+    var_type(T, A, integer),
+    var_type(T, B, integer),
+    body_literal(T, minnum, _, (_, B, A)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, set),
-%     var_type(C, B, set),
-%     body_literal(C, empty, _, (A,)).
+partial_le(T, A, B) :-
+    var_type(T, A, set),
+    var_type(T, B, set),
+    body_literal(T, empty, _, (A,)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, set),
-%     var_type(C, B, set),
-%     body_literal(C, ord_union, _, (A,_, C)).
+partial_le(T, A, B) :-
+    var_type(T, A, set),
+    var_type(T, B, set),
+    body_literal(T, ord_union, _, (A,_, B)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, set),
-%     var_type(C, B, set),
-%     body_literal(C, ord_union, _, (_, A, C)).
+partial_le(T, A, B) :-
+    var_type(T, A, set),
+    var_type(T, B, set),
+    body_literal(T, ord_union, _, (_, A, B)).
 
-% partial_le(C, A, B) :-
-%     var_type(C, A, set),
-%     var_type(C, B, set),
-%     body_literal(C, insert, _, (A,_, C)).
+partial_le(T, A, B) :-
+    var_type(T, A, set),
+    var_type(T, B, set),
+    body_literal(T, insert, _, (A,_, B)).
 
-% partial_le(C, A, B) :-
-%     partial_le(C, A, B1),
-%     partial_le(C, B1, B).
+partial_le(T, A, B) :-
+    partial_le(T, A, B1),
+    partial_le(T, B1, B).
 
 
-% :-
-%     partial_head(Head),
-%     body_literal(_, Head, _, (A, B)),
-%     partial_le(A, B).
 
-% :-
-%     partial_head(Head),
-%     body_literal(_, Head, _, (A, B)),
-%     partial_le(B, A).
 
-% :-
-%     partial_head(Head),
-%     body_literal(_, Head, _, (A, B, _)),
-%     partial_le(A, B).
+:-
+    partial_head(Head),
+    body_literal(T, Head, _, (A, B)),
+    partial_le(T, A, B).
 
-% :-
-%     partial_head(Head),
-%     body_literal(_, Head, _, (A, B, _)),
-%     partial_le(B, A).
+:-
+    partial_head(Head),
+    body_literal(T, Head, _, (A, B)),
+    partial_le(T, B, A).
 
-% % symmetric head
+:-
+    partial_head(Head),
+    body_literal(T, Head, _, (A, B, _)),
+    partial_le(T, A, B).
 
-% :-
-%     symmetric_head(Head),
-%     body_literal(_, Head, _, (A, B)),
-%     A > B.
+:-
+    partial_head(Head),
+    body_literal(T, Head, _, (A, B, _)),
+    partial_le(T, B, A).
 
-% :-
-%     symmetric_head(Head),
-%     body_literal(_, Head, _, (A, B, _)),
-%     A > B.
+:-
+    partial_le(T, A, B),
+    partial_le(T, B, A),
+    A != B.
+
+
+% symmetric head
+
+:-
+    symmetric_head(Head),
+    body_literal(_, Head, _, (A, B)),
+    body_literal(_, Head, _, (B, A)).
+
+:-
+    symmetric_head(Head),
+    body_literal(_, Head, _, (A, B, _)),
+    body_literal(_, Head, _, (B, A, _)).
+
+
 
 % % exclusive head
 % :-
@@ -973,21 +989,21 @@ only_once(P,A):-
 %     body_literal(T, H1, _, Args),
 %     body_literal(T, H2, _, Args).
 
-% injective head
-% :-
-%     injective_head(Head),
-%     body_literal(_, Head, _, (A1, B)),
-%     body_literal(_, Head, _, (A2, B)),
-%     A1 != A2.
+% injective head: kinda slow, to be checked
+:-
+    injective_head(Head),
+    body_literal(_, Head, _, (A1, B)),
+    body_literal(_, Head, _, (A2, B)),
+    A1 != A2.
 
-% :-
-%     injective_head(Head),
-%     body_literal(_, Head, _, (A, B1, C)),
-%     body_literal(_, Head, _, (A, B2, C)),
-%     B1 != B2.
+:-
+    injective_head(Head),
+    body_literal(_, Head, _, (A, B1, C)),
+    body_literal(_, Head, _, (A, B2, C)),
+    B1 != B2.
 
-% :-
-%     injective_head(Head),
-%     body_literal(_, Head, _, (A1, B, C)),
-%     body_literal(_, Head, _, (A2, B, C)),
-%     A1 != A2.
+:-
+    injective_head(Head),
+    body_literal(_, Head, _, (A1, B, C)),
+    body_literal(_, Head, _, (A2, B, C)),
+    A1 != A2.

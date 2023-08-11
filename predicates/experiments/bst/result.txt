@@ -111,3 +111,28 @@ Combine:
         Called: 12 times         Total: 0.04     Mean: 0.004     Max: 0.008      Percentage: 0%
 Total operation time: 586.07s
 Total execution time: 589.17s
+
+(1,0) with not_in
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:13
+p(A,B):- nullptr(A),empty(B), !.
+p(A,B):- value(A,G),right(A,I),left(A,C),p(C,D),p(I,H),ord_union(H,D,E),insert(E,G,F),ord_union(H,F,B),insert(B,G,F), !.
+['predicate p(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(E,G,F)', 'insert(B,G,F)'] ;; ['ord_union(H,F,B)', 'ord_union(H,D,E)', 'value(A,G)', 'right(A,I)', 'left(A,C)', 'p(C,D)', 'p(I,H)']"]
+{'body_literal(1, right, 2, (0,8,))', 'body_literal(1, left, 2, (0,2,))', 'body_literal(1, ord_union, 3, (7,3,4,))', 'head_literal(0, p, 2, (0,1,))', 'body_literal(1, p, 2, (2,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, value, 2, (0,6,))', 'body_literal(1, insert, 3, (1,6,5,))', 'head_literal(1, p, 2, (0,1,))', 'body_literal(1, ord_union, 3, (7,5,1,))', 'body_literal(1, insert, 3, (4,6,5,))', 'body_literal(1, p, 2, (8,7,))'}
+******************************
+Num. programs: 318
+Generate:
+        Called: 338 times        Total: 262.97   Mean: 0.778     Max: 61.618     Percentage: 65%
+Ground:
+        Called: 318 times        Total: 43.90    Mean: 0.138     Max: 1.874      Percentage: 11%
+Constrain:
+        Called: 318 times        Total: 37.91    Mean: 0.119     Max: 0.228      Percentage: 9%
+Init:
+        Called: 20 times         Total: 36.53    Mean: 1.827     Max: 29.990     Percentage: 9%
+Find Mucs:
+        Called: 255 times        Total: 16.80    Mean: 0.066     Max: 0.937      Percentage: 4%
+Combine:
+        Called: 63 times         Total: 0.24     Mean: 0.004     Max: 0.009      Percentage: 0%
+Test:
+        Called: 318 times        Total: 0.18     Mean: 0.001     Max: 0.029      Percentage: 0%
+Total operation time: 398.52s
+Total execution time: 466.66s
