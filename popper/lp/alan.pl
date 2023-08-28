@@ -22,6 +22,8 @@
 
 #heuristic size(N). [1000-N,true]
 
+:- #sum{K+1,Clause : body_size(Clause,K)} > (b+5)*c/2, max_body(b), max_clauses(c).
+
 max_size(K):-
     custom_max_size(K).
 max_size(K):-

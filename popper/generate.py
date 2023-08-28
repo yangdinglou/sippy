@@ -259,14 +259,14 @@ class Generator:
             # solver = clingo.Control(["-t4"])
             # solver = clingo.Control([])
             solver = clingo.Control(['-Wnone',"-t8"])
-            NUM_OF_LITERALS = """
-            %%% External atom for number of literals in the program %%%%%
-            #external size_in_literals(n).
-            :-
-                size_in_literals(n),
-                #sum{K+1,Clause : body_size(Clause,K)} != n.
-            """
-            solver.add('number_of_literals', ['n'], NUM_OF_LITERALS)
+            # NUM_OF_LITERALS = """
+            # %%% External atom for number of literals in the program %%%%%
+            # #external size_in_literals(n).
+            # :-
+            #     size_in_literals(n),
+            #     #sum{K+1,Clause : body_size(Clause,K)} != n.
+            # """
+            # solver.add('number_of_literals', ['n'], NUM_OF_LITERALS)
 
         solver.configuration.solve.models = 0
         solver.add('base', [], encoding)
@@ -285,7 +285,7 @@ class Generator:
             self.seen_symbols[k] = symbol
         return symbol
 
-    def update_solver(self, size, handles, bad_handles, ground_cons):
+    def update_solver(self, handles, bad_handles, ground_cons):
         # rules to add via Clingo's backend interface
         to_add = []
         to_add.extend(([], x) for x in ground_cons)
@@ -310,27 +310,27 @@ class Generator:
 
 
         # bad_handles = []
-        if bad_handles:
-            for handle in bad_handles:
-                # if we know that rule_xyz is bad
-                # we add the groundings of bad_stuff(R,ThisSize):- seen_rule(rule_xyz, R), R=0..MaxRules.
-                for rule_id in range(0, self.settings.max_rules):
-                    h = (True, 'bad_stuff', (rule_id, size))
-                    b = (True, 'seen_rule', (handle, rule_id))
-                    new_rule = (h, (b,))
-                    to_add.append(new_rule)
+        # if bad_handles:
+        #     for handle in bad_handles:
+        #         # if we know that rule_xyz is bad
+        #         # we add the groundings of bad_stuff(R,ThisSize):- seen_rule(rule_xyz, R), R=0..MaxRules.
+        #         for rule_id in range(0, self.settings.max_rules):
+        #             h = (True, 'bad_stuff', (rule_id, size))
+        #             b = (True, 'seen_rule', (handle, rule_id))
+        #             new_rule = (h, (b,))
+        #             to_add.append(new_rule)
 
-                # we now eliminate bad stuff
-                # :- seen_rule(rule_xyz,R1), bad_stuff(R2,Size), R1=0..MaxRules, R2=0..MaxRules, Size=0..ThisSize.
-                for smaller_size in range(1, size+1):
-                    for r1 in range(1, self.settings.max_rules):
-                        atom1 = (True, 'seen_rule', (handle, r1))
-                        for r2 in range(1, self.settings.max_rules):
-                            if r1 == r2:
-                                continue
-                            atom2 = (True, 'bad_stuff', (r2, smaller_size))
-                            new_rule = ([], (atom1, atom2))
-                            to_add.append(new_rule)
+        #         # we now eliminate bad stuff
+        #         # :- seen_rule(rule_xyz,R1), bad_stuff(R2,Size), R1=0..MaxRules, R2=0..MaxRules, Size=0..ThisSize.
+        #         for smaller_size in range(1, size+1):
+        #             for r1 in range(1, self.settings.max_rules):
+        #                 atom1 = (True, 'seen_rule', (handle, r1))
+        #                 for r2 in range(1, self.settings.max_rules):
+        #                     if r1 == r2:
+        #                         continue
+        #                     atom2 = (True, 'bad_stuff', (r2, smaller_size))
+        #                     new_rule = ([], (atom1, atom2))
+        #                     to_add.append(new_rule)
 
         with self.solver.backend() as backend:
             for head, body in to_add:
