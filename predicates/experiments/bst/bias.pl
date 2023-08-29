@@ -1,4 +1,4 @@
-max_vars(9).
+max_vars(8).
 max_body(9).
 max_clauses(2).
 enable_recursion.
@@ -145,8 +145,8 @@ direction(insert,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 
-:-
-    not clause(1).
+% :-
+%     not clause(1).
 
 
 
@@ -182,7 +182,7 @@ func_head(insert).
 	body_literal(T, insert, _, (_, _, C)),
 	body_literal(T, ord_union, _, (C, _, _)).
 
-
+func_head(maxnum).
 partial_head(maxnum).
 
 
@@ -272,19 +272,6 @@ injective_head(minnum).
 symmetric_head(minnum).
 
 
-% :-
-% 	body_literal(T, maxnum, _, (A1, B1, C1)),
-%     body_literal(T, minnum, _, (A2, B2, C2)),
-% 	B1 == A2,
-% 	A1 == B2.
-
-
-% :-
-% 	body_literal(T, minnum, _, (A1, B1, C1)),
-%     body_literal(T, maxnum, _, (A2, B2, C2)),
-% 	B1 == A2,
-% 	A1 == B2.
-
 
 func_head(zero).
 
@@ -299,15 +286,39 @@ func_head(zero).
     body_literal(T, insert, _, (S1, V, S2)).
 
 
+:-
+	body_literal(T, value, _, (_, B)),
+	body_literal(T, my_prev, _, (B, _)).
+
+:-
+	body_literal(T, value, _, (_, B)),
+	body_literal(T, my_succ, _, (B, _)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, max_list, _, (C, B)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, min_list, _, (C, B)).
 
 
 % Not pruning a lot, but make the search faster a lot!
 % :-
-%     body_literal(1,left,_,(A,B)),
-%     body_literal(1,right,_,(A,B)).
+% 	#count{Vars : body_literal(1,lt_list,_,Vars)} != 1.
+
+% :-
+% 	#count{Vars : body_literal(1,gt_list,_,Vars)} != 1.
+
+% :-
+% 	#count{Vars : body_literal(1,ord_union,_,Vars)} != 1.
 
 % :-
 % 	head_literal(1, p, _, (A, B1)),
 % 	body_literal(1, p, _, (_, B2)),
 % 	not partial_le(1, B2, B1).
+
+% :-
+%     body_literal(1,left,_,(A,B)),
+%     body_literal(1,right,_,(A,B)).
 
