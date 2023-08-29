@@ -551,6 +551,15 @@ base_clause(C,P,A):-
     direction_(P,V2Pos1,in),
     direction_(P,V2Pos2,in).
 
+
+% :-
+%     C > 0,
+%     var(V),
+%     not head_var(C, V),
+%     var_type(C, V, integer),
+%     body_var(C, V),
+%     #count{P,Vars : body_literal(C,P,_,Vars), var_pos(V, Vars, Pos), direction_(P, Pos, in)} > 1.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ENSURES INPUT VARS ARE GROUND
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -976,12 +985,12 @@ partial_le(T, A, B) :-
 :-
     symmetric_head(Head),
     body_literal(_, Head, _, (A, B)),
-    body_literal(_, Head, _, (B, A)).
+    A > B.
 
 :-
     symmetric_head(Head),
     body_literal(_, Head, _, (A, B, _)),
-    body_literal(_, Head, _, (B, A, _)).
+    A > B.
 
 
 

@@ -19,13 +19,11 @@ body_pred(diff_lessthanone,2).
 body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
-body_pred(minnum,3).
 
 not_in(nullptr, 1).
 not_in(zero, 1).
 not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
-not_in(minnum, 0).
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -57,7 +55,6 @@ type(diff_lessthanone,(integer,integer)).
 type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
-type(minnum,(integer,integer,integer)).
 
 
 type(empty,(set,)).
@@ -81,8 +78,6 @@ direction(diff_lessthanone,(in,in)).
 direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
 direction(maxnum,(in,in,out)).
-direction(minnum,(in,in,out)).
-
 direction(empty,(out,)).
 direction(min_list,(in,in)).
 direction(max_list,(in,in)).
@@ -123,29 +118,10 @@ direction(insert,(in,in,out)).
 
 
 func_head(min_list).
-
-
-
-
 func_head(max_list).
-
 func_head(ord_union).
-
-
-
-
 partial_head(ord_union).
-
-
-% More on partial order
-
-
 symmetric_head(ord_union).
-
-
-
-
-
 injective_head(ord_union).
 
 
@@ -162,7 +138,6 @@ func_head(insert).
 % semantic-based
 
 
-% the buttom of partial order, deletable
 
 :-
 	body_literal(T, insert, _, (_, _, C)),
@@ -174,18 +149,9 @@ func_head(insert).
 
 % semantics-based
 
-
+func_head(maxnum).
 partial_head(maxnum).
-
-
-
-% More on partial order
-
-
 injective_head(maxnum).
-
-
-
 symmetric_head(maxnum).
 
 symmetric_head(diff_lessthanone).
@@ -206,21 +172,6 @@ symmetric_head(diff_lessthanone).
 	body_literal(T, diff_lessthanone, _, (A1, A2)),
 	body_literal(T, maxnum, _, (_, A2, A1)).
 
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (A1, _, A2)).
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (A2, _, A1)).
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (_, A1, A2)).
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (_, A2, A1)).
 
 :-
 	body_literal(T, my_prev, _, (A1, A2)), 
@@ -238,22 +189,23 @@ symmetric_head(diff_lessthanone).
 	body_literal(T, my_succ, _, (A1, A2)), 
 	body_literal(T, diff_lessthanone, _, (A2, A1)).
 
-% semantic-based
+:-
+	body_literal(T, my_prev, _, (_, A2)),
+	body_literal(T, my_prev, _, (_, A4)),
+	body_literal(T, diff_lessthanone, _, (A2, A4)).
 
-partial_head(maxnum).
+:-
+	body_literal(T, my_succ, _, (_, A2)),
+	body_literal(T, my_succ, _, (_, A4)),
+	body_literal(T, diff_lessthanone, _, (A2, A4)).
 
-
+:-
+    body_literal(C, maxnum, _, (_, _, V)),
+    #count{P,Vars : body_literal(C,P,_,Vars), var_pos(V, Vars, Pos), direction_(P, Pos, in)} > 1.
 
 func_head(my_prev).
-
-
-
 func_head(my_succ).
-
-
 injective_head(my_succ).
-
-
 injective_head(my_prev).
 
 :-
@@ -264,42 +216,6 @@ injective_head(my_prev).
 	body_literal(T, my_prev, _, (_, A)),
 	body_literal(T, my_succ, _, (A, _)).
 
-% semantic-based
-
-
-partial_head(minnum).
-
-
-% More on partial
-
-
-injective_head(minnum).
-
-
-symmetric_head(minnum).
-
-
-
-
-% Still
-
-
-% Shouldn't be eliminated?
-
-% :-
-% 	body_literal(T, maxnum, _, (A1, B1, C1)),
-%     body_literal(T, minnum, _, (A2, B2, C2)),
-% 	B1 == A2,
-% 	A1 == B2.
-
-% :-
-% 	body_literal(T, minnum, _, (A1, B1, C1)),
-%     body_literal(T, maxnum, _, (A2, B2, C2)),
-% 	B1 == A2,
-% 	A1 == B2.
-
-
-
 func_head(zero).
 
 :-
@@ -307,10 +223,7 @@ func_head(zero).
 	body_literal(T, my_succ, _, (A3, A4)),
 	body_literal(T, maxnum, _, (A2, A4, _)).
 
-:-
-	body_literal(T, my_prev, _, (A1, A2)),
-	body_literal(T, my_prev, _, (A3, A4)),
-	body_literal(T, minnum, _, (A2, A4, _)).
+
 
 :-
     body_literal(T, lt_list, _, (V, S1)),
@@ -323,3 +236,21 @@ func_head(zero).
     body_literal(T, insert, _, (S1, V, S2)).
 
 % semantic-based
+
+:-
+	body_literal(T, value, _, (_, B)),
+	body_literal(T, my_prev, _, (B, _)).
+
+:-
+	body_literal(T, value, _, (_, B)),
+	body_literal(T, my_succ, _, (B, _)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, max_list, _, (C, B)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, min_list, _, (C, B)).
+
+% TODO: 1. partial order on head 2. generate the pointer literal by ASP instead of Python
