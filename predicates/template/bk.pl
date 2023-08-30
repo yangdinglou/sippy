@@ -29,3 +29,15 @@ insert(A, B, C) :-
     is_ordset(A), ord_union([B], A, C).
 
 anypointer(_).
+anynumber(_).
+
+same_ptr(A, A).
+
+ge(A, B) :-
+    A >= B.
+
+le(A, B) :-
+    A =< B.
+
+add(A, B, C) :-
+    C is A + B.

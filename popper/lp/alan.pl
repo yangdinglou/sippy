@@ -864,6 +864,7 @@ only_once(P,A):-
     not_in(P, C),
     body_literal(C, P, _, _).
 
+
 % funcional head
 :-
     func_head(Head), direction(Head, (out,)),
@@ -1018,3 +1019,61 @@ partial_le(T, A, B) :-
     body_literal(_, Head, _, (A1, B, C)),
     body_literal(_, Head, _, (A2, B, C)),
     A1 != A2.
+
+
+% For constrain generation of input pointers
+
+first_in_head(C, A):-
+    head_literal(C, _, _,Args),
+    var_pos(A, Args, 0).
+
+% main pts (not inner), input_pointer(name, type)
+
+body_pred(Name, 2) :- input_pointer(Name, _).
+direction(Name, (in, out)) :- input_pointer(Name, _).
+type(Name, (pointer, T)) :- input_pointer(Name, T).
+
+:-
+    input_pointer(Name, _),
+    head_literal(1, _, _, Args),
+    var_pos(A, Args, 0),
+    not body_literal(1, Name, _, (A, _)).
+
+:-
+    input_pointer(Name, _),
+    body_literal(T, Name, _, (A, B1)),
+    body_literal(T, Name, _, (A, B2)),
+    B1 != B2.
+
+:-
+    input_pointer(Name, _),
+    #count{A, Vars: body_literal(1, Name, A, Vars)} != 1.
+
+:-
+    input_pointer(Name, _),
+    body_literal(T, Name, _, (A, _)),
+    not first_in_head(T, A).
+
+
+%  inner pts (to be invented), inner_pointer(name, type)
+
+body_pred(Name, 2) :- inner_pointer(Name, _).
+direction(Name, (out, out)) :- inner_pointer(Name, _).
+type(Name, (pointer, T)) :- inner_pointer(Name, T).
+
+:-
+    inner_pointer(Name, _),
+    body_literal(T, Name, _, (A, B1)),
+    body_literal(T, Name, _, (A, B2)),
+    B1 != B2.
+
+:-
+    inner_pointer(Name, _),
+    body_literal(T, Name, _, (A, _)),
+    not first_in_head(T, A).
+
+% :-
+%     inner_pointer(Name, _),
+%     body_literal(T, Name, _, _),
+%     head_literal(T, P, _, _),
+%     not invented(P, _),
