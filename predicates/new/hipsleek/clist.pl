@@ -1,0 +1,1 @@
+clist(X, N):- value(X, V), next(X, Y), lseg()
