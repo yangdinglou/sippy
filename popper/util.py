@@ -242,13 +242,21 @@ def order_rule(rule):
     while body_literals:
         selected_literal = None
         for literal in body_literals:
-            if(literal.predicate.startswith('inv')):
-                filter_literal = [x for x in body_literals if not x.predicate.startswith('inv')]
-                if len(filter_literal) == 0:
-                    selected_literal = literal
-                    break
-                else:
-                    continue
+            # print("lll")
+            # print(format_literal(literal))
+            # print(len(literal.outputs))
+            # print(len(literal.arguments))
+            # print(literal.inputs)
+            # print(grounded_variables)
+            # print(literal.inputs.issubset(grounded_variables))
+            # print("------")
+            # if(literal.predicate.startswith('inv')):
+            #     filter_literal = [x for x in body_literals if not x.predicate.startswith('inv')]
+            #     if len(filter_literal) == 0:
+            #         selected_literal = literal
+            #         break
+            #     else:
+            #         continue
             if len(literal.outputs) == len(literal.arguments):
                 selected_literal = literal
                 break
@@ -265,7 +273,8 @@ def order_rule(rule):
                 selected_literal = literal
 
         if selected_literal == None:
-            message = f'{selected_literal} in clause {format_rule(rule)} could not be grounded'
+            tmpstr = ','.join(format_literal(literal) for literal in body_literals)
+            message = f'{tmpstr} in clause {format_rule(rule)} could not be grounded'
             raise ValueError(message)
 
         ordered_body.append(selected_literal)

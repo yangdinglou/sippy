@@ -109,6 +109,7 @@ eval_head(Ex, Inlist, 0, 0, Inlist) :- =(Ex, !), !.
 
 eval_head(Ex, Inlist, 0, -10, Inlist) :- functor(Ex, P, _), call(Ex), member(P,[anypointer, anycolor, anynumber]), !.
 eval_head(Ex, Inlist, 0, 4, Inlist) :- functor(Ex, P, _), call(Ex), member(P,[diff_lessthanone,ge,le]), !.
+eval_head(Ex, Inlist, 0, 2, Inlist) :- functor(Ex, P, _), call(Ex), member(P,[black,red]), !.
 eval_head(Ex, Inlist, 0, 8, Inlist) :- functor(Ex, P, _), call(Ex), member(P,[equal, min_list, delete, max_list, select, zero, one, minusone, add, minus, my_succ, my_prev, same_ptr, maxnum, minnum, gt_list, lt_list, ord_union, insert, nullptr, empty, add]), !.
 eval_head(Ex, Inlist, FactV, 0, Outlist) :- clause(Ex, true), call(Ex), append(Inlist, [Ex], Outlist), countt(Outlist, Ex, Cnt), FactV is 1/Cnt, !.
 

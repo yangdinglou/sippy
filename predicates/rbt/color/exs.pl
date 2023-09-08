@@ -1,1 +1,5 @@
-pos(rbt(p1,1,2)).
+pos(rbt(p1,1)).
+
+pos(rbt(pp1,1)).
+
+pos(rbt(p3,0)).

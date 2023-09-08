@@ -97,11 +97,12 @@ head_literal(0,P,A,Vars):-
     not enable_pi.
 
 %% ********** INVENTED RULES **********
-1 {body_literal(Rule,P,A,Vars): body_aux(P,A), vars(A,Vars), not bad_body(P,A,Vars)} M :-
+1 {body_literal(Rule,P,A,Vars): body_aux(P,A), vars(A,Vars)} M :-
     clause(Rule),
     Rule > 0,
     max_body(M),
     enable_pi.
+
 
 bad_body(P,A,Vars):-
     head_pred(P,A),
@@ -128,15 +129,15 @@ type_mismatch(P,Vars):-
     fixed_var_type(Var,T2),
     T1 != T2.
 
-calls_invented(Rule):-
-    invented(P,A),
-    body_literal(Rule,P,A,_).
-:-
-    pi,
-    not recursive,
-    head_literal(Rule,P,A,_),
-    head_pred(P,A),
-    not calls_invented(Rule).
+% calls_invented(Rule):-
+%     invented(P,A),
+%     body_literal(Rule,P,A,_).
+% :-
+%     pi,
+%     not recursive,
+%     head_literal(Rule,P,A,_),
+%     head_pred(P,A),
+%     not calls_invented(Rule).
 
 
 %% THERE IS A CLAUSE IF THERE IS A HEAD LITERAL
@@ -235,7 +236,10 @@ seen_arity(A):-
 seen_arity(A):-
     body_pred(_,A).
 max_arity(K):-
+    not max_pi_arity(_),
     #max{A : seen_arity(A)} == K.
+max_arity(K):-
+    max_pi_arity(K).
 
 %% POSSIBLE VARIABLE PERMUTATIONS FROM 1..MAX_ARITY
 vars(A,@pyvars(A,MaxVars)):-
@@ -510,6 +514,11 @@ base_clause(C,P,A):-
 :-
     C > 0,
     recursive_clause(C,P,A),
+    #count{Vars : body_literal(C,P,A,Vars)} > 2.
+
+:-
+    clause(C),
+    head_aux(P,A),
     #count{Vars : body_literal(C,P,A,Vars)} > 2.
 
 %% PREVENT LEFT RECURSION
@@ -995,11 +1004,11 @@ partial_le(T, A, B) :-
 
 
 
-% % exclusive head
-% :-
-%     exclusive_head(H1, H2),
-%     body_literal(T, H1, _, Args),
-%     body_literal(T, H2, _, Args).
+% exclusive head
+:-
+    exclusive_head(H1, H2),
+    body_literal(T, H1, _, Args),
+    body_literal(T, H2, _, Args).
 
 % injective head: kinda slow, to be checked
 :-
@@ -1077,3 +1086,36 @@ type(Name, (pointer, T)) :- inner_pointer(Name, T).
 %     body_literal(T, Name, _, _),
 %     head_literal(T, P, _, _),
 %     not invented(P, _),
+
+:-
+    invented(P, _),
+    body_literal(T, P, _, Vars1),
+    body_literal(T, P, _, Vars2),
+    Vars1 != Vars2.
+
+:-
+    invented(P, _),
+    body_literal(0, P, _, _).
+
+
+equal_var(C, Var3, Var4):-
+    equal_var(C, Var1, Var2),
+    Var1 != Var2,
+    body_literal(C, P, _, Vars1),
+    body_literal(C, P, _, Vars2),
+    var_pos(Var1, Vars1, Pos),
+    var_pos(Var2, Vars2, Pos),
+    var_pos(Var3, Vars1, Pos1),
+    var_pos(Var4, Vars2, Pos1),
+    Pos != Pos1.
+
+var_in_literal_pos(C, P, Pos, Var):-
+    body_literal(C, P, _, Vars),
+    var_pos(Var, Vars, Pos).
+
+% TODO: also consider the symmetric predicates
+:-
+    equal_var(C, Var1, Var2),
+    Var1 != Var2,
+    var_in_literal_pos(C, P, Pos, Var1),
+    not var_in_literal_pos(C, P, Pos, Var2).

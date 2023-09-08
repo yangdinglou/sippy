@@ -1,4 +1,4 @@
-
+# obsolete, replaced by the ASP predicate
 def pts_basic(names, types):
     basic_def = [f'body_pred({name}, 2).' for name in names]
     basic_direct = [f'direction({name}, (in, out)).' for name in names]

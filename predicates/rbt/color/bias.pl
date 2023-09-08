@@ -1,43 +1,49 @@
-% rbt(X, Col, Bn) :- nullptr(X), black(Col), zero(Bn).
-% rbt(X, Col, Bn) :- left(X, L), right(X, R), color(X, Col), inv1(L, R, Col, Bn).
+% rbt(X, Col) :- nullptr(X), black(Col).
+% rbt(X, Col) :- left(X, L), right(X, R), color(X, Col), inv1(L, R, Col).
 
-% inv1(L, R, Col, Bn) :- red(Col), black(C), rbt(L, C, Bn), rbt(R, C, Bn).
-% inv1(L, R, Col, Bn) :- black(Col), my_prev(Bn, Bnl), is(Bnl, Bnr), rbt(L, C1, Bnl), rbt(R, C2, Bnr), anycolor(C1), anycolor(C2).
+% inv1(L, R, Col) :- red(Col), black(C), rbt(L, C), rbt(R, C).
+% inv1(L, R, Col) :- black(Col), rbt(L, C1), rbt(R, C2), anycolor(C1), anycolor(C2).
 
 max_vars(5).
 max_body(5).
 max_clauses(4).
-% max_pi_arity(4).
+max_pi_arity(3).
 enable_recursion.
 enable_pi.
-% not_ordering.
 
 head_pred(rbt,2).
 body_pred(nullptr,1).
-body_pred(left,2).
-body_pred(right,2).
-body_pred(color,2).
+
+input_pointer(left,pointer).
+input_pointer(right,pointer).
+input_pointer(color,c).
+
 body_pred(anycolor,1).
 body_pred(black,1).
 body_pred(red,1).
 
-type(rbt,(pointer, color)).
+type(rbt,(pointer, c)).
 type(nullptr,(pointer,)).
-type(left,(pointer, pointer)).
-type(right,(pointer, pointer)).
-type(color,(pointer, color)).
-type(anycolor,(color,)).
-type(black,(color,)).
-type(red,(color,)).
+
+type(anycolor,(c,)).
+type(black,(c,)).
+type(red,(c,)).
 
 direction(rbt,(in, out)).
-direction(nullptr,(out,)).
-direction(left,(in, out)).
-direction(right,(in, out)).
-direction(color,(in, out)).
+direction(nullptr,(in,)).
+
 direction(anycolor,(in,)).
 direction(black,(out,)).
 direction(red,(out,)).
+
+:-
+    not invented(_,3).
+direction(inv1,(in,in,in)).
+% type(inv1,(pointer,pointer,c)).
+
+
+:-
+	#count{P,A,Vars : body_literal(0,P,A,Vars)} > 3.
 
 :-
     not clause(1).
@@ -59,46 +65,12 @@ direction(red,(out,)).
     not head_literal(3,P,_,_).
 
 
-% :-
-%     head_literal(1, rbt, 2, (Var,_)),
-%     not body_literal(1, left, _, (Var,_)).
-% :-
-%     #count{A, Vars: body_literal(1, left, A, Vars)} != 1.
-% :-
-%     body_literal(T, left, _, (A, B1)),
-%     body_literal(T, left, _, (A, B2)),
-%     B1 != B2.
 
-
-% :-
-%     head_literal(1, rbt, 2, (Var,_)),
-%     not body_literal(1, right, _, (Var,_)).
-% :-
-%     #count{A, Vars: body_literal(1, right, A, Vars)} != 1.
-% :-
-%     body_literal(T, right, _, (A, B1)),
-%     body_literal(T, right, _, (A, B2)),
-%     B1 != B2.
-
-
-% :-
-%     head_literal(1, rbt, 2, (Var,_)),
-%     not body_literal(1, color, _, (Var,_)).
-% :-
-%     #count{A, Vars: body_literal(1, color, A, Vars)} != 1.
-% :-
-%     body_literal(T, color, _, (A, B1)),
-%     body_literal(T, color, _, (A, B2)),
-%     B1 != B2.
 
 :-
-    #count{P,A,Vars : body_literal(0,P,A,Vars)} !=2.
-:-
-    #count{P,A,Vars : body_literal(1,P,A,Vars)} !=4.
-% :-
-%     #count{P,A,Vars : body_literal(2,P,A,Vars)} !=4.
-% :-
-%     #count{P,A,Vars : body_literal(3,P,A,Vars)} !=5.
+    body_literal(T, anycolor, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
@@ -107,30 +79,67 @@ direction(red,(out,)).
 	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
 
 % :-
-%     #count{A,Vars : body_literal(2,rbt,A,Vars)} != 2.
+%     body_literal(1, left, _, (_,Out)),
+%     body_literal(1, inv1, _, Args),
+%     not var_member(Out, Args).
+
 % :-
-%     #count{A,Vars : body_literal(3,rbt,A,Vars)} != 2.
+%     body_literal(1, right, _, (_,Out)),
+%     body_literal(1, inv1, _, Args),
+%     not var_member(Out, Args).
+
+% :-
+%     body_literal(1, color, _, (_,Out)),
+%     body_literal(1, inv1, _, Args),
+%     not var_member(Out, Args).
+
+
+
+% :-
+% 	#count{A,Vars : body_literal(2,rbt,A,Vars)} != 2.
+
+% :-
+% 	#count{A,Vars : body_literal(3,rbt,A,Vars)} != 2.
+
+func_head(rbt).
+func_head(black).
+func_head(red).
+not_in(left,0).
+not_in(right,0).
+not_in(color,0).
+not_in(nullptr,1).
+not_in(left,2).
+not_in(right,2).
+not_in(color,2).
+not_in(nullptr,2).
+not_in(left,3).
+not_in(right,3).
+not_in(color,3).
+not_in(nullptr,3).
 
 :-
-    head_literal(T, P, A, _),
-    body_literal(T, P, A, _).
-% :-
-% 	#count{A,Vars : body_literal(2,left,A,Vars)} > 0.
+    body_literal(T, left, _, (A, B)),
+    body_literal(T, right, _, (A, B)).
 
-% :-
-% 	#count{A,Vars : body_literal(2,right,A,Vars)} > 0.
+:- 
+    head_literal(T, inv1, _ ,(A,_,_)),
+    not body_literal(T, rbt, _, (A,_)).
 
-% :-
-% 	#count{A,Vars : body_literal(3,left,A,Vars)} > 0.
+:- 
+    head_literal(T, inv1, _ ,_),
+    body_literal(T, inv1, _, _).
 
-% :-
-% 	#count{A,Vars : body_literal(3,right,A,Vars)} > 0.
+:- 
+    head_literal(T, rbt, _ ,_),
+    body_literal(T, rbt, _, _).
 
-% :-
-% 	#count{A,Vars : body_literal(1,nullptr,A,Vars)} > 0.
+equal_var(C, A, B):- head_literal(C, inv1, _ ,(A,B,_)).
+equal_var(C, A, B):- head_literal(C, inv1, _ ,(A,B)).
 
-% :-
-% 	#count{A,Vars : body_literal(2,nullptr,A,Vars)} > 0.
+exclusive_head(black, red).
+exclusive_head(red, anycolor).
+exclusive_head(black, anycolor).
 
-% :-
-% 	#count{A,Vars : body_literal(3,nullptr,A,Vars)} > 0.
+
+:- not body_literal(_,black,_,_).
+:- not body_literal(_,red,_,_).

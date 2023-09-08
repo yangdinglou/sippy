@@ -258,6 +258,7 @@ class Generator:
         else:
             # solver = clingo.Control(["-t4"])
             # solver = clingo.Control([])
+            # jumpy, tweety, trendy, crafty, handy
             solver = clingo.Control(['-Wnone',"-t8"])
             NUM_OF_LITERALS = """
             %%% External atom for number of literals in the program %%%%%
@@ -825,7 +826,7 @@ class Grounder():
 
         # print('ASDASDA')
         # solver = clingo.Control()
-        solver = clingo.Control(['-Wnone','-t8'])
+        solver = clingo.Control(['-Wnone'])
         # solver = clingo.Control(["-t4"])
         # ask for all models
         solver.configuration.solve.models = 0
