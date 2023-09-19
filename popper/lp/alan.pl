@@ -19,6 +19,7 @@
 #show direction_/3.
 #show before/2.
 #show size/1.
+#show tmpout/1.
 
 #heuristic size(N). [1000-N,true]
 
@@ -224,6 +225,9 @@ var_in_literal(C,P,Vars,Var):-
     body_literal(C,P,_,Vars),
     var_member(Var,Vars).
 
+
+tmpout(N):- #max{Var: var_in_literal(_,_,_,Var)} ==N.
+
 %% HEAD VARS ARE ALWAYS 0,1,...,A-1
 head_vars(A,@pyhead_vars(A)):-
     head_pred(_,A).
@@ -240,6 +244,15 @@ max_arity(K):-
     #max{A : seen_arity(A)} == K.
 max_arity(K):-
     max_pi_arity(K).
+
+:-
+    max_pi_arity(K),
+    not invented(_,K).
+
+direction_(inv1,Pos,in):-
+    max_pi_arity(K),
+    Pos = 0..K-1.
+
 
 %% POSSIBLE VARIABLE PERMUTATIONS FROM 1..MAX_ARITY
 vars(A,@pyvars(A,MaxVars)):-
@@ -1097,6 +1110,15 @@ type(Name, (pointer, T)) :- inner_pointer(Name, T).
     invented(P, _),
     body_literal(0, P, _, _).
 
+:-
+    invented(P, _),
+    direction(P_bad, (out,)),
+    body_literal(C1, P_bad, _, (Var_bad1,)),
+    var_in_head_pos(C1, P, Pos, Var_bad),
+    body_literal(C2, P_bad, _, (Var_bad2,)),
+    var_in_body_pos(C2, P, Pos, Var_bad2).
+
+
 
 equal_var(C, Var3, Var4):-
     equal_var(C, Var1, Var2),
@@ -1109,13 +1131,40 @@ equal_var(C, Var3, Var4):-
     var_pos(Var4, Vars2, Pos1),
     Pos != Pos1.
 
-var_in_literal_pos(C, P, Pos, Var):-
+var_in_body_pos(C, P, Pos, Var):-
     body_literal(C, P, _, Vars),
     var_pos(Var, Vars, Pos).
+var_in_head_pos(C, P, Pos, Var):-
+    head_literal(C, P, _, Vars),
+    var_pos(Var, Vars, Pos).
+
+:-
+    var_in_body_pos(C, P, Pos1, Varp),
+    direction_(P, Pos1, in),
+    var_in_body_pos(C, Q, Pos2, Varq),
+    direction_(Q, Pos2, in),
+    var_in_body_pos(C, Q, Pos3, Varp),
+    direction_(Q, Pos3, out),
+    var_in_body_pos(C, P, Pos4, Varq),
+    direction_(P, Pos4, out).
+
 
 % TODO: also consider the symmetric predicates
 :-
     equal_var(C, Var1, Var2),
     Var1 != Var2,
-    var_in_literal_pos(C, P, Pos, Var1),
-    not var_in_literal_pos(C, P, Pos, Var2).
+    not invented(P, _),
+    not equal_pts(P,_),
+    not equal_pts(_,P),
+    var_in_body_pos(C, P, Pos, Var1),
+    not var_in_body_pos(C, P, Pos, Var2).
+
+equal_var(C, Var1, Var2):- equal_pts(Pt1,Pt2), body_literal(C, Pt1, _, (A,Var1)), body_literal(C, Pt2, _, (A,Var2)).
+
+equal_var(C, Var1, Var2):-
+    invented(P, _),
+    var_in_head_pos(C, P, Pos1, Var1),
+    var_in_head_pos(C, P, Pos2, Var2),
+    equal_var(C_b, Var1_b, Var2_b),
+    var_in_body_pos(C_b, P, Pos1, Var1_b),
+    var_in_body_pos(C_b, P, Pos2, Var2_b),

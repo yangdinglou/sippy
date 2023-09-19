@@ -151,6 +151,8 @@ def parse_model(model):
             rule1 = args[0].number
             rule2 = args[1].number
             rule_index_ordering[rule1].add(rule2)
+        elif atom.name == 'tmpout':
+            num_of_var = args[0].number
 
     prog = []
     rule_lookup = {}
@@ -173,7 +175,7 @@ def parse_model(model):
         r1 = rule_lookup[r1_index]
         rule_ordering[r1] = set(rule_lookup[r2_index] for r2_index in lower_rule_indices)
 
-    return frozenset(prog), rule_ordering, directions, new_constraint
+    return frozenset(prog), rule_ordering, directions, new_constraint, num_of_var
 
 def build_rule_literals(rule, rule_var):
     literals = []
@@ -265,9 +267,26 @@ class Generator:
             #external size_in_literals(n).
             :-
                 size_in_literals(n),
-                #sum{K+1,Clause : body_size(Clause,K)} != n.
+                #sum{K+1,Clause : body_size(Clause,K)} > n.
+            """
+
+            MAX_LENGTH = """
+            %%% External atom for max length in the program %%%%%
+            #external max_length(m).
+            :-
+                max_length(m),
+                #max{N : body_size(_,N)} > m.
+            """
+            MAX_VAR = """
+            %%% External atom for max length in the program %%%%%
+            #external max_var(o).
+            :-
+                max_var(o),
+                #max{Var: var_in_literal(_,_,_,Var)} > o.
             """
             solver.add('number_of_literals', ['n'], NUM_OF_LITERALS)
+            solver.add('mx_length', ['m'], MAX_LENGTH)
+            solver.add('mx_var', ['o'], MAX_VAR)
 
         solver.configuration.solve.models = 0
         solver.add('base', [], encoding)
@@ -367,6 +386,42 @@ class Generator:
         symbol = clingo.Function('size_in_literals', [clingo.Number(size)])
         self.solver.assign_external(symbol, True)
 
+    def update_mx_length(self, length):
+        # 1. Release those that have already been assigned
+        for atom, truth_value in self.assigned.items():
+            if atom[0] == 'max_length' and truth_value:
+                self.assigned[atom] = False
+                symbol = clingo.Function('max_length', [clingo.Number(atom[1])])
+                self.solver.release_external(symbol)
+
+        # 2. Ground the new size
+        self.solver.ground([('mx_length', [clingo.Number(length)])])
+
+        # 3. Assign the new size
+        self.assigned[('max_length', length)] = True
+
+        # @NOTE: Everything passed to Clingo must be Symbol. Refactor after
+        # Clingo updates their cffi API
+        symbol = clingo.Function('size_in_literals', [clingo.Number(length)])
+        self.solver.assign_external(symbol, True)
+    def update_mx_var(self, num):
+        # 1. Release those that have already been assigned
+        for atom, truth_value in self.assigned.items():
+            if atom[0] == 'max_var' and truth_value:
+                self.assigned[atom] = False
+                symbol = clingo.Function('max_var', [clingo.Number(atom[1])])
+                self.solver.release_external(symbol)
+
+        # 2. Ground the new size
+        self.solver.ground([('mx_var', [clingo.Number(num)])])
+
+        # 3. Assign the new size
+        self.assigned[('max_var', num)] = True
+
+        # @NOTE: Everything passed to Clingo must be Symbol. Refactor after
+        # Clingo updates their cffi API
+        symbol = clingo.Function('num_of_vars', [clingo.Number(num)])
+        self.solver.assign_external(symbol, True)
     def get_ground_rules(self, rule):
         head, body = rule
         # find bindings for variables in the rule

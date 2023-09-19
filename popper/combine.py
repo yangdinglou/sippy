@@ -60,6 +60,9 @@ class Combiner:
         self.num_covered = 0
         self.max_size = None
 
+        self.max_body = 0
+        self.max_var = 0
+
         self.constraints = set()
         self.rulehash_to_id = {}
         self.ruleid_to_rule = {}
@@ -321,7 +324,7 @@ class Combiner:
                 if specv > self.best_specv:
                     return True
         return False
-    def update_best_prog(self, prog, pos_covered, current_cons):
+    def update_best_prog(self, prog, pos_covered, current_cons, num_of_var):
         if self.settings.threshold == 0:
             # with self.settings.stats.duration('combine_update_prog_index'):
             self.update_prog_index(prog, pos_covered)
@@ -399,6 +402,8 @@ class Combiner:
             self.settings.solution = prog
             self.settings.best_cons = current_cons
             size = prog_size(prog)
+            self.max_body = max(rule_size(rule) for rule in prog) - 1
+            self.max_var = num_of_var
 
             tn = self.tester.num_neg
             fp = 0
