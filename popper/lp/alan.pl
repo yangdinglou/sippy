@@ -18,12 +18,15 @@
 #show body_literal/4.
 #show direction_/3.
 #show before/2.
-#show size/1.
+% #show size/1.
 #show tmpout/1.
+% #show var_in_literal/4.
 
 #heuristic size(N). [1000-N,true]
 
 :- #sum{K+1,Clause : body_size(Clause,K)} > (b+5)*c/2, max_body(b), max_clauses(c).
+
+
 
 max_size(K):-
     custom_max_size(K).
@@ -1076,6 +1079,16 @@ type(Name, (pointer, T)) :- input_pointer(Name, T).
     body_literal(T, Name, _, (A, _)),
     not first_in_head(T, A).
 
+not_in(Name, 0):-
+    input_pointer(Name, _).
+    
+
+not_in(Name, 2):-
+    input_pointer(Name, _).
+
+not_in(Name, 3):-
+    input_pointer(Name, _).
+
 
 %  inner pts (to be invented), inner_pointer(name, type)
 
@@ -1093,6 +1106,12 @@ type(Name, (pointer, T)) :- inner_pointer(Name, T).
     inner_pointer(Name, _),
     body_literal(T, Name, _, (A, _)),
     not first_in_head(T, A).
+
+not_in(Name, 0):-
+    inner_pointer(Name, _).
+
+not_in(Name, 1):-
+    inner_pointer(Name, _).
 
 % :-
 %     inner_pointer(Name, _),

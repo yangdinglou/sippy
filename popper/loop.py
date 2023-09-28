@@ -154,10 +154,10 @@ def popper(settings):
 
     have_a_solution = False
 
-    current_body = 2
+    current_body = 3
     current_var = 2
     
-    mx_body = 2
+    mx_body = 3
     mx_var = 2
 
 
@@ -165,10 +165,10 @@ def popper(settings):
         max_size = (5 + mx_body) * int(settings.max_rules/2)
         min_size = (3 + current_body) * int(settings.max_rules/2)
         for size in range(min_size,max_size+1):
-            settings.logger.info(f'SIZE: {size} MAX_LENGTH: {mx_body} MAX_VAR: {mx_var}')
-            generator.update_number_of_literals(size)
-            generator.update_mx_length(mx_body)
-            generator.update_mx_var(mx_var)
+            settings.logger.info(f'SIZE: {size} MAX_LENGTH: {mx_body} MAX_VAR: {mx_var+1}')
+            generator.update_number_of_literals(size, mx_body, mx_var)
+            # generator.update_mx_length(mx_body)
+            # generator.update_mx_var(mx_var)
             with settings.stats.duration('init'):
                 generator.update_solver(size, all_handles, bad_handles, all_ground_cons)
 
@@ -205,6 +205,7 @@ def popper(settings):
                         settings.logger.debug(f'Program {settings.stats.total_programs}:')
                         for rule in order_prog(prog):
                             settings.logger.debug(format_rule(order_rule(rule)))
+                        # settings.logger.debug(num_of_var)
 
                     # TEST A PROGRAM
                     with settings.stats.duration('test'):
@@ -419,12 +420,13 @@ def popper(settings):
                     # CONSTRAIN
                     constrain(settings, new_cons, generator, all_ground_cons, cached_clingo_atoms, model, new_ground_cons)
             # update current_body and current_var when we find a solution have_a_solution
-
+        if mx_var > 11:
+            break
         if not have_a_solution:
             mx_body += 1
             mx_var += 1
         else:
-            if mx_body == current_body + 2 and mx_var == current_var + 1:
+            if mx_body >= current_body + 2 and mx_var >= current_var + 1:
                 break
             mx_body = current_body + 2
             mx_var = current_var + 1
