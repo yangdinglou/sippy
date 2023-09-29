@@ -272,13 +272,11 @@ class Generator:
                 #sum{K+1,Clause : body_size(Clause,K)} != n.
 
             #external max_length(m).
-            #show max_length/1.
             :-
                 max_length(m),
-                #max{N, C : body_size(C,N)} > m.
+                #max{N : body_size(_,N)} > m.
                 
             #external max_var(o).
-            #show max_var/1.
             :-
                 max_var(o),
                 var_in_literal(_,_,_,o).
@@ -366,20 +364,23 @@ class Generator:
         # for x in set(handle for handle, rule in handles):
         self.seen_handles.update(new_seen_rules)
 
-    # n  
     def update_number_of_literals(self, size, length, num_of_var): 
+
         # 1. Release those that have already been assigned
         for atom, truth_value in self.assigned.items():
             if atom[0] == 'size_in_literals' and truth_value:
                 self.assigned[atom] = False
+                # print(f"release{atom}")
                 symbol = clingo.Function('size_in_literals', [clingo.Number(atom[1])])
                 self.solver.release_external(symbol)
-            if atom[0] == 'max_length' and truth_value:
+            if atom[0] == 'max_length' and truth_value and atom[1] != length:
                 self.assigned[atom] = False
+                # print(f"release{atom}")
                 symbol = clingo.Function('max_length', [clingo.Number(atom[1])])
                 self.solver.release_external(symbol)
-            if atom[0] == 'max_var' and truth_value:
+            if atom[0] == 'max_var' and truth_value and atom[1] != num_of_var:
                 self.assigned[atom] = False
+                # print(f"release{atom}")
                 symbol = clingo.Function('max_var', [clingo.Number(atom[1])])
                 self.solver.release_external(symbol)
 
@@ -399,44 +400,18 @@ class Generator:
         self.solver.assign_external(symbol1, True)
         self.solver.assign_external(symbol2, True)
         self.solver.assign_external(symbol3, True)
-    # m
-    def update_mx_length(self, length):
-        # 1. Release those that have already been assigned
-        for atom, truth_value in self.assigned.items():
-            if atom[0] == 'max_length' and truth_value:
-                self.assigned[atom] = False
-                symbol = clingo.Function('max_length', [clingo.Number(atom[1])])
-                self.solver.release_external(symbol)
+        # print("after")
+        # print("size")
+        # for x in self.solver.symbolic_atoms.by_signature('size_in_literals', arity=1):
+        #     print(x.symbol.arguments[0].number)
+        # print("length")
+        # for x in self.solver.symbolic_atoms.by_signature('max_length', arity=1):
+        #     print(x.symbol.arguments[0].number)
+        # print("var")
+        # for x in self.solver.symbolic_atoms.by_signature('max_var', arity=1):
+        #     print(x.symbol.arguments[0].number)
 
-        # 2. Ground the new size
-        self.solver.ground([('mx_length', [clingo.Number(length)])])
 
-        # 3. Assign the new size
-        self.assigned[('max_length', length)] = True
-
-        # @NOTE: Everything passed to Clingo must be Symbol. Refactor after
-        # Clingo updates their cffi API
-        symbol = clingo.Function('max_length', [clingo.Number(length)])
-        self.solver.assign_external(symbol, True)
-    # o
-    def update_mx_var(self, num):
-        # 1. Release those that have already been assigned
-        for atom, truth_value in self.assigned.items():
-            if atom[0] == 'max_var' and truth_value:
-                self.assigned[atom] = False
-                symbol = clingo.Function('max_var', [clingo.Number(atom[1])])
-                self.solver.release_external(symbol)
-
-        # 2. Ground the new size
-        self.solver.ground([('mx_var', [clingo.Number(num)])])
-
-        # 3. Assign the new size
-        self.assigned[('max_var', num)] = True
-
-        # @NOTE: Everything passed to Clingo must be Symbol. Refactor after
-        # Clingo updates their cffi API
-        symbol = clingo.Function('max_var', [clingo.Number(num)])
-        self.solver.assign_external(symbol, True)
     def get_ground_rules(self, rule):
         head, body = rule
         # find bindings for variables in the rule

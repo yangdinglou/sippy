@@ -1,9 +1,3 @@
-% p(A,B):-nullptr(A),empty(B).
-% p(A,B) :- left(A,L),right(A,R), 
-% height(L, H1), height(R, H2), diff_lessthanone(H1,H2),height(A,H), my_prev(H, MaxH), maxnum(MaxH, H1, H2),
-% p(L,C),p(R,E), value(A,D),gt_list(D, C),lt_list(D, E),ord_union(C,E,Tmp),insert(Tmp,D,B).
-%  python popper.py ./examples/predicate-infer/srtl2/ --info --eval-timeout=10 --stats
-
 max_vars(8).
 max_body(9).
 max_clauses(2).
@@ -112,9 +106,11 @@ direction(insert,(in,in,out)).
     body_literal(T, value, _, (A, B2)),
     B1 != B2.
 
+ 
 :-
     body_literal(T, anypointer, _, (A,)),
     not head_var(T, A).
+
 :-
     body_literal(T, anypointer, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.

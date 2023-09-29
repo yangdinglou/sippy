@@ -379,7 +379,7 @@ def popper(settings):
                         if new_solution_found:
                             have_a_solution = True
                             current_body = combiner.max_body
-                            current_var = combiner.max_var
+                            current_var = combiner.max_var + 1 #start from 0
                         if settings.threshold == 0:
                             return
                         else:
@@ -428,6 +428,7 @@ def popper(settings):
         else:
             if mx_body >= current_body + 2 and mx_var >= current_var + 1:
                 break
+            print(f'current_body: {current_body} current_var: {current_var}')
             mx_body = current_body + 2
             mx_var = current_var + 1
 

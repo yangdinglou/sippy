@@ -70,9 +70,9 @@ type(insert,(set,integer,set)).
 
 direction(p,(in,out)).
 
-direction(anypointer, (out,)).
+direction(anypointer, (in,)).
 direction(anynumber, (in,)).
-direction(nullptr,(out,)).
+direction(nullptr,(in,)).
 direction(zero,(out,)).
 direction(diff_lessthanone,(in,in)).
 direction(my_succ,(in,out)).
@@ -104,11 +104,10 @@ direction(insert,(in,in,out)).
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-:-
-	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
 :-
-	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
+	not null,
+	not eq.
 
 :-
     body_literal(T, nullptr, _, (A,)),

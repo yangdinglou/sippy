@@ -1054,6 +1054,18 @@ first_in_head(C, A):-
 
 % main pts (not inner), input_pointer(name, type)
 
+var_in_body_pos(C, P, Pos, Var):-
+    body_literal(C, P, _, Vars),
+    var_pos(Var, Vars, Pos).
+var_in_head_pos(C, P, Pos, Var):-
+    head_literal(C, P, _, Vars),
+    var_pos(Var, Vars, Pos).
+    
+out_from_this(C, Arg):-
+    var_in_body_pos(C, P, 1, Arg),
+    input_pointer(P, _).
+
+
 body_pred(Name, 2) :- input_pointer(Name, _).
 direction(Name, (in, out)) :- input_pointer(Name, _).
 type(Name, (pointer, T)) :- input_pointer(Name, T).
@@ -1078,6 +1090,12 @@ type(Name, (pointer, T)) :- input_pointer(Name, T).
     input_pointer(Name, _),
     body_literal(T, Name, _, (A, _)),
     not first_in_head(T, A).
+
+:-
+    head_literal(1, Head, _, _),
+    body_literal(1, Head, _, Args),
+    var_pos(A, Args, 0),
+    not out_from_this(1, A).
 
 not_in(Name, 0):-
     input_pointer(Name, _).
@@ -1150,12 +1168,7 @@ equal_var(C, Var3, Var4):-
     var_pos(Var4, Vars2, Pos1),
     Pos != Pos1.
 
-var_in_body_pos(C, P, Pos, Var):-
-    body_literal(C, P, _, Vars),
-    var_pos(Var, Vars, Pos).
-var_in_head_pos(C, P, Pos, Var):-
-    head_literal(C, P, _, Vars),
-    var_pos(Var, Vars, Pos).
+
 
 :-
     var_in_body_pos(C, P, Pos1, Varp),
@@ -1167,6 +1180,9 @@ var_in_head_pos(C, P, Pos, Var):-
     var_in_body_pos(C, P, Pos4, Varq),
     direction_(P, Pos4, out).
 
+:-
+    var(Var), clause(C),
+    #count{Vars: body_literal(C, P, _, Vars), var_pos(Var, Vars, Pos1), direction_(P, Pos1, out)}>1.
 
 % TODO: also consider the symmetric predicates
 :-
@@ -1186,4 +1202,8 @@ equal_var(C, Var1, Var2):-
     var_in_head_pos(C, P, Pos2, Var2),
     equal_var(C_b, Var1_b, Var2_b),
     var_in_body_pos(C_b, P, Pos1, Var1_b),
-    var_in_body_pos(C_b, P, Pos2, Var2_b),
+    var_in_body_pos(C_b, P, Pos2, Var2_b).
+
+
+null:-body_literal(0,nullptr,_,(Var,)), head_var(0, Var).
+eq:-body_literal(0,same_ptr,_,(Var1,_)), head_var(0, Var1).

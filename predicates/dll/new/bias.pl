@@ -56,9 +56,11 @@ direction(anypointer, (out, )).
 :-
 	#count{A,Vars : body_literal(1,prev,A,Vars)} != 1.
 
+ 
 :-
     body_literal(T, anypointer, _, (A,)),
     not head_var(T, A).
+
 :-
     body_literal(T, anypointer, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.

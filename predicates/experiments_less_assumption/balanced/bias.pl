@@ -70,9 +70,11 @@ direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
 direction(insert,(in,in,out)).
 
+ 
 :-
     body_literal(T, anypointer, _, (A,)),
     not head_var(T, A).
+
 :-
     body_literal(T, anypointer, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.

@@ -36,9 +36,9 @@ direction(anycolor,(in,)).
 direction(black,(out,)).
 direction(red,(out,)).
 
-:-
-    not invented(_,3).
-direction(inv1,(in,in,in)).
+% :-
+%     not invented(_,3).
+% direction(inv1,(in,in,in)).
 % type(inv1,(pointer,pointer,c)).
 
 
@@ -78,44 +78,22 @@ direction(inv1,(in,in,in)).
 :-
 	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
 
-% :-
-%     body_literal(1, left, _, (_,Out)),
-%     body_literal(1, inv1, _, Args),
-%     not var_member(Out, Args).
-
-% :-
-%     body_literal(1, right, _, (_,Out)),
-%     body_literal(1, inv1, _, Args),
-%     not var_member(Out, Args).
-
-% :-
-%     body_literal(1, color, _, (_,Out)),
-%     body_literal(1, inv1, _, Args),
-%     not var_member(Out, Args).
-
-
-
-% :-
-% 	#count{A,Vars : body_literal(2,rbt,A,Vars)} != 2.
-
-% :-
-% 	#count{A,Vars : body_literal(3,rbt,A,Vars)} != 2.
 
 func_head(rbt).
 func_head(black).
 func_head(red).
-not_in(left,0).
-not_in(right,0).
-not_in(color,0).
-not_in(nullptr,1).
-not_in(left,2).
-not_in(right,2).
-not_in(color,2).
-not_in(nullptr,2).
-not_in(left,3).
-not_in(right,3).
-not_in(color,3).
-not_in(nullptr,3).
+% not_in(left,0).
+% not_in(right,0).
+% not_in(color,0).
+% not_in(nullptr,1).
+% not_in(left,2).
+% not_in(right,2).
+% not_in(color,2).
+% not_in(nullptr,2).
+% not_in(left,3).
+% not_in(right,3).
+% not_in(color,3).
+% not_in(nullptr,3).
 
 :-
     body_literal(T, left, _, (A, B)),
@@ -133,8 +111,10 @@ not_in(nullptr,3).
     head_literal(T, rbt, _ ,_),
     body_literal(T, rbt, _, _).
 
-equal_var(C, A, B):- head_literal(C, inv1, _ ,(A,B,_)).
-equal_var(C, A, B):- head_literal(C, inv1, _ ,(A,B)).
+% equal_var(C, A, B):- head_literal(C, inv1, _ ,(A,B,_)).
+% equal_var(C, A, B):- head_literal(C, inv1, _ ,(A,B)).
+
+equal_pts(left,right).
 
 exclusive_head(black, red).
 exclusive_head(red, anycolor).

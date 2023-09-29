@@ -1,14 +1,25 @@
 
-max_vars(7).
-max_body(7).
 max_clauses(2).
 enable_recursion.
 
-head_pred(f,2).
-type(f,(pointer,set)).
-direction(f,(in,out)).
-input_pointer(next, pointer).
-input_pointer(value, integer).
+head_pred(p,3).
+type(p,(pointer,pointer,set)).
+direction(p,(in,in,out)).
+
+input_pointer(left,pointer).
+input_pointer(right,pointer).
+input_pointer(back,pointer).
+input_pointer(value,integer).
+
+
+:-
+	head_literal(1, p, _, (_,_, B1)),
+	body_literal(1, p, _, (_,_, B2)),
+	not partial_le(1, B2, B1).
+
+% not_in(value, 0).
+% not_in(left, 0).
+% not_in(right, 0).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -20,7 +31,6 @@ body_pred(my_prev,2).
 body_pred(maxnum,3).
 body_pred(same_ptr,2).
 body_pred(ge,2).
-% body_pred(add,3).
 
 not_in(anypointer, 1).
 not_in(anynumber, 0).
@@ -29,7 +39,7 @@ not_in(zero, 1).
 not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
 not_in(same_ptr, 1).
-not_in(ge, 0).
+
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -46,10 +56,6 @@ not_in(gt_list, 0).
 not_in(lt_list, 0).
 not_in(ord_union, 0).
 not_in(insert, 0).
-
-
-
-
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -109,11 +115,8 @@ direction(insert,(in,in,out)).
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-:-
-	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
-:-
-	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
+:- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
 
 :-
     body_literal(T, nullptr, _, (A,)),
@@ -137,11 +140,11 @@ partial_head(ge).
 
 func_head(insert).
 
-% :-
-%     body_literal(T, insert, _, (A1, B1, C1)),
-%     body_literal(T, insert, _, (A2, B2, C2)),
-% 	C1 == A2,
-% 	B1 == B2.
+:-
+    body_literal(T, insert, _, (A1, B1, C1)),
+    body_literal(T, insert, _, (A2, B2, C2)),
+	C1 == A2,
+	B1 == B2.
 
 
 :-

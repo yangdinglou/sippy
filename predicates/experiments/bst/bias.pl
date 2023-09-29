@@ -1,31 +1,32 @@
-max_vars(8).
-max_body(9).
 max_clauses(2).
 enable_recursion.
 
 head_pred(p,2).
-body_pred(value,2).
-body_pred(left,2).
-body_pred(right,2).
 
-not_in(value, 0).
-not_in(left, 0).
-not_in(right, 0).
+input_pointer(left,pointer).
+input_pointer(right,pointer).
+input_pointer(value,integer).
 
 body_pred(anypointer, 1).
+body_pred(anynumber, 1).
 body_pred(nullptr,1).
 body_pred(zero,1).
 body_pred(diff_lessthanone,2).
 body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
-body_pred(minnum,3).
+body_pred(same_ptr,2).
+body_pred(ge,2).
+% body_pred(add,3).
 
+not_in(anypointer, 1).
+not_in(anynumber, 0).
 not_in(nullptr, 1).
 not_in(zero, 1).
 not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
-not_in(minnum, 0).
+not_in(same_ptr, 1).
+not_in(ge, 0).
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -45,20 +46,19 @@ not_in(insert, 0).
 
 
 
-
 type(p,(pointer,set)).
-type(value,(pointer,integer)).
-type(left,(pointer,pointer)).
-type(right,(pointer,pointer)).
 
 type(anypointer,(pointer,)).
+type(anynumber,(integer,)).
 type(nullptr,(pointer,)).
 type(zero,(integer,)).
 type(diff_lessthanone,(integer,integer)).
 type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
-type(minnum,(integer,integer,integer)).
+type(same_ptr,(pointer,pointer)).
+type(ge,(integer,integer)).
+type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
@@ -69,19 +69,21 @@ type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
 
-direction(p,(in,out)).
-direction(value,(in,out)).
-direction(left,(in,out)).
-direction(right,(in,out)).
 
-direction(anypointer, (out,)).
-direction(nullptr,(out,)).
+direction(p,(in,out)).
+
+direction(anypointer, (in,)).
+direction(anynumber, (in,)).
+direction(nullptr,(in,)).
 direction(zero,(out,)).
 direction(diff_lessthanone,(in,in)).
 direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
 direction(maxnum,(in,in,out)).
-direction(minnum,(in,in,out)).
+direction(same_ptr,(in,in)).
+direction(ge,(in,in)).
+direction(add,(in,in,out)).
+
 
 direction(empty,(out,)).
 direction(min_list,(in,in)).
@@ -93,86 +95,142 @@ direction(insert,(in,in,out)).
 
 
 :-
-    head_literal(1, p, 2, (Var,_)),
-    not body_literal(1, left, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, left, A, Vars)} != 1.
-:-
-    body_literal(T, left, _, (A, B1)),
-    body_literal(T, left, _, (A, B2)),
-    B1 != B2.
+	head_literal(1, p, _, (A, B1)),
+	body_literal(1, p, _, (_, B2)),
+	not partial_le(1, B2, B1).
 
-
-:-
-    head_literal(1, p, 2, (Var,_)),
-    not body_literal(1, right, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, right, A, Vars)} != 1.
-:-
-    body_literal(T, right, _, (A, B1)),
-    body_literal(T, right, _, (A, B2)),
-    B1 != B2.
-
-
-:-
-    head_literal(1, p, 2, (Var,_)),
-    not body_literal(1, value, _, (Var,_)).
-:-
-    #count{A, Vars: body_literal(1, value, A, Vars)} != 1.
-:-
-    body_literal(T, value, _, (A, B1)),
-    body_literal(T, value, _, (A, B2)),
-    B1 != B2.
 
 :-
     body_literal(T, anypointer, _, (A,)),
     not head_var(T, A).
+
 :-
     body_literal(T, anypointer, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 :-
-    #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
+    body_literal(T, anynumber, _, (A,)),
+    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-:-
-	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
-:-
-	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
+
+:- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
 
 :-
     body_literal(T, nullptr, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-
-% :-
-%     not clause(1).
+:-
+	#count{P,A,Vars : body_literal(0,P,A,Vars)} > 3.
 
 
 
 func_head(min_list).
 func_head(max_list).
 func_head(ord_union).
-
-
 partial_head(ord_union).
-
-
-
-
 symmetric_head(ord_union).
-
-
 injective_head(ord_union).
+
+symmetric_head(same_ptr).
+partial_head(ge).
 
 func_head(insert).
 
-:-
-    body_literal(T, insert, _, (A1, B1, C1)),
-    body_literal(T, insert, _, (A2, B2, C2)),
-	C1 == A2,
-	B1 == B2.
 
+func_head(maxnum).
+partial_head(maxnum).
+injective_head(maxnum).
+symmetric_head(maxnum).
+
+symmetric_head(diff_lessthanone).
+
+
+func_head(my_prev).
+func_head(my_succ).
+injective_head(my_succ).
+injective_head(my_prev).
+func_head(zero).
+
+
+
+
+
+
+:-
+    body_literal(C, maxnum, _, (_, _, V)),
+    #count{P,Vars : body_literal(C,P,_,Vars), var_pos(V, Vars, Pos), direction_(P, Pos, in)} > 1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+% semantic-based
+:-
+	body_literal(T, my_prev, _, (A1, A2)), 
+	body_literal(T, diff_lessthanone, _, (A1, A2)).
+
+:-
+	body_literal(T, my_prev, _, (A1, A2)), 
+	body_literal(T, diff_lessthanone, _, (A2, A1)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)), 
+	body_literal(T, diff_lessthanone, _, (A1, A2)).
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)), 
+	body_literal(T, diff_lessthanone, _, (A2, A1)).
+
+:-
+	body_literal(T, my_prev, _, (_, A2)),
+	body_literal(T, my_prev, _, (_, A4)),
+	body_literal(T, diff_lessthanone, _, (A2, A4)).
+
+:-
+	body_literal(T, my_succ, _, (_, A2)),
+	body_literal(T, my_succ, _, (_, A4)),
+	body_literal(T, diff_lessthanone, _, (A2, A4)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, max_list, _, (C, B)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, min_list, _, (C, B)).
+
+:-
+    body_literal(T, lt_list, _, (V, S1)),
+    body_literal(T, min_list, _, (S2, V)),
+    body_literal(T, insert, _, (S1, V, S2)).
+
+:-
+    body_literal(T, gt_list, _, (V, S1)),
+    body_literal(T, max_list, _, (S2, V)),
+    body_literal(T, insert, _, (S1, V, S2)).
+
+:-
+	body_literal(T, my_succ, _, (_, A)),
+	body_literal(T, my_prev, _, (A, _)).
+
+:-
+	body_literal(T, my_prev, _, (_, A)),
+	body_literal(T, my_succ, _, (A, _)).
+
+
+:-
+	body_literal(T, my_succ, _, (A1, A2)),
+	body_literal(T, my_succ, _, (A3, A4)),
+	body_literal(T, maxnum, _, (A2, A4, _)).
 
 :-
 	body_literal(T, insert, _, (_, _, C)),
@@ -182,18 +240,19 @@ func_head(insert).
 	body_literal(T, insert, _, (_, _, C)),
 	body_literal(T, ord_union, _, (C, _, _)).
 
-func_head(maxnum).
-partial_head(maxnum).
+:-
+    body_literal(T, insert, _, (A1, B1, C1)),
+    body_literal(T, insert, _, (A2, B2, C2)),
+	C1 == A2,
+	B1 == B2.
 
+:-
+	body_literal(T, my_succ, _, (_, A)),
+	body_literal(T, gt_list, _, (A, _)).
 
-
-injective_head(maxnum).
-
-symmetric_head(maxnum).
-
-
-
-symmetric_head(diff_lessthanone).
+:-
+	body_literal(T, my_prev, _, (_, A)),
+	body_literal(T, lt_list, _, (A, _)).
 
 :-
 	body_literal(T, diff_lessthanone, _, (A1, A2)),
@@ -211,114 +270,4 @@ symmetric_head(diff_lessthanone).
 	body_literal(T, diff_lessthanone, _, (A1, A2)),
 	body_literal(T, maxnum, _, (_, A2, A1)).
 
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (A1, _, A2)).
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (A2, _, A1)).
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (_, A1, A2)).
-
-:-
-	body_literal(T, diff_lessthanone, _, (A1, A2)),
-	body_literal(T, minnum, _, (_, A2, A1)).
-
-
-:-
-	body_literal(T, my_prev, _, (A1, A2)), 
-	body_literal(T, diff_lessthanone, _, (A1, A2)).
-
-:-
-	body_literal(T, my_prev, _, (A1, A2)), 
-	body_literal(T, diff_lessthanone, _, (A2, A1)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)), 
-	body_literal(T, diff_lessthanone, _, (A1, A2)).
-
-:-
-	body_literal(T, my_succ, _, (A1, A2)), 
-	body_literal(T, diff_lessthanone, _, (A2, A1)).
-
-
-
-func_head(my_prev).
-func_head(my_succ).
-
-
-injective_head(my_succ).
-injective_head(my_prev).
-
-:-
-	body_literal(T, my_succ, _, (_, A)),
-	body_literal(T, my_prev, _, (A, _)).
-
-:-
-	body_literal(T, my_prev, _, (_, A)),
-	body_literal(T, my_succ, _, (A, _)).
-
-
-partial_head(minnum).
-
-
-
-injective_head(minnum).
-
-
-symmetric_head(minnum).
-
-
-
-func_head(zero).
-
-:-
-    body_literal(T, lt_list, _, (V, S1)),
-    body_literal(T, min_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
-
-:-
-    body_literal(T, gt_list, _, (V, S1)),
-    body_literal(T, max_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
-
-
-:-
-	body_literal(T, value, _, (_, B)),
-	body_literal(T, my_prev, _, (B, _)).
-
-:-
-	body_literal(T, value, _, (_, B)),
-	body_literal(T, my_succ, _, (B, _)).
-
-:-
-	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, max_list, _, (C, B)).
-
-:-
-	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, min_list, _, (C, B)).
-
-
-% Not pruning a lot, but make the search faster a lot!
-% :-
-% 	#count{Vars : body_literal(1,lt_list,_,Vars)} != 1.
-
-% :-
-% 	#count{Vars : body_literal(1,gt_list,_,Vars)} != 1.
-
-% :-
-% 	#count{Vars : body_literal(1,ord_union,_,Vars)} != 1.
-
-% :-
-% 	head_literal(1, p, _, (A, B1)),
-% 	body_literal(1, p, _, (_, B2)),
-% 	not partial_le(1, B2, B1).
-
-% :-
-%     body_literal(1,left,_,(A,B)),
-%     body_literal(1,right,_,(A,B)).
 

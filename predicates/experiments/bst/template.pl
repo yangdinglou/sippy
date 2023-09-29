@@ -1,14 +1,8 @@
 
-max_vars(7).
-max_body(7).
 max_clauses(2).
 enable_recursion.
 
-head_pred(f,2).
-type(f,(pointer,set)).
-direction(f,(in,out)).
-input_pointer(next, pointer).
-input_pointer(value, integer).
+head_pred(p,2).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -49,7 +43,7 @@ not_in(insert, 0).
 
 
 
-
+type(p,(pointer,set)).
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -73,11 +67,11 @@ type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
 
 
+direction(p,(in,out)).
 
-
-direction(anypointer, (in,)).
+direction(anypointer, (out,)).
 direction(anynumber, (in,)).
-direction(nullptr,(in,)).
+direction(nullptr,(out,)).
 direction(zero,(out,)).
 direction(diff_lessthanone,(in,in)).
 direction(my_succ,(in,out)).
@@ -137,11 +131,11 @@ partial_head(ge).
 
 func_head(insert).
 
-% :-
-%     body_literal(T, insert, _, (A1, B1, C1)),
-%     body_literal(T, insert, _, (A2, B2, C2)),
-% 	C1 == A2,
-% 	B1 == B2.
+:-
+    body_literal(T, insert, _, (A1, B1, C1)),
+    body_literal(T, insert, _, (A2, B2, C2)),
+	C1 == A2,
+	B1 == B2.
 
 
 :-
@@ -256,3 +250,5 @@ func_head(zero).
 :-
 	body_literal(T, insert, _, (_, B, C)),
 	body_literal(T, min_list, _, (C, B)).
+
+% TODO: 1. partial order on head 2. generate the pointer literal by ASP instead of Python

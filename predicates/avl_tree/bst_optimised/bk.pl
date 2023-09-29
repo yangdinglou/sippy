@@ -29,16 +29,6 @@ insert(A, B, C) :-
     is_ordset(A), ord_union([B], A, C).
 
 anypointer(_).
-anynumber(_).
-
-same_ptr(A, A).
-
-ge(A, B) :-
-    A >= B.
-
-
-add(A, B, C) :-
-    C is A + B.
 
 value(aa, 10).
 left(aa, bb).
@@ -114,24 +104,3 @@ value(k, 70).
 left(k, null).
 right(k, null).
 height(k, 0).
-
-
-value(aaa, 10).
-left(aaa, bbb).
-right(aaa, ccc).
-height(aaa, 2).
-
-value(bbb, 9).
-left(bbb, null).
-right(bbb, null).
-height(bbb, 0).
-
-value(ccc, 11).
-left(ccc, null).
-right(ccc, ddd).
-height(ccc, 1).
-
-value(ddd, 12).
-left(ddd, null).
-right(ddd, null).
-height(ddd, 0).
