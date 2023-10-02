@@ -4,8 +4,6 @@
 % inv1(This) :- nullptr(This).
 % inv1(This) :- value(This, r), p(r), next(This, Nxt), inv1(Nxt).
 
-max_vars(3).
-max_body(4).
 max_clauses(4).
 enable_recursion.
 enable_pi.
@@ -29,7 +27,7 @@ direction(nullptr,(in,)).
 direction(anynumber,(in,)).
 
 :- not invented(_, 1).
-direction(inv1,(in,)).
+% direction(inv1,(in,)).
 
 :-
     not clause(1).

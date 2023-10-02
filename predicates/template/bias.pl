@@ -4,6 +4,8 @@ max_clauses(2).
 enable_recursion.
 
 head_pred(p,2).
+type(p,(pointer,set)).
+direction(p,(in,out)).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -14,8 +16,6 @@ body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
 body_pred(same_ptr,2).
-body_pred(ge,2).
-% body_pred(add,3).
 
 not_in(anypointer, 1).
 not_in(anynumber, 0).
@@ -24,7 +24,6 @@ not_in(zero, 1).
 not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
 not_in(same_ptr, 1).
-not_in(ge, 0).
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -42,10 +41,6 @@ not_in(lt_list, 0).
 not_in(ord_union, 0).
 not_in(insert, 0).
 
-
-
-type(p,(pointer,set)).
-
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
 type(nullptr,(pointer,)).
@@ -55,8 +50,6 @@ type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
 type(same_ptr,(pointer,pointer)).
-type(ge,(integer,integer)).
-type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
@@ -68,7 +61,7 @@ type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
 
 
-direction(p,(in,out)).
+
 
 direction(anypointer, (in,)).
 direction(anynumber, (in,)).
@@ -79,8 +72,6 @@ direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
 direction(maxnum,(in,in,out)).
 direction(same_ptr,(in,in)).
-direction(ge,(in,in)).
-direction(add,(in,in,out)).
 
 
 direction(empty,(out,)).
@@ -126,7 +117,6 @@ symmetric_head(ord_union).
 injective_head(ord_union).
 
 symmetric_head(same_ptr).
-partial_head(ge).
 
 
 func_head(insert).

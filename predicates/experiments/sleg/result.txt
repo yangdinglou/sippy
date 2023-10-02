@@ -1,0 +1,24 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:8
+sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),insert(D,F,C), !.
+['predicate sleg(A,B,C) ', '{', "|  None ;; [] ;; ['same_ptr(A,B)', 'empty(C)']", "|  None ;; ['insert(D,F,C)'] ;; ['next(A,E)', 'value(A,F)', 'sleg(E,B,D)']"]
+{'head_literal(1, sleg, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(1, next, 2, (0,4,))', 'body_literal(1, value, 2, (0,5,))', 'head_literal(0, sleg, 3, (0,1,2,))', 'body_literal(1, insert, 3, (3,5,2,))', 'body_literal(1, sleg, 3, (4,1,3,))'}
+******************************
+Num. programs: 228
+Generate:
+        Called: 258 times        Total: 0.99     Mean: 0.004     Max: 0.359      Percentage: 42%
+Ground:
+        Called: 228 times        Total: 0.42     Mean: 0.002     Max: 0.022      Percentage: 18%
+Constrain:
+        Called: 228 times        Total: 0.37     Mean: 0.002     Max: 0.014      Percentage: 15%
+Find Mucs:
+        Called: 69 times         Total: 0.25     Mean: 0.004     Max: 0.021      Percentage: 10%
+Init:
+        Called: 30 times         Total: 0.20     Mean: 0.007     Max: 0.081      Percentage: 8%
+Test:
+        Called: 228 times        Total: 0.09     Mean: 0.000     Max: 0.019      Percentage: 3%
+Combine:
+        Called: 159 times        Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
+Total operation time: 2.34s
+Total execution time: 3.37s

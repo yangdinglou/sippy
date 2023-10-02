@@ -1,18 +1,62 @@
-max_clauses(2).
+% p(A):-nullptr(A).
+% p(A):-inv1(B),child(A,B),next(A,C),p(C).
+% inv1(A):-nullptr(A).
+% inv1(A):-next(A,C),inv1(C).
+
+max_clauses(4).
 enable_recursion.
 
-head_pred(sll,2).
-type(sll,(pointer,set)).
-direction(sll,(in,out)).
+enable_pi.
 
-
-input_pointer(next,pointer).
-input_pointer(value,integer).
+:- not invented(_, 2).
+direction(inv1,(in,out)).
 
 :-
-	head_literal(1, sll, _, (_, B1)),
-	body_literal(1, sll, _, (_, B2)),
+    #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
+
+:-
+    #count{P,Vars : body_literal(2,P,_,Vars)} > 3.
+:-
+    not clause(1).
+:-
+    not clause(2).
+:-
+    not clause(3).
+
+:-
+    head_literal(0,P,_,_),
+    not head_literal(1,P,_,_).
+
+:-
+    head_literal(1,P,_,_),
+    head_literal(2,P,_,_).
+
+:-
+    head_literal(2,P,_,_),
+    not head_literal(3,P,_,_).
+
+
+
+
+head_pred(p,2).
+type(p,(pointer,set)).
+direction(p,(in,out)).
+
+input_pointer(next,pointer).
+input_pointer(child,pointer).
+
+inner_pointer(next2, pointer).
+inner_pointer(value, integer).
+
+
+:-
+	head_literal(1, p, _, (A, B1)),
+	body_literal(1, p, _, (_, B2)),
 	not partial_le(1, B2, B1).
+
+% not_in(value, 0).
+% not_in(left, 0).
+% not_in(right, 0).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -23,6 +67,7 @@ body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
 body_pred(same_ptr,2).
+% body_pred(ge,2).
 
 not_in(anypointer, 1).
 not_in(anynumber, 0).
@@ -31,6 +76,7 @@ not_in(zero, 1).
 not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
 not_in(same_ptr, 1).
+not_in(ge, 0).
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -57,6 +103,8 @@ type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
 type(same_ptr,(pointer,pointer)).
+type(ge,(integer,integer)).
+type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
@@ -79,6 +127,8 @@ direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
 direction(maxnum,(in,in,out)).
 direction(same_ptr,(in,in)).
+direction(ge,(in,in)).
+direction(add,(in,in,out)).
 
 
 direction(empty,(out,)).
@@ -103,9 +153,7 @@ direction(insert,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 
-:-
-	not null,
-	not eq.
+:- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
 
 :-
     body_literal(T, nullptr, _, (A,)),
@@ -124,6 +172,7 @@ symmetric_head(ord_union).
 injective_head(ord_union).
 
 symmetric_head(same_ptr).
+partial_head(ge).
 
 
 func_head(insert).

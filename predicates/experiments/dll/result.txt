@@ -1,24 +1,26 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:10
-dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-dll(A,B,C):- prev(A,B),next(A,F),key(A,D),dll(F,A,E),insert(E,D,C), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['anypointer(B)', 'empty(C)']", "|  None ;; ['insert(E,D,C)'] ;; ['prev(A,B)', 'dll(F,A,E)', 'key(A,D)', 'next(A,F)']"]
-{'body_literal(1, insert, 3, (4,3,2,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, dll, 3, (5,0,4,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, key, 2, (0,3,))', 'body_literal(1, next, 2, (0,5,))', 'head_literal(0, dll, 3, (0,1,2,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))'}
+dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+dll(A,B,C):- next(A,D),prev(A,B),key(A,F),dll(D,A,E),insert(E,F,C), !.
+['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,F,C)'] ;; ['next(A,D)', 'prev(A,B)', 'key(A,F)', 'dll(D,A,E)']"]
+{'body_literal(1, key, 2, (0,5,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next, 2, (0,3,))', 'body_literal(1, insert, 3, (4,5,2,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, dll, 3, (3,0,4,))', 'body_literal(0, empty, 1, (2,))', 'head_literal(1, dll, 3, (0,1,2,))'}
 ******************************
-Num. programs: 35
+Num. programs: 148
 Find Mucs:
-        Called: 34 times         Total: 0.09     Mean: 0.003     Max: 0.010      Percentage: 36%
-Generate:
-        Called: 47 times         Total: 0.07     Mean: 0.001     Max: 0.011      Percentage: 28%
-Init:
-        Called: 12 times         Total: 0.03     Mean: 0.002     Max: 0.004      Percentage: 12%
+        Called: 109 times        Total: 36.56    Mean: 0.335     Max: 9.806      Percentage: 71%
 Test:
-        Called: 35 times         Total: 0.02     Mean: 0.001     Max: 0.015      Percentage: 9%
+        Called: 148 times        Total: 10.56    Mean: 0.071     Max: 2.926      Percentage: 20%
+Generate:
+        Called: 178 times        Total: 3.15     Mean: 0.018     Max: 0.540      Percentage: 6%
 Ground:
-        Called: 35 times         Total: 0.02     Mean: 0.001     Max: 0.003      Percentage: 7%
+        Called: 148 times        Total: 0.42     Mean: 0.003     Max: 0.035      Percentage: 0%
 Constrain:
-        Called: 35 times         Total: 0.01     Mean: 0.000     Max: 0.000      Percentage: 3%
+        Called: 148 times        Total: 0.36     Mean: 0.002     Max: 0.013      Percentage: 0%
+Init:
+        Called: 30 times         Total: 0.21     Mean: 0.007     Max: 0.075      Percentage: 0%
 Combine:
-        Called: 1 times          Total: 0.01     Mean: 0.006     Max: 0.006      Percentage: 2%
-Total operation time: 0.24s
-Total execution time: 0.40s
+        Called: 39 times         Total: 0.02     Mean: 0.000     Max: 0.009      Percentage: 0%
+Find Sub Inconsistent:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 51.26s
+Total execution time: 52.21s

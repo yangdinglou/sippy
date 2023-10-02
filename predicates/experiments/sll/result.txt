@@ -1,24 +1,24 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:8
-f(A,B):- nullptr(A),empty(B), !.
-f(A,B):- next(A,E),value(A,C),f(E,D),insert(D,C,B), !.
-['predicate f(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(D,C,B)'] ;; ['next(A,E)', 'f(E,D)', 'value(A,C)']"]
-{'body_literal(1, next, 2, (0,4,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, insert, 3, (3,2,1,))', 'body_literal(1, f, 2, (4,3,))', 'head_literal(0, f, 2, (0,1,))', 'head_literal(1, f, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))'}
+sll(A,B):- empty(B),nullptr(A), !.
+sll(A,B):- value(A,D),next(A,E),sll(E,C),insert(C,D,B), !.
+['predicate sll(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(C,D,B)'] ;; ['value(A,D)', 'sll(E,C)', 'next(A,E)']"]
+{'body_literal(1, value, 2, (0,3,))', 'head_literal(0, sll, 2, (0,1,))', 'head_literal(1, sll, 2, (0,1,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, insert, 3, (2,3,1,))', 'body_literal(1, next, 2, (0,4,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, sll, 2, (4,2,))'}
 ******************************
-Num. programs: 4
-Init:
-        Called: 10 times         Total: 0.02     Mean: 0.002     Max: 0.003      Percentage: 25%
-Test:
-        Called: 4 times          Total: 0.02     Mean: 0.005     Max: 0.016      Percentage: 25%
+Num. programs: 35
 Generate:
-        Called: 14 times         Total: 0.02     Mean: 0.001     Max: 0.006      Percentage: 23%
-Find Mucs:
-        Called: 3 times          Total: 0.01     Mean: 0.003     Max: 0.006      Percentage: 10%
+        Called: 58 times         Total: 1.59     Mean: 0.027     Max: 0.738      Percentage: 60%
 Ground:
-        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.002      Percentage: 8%
-Combine:
-        Called: 1 times          Total: 0.00     Mean: 0.004     Max: 0.004      Percentage: 5%
+        Called: 35 times         Total: 0.39     Mean: 0.011     Max: 0.039      Percentage: 15%
 Constrain:
-        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 1%
-Total operation time: 0.08s
-Total execution time: 0.20s
+        Called: 35 times         Total: 0.26     Mean: 0.007     Max: 0.017      Percentage: 9%
+Init:
+        Called: 23 times         Total: 0.23     Mean: 0.010     Max: 0.127      Percentage: 8%
+Find Mucs:
+        Called: 20 times         Total: 0.10     Mean: 0.005     Max: 0.020      Percentage: 3%
+Test:
+        Called: 35 times         Total: 0.03     Mean: 0.001     Max: 0.019      Percentage: 1%
+Combine:
+        Called: 15 times         Total: 0.01     Mean: 0.001     Max: 0.005      Percentage: 0%
+Total operation time: 2.61s
+Total execution time: 3.52s

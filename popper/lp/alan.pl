@@ -1121,6 +1121,10 @@ type(Name, (pointer, T)) :- inner_pointer(Name, T).
     B1 != B2.
 
 :-
+    input_pointer(Name, _),
+    #count{A, Vars: body_literal(1, Name, A, Vars)} != 1.
+
+:-
     inner_pointer(Name, _),
     body_literal(T, Name, _, (A, _)),
     not first_in_head(T, A).

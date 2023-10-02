@@ -1,17 +1,17 @@
 max_clauses(2).
 enable_recursion.
 
-head_pred(sll,2).
-type(sll,(pointer,set)).
-direction(sll,(in,out)).
+head_pred(sleg,3).
+type(sleg,(pointer,pointer,set)).
+direction(sleg,(in,in,out)).
 
 
 input_pointer(next,pointer).
 input_pointer(value,integer).
 
 :-
-	head_literal(1, sll, _, (_, B1)),
-	body_literal(1, sll, _, (_, B2)),
+	head_literal(1, sleg, _, (_,_, B1)),
+	body_literal(1, sleg, _, (_,_, B2)),
 	not partial_le(1, B2, B1).
 
 body_pred(anypointer, 1).
