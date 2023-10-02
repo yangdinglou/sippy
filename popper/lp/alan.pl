@@ -252,9 +252,9 @@ max_arity(K):-
     max_pi_arity(K),
     not invented(_,K).
 
-direction_(inv1,Pos,in):-
-    max_pi_arity(K),
-    Pos = 0..K-1.
+% direction_(inv1,Pos,in):-
+%     max_pi_arity(K),
+%     Pos = 0..K-1.
 
 
 %% POSSIBLE VARIABLE PERMUTATIONS FROM 1..MAX_ARITY
@@ -890,6 +890,8 @@ only_once(P,A):-
     body_literal(C, P, _, _).
 
 
+
+
 % funcional head
 :-
     func_head(Head), direction(Head, (out,)),
@@ -1111,7 +1113,7 @@ not_in(Name, 3):-
 %  inner pts (to be invented), inner_pointer(name, type)
 
 body_pred(Name, 2) :- inner_pointer(Name, _).
-direction(Name, (out, out)) :- inner_pointer(Name, _).
+direction(Name, (in, out)) :- inner_pointer(Name, _).
 type(Name, (pointer, T)) :- inner_pointer(Name, T).
 
 :-
@@ -1209,5 +1211,14 @@ equal_var(C, Var1, Var2):-
     var_in_body_pos(C_b, P, Pos2, Var2_b).
 
 
-null:-body_literal(0,nullptr,_,(Var,)), head_var(0, Var).
-eq:-body_literal(0,same_ptr,_,(Var1,_)), head_var(0, Var1).
+null(C):-body_literal(C,nullptr,_,(Var,)), head_var(C, Var).
+eq(C):-body_literal(C,same_ptr,_,(Var1,_)), head_var(C, Var1).
+
+:-
+	not null(0),
+	not eq(0).
+
+:-
+    enable_pi,
+    not null(2),
+    not eq(2).

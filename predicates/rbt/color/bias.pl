@@ -36,9 +36,9 @@ direction(anycolor,(in,)).
 direction(black,(out,)).
 direction(red,(out,)).
 
-% :-
-%     not invented(_,3).
-% direction(inv1,(in,in,in)).
+:-
+    not invented(_,3).
+direction(inv1,(in,in,in)).
 % type(inv1,(pointer,pointer,c)).
 
 

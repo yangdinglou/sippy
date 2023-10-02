@@ -85,3 +85,7 @@ value(pp31, 3).
 value(pp32, 4).
 value(pp33, 5).
 
+% inv1(A,B):- nullptr(A), empty(B), !.
+% p(A,B):- nullptr(A), empty(B), !.
+% inv1(A,B):- next2(A,C),inv1(C,D), value(A, E), insert(D, E, B), !.
+% p(A,B):- child(A,C),next(A,D),p(D, E),inv1(C, F), ord_union(E, F, B), !.

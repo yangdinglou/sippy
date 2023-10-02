@@ -27,7 +27,7 @@ direction(nullptr,(in,)).
 direction(anynumber,(in,)).
 
 :- not invented(_, 1).
-% direction(inv1,(in,)).
+direction(inv1,(in,)).
 
 :-
     not clause(1).
@@ -53,14 +53,7 @@ direction(anynumber,(in,)).
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-:-
-	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
-:-
-	#count{A,Vars : body_literal(2,nullptr,A,Vars)} == 0.
-
-:-
-	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
 
 :-
     body_literal(T, nullptr, _, (A,)),
