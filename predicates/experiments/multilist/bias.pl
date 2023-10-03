@@ -8,7 +8,29 @@ enable_recursion.
 
 enable_pi.
 
+head_pred(p,2).
+type(p,(pointer,set)).
+direction(p,(in,out)).
+
+input_pointer(next,pointer).
+input_pointer(child,pointer).
+
+inner_pointer(next2, pointer).
+inner_pointer(value, integer).
+
+
+:-
+	head_literal(1, p, _, (_, B1)),
+	body_literal(1, p, _, (_, B2)),
+	not partial_le(1, B2, B1).
+
+:-
+	head_literal(3, inv1, _, (_, B1)),
+	body_literal(3, inv1, _, (_, B2)),
+	not partial_le(3, B2, B1).
+
 :- not invented(_, 2).
+:- not var_type(2,1,set).
 direction(inv1,(in,out)).
 
 :-
@@ -38,21 +60,7 @@ direction(inv1,(in,out)).
 
 
 
-head_pred(p,2).
-type(p,(pointer,set)).
-direction(p,(in,out)).
 
-input_pointer(next,pointer).
-input_pointer(child,pointer).
-
-inner_pointer(next2, pointer).
-inner_pointer(value, integer).
-
-
-:-
-	head_literal(1, p, _, (A, B1)),
-	body_literal(1, p, _, (_, B2)),
-	not partial_le(1, B2, B1).
 
 % not_in(value, 0).
 % not_in(left, 0).
@@ -70,13 +78,19 @@ body_pred(same_ptr,2).
 % body_pred(ge,2).
 
 not_in(anypointer, 1).
+not_in(anypointer, 3).
 not_in(anynumber, 0).
+not_in(anynumber, 2).
 not_in(nullptr, 1).
+not_in(nullptr, 3).
 not_in(zero, 1).
+not_in(zero, 3).
 not_in(diff_lessthanone, 0).
+not_in(diff_lessthanone, 2).
 not_in(maxnum, 0).
+not_in(maxnum, 2).
 not_in(same_ptr, 1).
-not_in(ge, 0).
+not_in(same_ptr, 3).
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -87,12 +101,20 @@ body_pred(ord_union,3).
 body_pred(insert,3).
 
 not_in(empty, 1).
+not_in(empty, 3).
 not_in(min_list, 0).
+not_in(min_list, 2).
 not_in(max_list, 0).
+not_in(max_list, 2).
 not_in(gt_list, 0).
+not_in(gt_list, 2).
 not_in(lt_list, 0).
+not_in(lt_list, 2).
 not_in(ord_union, 0).
+not_in(ord_union, 2).
 not_in(insert, 0).
+not_in(insert, 2).
+
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -153,7 +175,7 @@ direction(insert,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 
-:- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
+
 
 :-
     body_literal(T, nullptr, _, (A,)),

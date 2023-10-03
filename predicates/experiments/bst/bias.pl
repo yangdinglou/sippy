@@ -16,7 +16,6 @@ body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
 body_pred(same_ptr,2).
-body_pred(ge,2).
 % body_pred(add,3).
 
 not_in(anypointer, 1).
@@ -26,7 +25,6 @@ not_in(zero, 1).
 not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
 not_in(same_ptr, 1).
-not_in(ge, 0).
 
 body_pred(empty,1).
 body_pred(min_list,2).
@@ -117,7 +115,7 @@ direction(insert,(in,in,out)).
 	not eq.
 
 
-:- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
+% :- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
 
 :-
     body_literal(T, nullptr, _, (A,)),

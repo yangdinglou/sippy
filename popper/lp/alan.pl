@@ -1123,8 +1123,8 @@ type(Name, (pointer, T)) :- inner_pointer(Name, T).
     B1 != B2.
 
 :-
-    input_pointer(Name, _),
-    #count{A, Vars: body_literal(1, Name, A, Vars)} != 1.
+    inner_pointer(Name, _),
+    #count{A, Vars: body_literal(3, Name, A, Vars)} != 1.
 
 :-
     inner_pointer(Name, _),
@@ -1135,6 +1135,9 @@ not_in(Name, 0):-
     inner_pointer(Name, _).
 
 not_in(Name, 1):-
+    inner_pointer(Name, _).
+
+not_in(Name, 2):-
     inner_pointer(Name, _).
 
 % :-
