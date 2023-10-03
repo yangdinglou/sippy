@@ -26,8 +26,9 @@ direction(p,(in,)).
 direction(nullptr,(in,)).
 direction(anynumber,(in,)).
 
-:- not invented(_, 1).
-direction(inv1,(in,)).
+direction(inv1,(in,)):-invented(_, 1).
+direction(inv1,(in,in)):-invented(_, 2).
+
 
 :-
     not clause(1).

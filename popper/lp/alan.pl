@@ -1214,8 +1214,8 @@ equal_var(C, Var1, Var2):-
     var_in_body_pos(C_b, P, Pos2, Var2_b).
 
 
-null(C):-body_literal(C,nullptr,_,(Var,)), head_var(C, Var).
-eq(C):-body_literal(C,same_ptr,_,(Var1,_)), head_var(C, Var1).
+null(C):-body_literal(C,nullptr,_,(0,)).
+eq(C):-body_literal(C,same_ptr,_,(0,_)).
 
 :-
 	not null(0),
@@ -1225,3 +1225,14 @@ eq(C):-body_literal(C,same_ptr,_,(Var1,_)), head_var(C, Var1).
     enable_pi,
     not null(2),
     not eq(2).
+
+:-
+    var(Var),
+    clause(C),
+    #count{Vars: head_literal(_, P, _, _), body_literal(C, P, _, Vars), var_pos(Var, Vars, 0)} > 1.
+
+
+:-
+    head_pred(_, X1),
+    invented(_, X2),
+    X2>X1.

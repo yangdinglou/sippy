@@ -11,13 +11,13 @@ from .core import Literal
 clingo.script.enable_python()
 
 TIMEOUT=2000
-EVAL_TIMEOUT=5
+EVAL_TIMEOUT=0.01
 MAX_LITERALS=40
 MAX_SOLUTIONS=1
 CLINGO_ARGS=''
 MAX_RULES=2
-MAX_VARS=7
-MAX_BODY=7
+MAX_VARS=9
+MAX_BODY=12
 MAX_EXAMPLES=10000
 
 STOP_SCORE=0
@@ -133,7 +133,7 @@ def format_rule(rule):
     if head:
         head_str = format_literal(head)
     body_str = ','.join(format_literal(literal) for literal in body)
-    return f'{head_str}:- {body_str}, !.'
+    return f'{head_str}:- {body_str}.'
 
 def format_body(body):
     pred = None
@@ -365,11 +365,7 @@ class Settings:
         """)
         solver.ground([('bias', [])])
 
-        for x in solver.symbolic_atoms.by_signature('max_body', arity=1):
-            self.max_body = x.symbol.arguments[0].number
-
-        for x in solver.symbolic_atoms.by_signature('max_vars', arity=1):
-            self.max_vars = x.symbol.arguments[0].number
+        
 
         self.max_rules = None
         for x in solver.symbolic_atoms.by_signature('max_clauses', arity=1):
@@ -388,6 +384,17 @@ class Settings:
                 self.max_rules = max_rules
             else:
                 self.max_rules = 1
+
+        # for SL predicate learning
+        if self.pi_enabled:
+            self.max_body = 7
+            self.max_vars = 7
+
+        for x in solver.symbolic_atoms.by_signature('max_body', arity=1):
+            self.max_body = x.symbol.arguments[0].number
+
+        for x in solver.symbolic_atoms.by_signature('max_vars', arity=1):
+            self.max_vars = x.symbol.arguments[0].number
 
         self.logger.debug(f'Max rules: {self.max_rules}')
         self.logger.debug(f'Max vars: {self.max_vars}')
