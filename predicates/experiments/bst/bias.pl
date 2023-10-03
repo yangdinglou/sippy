@@ -110,9 +110,6 @@ direction(insert,(in,in,out)).
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
-:-
-	not null,
-	not eq.
 
 
 % :- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.

@@ -96,9 +96,6 @@ direction(insert,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 
-:-
-	not null,
-	not eq.
 
 :-
     body_literal(T, nullptr, _, (A,)),
