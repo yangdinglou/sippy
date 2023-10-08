@@ -27,7 +27,12 @@ my_prev(A, B) :-
 
 insert(A, B, C) :-
     is_ordset(A), ord_union([B], A, C).
+
 anypointer(_).
+anynumber(_).
+
+same_ptr(A, A).
+
 next(p1, p2).
 next(p2, p3).
 next(p3, p4).

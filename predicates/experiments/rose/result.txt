@@ -1,269 +1,310 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-p(A):- nullptr(A), !.
-inv1(A):- nullptr(A), !.
-p(A):- anynumber(C),value(A,C),next1(A,B),inv1(B), !.
-inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
-['predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(C)', 'inv1(B)', 'value(A,C)', 'next1(A,B)']", 'predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['pointto(A,B)', 'p(B)', 'next2(A,C)', 'inv1(C)']"]
-{'body_literal(1, value, 2, (0,2,))', 'body_literal(3, next2, 2, (0,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(3, pointto, 2, (0,1,))', 'body_literal(1, anynumber, 1, (2,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(3, p, 1, (1,))', 'body_literal(3, inv1, 1, (2,))', 'head_literal(3, inv1, 1, (0,))', 'body_literal(1, inv1, 1, (1,))', 'body_literal(2, nullptr, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'head_literal(1, p, 1, (0,))', 'head_literal(2, inv1, 1, (0,))'}
-******************************
-Num. programs: 282
-Test:
-        Called: 282 times        Total: 19.75    Mean: 0.070     Max: 4.579      Percentage: 97%
-Ground:
-        Called: 281 times        Total: 0.24     Mean: 0.001     Max: 0.004      Percentage: 1%
-Generate:
-        Called: 295 times        Total: 0.23     Mean: 0.001     Max: 0.079      Percentage: 1%
-Constrain:
-        Called: 281 times        Total: 0.03     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 23 times         Total: 0.01     Mean: 0.001     Max: 0.006      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 8 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 20.29s
-Total execution time: 20.50s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
 inv1(A):- nullptr(A), !.
 p(A):- nullptr(A), !.
-p(A):- anynumber(B),next1(A,C),value(A,B),inv1(C), !.
+p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
-['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['pointto(A,C)', 'next2(A,B)', 'inv1(B)', 'p(C)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(B)', 'next1(A,C)', 'inv1(C)', 'value(A,B)']"]
-{'body_literal(1, inv1, 1, (2,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(3, pointto, 2, (0,2,))', 'body_literal(3, p, 1, (2,))', 'body_literal(1, value, 2, (0,1,))', 'body_literal(1, next1, 2, (0,2,))', 'body_literal(3, next2, 2, (0,1,))', 'head_literal(0, p, 1, (0,))', 'head_literal(1, p, 1, (0,))', 'body_literal(2, nullptr, 1, (0,))', 'body_literal(3, inv1, 1, (1,))', 'head_literal(3, inv1, 1, (0,))', 'body_literal(1, anynumber, 1, (1,))'}
+['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['p(C)', 'pointto(A,C)', 'next2(A,B)', 'inv1(B)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; ['anynumber(C)'] ;; ['inv1(B)', 'next1(A,B)', 'value(A,C)']"]
+{'body_literal(1, anynumber, 1, (2,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(3, pointto, 2, (0,2,))', 'body_literal(1, inv1, 1, (1,))', 'body_literal(2, nullptr, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(3, inv1, 1, (1,))', 'body_literal(3, next2, 2, (0,1,))', 'head_literal(1, p, 1, (0,))', 'body_literal(3, p, 1, (2,))', 'body_literal(0, nullptr, 1, (0,))'}
 ******************************
-Num. programs: 894
-Test:
-        Called: 894 times        Total: 57.86    Mean: 0.065     Max: 3.956      Percentage: 98%
+Num. programs: 47
 Ground:
-        Called: 893 times        Total: 0.49     Mean: 0.001     Max: 0.004      Percentage: 0%
-Generate:
-        Called: 907 times        Total: 0.38     Mean: 0.000     Max: 0.079      Percentage: 0%
+        Called: 46 times         Total: 2.17     Mean: 0.047     Max: 0.084      Percentage: 61%
 Constrain:
-        Called: 893 times        Total: 0.08     Mean: 0.000     Max: 0.001      Percentage: 0%
+        Called: 46 times         Total: 0.90     Mean: 0.020     Max: 0.024      Percentage: 25%
 Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
+        Called: 17 times         Total: 0.25     Mean: 0.015     Max: 0.228      Percentage: 7%
+Test:
+        Called: 47 times         Total: 0.19     Mean: 0.004     Max: 0.033      Percentage: 5%
+Generate:
+        Called: 63 times         Total: 0.02     Mean: 0.000     Max: 0.001      Percentage: 0%
 Combine:
-        Called: 94 times         Total: 0.02     Mean: 0.000     Max: 0.006      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 23 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 58.86s
-Total execution time: 59.31s
+        Called: 2 times          Total: 0.01     Mean: 0.004     Max: 0.006      Percentage: 0%
+Total operation time: 3.54s
+Total execution time: 3.87s
 
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-p(A):- nullptr(A), !.
-inv1(A):- nullptr(A), !.
-p(A):- anynumber(B),next1(A,C),value(A,B),inv1(C), !.
-inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
-['predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(B)', 'inv1(C)', 'value(A,B)', 'next1(A,C)']", 'predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['pointto(A,B)', 'inv1(C)', 'next2(A,C)', 'p(B)']"]
-{'body_literal(3, p, 1, (1,))', 'head_literal(1, p, 1, (0,))', 'body_literal(3, pointto, 2, (0,1,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(1, anynumber, 1, (1,))', 'body_literal(1, next1, 2, (0,2,))', 'body_literal(1, inv1, 1, (2,))', 'body_literal(3, next2, 2, (0,2,))', 'head_literal(3, inv1, 1, (0,))', 'body_literal(3, inv1, 1, (2,))', 'body_literal(0, nullptr, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(2, nullptr, 1, (0,))', 'body_literal(1, value, 2, (0,1,))'}
-******************************
-Num. programs: 1210
-Test:
-        Called: 1210 times       Total: 20.03    Mean: 0.017     Max: 4.784      Percentage: 95%
-Generate:
-        Called: 1223 times       Total: 0.46     Mean: 0.000     Max: 0.080      Percentage: 2%
-Ground:
-        Called: 1209 times       Total: 0.32     Mean: 0.000     Max: 0.004      Percentage: 1%
-Constrain:
-        Called: 1209 times       Total: 0.08     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 38 times         Total: 0.01     Mean: 0.000     Max: 0.006      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 7 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 20.93s
-Total execution time: 21.38s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-inv1(A):- nullptr(A), !.
-p(A):- nullptr(A), !.
-p(A):- anynumber(B),value(A,B),next1(A,C),inv1(C), !.
-inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
-['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['inv1(C)', 'pointto(A,B)', 'next2(A,C)', 'p(B)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(B)', 'inv1(C)', 'value(A,B)', 'next1(A,C)']"]
-{'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next1, 2, (0,2,))', 'body_literal(2, nullptr, 1, (0,))', 'body_literal(1, value, 2, (0,1,))', 'body_literal(3, pointto, 2, (0,1,))', 'body_literal(1, inv1, 1, (2,))', 'head_literal(0, p, 1, (0,))', 'body_literal(3, inv1, 1, (2,))', 'body_literal(1, anynumber, 1, (1,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(1, p, 1, (0,))', 'body_literal(3, p, 1, (1,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(3, next2, 2, (0,2,))'}
-******************************
-Num. programs: 311
-Test:
-        Called: 311 times        Total: 25.31    Mean: 0.081     Max: 4.617      Percentage: 97%
-Ground:
-        Called: 310 times        Total: 0.26     Mean: 0.001     Max: 0.004      Percentage: 0%
-Generate:
-        Called: 324 times        Total: 0.24     Mean: 0.001     Max: 0.079      Percentage: 0%
-Constrain:
-        Called: 310 times        Total: 0.03     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 27 times         Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 10 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 25.88s
-Total execution time: 26.10s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-p(A):- nullptr(A), !.
-inv1(A):- nullptr(A), !.
-p(A):- anynumber(B),value(A,B),next1(A,C),inv1(C), !.
-inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
-['predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(B)', 'value(A,B)', 'inv1(C)', 'next1(A,C)']", 'predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['pointto(A,C)', 'p(C)', 'inv1(B)', 'next2(A,B)']"]
-{'body_literal(0, nullptr, 1, (0,))', 'head_literal(1, p, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'head_literal(3, inv1, 1, (0,))', 'body_literal(2, nullptr, 1, (0,))', 'body_literal(3, next2, 2, (0,1,))', 'body_literal(3, p, 1, (2,))', 'body_literal(3, inv1, 1, (1,))', 'body_literal(1, next1, 2, (0,2,))', 'body_literal(1, anynumber, 1, (1,))', 'body_literal(1, inv1, 1, (2,))', 'body_literal(1, value, 2, (0,1,))', 'body_literal(3, pointto, 2, (0,2,))', 'head_literal(2, inv1, 1, (0,))'}
-******************************
-Num. programs: 238
-Test:
-        Called: 238 times        Total: 15.37    Mean: 0.065     Max: 4.040      Percentage: 97%
-Generate:
-        Called: 251 times        Total: 0.22     Mean: 0.001     Max: 0.079      Percentage: 1%
-Ground:
-        Called: 237 times        Total: 0.19     Mean: 0.001     Max: 0.004      Percentage: 1%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Constrain:
-        Called: 237 times        Total: 0.02     Mean: 0.000     Max: 0.000      Percentage: 0%
-Combine:
-        Called: 25 times         Total: 0.01     Mean: 0.001     Max: 0.006      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 7 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 15.84s
-Total execution time: 16.04s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-inv1(A):- nullptr(A), !.
-p(A):- nullptr(A), !.
-p(A):- value(A,C),next1(A,B),anynumber(C),inv1(B), !.
-inv1(A):- next2(A,C),pointto(A,B),p(B),inv1(C), !.
-['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['p(B)', 'next2(A,C)', 'inv1(C)', 'pointto(A,B)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['value(A,C)', 'anynumber(C)', 'inv1(B)', 'next1(A,B)']"]
-{'body_literal(3, next2, 2, (0,2,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(1, anynumber, 1, (2,))', 'body_literal(3, inv1, 1, (2,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(3, pointto, 2, (0,1,))', 'body_literal(3, p, 1, (1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(2, nullptr, 1, (0,))', 'head_literal(1, p, 1, (0,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(1, inv1, 1, (1,))'}
-******************************
-Num. programs: 846
-Test:
-        Called: 846 times        Total: 61.78    Mean: 0.073     Max: 4.756      Percentage: 98%
-Ground:
-        Called: 845 times        Total: 0.38     Mean: 0.000     Max: 0.004      Percentage: 0%
-Generate:
-        Called: 859 times        Total: 0.37     Mean: 0.000     Max: 0.078      Percentage: 0%
-Constrain:
-        Called: 845 times        Total: 0.07     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 95 times         Total: 0.02     Mean: 0.000     Max: 0.005      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 21 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 62.64s
-Total execution time: 63.02s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-p(A):- nullptr(A), !.
-inv1(A):- nullptr(A), !.
-p(A):- anynumber(C),next1(A,B),value(A,C),inv1(B), !.
-inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
-['predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(C)', 'inv1(B)', 'next1(A,B)', 'value(A,C)']", 'predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['pointto(A,C)', 'p(C)', 'inv1(B)', 'next2(A,B)']"]
-{'body_literal(3, next2, 2, (0,1,))', 'head_literal(1, p, 1, (0,))', 'body_literal(2, nullptr, 1, (0,))', 'body_literal(3, pointto, 2, (0,2,))', 'body_literal(3, p, 1, (2,))', 'body_literal(3, inv1, 1, (1,))', 'head_literal(3, inv1, 1, (0,))', 'body_literal(1, anynumber, 1, (2,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(1, value, 2, (0,2,))', 'head_literal(0, p, 1, (0,))', 'body_literal(1, inv1, 1, (1,))'}
-******************************
-Num. programs: 1353
-Test:
-        Called: 1353 times       Total: 22.60    Mean: 0.017     Max: 4.624      Percentage: 95%
-Generate:
-        Called: 1366 times       Total: 0.49     Mean: 0.000     Max: 0.078      Percentage: 2%
-Ground:
-        Called: 1352 times       Total: 0.35     Mean: 0.000     Max: 0.004      Percentage: 1%
-Constrain:
-        Called: 1352 times       Total: 0.09     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 167 times        Total: 0.02     Mean: 0.000     Max: 0.006      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 9 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 23.56s
-Total execution time: 24.05s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-inv1(A):- nullptr(A), !.
-p(A):- nullptr(A), !.
-p(A):- anynumber(C),value(A,C),next1(A,B),inv1(B), !.
-inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
-['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['inv1(B)', 'pointto(A,C)', 'next2(A,B)', 'p(C)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['inv1(B)', 'anynumber(C)', 'value(A,C)', 'next1(A,B)']"]
-{'head_literal(0, p, 1, (0,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(2, nullptr, 1, (0,))', 'head_literal(1, p, 1, (0,))', 'body_literal(3, pointto, 2, (0,2,))', 'body_literal(3, inv1, 1, (1,))', 'body_literal(3, p, 1, (2,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(1, inv1, 1, (1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, anynumber, 1, (2,))', 'body_literal(3, next2, 2, (0,1,))'}
-******************************
-Num. programs: 1245
-Test:
-        Called: 1245 times       Total: 17.82    Mean: 0.014     Max: 4.621      Percentage: 95%
-Generate:
-        Called: 1258 times       Total: 0.46     Mean: 0.000     Max: 0.079      Percentage: 2%
-Ground:
-        Called: 1244 times       Total: 0.33     Mean: 0.000     Max: 0.004      Percentage: 1%
-Constrain:
-        Called: 1244 times       Total: 0.08     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 38 times         Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 7 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 18.73s
-Total execution time: 19.20s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-p(A):- nullptr(A), !.
-inv1(A):- nullptr(A), !.
-p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
-inv1(A):- next2(A,B),pointto(A,C),p(C),inv1(B), !.
-['predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['value(A,B)', 'anynumber(B)', 'inv1(C)', 'next1(A,C)']", 'predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['p(C)', 'next2(A,B)', 'inv1(B)', 'pointto(A,C)']"]
-{'body_literal(3, pointto, 2, (0,2,))', 'body_literal(1, value, 2, (0,1,))', 'body_literal(2, nullptr, 1, (0,))', 'body_literal(3, inv1, 1, (1,))', 'body_literal(1, anynumber, 1, (1,))', 'head_literal(2, inv1, 1, (0,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next1, 2, (0,2,))', 'body_literal(3, p, 1, (2,))', 'body_literal(1, inv1, 1, (2,))', 'head_literal(1, p, 1, (0,))', 'body_literal(3, next2, 2, (0,1,))'}
-******************************
-Num. programs: 707
-Test:
-        Called: 707 times        Total: 62.56    Mean: 0.088     Max: 4.703      Percentage: 98%
-Ground:
-        Called: 706 times        Total: 0.38     Mean: 0.001     Max: 0.004      Percentage: 0%
-Generate:
-        Called: 720 times        Total: 0.34     Mean: 0.000     Max: 0.079      Percentage: 0%
-Constrain:
-        Called: 706 times        Total: 0.06     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 88 times         Total: 0.02     Mean: 0.000     Max: 0.005      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 20 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 63.38s
-Total execution time: 63.71s
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
-p(A):- nullptr(A), !.
-inv1(A):- nullptr(A), !.
-p(A):- anynumber(C),next1(A,B),value(A,C),inv1(B), !.
-inv1(A):- pointto(A,B),next2(A,C),p(B),inv1(C), !.
-['predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['anynumber(C)', 'next1(A,B)', 'value(A,C)', 'inv1(B)']", 'predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['pointto(A,B)', 'inv1(C)', 'p(B)', 'next2(A,C)']"]
-{'body_literal(3, next2, 2, (0,2,))', 'body_literal(1, anynumber, 1, (2,))', 'body_literal(3, p, 1, (1,))', 'body_literal(1, inv1, 1, (1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(3, pointto, 2, (0,1,))', 'head_literal(1, p, 1, (0,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(3, inv1, 1, (2,))', 'body_literal(2, nullptr, 1, (0,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))'}
-******************************
-Num. programs: 469
-Test:
-        Called: 469 times        Total: 58.02    Mean: 0.124     Max: 4.947      Percentage: 98%
-Ground:
-        Called: 468 times        Total: 0.30     Mean: 0.001     Max: 0.004      Percentage: 0%
-Generate:
-        Called: 482 times        Total: 0.28     Mean: 0.001     Max: 0.078      Percentage: 0%
-Constrain:
-        Called: 468 times        Total: 0.04     Mean: 0.000     Max: 0.000      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.03     Mean: 0.002     Max: 0.008      Percentage: 0%
-Combine:
-        Called: 76 times         Total: 0.02     Mean: 0.000     Max: 0.005      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 20 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 58.69s
-Total execution time: 58.95s
+21:40:22 Max rules: 4
+21:40:22 Max vars: 7
+21:40:22 Max body: 7
+21:40:22 SIZE: 12 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 13 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 14 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 15 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 16 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 12 MAX_LENGTH: 4 MAX_VAR: 4
+21:40:22 Program 1:
+21:40:22 p(A):- nullptr(A), !.
+21:40:22 inv1(A):- nullptr(A), !.
+21:40:22 inv1(A):- next2(A,B),pointto(A,B), !.
+21:40:22 p(A):- next1(A,B),value(A,C),inv1(B),anynumber(C), !.
+21:40:23 SIZE: 13 MAX_LENGTH: 4 MAX_VAR: 4
+21:40:23 SIZE: 14 MAX_LENGTH: 4 MAX_VAR: 4
+21:40:23 Program 2:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 CURRENT
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 ********************
+21:40:23 New best hypothesis:
+21:40:23 tp:2 fn:0 size:14
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 ********************
+21:40:23 SIZE: 14 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:23 Program 3:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,C),nullptr(B),inv1(C), !.
+21:40:23 p(A):- next1(A,C),value(A,B),inv1(C),anynumber(B),p(C), !.
+21:40:23 Program 4:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- next2(A,C),pointto(A,B),nullptr(B),inv1(C), !.
+21:40:23 Program 5:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,C),next1(A,B),inv1(A),anynumber(C),p(B), !.
+21:40:23 inv1(A):- p(A),next2(A,B),p(B),pointto(A,C),nullptr(C),inv1(B), !.
+21:40:23 Program 6:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,C),next1(A,B),inv1(B),anynumber(C),p(B), !.
+21:40:23 inv1(A):- next2(A,B),p(B),pointto(A,C),p(C),inv1(C), !.
+21:40:23 Program 7:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),p(C), !.
+21:40:23 p(A):- value(A,C),anynumber(C),next1(A,B),inv1(B), !.
+21:40:23 Program 8:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,B), !.
+21:40:23 p(A):- inv1(A),next1(A,B),value(A,C),anynumber(C),nullptr(B), !.
+21:40:23 Program 9:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),nullptr(B),next2(A,C),inv1(C), !.
+21:40:23 p(A):- value(A,B),inv1(A),next1(A,C),anynumber(B),p(C), !.
+21:40:23 Program 10:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 CURRENT
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 Program 11:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- inv1(A),next1(A,B),nullptr(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- p(A),pointto(A,C),nullptr(C),next2(A,B),p(B),inv1(B), !.
+21:40:23 Program 12:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,C),nullptr(B),p(C), !.
+21:40:23 Program 13:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,B), !.
+21:40:23 p(A):- inv1(A),value(A,C),anynumber(C),next1(A,B),p(B), !.
+21:40:23 Program 14:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- inv1(A),next1(A,C),value(A,B),anynumber(B),nullptr(C), !.
+21:40:23 inv1(A):- next2(A,C),pointto(A,B),nullptr(B),inv1(C), !.
+21:40:23 Program 15:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:23 inv1(A):- p(A),next2(A,C),pointto(A,B),p(B),inv1(C), !.
+21:40:23 Program 16:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),nullptr(B),value(A,C),inv1(A),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),p(B),inv1(C), !.
+21:40:23 Program 17:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,C),next1(A,B),anynumber(C),inv1(B),p(B), !.
+21:40:23 inv1(A):- p(A),next2(A,C),pointto(A,B),p(B),nullptr(C),inv1(B), !.
+21:40:24 Program 18:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:24 inv1(A):- next2(A,C),p(C),pointto(A,B),inv1(B), !.
+21:40:24 Program 19:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:24 p(A):- value(A,C),next1(A,B),anynumber(C),inv1(B),p(B), !.
+21:40:24 Program 20:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,B),inv1(A),nullptr(B),value(A,C),anynumber(C), !.
+21:40:24 inv1(A):- next2(A,C),pointto(A,B),p(B),inv1(C), !.
+21:40:24 Program 21:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,B),next2(A,C),p(B),inv1(C), !.
+21:40:24 p(A):- next1(A,B),inv1(A),value(A,C),anynumber(C),p(B), !.
+21:40:24 Program 22:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- value(A,C),inv1(A),next1(A,B),nullptr(B),anynumber(C), !.
+21:40:24 inv1(A):- next2(A,C),p(A),nullptr(C),pointto(A,B),p(B),inv1(B), !.
+21:40:24 Program 23:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:24 inv1(A):- pointto(A,B),next2(A,C),p(B),nullptr(C), !.
+21:40:24 Program 24:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- inv1(A),value(A,B),anynumber(B),next1(A,C),p(C), !.
+21:40:24 inv1(A):- pointto(A,C),p(C),next2(A,B),p(B),inv1(C), !.
+21:40:24 Program 25:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- value(A,B),inv1(A),anynumber(B),next1(A,C),nullptr(C), !.
+21:40:24 inv1(A):- next2(A,B),pointto(A,C),p(C),nullptr(B),inv1(C), !.
+21:40:24 Program 26:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- inv1(A),value(A,B),anynumber(B),next1(A,C),p(C), !.
+21:40:24 inv1(A):- pointto(A,C),next2(A,B),p(C),nullptr(B),inv1(C), !.
+21:40:24 Program 27:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,C),next2(A,B),nullptr(B),nullptr(C), !.
+21:40:24 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C),p(B), !.
+21:40:24 Program 28:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,C),next2(A,B),nullptr(B),p(C), !.
+21:40:24 p(A):- inv1(A),next1(A,B),nullptr(B),value(A,C),anynumber(C), !.
+21:40:24 Program 29:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,C),value(A,B),anynumber(B),inv1(C), !.
+21:40:24 inv1(A):- next2(A,C),pointto(A,B),nullptr(B),nullptr(C), !.
+21:40:25 Program 30:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:25 inv1(A):- next2(A,B),nullptr(B),pointto(A,C),inv1(C), !.
+21:40:25 Program 31:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- p(A),next2(A,B),pointto(A,C),nullptr(C),nullptr(B), !.
+21:40:25 p(A):- next1(A,B),inv1(A),nullptr(B),value(A,C),anynumber(C), !.
+21:40:25 Program 32:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),nullptr(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- inv1(A),value(A,C),anynumber(C),next1(A,B),nullptr(B), !.
+21:40:25 Program 33:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),p(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- inv1(A),value(A,C),next1(A,B),anynumber(C),p(B), !.
+21:40:25 Program 34:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- inv1(A),value(A,B),anynumber(B),next1(A,C),nullptr(C), !.
+21:40:25 inv1(A):- pointto(A,C),next2(A,B),p(B),inv1(C), !.
+21:40:25 Program 35:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- p(A),pointto(A,C),nullptr(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- next1(A,B),inv1(A),value(A,C),anynumber(C),p(B), !.
+21:40:25 Program 36:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),nullptr(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- next1(A,B),value(A,C),inv1(A),anynumber(C),p(B), !.
+21:40:25 Program 37:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 p(A):- value(A,B),anynumber(B),next1(A,C),nullptr(C),inv1(A), !.
+21:40:25 inv1(A):- next2(A,B),pointto(A,C),nullptr(B),inv1(C), !.
+21:40:25 Program 38:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 p(A):- value(A,B),anynumber(B),inv1(A),next1(A,C),p(C), !.
+21:40:25 inv1(A):- pointto(A,C),next2(A,B),p(B),p(A),inv1(C), !.
+21:40:25 Program 39:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 inv1(A):- p(A),next2(A,B),pointto(A,C),nullptr(C),p(B), !.
+21:40:25 p(A):- inv1(A),next1(A,B),nullptr(B),value(A,C),anynumber(C), !.
+21:40:25 Program 40:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 inv1(A):- next2(A,B),pointto(A,C),p(B),nullptr(C),p(A), !.
+21:40:25 p(A):- next1(A,B),inv1(A),value(A,C),anynumber(C),p(B), !.
+21:40:25 Program 41:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),nullptr(C),next2(A,B),p(B), !.
+21:40:25 p(A):- value(A,C),anynumber(C),next1(A,B),nullptr(B),inv1(A), !.
+21:40:26 Program 42:
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 inv1(A):- next2(A,B),p(B),pointto(A,C),inv1(C), !.
+21:40:26 p(A):- value(A,B),inv1(A),next1(A,C),anynumber(B),p(C), !.
+21:40:26 Program 43:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 p(A):- next1(A,C),value(A,B),inv1(A),anynumber(B),p(C), !.
+21:40:26 inv1(A):- pointto(A,C),next2(A,B),p(A),nullptr(B),inv1(C), !.
+21:40:26 Program 44:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- pointto(A,B),next2(A,C),p(C),p(B), !.
+21:40:26 p(A):- value(A,B),inv1(A),next1(A,C),anynumber(B),nullptr(C), !.
+21:40:26 Program 45:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- pointto(A,C),next2(A,B),p(B),nullptr(C), !.
+21:40:26 p(A):- next1(A,B),value(A,C),anynumber(C),inv1(A),p(B), !.
+21:40:26 Program 46:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- next2(A,B),p(B),pointto(A,C),p(C), !.
+21:40:26 p(A):- inv1(A),value(A,C),next1(A,B),anynumber(C),p(B), !.
+21:40:26 Program 47:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- next2(A,B),nullptr(B),pointto(A,C),inv1(C), !.
+21:40:26 p(A):- value(A,B),next1(A,C),anynumber(B),inv1(A),p(C), !.
+21:40:26 SIZE: 15 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 16 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 17 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 18 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 19 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 20 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 21 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 22 MAX_LENGTH: 6 MAX_VAR: 5

@@ -29,6 +29,10 @@ insert(A, B, C) :-
     is_ordset(A), ord_union([B], A, C).
 
 anypointer(_).
+anynumber(_).
+
+same_ptr(A, A).
+
 
 value(p1,1).
 value(p2,2).

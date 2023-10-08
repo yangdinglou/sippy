@@ -1107,7 +1107,8 @@ not_in(Name, 2):-
     input_pointer(Name, _).
 
 not_in(Name, 3):-
-    input_pointer(Name, _).
+    input_pointer(Name, _),
+    not inner_pointer(Name, _).
 
 
 %  inner pts (to be invented), inner_pointer(name, type)
@@ -1135,7 +1136,8 @@ not_in(Name, 0):-
     inner_pointer(Name, _).
 
 not_in(Name, 1):-
-    inner_pointer(Name, _).
+    inner_pointer(Name, _),
+    not input_pointer(Name, _).
 
 not_in(Name, 2):-
     inner_pointer(Name, _).

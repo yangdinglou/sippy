@@ -1,185 +1,563 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
-dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(D,A,E),insert(E,F,C),lt_list(F,E), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['anypointer(B)', 'empty(C)']", "|  None ;; ['insert(E,F,C)'] ;; ['key(A,F)', 'next(A,D)', 'dll(D,A,E)', 'prev(A,B)', 'lt_list(F,E)']"]
-{'body_literal(1, key, 2, (0,5,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, insert, 3, (4,5,2,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(1, dll, 3, (3,0,4,))', 'body_literal(1, lt_list, 2, (5,4,))', 'body_literal(1, next, 2, (0,3,))'}
+p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+p(A,B,C):- next(A,E),key(A,F),prev(A,B),p(E,A,D),lt_list(F,D),insert(D,F,C), !.
+['predicate p(A,B,C) ', '{', "|  A==0 ;; ['anypointer(B)', 'empty(C)'] ;; []", "|  None ;; ['lt_list(F,D)', 'insert(D,F,C)'] ;; ['p(E,A,D)', 'next(A,E)', 'key(A,F)', 'prev(A,B)']"]
+{'body_literal(0, empty, 1, (2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, lt_list, 2, (5,3,))', 'body_literal(1, p, 3, (4,0,3,))', 'body_literal(1, next, 2, (0,4,))', 'head_literal(0, p, 3, (0,1,2,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, key, 2, (0,5,))', 'body_literal(1, insert, 3, (3,5,2,))', 'head_literal(1, p, 3, (0,1,2,))'}
 ******************************
-Num. programs: 81
-Find Mucs:
-        Called: 78 times         Total: 0.23     Mean: 0.003     Max: 0.015  Percentage: 49%
+Num. programs: 97
 Generate:
-        Called: 95 times         Total: 0.09     Mean: 0.001     Max: 0.008  Percentage: 19%
-Ground:
-        Called: 81 times         Total: 0.04     Mean: 0.000     Max: 0.004  Percentage: 8%
-Test:
-        Called: 81 times         Total: 0.04     Mean: 0.000     Max: 0.018  Percentage: 8%
-Init:
-        Called: 14 times         Total: 0.04     Mean: 0.003     Max: 0.006  Percentage: 7%
-Constrain:
-        Called: 81 times         Total: 0.02     Mean: 0.000     Max: 0.001  Percentage: 3%
-Combine:
-        Called: 3 times          Total: 0.01     Mean: 0.005     Max: 0.007  Percentage: 2%
-Total operation time: 0.46s
-Total execution time: 0.64s
-
->4
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
-dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,A,E),insert(E,D,C),lt_list(D,E), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,D,C)'] ;; ['next(A,F)', 'dll(F,A,E)', 'lt_list(D,E)', 'key(A,D)', 'prev(A,B)']"]
-{'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(1, dll, 3, (5,0,4,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(1, key, 2, (0,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, lt_list, 2, (3,4,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, insert, 3, (4,3,2,))', 'head_literal(0, dll, 3, (0,1,2,))'}
-******************************
-Num. programs: 354
+        Called: 127 times        Total: 2.86     Mean: 0.023     Max: 1.058      Percentage: 63%
 Find Mucs:
-        Called: 351 times        Total: 0.96     Mean: 0.003     Max: 0.012      Percentage: 55%
-Generate:
-        Called: 368 times        Total: 0.34     Mean: 0.001     Max: 0.020      Percentage: 19%
+        Called: 41 times         Total: 0.65     Mean: 0.016     Max: 0.366      Percentage: 14%
 Ground:
-        Called: 354 times        Total: 0.15     Mean: 0.000     Max: 0.005      Percentage: 8%
+        Called: 95 times         Total: 0.38     Mean: 0.004     Max: 0.032      Percentage: 8%
 Constrain:
-        Called: 354 times        Total: 0.11     Mean: 0.000     Max: 0.002      Percentage: 6%
-Test:
-        Called: 354 times        Total: 0.11     Mean: 0.000     Max: 0.019      Percentage: 6%
+        Called: 95 times         Total: 0.26     Mean: 0.003     Max: 0.015      Percentage: 5%
 Init:
-        Called: 14 times         Total: 0.06     Mean: 0.004     Max: 0.020      Percentage: 3%
-Combine:
-        Called: 3 times          Total: 0.01     Mean: 0.005     Max: 0.007      Percentage: 0%
-Total operation time: 1.74s
-Total execution time: 1.94s
-
->5
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
-dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-dll(A,B,C):- next(A,F),prev(A,B),key(A,E),dll(F,A,D),insert(D,E,C),min_list(C,E), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(D,E,C)'] ;; ['next(A,F)', 'dll(F,A,D)', 'min_list(C,E)', 'key(A,E)', 'prev(A,B)']"]
-{'body_literal(1, dll, 3, (5,0,3,))', 'body_literal(1, key, 2, (0,4,))', 'body_literal(1, min_list, 2, (2,4,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (3,4,2,))'}
-******************************
-Num. programs: 1574
-Find Mucs:
-        Called: 1571 times       Total: 4.43     Mean: 0.003     Max: 0.015      Percentage: 57%
-Generate:
-        Called: 1588 times       Total: 1.68     Mean: 0.001     Max: 0.173      Percentage: 21%
-Constrain:
-        Called: 1574 times       Total: 0.55     Mean: 0.000     Max: 0.004      Percentage: 7%
-Ground:
-        Called: 1574 times       Total: 0.44     Mean: 0.000     Max: 0.008      Percentage: 5%
+        Called: 32 times         Total: 0.24     Mean: 0.008     Max: 0.070      Percentage: 5%
 Test:
-        Called: 1574 times       Total: 0.42     Mean: 0.000     Max: 0.016      Percentage: 5%
-Init:
-        Called: 14 times         Total: 0.20     Mean: 0.014     Max: 0.091      Percentage: 2%
+        Called: 97 times         Total: 0.07     Mean: 0.001     Max: 0.023      Percentage: 1%
 Combine:
-        Called: 3 times          Total: 0.01     Mean: 0.004     Max: 0.005      Percentage: 0%
-Total operation time: 7.73s
-Total execution time: 8.05s
+        Called: 56 times         Total: 0.05     Mean: 0.001     Max: 0.009      Percentage: 1%
+Total operation time: 4.51s
+Total execution time: 5.66s
 
-(-1,0)
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:10
-dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(D,A,E),insert(E,F,C), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,F,C)'] ;; ['key(A,F)', 'dll(D,A,E)', 'next(A,D)', 'prev(A,B)']"]
-{'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next, 2, (0,3,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(1, key, 2, (0,5,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, insert, 3, (4,5,2,))', 'body_literal(1, dll, 3, (3,0,4,))', 'body_literal(0, anypointer, 1, (1,))', 'head_literal(1, dll, 3, (0,1,2,))'}
-******************************
-Num. programs: 37
-Find Mucs:
-        Called: 36 times         Total: 0.10     Mean: 0.003     Max: 0.014      Percentage: 36%
-Generate:
-        Called: 49 times         Total: 0.07     Mean: 0.001     Max: 0.010      Percentage: 26%
-Test:
-        Called: 37 times         Total: 0.03     Mean: 0.001     Max: 0.021      Percentage: 11%
-Init:
-        Called: 12 times         Total: 0.03     Mean: 0.002     Max: 0.004      Percentage: 11%
-Ground:
-        Called: 37 times         Total: 0.02     Mean: 0.001     Max: 0.004      Percentage: 8%
-Constrain:
-        Called: 37 times         Total: 0.01     Mean: 0.000     Max: 0.000      Percentage: 3%
-Combine:
-        Called: 1 times          Total: 0.01     Mean: 0.006     Max: 0.006      Percentage: 2%
-Total operation time: 0.26s
-Total execution time: 0.44s
-
-(-1,2)
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:10
-dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-dll(A,B,C):- prev(A,B),next(A,F),key(A,E),dll(F,A,D),insert(D,E,C), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['anypointer(B)', 'empty(C)']", "|  None ;; ['insert(D,E,C)'] ;; ['prev(A,B)', 'next(A,F)', 'dll(F,A,D)', 'key(A,E)']"]
-{'body_literal(0, empty, 1, (2,))', 'body_literal(1, key, 2, (0,4,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(1, dll, 3, (5,0,3,))', 'body_literal(0, nullptr, 1, (0,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (3,4,2,))'}
-******************************
-Num. programs: 39
-Generate:
-        Called: 51 times         Total: 18.66    Mean: 0.366     Max: 14.216     Percentage: 98%
-Find Mucs:
-        Called: 38 times         Total: 0.12     Mean: 0.003     Max: 0.010      Percentage: 0%
-Init:
-        Called: 12 times         Total: 0.06     Mean: 0.005     Max: 0.013      Percentage: 0%
-Ground:
-        Called: 39 times         Total: 0.05     Mean: 0.001     Max: 0.005      Percentage: 0%
-Test:
-        Called: 39 times         Total: 0.03     Mean: 0.001     Max: 0.020      Percentage: 0%
-Constrain:
-        Called: 39 times         Total: 0.03     Mean: 0.001     Max: 0.002      Percentage: 0%
-Combine:
-        Called: 1 times          Total: 0.01     Mean: 0.006     Max: 0.006      Percentage: 0%
-Total operation time: 18.96s
-Total execution time: 19.34s
-
-(0,2)
-
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
-dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-dll(A,B,C):- prev(A,B),next(A,D),key(A,E),dll(D,A,F),insert(F,E,C),min_list(C,E), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(F,E,C)'] ;; ['prev(A,B)', 'next(A,D)', 'dll(D,A,F)', 'min_list(C,E)', 'key(A,E)']"]
-{'body_literal(0, empty, 1, (2,))', 'body_literal(0, anypointer, 1, (1,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (5,4,2,))', 'body_literal(1, key, 2, (0,4,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, next, 2, (0,3,))', 'body_literal(1, dll, 3, (3,0,5,))', 'body_literal(1, min_list, 2, (2,4,))'}
-******************************
-Num. programs: 176
-Generate:
-        Called: 190 times        Total: 146.71   Mean: 0.772     Max: 121.071    Percentage: 51%
-Find Mucs:
-        Called: 169 times        Total: 113.27   Mean: 0.670     Max: 9.868      Percentage: 39%
-Test:
-        Called: 176 times        Total: 20.45    Mean: 0.116     Max: 4.392      Percentage: 7%
-Combine:
-        Called: 7 times          Total: 2.43     Mean: 0.347     Max: 2.401      Percentage: 0%
-Constrain:
-        Called: 176 times        Total: 0.32     Mean: 0.002     Max: 0.005      Percentage: 0%
-Ground:
-        Called: 176 times        Total: 0.29     Mean: 0.002     Max: 0.015      Percentage: 0%
-Init:
-        Called: 14 times         Total: 0.19     Mean: 0.014     Max: 0.135      Percentage: 0%
-Find Sub Inconsistent:
-        Called: 5 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
-Total operation time: 283.66s
-Total execution time: 284.17s
-
-(1,0)
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:11
-dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,A,E),lt_list(D,E),insert(E,D,C), !.
-['predicate dll(A,B,C) ', '{', "|  A==0 ;; [] ;; ['empty(C)', 'anypointer(B)']", "|  None ;; ['insert(E,D,C)'] ;; ['lt_list(D,E)', 'next(A,F)', 'prev(A,B)', 'dll(F,A,E)', 'key(A,D)']"]
-{'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(1, dll, 3, (5,0,4,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, insert, 3, (4,3,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(1, lt_list, 2, (3,4,))', 'body_literal(1, key, 2, (0,3,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))'}
-******************************
-Num. programs: 85
-Find Mucs:
-        Called: 82 times         Total: 0.24     Mean: 0.003     Max: 0.010      Percentage: 46%
-Generate:
-        Called: 101 times        Total: 0.13     Mean: 0.001     Max: 0.015      Percentage: 24%
-Init:
-        Called: 16 times         Total: 0.04     Mean: 0.003     Max: 0.006      Percentage: 8%
-Test:
-        Called: 85 times         Total: 0.04     Mean: 0.000     Max: 0.019      Percentage: 7%
-Ground:
-        Called: 85 times         Total: 0.04     Mean: 0.000     Max: 0.003      Percentage: 7%
-Constrain:
-        Called: 85 times         Total: 0.02     Mean: 0.000     Max: 0.001      Percentage: 3%
-Combine:
-        Called: 3 times          Total: 0.01     Mean: 0.005     Max: 0.007      Percentage: 2%
-Total operation time: 0.52s
-Total execution time: 0.72s
+14:31:04 Max rules: 2
+14:31:04 Max vars: 9
+14:31:04 Max body: 12
+14:31:05 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+14:31:05 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+14:31:05 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+14:31:05 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+14:31:05 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+14:31:05 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+14:31:05 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+14:31:05 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+14:31:05 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+14:31:05 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+14:31:05 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+14:31:05 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+14:31:05 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+14:31:05 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+14:31:05 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+14:31:05 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+14:31:05 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
+14:31:05 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
+14:31:05 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
+14:31:05 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
+14:31:05 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+14:31:05 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
+14:31:05 Program 1:
+14:31:05 p(A,B,C):- empty(C),same_ptr(A,B), !.
+14:31:05 p(A,B,C):- key(A,D),next(A,B),prev(A,F),p(B,F,E),insert(E,D,C), !.
+14:31:05 Program 2:
+14:31:05 p(A,B,C):- same_ptr(A,B),empty(C), !.
+14:31:05 p(A,B,C):- prev(A,B),key(A,D),next(A,F),p(B,F,E),insert(E,D,C), !.
+14:31:05 Program 3:
+14:31:05 p(A,B,C):- empty(C),same_ptr(A,B), !.
+14:31:05 p(A,B,C):- prev(A,E),next(A,B),key(A,D),p(E,B,F),insert(F,D,C), !.
+14:31:05 Program 4:
+14:31:05 p(A,B,C):- same_ptr(A,B),empty(C), !.
+14:31:05 p(A,B,C):- next(A,E),key(A,D),prev(A,B),p(E,B,F),insert(F,D,C), !.
+14:31:05 Program 5:
+14:31:05 p(A,B,C):- empty(C),same_ptr(A,B), !.
+14:31:05 p(A,B,C):- prev(A,B),key(A,E),next(A,D),p(D,A,F),insert(F,E,C), !.
+14:31:05 Program 6:
+14:31:05 p(A,B,C):- empty(C),same_ptr(A,B), !.
+14:31:05 p(A,B,C):- key(A,D),prev(A,F),next(A,B),p(F,A,E),insert(E,D,C), !.
+14:31:06 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
+14:31:06 Program 7:
+14:31:06 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:06 p(A,B,C):- key(A,D),next(A,B),prev(A,F),p(B,F,E),insert(E,D,C), !.
+14:31:06 Program 8:
+14:31:06 p(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
+14:31:06 p(A,B,C):- key(A,D),next(A,B),prev(A,F),p(B,F,E),insert(E,D,C), !.
+14:31:06 Program 9:
+14:31:06 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:06 p(A,B,C):- prev(A,B),next(A,F),key(A,D),p(B,F,E),insert(E,D,C), !.
+14:31:06 Program 10:
+14:31:06 p(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
+14:31:06 p(A,B,C):- key(A,E),prev(A,D),next(A,D),p(D,B,F),insert(F,E,C), !.
+14:31:06 Program 11:
+14:31:06 p(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,E),prev(A,B),key(A,D),p(E,B,F),insert(F,D,C), !.
+14:31:06 Program 12:
+14:31:06 p(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+14:31:06 p(A,B,C):- prev(A,B),next(A,F),key(A,D),p(B,F,E),insert(E,D,C), !.
+14:31:06 Program 13:
+14:31:06 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,D),prev(A,D),key(A,E),p(D,B,F),insert(F,E,C), !.
+14:31:06 Program 14:
+14:31:06 p(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+14:31:06 p(A,B,C):- key(A,E),next(A,F),prev(A,B),p(F,A,D),insert(D,E,C), !.
+14:31:06 Program 15:
+14:31:06 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,E),key(A,D),prev(A,B),p(E,B,F),insert(F,D,C), !.
+14:31:06 Program 16:
+14:31:06 p(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,B),key(A,E),prev(A,F),p(F,A,D),insert(D,E,C), !.
+14:31:06 Program 17:
+14:31:06 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,B),prev(A,E),key(A,D),p(E,A,F),insert(F,D,C), !.
+14:31:06 Program 18:
+14:31:06 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,F),prev(A,B),key(A,E),p(F,A,D),insert(D,E,C), !.
+14:31:06 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,F),prev(A,B),key(A,E),p(F,A,D),insert(D,E,C), !.
+14:31:06 score:51, 1.0, 154
+14:31:06 CURRENT
+14:31:06 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,F),prev(A,B),key(A,E),p(F,A,D),insert(D,E,C), !.
+14:31:06 score:51, 1.0, 154
+14:31:06 ********************
+14:31:06 New best hypothesis:
+14:31:06 tp:3 fn:0 size:10
+14:31:06 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:06 p(A,B,C):- next(A,F),prev(A,B),key(A,E),p(F,A,D),insert(D,E,C), !.
+14:31:06 ********************
+14:31:06 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 8
+14:31:06 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 8
+14:31:06 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 8
+14:31:06 Program 19:
+14:31:06 p(A,B,C):- same_ptr(A,B),empty(C), !.
+14:31:06 p(A,B,C):- key(A,F),prev(A,D),my_prev(F,E),next(A,D),p(D,B,G),insert(G,E,C), !.
+14:31:06 Program 20:
+14:31:06 p(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+14:31:06 p(A,B,C):- prev(A,B),next(A,E),key(A,D),p(E,A,F),insert(F,D,C), !.
+14:31:06 p(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+14:31:06 p(A,B,C):- prev(A,B),next(A,E),key(A,D),p(E,A,F),insert(F,D,C), !.
+14:31:06 score:51, 1.0, 154
+14:31:06 CURRENT
+14:31:06 p(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+14:31:06 p(A,B,C):- prev(A,B),next(A,E),key(A,D),p(E,A,F),insert(F,D,C), !.
+14:31:06 score:51, 1.0, 154
+14:31:07 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 8
+14:31:07 Program 21:
+14:31:07 p(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+14:31:07 p(A,B,C):- key(A,G),my_prev(G,F),next(A,B),prev(A,D),p(D,B,E),insert(E,F,C), !.
+14:31:07 Program 22:
+14:31:07 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:07 p(A,B,C):- prev(A,D),key(A,G),my_prev(G,F),next(A,B),p(D,B,E),insert(E,F,C), !.
+14:31:07 Program 23:
+14:31:07 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:07 p(A,B,C):- key(A,E),next(A,D),my_succ(E,F),prev(A,B),p(B,D,G),insert(G,F,C), !.
+14:31:07 Program 24:
+14:31:07 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:07 p(A,B,C):- next(A,E),key(A,F),prev(A,B),p(E,A,D),lt_list(F,D),insert(D,F,C), !.
+14:31:07 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:07 p(A,B,C):- next(A,E),key(A,F),prev(A,B),p(E,A,D),lt_list(F,D),insert(D,F,C), !.
+14:31:07 score:51, 1.0, 290
+14:31:07 CURRENT
+14:31:07 p(A,B,C):- next(A,E),key(A,F),prev(A,B),p(E,A,D),lt_list(F,D),insert(D,F,C), !.
+14:31:07 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:07 score:51, 1.0, 290
+14:31:07 ********************
+14:31:07 New best hypothesis:
+14:31:07 tp:3 fn:0 size:11
+14:31:07 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:07 p(A,B,C):- next(A,E),key(A,F),prev(A,B),p(E,A,D),lt_list(F,D),insert(D,F,C), !.
+14:31:07 ********************
+14:31:07 SIZE: 9 MAX_LENGTH: 8 MAX_VAR: 8
+14:31:07 SIZE: 10 MAX_LENGTH: 8 MAX_VAR: 8
+14:31:08 SIZE: 11 MAX_LENGTH: 8 MAX_VAR: 8
+14:31:08 Program 25:
+14:31:08 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:08 p(A,B,C):- next(A,E),prev(A,B),key(A,G),my_prev(G,D),p(B,E,F),insert(F,D,C), !.
+14:31:08 Program 26:
+14:31:08 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:08 p(A,B,C):- key(A,G),prev(A,B),next(A,D),my_succ(G,F),p(D,A,E),insert(E,F,C), !.
+14:31:08 Program 27:
+14:31:08 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:08 p(A,B,C):- prev(A,B),key(A,F),next(A,D),p(D,A,E),insert(E,F,C),min_list(E,F), !.
+14:31:08 Program 28:
+14:31:08 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:08 p(A,B,C):- key(A,G),my_prev(G,F),next(A,E),prev(A,B),p(E,A,D),insert(D,F,C), !.
+14:31:08 Program 29:
+14:31:08 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:08 p(A,B,C):- prev(A,B),key(A,F),next(A,D),p(D,A,E),insert(E,F,C),max_list(E,F), !.
+14:31:08 Program 30:
+14:31:08 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:08 p(A,B,C):- key(A,F),next(A,D),prev(A,B),p(D,A,E),gt_list(F,E),insert(E,F,C), !.
+14:31:08 Program 31:
+14:31:08 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:08 p(A,B,C):- key(A,D),next(A,F),prev(A,B),p(F,A,E),lt_list(D,E),insert(E,D,C), !.
+14:31:08 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:08 p(A,B,C):- key(A,D),next(A,F),prev(A,B),p(F,A,E),lt_list(D,E),insert(E,D,C), !.
+14:31:08 score:51, 1.0, 290
+14:31:08 CURRENT
+14:31:08 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:08 p(A,B,C):- key(A,D),next(A,F),prev(A,B),p(F,A,E),lt_list(D,E),insert(E,D,C), !.
+14:31:08 score:51, 1.0, 290
+14:31:08 Program 32:
+14:31:08 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:08 p(A,B,C):- key(A,F),prev(A,B),next(A,D),p(D,A,E),insert(E,F,C),lt_list(F,C), !.
+14:31:08 Program 33:
+14:31:08 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:08 p(A,B,C):- prev(A,B),key(A,F),next(A,E),p(E,A,D),insert(D,F,C),gt_list(F,C), !.
+14:31:08 SIZE: 12 MAX_LENGTH: 8 MAX_VAR: 8
+14:31:08 Program 34:
+14:31:08 p(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+14:31:08 p(A,B,C):- prev(A,B),next(A,D),key(A,G),p(D,A,E),p(B,D,F),lt_list(G,F),ord_union(E,F,C), !.
+14:31:09 Program 35:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),next(A,D),my_succ(F,G),p(D,A,E),insert(E,F,C),lt_list(G,C), !.
+14:31:09 Program 36:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),my_prev(G,D),next(A,F),p(F,A,E),insert(E,G,C),gt_list(D,E), !.
+14:31:09 Program 37:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,E),prev(A,B),my_succ(E,F),next(A,D),p(D,A,G),insert(G,E,C),min_list(C,F), !.
+14:31:09 Program 38:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),key(A,F),prev(A,B),my_prev(F,E),p(G,A,D),insert(D,F,C),gt_list(E,C), !.
+14:31:09 Program 39:
+14:31:09 p(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,G),my_prev(G,D),prev(A,B),p(F,A,E),min_list(E,D),insert(E,G,C), !.
+14:31:09 Program 40:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),key(A,E),prev(A,B),my_prev(E,F),p(D,A,G),insert(G,E,C),min_list(C,F), !.
+14:31:09 Program 41:
+14:31:09 p(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,E),prev(A,B),next(A,G),p(G,A,D),insert(D,F,C),max_list(C,E), !.
+14:31:09 Program 42:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,F),key(A,G),my_succ(G,D),p(F,A,E),insert(E,G,C),min_list(E,D), !.
+14:31:09 Program 43:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- next(A,D),key(A,E),my_prev(E,F),prev(A,B),p(D,A,G),insert(G,E,C),max_list(C,F), !.
+14:31:09 Program 44:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,G),my_succ(G,D),prev(A,B),p(F,A,E),lt_list(D,E),insert(E,G,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,G),my_succ(G,D),prev(A,B),p(F,A,E),lt_list(D,E),insert(E,G,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 45:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,G),my_succ(G,D),p(F,A,E),insert(E,G,C),max_list(E,D), !.
+14:31:09 Program 46:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,E),my_prev(E,G),anynumber(G),p(F,A,D),insert(D,E,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,E),my_prev(E,G),anynumber(G),p(F,A,D),insert(D,E,C), !.
+14:31:09 score:51, 1.0, 120
+14:31:09 CURRENT
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,E),my_prev(E,G),anynumber(G),p(F,A,D),insert(D,E,C), !.
+14:31:09 score:51, 1.0, 120
+14:31:09 Program 47:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,F),my_succ(G,D),anynumber(D),p(F,A,E),insert(E,G,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,F),my_succ(G,D),anynumber(D),p(F,A,E),insert(E,G,C), !.
+14:31:09 score:51, 1.0, 120
+14:31:09 CURRENT
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,F),my_succ(G,D),anynumber(D),p(F,A,E),insert(E,G,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 score:51, 1.0, 120
+14:31:09 Program 48:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,E),prev(A,B),my_prev(E,G),p(F,A,D),max_list(D,G),insert(D,E,C), !.
+14:31:09 Program 49:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,E),my_succ(E,G),prev(A,B),p(F,A,D),lt_list(G,D),insert(D,E,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,E),my_succ(E,G),prev(A,B),p(F,A,D),lt_list(G,D),insert(D,E,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 50:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,D),key(A,F),my_succ(F,G),p(D,A,E),insert(E,F,C),lt_list(G,E), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,D),key(A,F),my_succ(F,G),p(D,A,E),insert(E,F,C),lt_list(G,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 51:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),prev(A,B),key(A,F),my_succ(F,E),p(G,A,D),lt_list(E,D),insert(D,F,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),prev(A,B),key(A,F),my_succ(F,E),p(G,A,D),lt_list(E,D),insert(D,F,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 52:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,E),prev(A,B),my_succ(E,D),p(F,A,G),lt_list(D,G),insert(G,E,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),key(A,E),prev(A,B),my_succ(E,D),p(F,A,G),lt_list(D,G),insert(G,E,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 53:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,E),next(A,D),my_succ(E,F),p(D,A,G),lt_list(F,G),insert(G,E,C), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,E),next(A,D),my_succ(E,F),p(D,A,G),lt_list(F,G),insert(G,E,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 54:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,F),key(A,G),my_succ(G,E),p(F,A,D),insert(D,G,C),lt_list(E,D), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,F),key(A,G),my_succ(G,E),p(F,A,D),insert(D,G,C),lt_list(E,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 55:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,G),my_succ(G,F),p(D,A,E),insert(E,G,C),lt_list(F,E), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,G),my_succ(G,F),p(D,A,E),insert(E,G,C),lt_list(F,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 56:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,F),next(A,G),prev(A,B),my_succ(F,D),p(G,A,E),lt_list(D,E),insert(E,F,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,F),next(A,G),prev(A,B),my_succ(F,D),p(G,A,E),lt_list(D,E),insert(E,F,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 57:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,E),my_succ(E,G),p(D,A,F),insert(F,E,C),lt_list(G,F), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,E),my_succ(E,G),p(D,A,F),insert(F,E,C),lt_list(G,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 58:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,E),my_succ(E,D),next(A,G),prev(A,B),p(G,A,F),insert(F,E,C),lt_list(D,F), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,E),my_succ(E,D),next(A,G),prev(A,B),p(G,A,F),insert(F,E,C),lt_list(D,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 59:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,D),my_succ(D,G),next(A,F),prev(A,B),p(F,A,E),insert(E,D,C),lt_list(G,E), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,D),my_succ(D,G),next(A,F),prev(A,B),p(F,A,E),insert(E,D,C),lt_list(G,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 60:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,D),my_succ(D,E),p(F,A,G),lt_list(E,G),insert(G,D,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,D),my_succ(D,E),p(F,A,G),lt_list(E,G),insert(G,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 61:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,G),key(A,E),my_succ(E,F),prev(A,B),p(G,A,D),insert(D,E,C),lt_list(F,D), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,G),key(A,E),my_succ(E,F),prev(A,B),p(G,A,D),insert(D,E,C),lt_list(F,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 62:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,F),next(A,G),p(G,A,E),insert(E,D,C),lt_list(F,E), !.
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,F),next(A,G),p(G,A,E),insert(E,D,C),lt_list(F,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 63:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),my_succ(G,D),next(A,E),p(E,A,F),insert(F,G,C),lt_list(D,F), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),my_succ(G,D),next(A,E),p(E,A,F),insert(F,G,C),lt_list(D,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 64:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,F),next(A,E),p(E,A,G),lt_list(F,G),insert(G,D,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,F),next(A,E),p(E,A,G),lt_list(F,G),insert(G,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 65:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,E),next(A,G),p(G,A,F),insert(F,D,C),lt_list(E,F), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,E),next(A,G),p(G,A,F),insert(F,D,C),lt_list(E,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 66:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,D),my_succ(D,G),prev(A,B),next(A,E),p(E,A,F),lt_list(G,F),insert(F,D,C), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,D),my_succ(D,G),prev(A,B),next(A,E),p(E,A,F),lt_list(G,F),insert(F,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 67:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,E),key(A,F),my_succ(F,G),p(E,A,D),insert(D,F,C),lt_list(G,D), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,E),key(A,F),my_succ(F,G),p(E,A,D),insert(D,F,C),lt_list(G,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 68:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,D),key(A,G),my_succ(G,E),p(D,A,F),insert(F,G,C),lt_list(E,F), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,D),key(A,G),my_succ(G,E),p(D,A,F),insert(F,G,C),lt_list(E,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 69:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,D),prev(A,B),next(A,E),p(E,A,G),lt_list(D,G),insert(G,F,C), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,D),prev(A,B),next(A,E),p(E,A,G),lt_list(D,G),insert(G,F,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 70:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,E),my_succ(G,F),p(E,A,D),insert(D,G,C),lt_list(F,D), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,E),my_succ(G,F),p(E,A,D),insert(D,G,C),lt_list(F,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 71:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,E),next(A,D),prev(A,B),p(D,A,G),insert(G,F,C),lt_list(E,G), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,E),next(A,D),prev(A,B),p(D,A,G),insert(G,F,C),lt_list(E,G), !.
+14:31:09 score:None, None, None
+14:31:09 SIZE: 13 MAX_LENGTH: 8 MAX_VAR: 8
+14:31:09 Program 72:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,E),key(A,G),my_succ(G,D),prev(A,B),p(E,A,F),insert(F,G,C),lt_list(D,F),lt_list(G,F), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,E),key(A,G),my_succ(G,D),prev(A,B),p(E,A,F),insert(F,G,C),lt_list(D,F),lt_list(G,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 73:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,E),prev(A,B),key(A,G),my_succ(G,D),anynumber(D),p(E,A,F),insert(F,G,C),lt_list(G,F), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,E),prev(A,B),key(A,G),my_succ(G,D),anynumber(D),p(E,A,F),insert(F,G,C),lt_list(G,F), !.
+14:31:09 score:51, 1.0, 256
+14:31:09 CURRENT
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,E),prev(A,B),key(A,G),my_succ(G,D),anynumber(D),p(E,A,F),insert(F,G,C),lt_list(G,F), !.
+14:31:09 score:51, 1.0, 256
+14:31:09 Program 74:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),my_succ(F,D),next(A,G),p(G,A,E),insert(E,F,C),lt_list(F,E),lt_list(D,E), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),my_succ(F,D),next(A,G),p(G,A,E),insert(E,F,C),lt_list(F,E),lt_list(D,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 75:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),prev(A,B),key(A,E),my_succ(E,F),p(G,A,D),lt_list(F,D),insert(D,E,C),lt_list(E,D), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),prev(A,B),key(A,E),my_succ(E,F),p(G,A,D),lt_list(F,D),insert(D,E,C),lt_list(E,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 76:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,G),key(A,F),my_prev(F,E),anynumber(E),p(G,A,D),insert(D,F,C),lt_list(F,D), !.
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,G),key(A,F),my_prev(F,E),anynumber(E),p(G,A,D),insert(D,F,C),lt_list(F,D), !.
+14:31:09 score:51, 1.0, 256
+14:31:09 CURRENT
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,G),key(A,F),my_prev(F,E),anynumber(E),p(G,A,D),insert(D,F,C),lt_list(F,D), !.
+14:31:09 score:51, 1.0, 256
+14:31:09 Program 77:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,E),prev(A,B),next(A,G),p(G,A,D),lt_list(E,D),lt_list(F,D),insert(D,F,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,E),prev(A,B),next(A,G),p(G,A,D),lt_list(E,D),lt_list(F,D),insert(D,F,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 78:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,D),my_succ(D,G),p(F,A,E),lt_list(G,E),insert(E,D,C),lt_list(D,E), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,D),my_succ(D,G),p(F,A,E),lt_list(G,E),insert(E,D,C),lt_list(D,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 79:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,E),next(A,G),prev(A,B),my_succ(E,D),p(G,A,F),lt_list(E,F),lt_list(D,F),insert(F,E,C), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- key(A,E),next(A,G),prev(A,B),my_succ(E,D),p(G,A,F),lt_list(E,F),lt_list(D,F),insert(F,E,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 80:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,E),my_succ(G,F),p(E,A,D),lt_list(F,D),insert(D,G,C),lt_list(G,D), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,E),my_succ(G,F),p(E,A,D),lt_list(F,D),insert(D,G,C),lt_list(G,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 81:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),prev(A,B),key(A,D),my_succ(D,F),p(G,A,E),lt_list(D,E),lt_list(F,E),insert(E,D,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,G),prev(A,B),key(A,D),my_succ(D,F),p(G,A,E),lt_list(D,E),lt_list(F,E),insert(E,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 82:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,D),prev(A,B),next(A,F),my_succ(D,E),p(F,A,G),lt_list(E,G),lt_list(D,G),insert(G,D,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,D),prev(A,B),next(A,F),my_succ(D,E),p(F,A,G),lt_list(E,G),lt_list(D,G),insert(G,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 83:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- next(A,E),key(A,D),my_succ(D,F),prev(A,B),p(E,A,G),lt_list(D,G),lt_list(F,G),insert(G,D,C), !.
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- next(A,E),key(A,D),my_succ(D,F),prev(A,B),p(E,A,G),lt_list(D,G),lt_list(F,G),insert(G,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 84:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),my_succ(F,D),next(A,E),p(E,A,G),insert(G,F,C),lt_list(F,G),lt_list(D,G), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),my_succ(F,D),next(A,E),p(E,A,G),insert(G,F,C),lt_list(F,G),lt_list(D,G), !.
+14:31:09 score:None, None, None
+14:31:09 Program 85:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- key(A,D),next(A,G),my_succ(D,E),prev(A,B),p(G,A,F),lt_list(E,F),lt_list(D,F),insert(F,D,C), !.
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- key(A,D),next(A,G),my_succ(D,E),prev(A,B),p(G,A,F),lt_list(E,F),lt_list(D,F),insert(F,D,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 86:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,G),next(A,E),p(E,A,F),insert(F,D,C),lt_list(G,F),lt_list(D,F), !.
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,D),my_succ(D,G),next(A,E),p(E,A,F),insert(F,D,C),lt_list(G,F),lt_list(D,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 87:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,G),prev(A,B),next(A,E),p(E,A,D),lt_list(F,D),insert(D,F,C),lt_list(G,D), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- key(A,F),my_succ(F,G),prev(A,B),next(A,E),p(E,A,D),lt_list(F,D),insert(D,F,C),lt_list(G,D), !.
+14:31:09 score:None, None, None
+14:31:09 Program 88:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),key(A,E),my_succ(E,F),prev(A,B),p(D,A,G),insert(G,E,C),lt_list(F,G),lt_list(E,G), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),key(A,E),my_succ(E,F),prev(A,B),p(D,A,G),insert(G,E,C),lt_list(F,G),lt_list(E,G), !.
+14:31:09 score:None, None, None
+14:31:09 Program 89:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,F),my_succ(G,E),p(F,A,D),lt_list(G,D),lt_list(E,D),insert(D,G,C), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,G),next(A,F),my_succ(G,E),p(F,A,D),lt_list(G,D),lt_list(E,D),insert(D,G,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 90:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,G),my_succ(G,D),p(F,A,E),lt_list(G,E),insert(E,G,C),lt_list(D,E), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,G),my_succ(G,D),p(F,A,E),lt_list(G,E),insert(E,G,C),lt_list(D,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 91:
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,E),my_succ(E,G),next(A,D),p(D,A,F),lt_list(G,F),insert(F,E,C),lt_list(E,F), !.
+14:31:09 p(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,E),my_succ(E,G),next(A,D),p(D,A,F),lt_list(G,F),insert(F,E,C),lt_list(E,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 92:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,D),key(A,G),my_succ(G,F),p(D,A,E),insert(E,G,C),lt_list(F,E),lt_list(G,E), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,D),key(A,G),my_succ(G,F),p(D,A,E),insert(E,G,C),lt_list(F,E),lt_list(G,E), !.
+14:31:09 score:None, None, None
+14:31:09 Program 93:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,E),my_succ(E,D),p(F,A,G),insert(G,E,C),lt_list(E,G),lt_list(D,G), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,F),prev(A,B),key(A,E),my_succ(E,D),p(F,A,G),insert(G,E,C),lt_list(E,G),lt_list(D,G), !.
+14:31:09 score:None, None, None
+14:31:09 Program 94:
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,F),my_succ(F,E),p(D,A,G),lt_list(E,G),lt_list(F,G),insert(G,F,C), !.
+14:31:09 p(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,F),my_succ(F,E),p(D,A,G),lt_list(E,G),lt_list(F,G),insert(G,F,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 95:
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,G),my_succ(G,E),p(D,A,F),insert(F,G,C),lt_list(E,F),lt_list(G,F), !.
+14:31:09 p(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+14:31:09 p(A,B,C):- next(A,D),prev(A,B),key(A,G),my_succ(G,E),p(D,A,F),insert(F,G,C),lt_list(E,F),lt_list(G,F), !.
+14:31:09 score:None, None, None
+14:31:09 Program 96:
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,F),key(A,E),my_succ(E,G),p(F,A,D),lt_list(E,D),lt_list(G,D),insert(D,E,C), !.
+14:31:09 p(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+14:31:09 p(A,B,C):- prev(A,B),next(A,F),key(A,E),my_succ(E,G),p(F,A,D),lt_list(E,D),lt_list(G,D),insert(D,E,C), !.
+14:31:09 score:None, None, None
+14:31:09 Program 97:
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),my_succ(F,G),next(A,D),p(D,A,E),lt_list(F,E),lt_list(G,E),insert(E,F,C), !.
+14:31:09 p(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+14:31:09 p(A,B,C):- prev(A,B),key(A,F),my_succ(F,G),next(A,D),p(D,A,E),lt_list(F,E),lt_list(G,E),insert(E,F,C), !.
+14:31:09 score:None, None, None

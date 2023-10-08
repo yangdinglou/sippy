@@ -133,7 +133,7 @@ def format_rule(rule):
     if head:
         head_str = format_literal(head)
     body_str = ','.join(format_literal(literal) for literal in body)
-    return f'{head_str}:- {body_str}.'
+    return f'{head_str}:- {body_str}, !.'
 
 def format_body(body):
     pred = None
@@ -142,12 +142,15 @@ def format_body(body):
     for literal in body:
         if literal.predicate == 'nullptr':
             pred = f'{literal.arguments[0]}==0'
-        elif literal.predicate in ['insert', 'delete','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'minnum', 'zero']:
+        elif literal.predicate == 'same_ptr':
+            pred = f'{literal.arguments[0]}=={literal.arguments[1]}'
+        elif literal.predicate in ['anypointer','anynumber','insert', 'empty','ord_union','min_list','max_list','gt_list','lt_list','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'zero']:
             pure.append(format_literal(literal))
         else:
             spatial.append(format_literal(literal))
     return pred, pure, spatial
 
+# zytodo
 def to_sl_preds(rules):
     preds = dict()
     for rule in rules:

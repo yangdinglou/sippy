@@ -1,24 +1,200 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:9
-f(A,B):- empty(B),nullptr(A), !.
-f(A,B):- next(A,E),value(A,D),f(E,C),insert(C,D,B),lt_list(D,C), !.
-['predicate f(A,B) ', '{', "|  A==0 ;; [] ;; ['empty(B)']", "|  None ;; ['insert(C,D,B)'] ;; ['next(A,E)', 'value(A,D)', 'f(E,C)', 'lt_list(D,C)']"]
-{'body_literal(1, lt_list, 2, (3,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, value, 2, (0,3,))', 'head_literal(0, f, 2, (0,1,))', 'body_literal(1, f, 2, (4,2,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, insert, 3, (2,3,1,))', 'body_literal(1, next, 2, (0,4,))', 'head_literal(1, f, 2, (0,1,))'}
+sorted(A,B):- nullptr(A),empty(B), !.
+sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
+['predicate sorted(A,B) ', '{', "|  A==0 ;; ['empty(B)'] ;; []", "|  None ;; ['insert(D,C,B)', 'lt_list(C,D)'] ;; ['value(A,C)', 'sorted(E,D)', 'next(A,E)']"]
+{'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(1, insert, 3, (3,2,1,))', 'body_literal(1, sorted, 2, (4,3,))', 'body_literal(1, next, 2, (0,4,))', 'head_literal(1, sorted, 2, (0,1,))', 'head_literal(0, sorted, 2, (0,1,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, lt_list, 2, (2,3,))'}
 ******************************
-Num. programs: 21
+Num. programs: 27
 Generate:
-        Called: 33 times         Total: 0.03     Mean: 0.001     Max: 0.006  Percentage: 23%
-Init:
-        Called: 12 times         Total: 0.03     Mean: 0.002     Max: 0.003  Percentage: 19%
-Test:
-        Called: 21 times         Total: 0.02     Mean: 0.001     Max: 0.015  Percentage: 18%
-Find Mucs:
-        Called: 18 times         Total: 0.02     Mean: 0.001     Max: 0.005  Percentage: 14%
+        Called: 48 times         Total: 1.63     Mean: 0.034     Max: 0.515      Percentage: 53%
 Ground:
-        Called: 21 times         Total: 0.02     Mean: 0.001     Max: 0.002  Percentage: 14%
-Combine:
-        Called: 3 times          Total: 0.01     Mean: 0.003     Max: 0.004  Percentage: 6%
+        Called: 25 times         Total: 0.53     Mean: 0.021     Max: 0.060      Percentage: 17%
 Constrain:
-        Called: 21 times         Total: 0.00     Mean: 0.000     Max: 0.000  Percentage: 2%
-Total operation time: 0.13s
-Total execution time: 0.26s
+        Called: 25 times         Total: 0.39     Mean: 0.016     Max: 0.024      Percentage: 12%
+Init:
+        Called: 23 times         Total: 0.30     Mean: 0.013     Max: 0.142      Percentage: 9%
+Find Mucs:
+        Called: 19 times         Total: 0.13     Mean: 0.007     Max: 0.037      Percentage: 4%
+Test:
+        Called: 27 times         Total: 0.04     Mean: 0.001     Max: 0.024      Percentage: 1%
+Combine:
+        Called: 8 times          Total: 0.03     Mean: 0.003     Max: 0.006      Percentage: 0%
+Total operation time: 3.05s
+Total execution time: 4.26s
+
+14:40:36 Max rules: 2
+14:40:36 Max vars: 9
+14:40:36 Max body: 12
+14:40:36 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+14:40:37 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+14:40:37 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+14:40:37 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+14:40:37 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+14:40:37 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+14:40:37 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+14:40:37 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+14:40:37 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+14:40:37 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+14:40:37 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+14:40:37 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+14:40:37 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+14:40:37 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+14:40:37 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+14:40:37 Program 1:
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),insert(E,C,B), !.
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),insert(E,C,B), !.
+14:40:37 score:24, 1.0, 128
+14:40:37 CURRENT
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),insert(E,C,B), !.
+14:40:37 score:24, 1.0, 128
+14:40:37 ********************
+14:40:37 New best hypothesis:
+14:40:37 tp:2 fn:0 size:8
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),insert(E,C,B), !.
+14:40:37 ********************
+14:40:37 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 7
+14:40:37 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 7
+14:40:37 Program 2:
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B), !.
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B), !.
+14:40:37 score:24, 1.0, 128
+14:40:37 CURRENT
+14:40:37 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B), !.
+14:40:37 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:37 score:24, 1.0, 128
+14:40:37 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 7
+14:40:37 Program 3:
+14:40:37 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:37 sorted(A,B):- value(A,C),next(A,D),my_prev(C,E),sorted(D,F),insert(F,E,B), !.
+14:40:38 Program 4:
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- next(A,D),value(A,C),my_succ(C,E),sorted(D,F),insert(F,E,B), !.
+14:40:38 Program 5:
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B),lt_list(D,B), !.
+14:40:38 Program 6:
+14:40:38 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:38 sorted(A,B):- value(A,E),next(A,C),sorted(C,D),insert(D,E,B),gt_list(E,B), !.
+14:40:38 Program 7:
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
+14:40:38 score:24, 1.0, 224
+14:40:38 CURRENT
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
+14:40:38 score:24, 1.0, 224
+14:40:38 ********************
+14:40:38 New best hypothesis:
+14:40:38 tp:2 fn:0 size:9
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,C),next(A,E),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
+14:40:38 ********************
+14:40:38 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+14:40:38 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
+14:40:38 Program 8:
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B),lt_list(D,E), !.
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B),lt_list(D,E), !.
+14:40:38 score:24, 1.0, 224
+14:40:38 CURRENT
+14:40:38 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B),lt_list(D,E), !.
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 score:24, 1.0, 224
+14:40:38 Program 9:
+14:40:38 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:38 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B),gt_list(D,E), !.
+14:40:38 Program 10:
+14:40:38 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:38 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),max_list(E,D),insert(E,D,B), !.
+14:40:38 Program 11:
+14:40:38 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:38 sorted(A,B):- next(A,E),value(A,D),sorted(E,C),min_list(C,D),insert(C,D,B), !.
+14:40:38 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
+14:40:38 Program 12:
+14:40:38 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:38 sorted(A,B):- next(A,C),value(A,F),my_succ(F,D),sorted(C,E),lt_list(D,E),insert(E,F,B), !.
+14:40:38 Program 13:
+14:40:38 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:38 sorted(A,B):- value(A,F),my_prev(F,D),next(A,C),sorted(C,E),min_list(E,D),insert(E,F,B), !.
+14:40:38 Program 14:
+14:40:38 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:38 sorted(A,B):- next(A,E),value(A,D),my_prev(D,C),sorted(E,F),gt_list(C,F),insert(F,D,B), !.
+14:40:39 Program 15:
+14:40:39 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:39 sorted(A,B):- next(A,E),value(A,F),my_succ(F,C),sorted(E,D),min_list(D,C),insert(D,F,B), !.
+14:40:39 Program 16:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,D),next(A,E),my_prev(D,C),sorted(E,F),insert(F,D,B),max_list(F,C), !.
+14:40:39 Program 17:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- next(A,E),value(A,F),my_succ(F,C),sorted(E,D),insert(D,F,B),max_list(D,C), !.
+14:40:39 Program 18:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,E),next(A,D),my_prev(E,C),sorted(D,F),insert(F,E,B),gt_list(C,B), !.
+14:40:39 Program 19:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,F),my_succ(F,C),next(A,E),sorted(E,D),insert(D,F,B),max_list(B,C), !.
+14:40:39 Program 20:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,E),my_prev(E,C),next(A,D),sorted(D,F),insert(F,E,B),max_list(B,C), !.
+14:40:39 Program 21:
+14:40:39 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:39 sorted(A,B):- value(A,F),next(A,E),my_succ(F,C),sorted(E,D),insert(D,F,B),min_list(B,C), !.
+14:40:39 Program 22:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- next(A,D),value(A,E),my_prev(E,C),sorted(D,F),insert(F,E,B),min_list(B,C), !.
+14:40:39 Program 23:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,F),my_succ(F,C),anynumber(C),next(A,E),sorted(E,D),insert(D,F,B), !.
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,F),my_succ(F,C),anynumber(C),next(A,E),sorted(E,D),insert(D,F,B), !.
+14:40:39 score:24, 1.0, 104
+14:40:39 CURRENT
+14:40:39 sorted(A,B):- value(A,F),my_succ(F,C),anynumber(C),next(A,E),sorted(E,D),insert(D,F,B), !.
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 score:24, 1.0, 104
+14:40:39 Program 24:
+14:40:39 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:39 sorted(A,B):- next(A,D),value(A,E),my_prev(E,C),anynumber(C),sorted(D,F),insert(F,E,B), !.
+14:40:39 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:39 sorted(A,B):- next(A,D),value(A,E),my_prev(E,C),anynumber(C),sorted(D,F),insert(F,E,B), !.
+14:40:39 score:24, 1.0, 104
+14:40:39 CURRENT
+14:40:39 sorted(A,B):- next(A,D),value(A,E),my_prev(E,C),anynumber(C),sorted(D,F),insert(F,E,B), !.
+14:40:39 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:39 score:24, 1.0, 104
+14:40:39 Program 25:
+14:40:39 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:39 sorted(A,B):- value(A,E),next(A,D),my_succ(E,C),sorted(D,F),insert(F,E,B),lt_list(C,B), !.
+14:40:39 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 7
+14:40:40 Program 26:
+14:40:40 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:40 sorted(A,B):- next(A,E),value(A,F),my_prev(F,C),anynumber(C),sorted(E,D),insert(D,F,B),lt_list(F,D), !.
+14:40:40 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:40 sorted(A,B):- next(A,E),value(A,F),my_prev(F,C),anynumber(C),sorted(E,D),insert(D,F,B),lt_list(F,D), !.
+14:40:40 score:24, 1.0, 200
+14:40:40 CURRENT
+14:40:40 sorted(A,B):- empty(B),nullptr(A), !.
+14:40:40 sorted(A,B):- next(A,E),value(A,F),my_prev(F,C),anynumber(C),sorted(E,D),insert(D,F,B),lt_list(F,D), !.
+14:40:40 score:24, 1.0, 200
+14:40:40 Program 27:
+14:40:40 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:40 sorted(A,B):- value(A,F),my_succ(F,C),next(A,E),anynumber(C),sorted(E,D),lt_list(F,D),insert(D,F,B), !.
+14:40:40 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:40 sorted(A,B):- value(A,F),my_succ(F,C),next(A,E),anynumber(C),sorted(E,D),lt_list(F,D),insert(D,F,B), !.
+14:40:40 score:24, 1.0, 200
+14:40:40 CURRENT
+14:40:40 sorted(A,B):- value(A,F),my_succ(F,C),next(A,E),anynumber(C),sorted(E,D),lt_list(F,D),insert(D,F,B), !.
+14:40:40 sorted(A,B):- nullptr(A),empty(B), !.
+14:40:40 score:24, 1.0, 200
+14:40:40 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 7

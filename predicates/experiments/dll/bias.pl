@@ -10,6 +10,11 @@ input_pointer(next,pointer).
 input_pointer(prev,pointer).
 input_pointer(key,integer).
 
+:-
+	head_literal(1, dll, _, (_,_, B1)),
+	body_literal(1, dll, _, (_,_, B2)),
+	not partial_le(1, B2, B1).
+
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
 body_pred(nullptr,1).

@@ -135,3 +135,6 @@ value(ddd, 12).
 left(ddd, null).
 right(ddd, null).
 height(ddd, 0).
+
+% p(A,B):- empty(B),nullptr(A), !.
+% p(A,B):- value(A,I),right(A,G),left(A,F),my_succ(I,E),p(G,D),lt_list(E,D),lt_list(I,D),p(F,H),gt_list(I,H),ord_union(D,H,C),insert(C,I,B), !.

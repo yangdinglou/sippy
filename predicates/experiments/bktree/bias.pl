@@ -1,3 +1,4 @@
+max_vars(10).
 
 max_clauses(2).
 enable_recursion.
@@ -30,7 +31,6 @@ body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
 body_pred(same_ptr,2).
-body_pred(ge,2).
 
 not_in(anypointer, 1).
 not_in(anynumber, 0).

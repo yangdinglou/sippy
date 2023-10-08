@@ -114,7 +114,7 @@ left(h, null).
 right(h, null).
 height(h, 0).
 
-value(i, 60).
+value(i, 5).
 back(i, a).
 left(i, j).
 right(i, k).
