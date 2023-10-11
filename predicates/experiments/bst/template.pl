@@ -104,6 +104,10 @@ direction(insert,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 :-
+    body_literal(T, anynumber, _, (A,)),
+    not out_from_this(T, A).
+
+:-
 	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
 :-

@@ -54,6 +54,10 @@ direction(inv1,(in,in)):-invented(_, 2).
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
+:-
+    body_literal(T, anynumber, _, (A,)),
+    not out_from_this(T, A).
+
 
 
 :-

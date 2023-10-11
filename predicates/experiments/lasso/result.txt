@@ -1,24 +1,179 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:8
-sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),insert(D,F,C), !.
-['predicate sleg(A,B,C) ', '{', "|  None ;; [] ;; ['same_ptr(A,B)', 'empty(C)']", "|  None ;; ['insert(D,F,C)'] ;; ['next(A,E)', 'value(A,F)', 'sleg(E,B,D)']"]
-{'head_literal(1, sleg, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(1, next, 2, (0,4,))', 'body_literal(1, value, 2, (0,5,))', 'head_literal(0, sleg, 3, (0,1,2,))', 'body_literal(1, insert, 3, (3,5,2,))', 'body_literal(1, sleg, 3, (4,1,3,))'}
+lasso(A,B,C):- same_ptr(A,B),empty(C).
+lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C).
+['predicate lasso(A,B,C) ', '{', "|  A==B ;; ['empty(C)'] ;; []", "|  None ;; ['insert(E,F,C)'] ;; ['lasso(D,B,E)', 'next(A,D)', 'value(A,F)']"]
+{'body_literal(0, same_ptr, 2, (0,1,))', 'head_literal(0, lasso, 3, (0,1,2,))', 'body_literal(1, value, 2, (0,5,))', 'body_literal(1, next, 2, (0,3,))', 'head_literal(1, lasso, 3, (0,1,2,))', 'body_literal(1, lasso, 3, (3,1,4,))', 'body_literal(1, insert, 3, (4,5,2,))', 'body_literal(0, empty, 1, (2,))'}
 ******************************
-Num. programs: 228
-Generate:
-        Called: 258 times        Total: 0.99     Mean: 0.004     Max: 0.359      Percentage: 42%
-Ground:
-        Called: 228 times        Total: 0.42     Mean: 0.002     Max: 0.022      Percentage: 18%
-Constrain:
-        Called: 228 times        Total: 0.37     Mean: 0.002     Max: 0.014      Percentage: 15%
-Find Mucs:
-        Called: 69 times         Total: 0.25     Mean: 0.004     Max: 0.021      Percentage: 10%
-Init:
-        Called: 30 times         Total: 0.20     Mean: 0.007     Max: 0.081      Percentage: 8%
+Num. programs: 29
 Test:
-        Called: 228 times        Total: 0.09     Mean: 0.000     Max: 0.019      Percentage: 3%
+        Called: 29 times         Total: 0.89     Mean: 0.031     Max: 0.041      Percentage: 34%
+Find Mucs:
+        Called: 21 times         Total: 0.67     Mean: 0.032     Max: 0.089      Percentage: 26%
+Generate:
+        Called: 54 times         Total: 0.60     Mean: 0.011     Max: 0.501      Percentage: 23%
+Ground:
+        Called: 28 times         Total: 0.17     Mean: 0.006     Max: 0.020      Percentage: 6%
+Init:
+        Called: 26 times         Total: 0.14     Mean: 0.005     Max: 0.040      Percentage: 5%
+Constrain:
+        Called: 28 times         Total: 0.11     Mean: 0.004     Max: 0.007      Percentage: 4%
 Combine:
-        Called: 159 times        Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
-Total operation time: 2.34s
-Total execution time: 3.37s
+        Called: 8 times          Total: 0.01     Mean: 0.001     Max: 0.005      Percentage: 0%
+Total operation time: 2.58s
+Total execution time: 3.36s
+
+14:39:41 Max rules: 2
+14:39:41 Max vars: 9
+14:39:41 Max body: 12
+14:39:42 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+14:39:42 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+14:39:42 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+14:39:42 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+14:39:42 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+14:39:42 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+14:39:42 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+14:39:42 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+14:39:42 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+14:39:42 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+14:39:42 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+14:39:42 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+14:39:42 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+14:39:42 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+14:39:42 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+14:39:42 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+14:39:42 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
+14:39:42 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
+14:39:42 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
+14:39:42 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
+14:39:42 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+14:39:42 Program 1:
+14:39:42 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:42 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C).
+14:39:42 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:42 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C).
+14:39:42 score:30, 1.0, 168
+14:39:42 CURRENT
+14:39:42 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C).
+14:39:42 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:42 score:30, 1.0, 168
+14:39:42 ********************
+14:39:42 New best hypothesis:
+14:39:42 tp:3 fn:0 size:8
+14:39:42 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:42 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C).
+14:39:42 ********************
+14:39:42 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
+14:39:42 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
+14:39:42 Program 2:
+14:39:42 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:42 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C).
+14:39:42 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:42 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C).
+14:39:42 score:30, 1.0, 168
+14:39:42 CURRENT
+14:39:42 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C).
+14:39:42 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:42 score:30, 1.0, 168
+14:39:43 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
+14:39:43 Program 3:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,E),my_prev(E,F),next(A,G),lasso(G,B,D),insert(D,F,C).
+14:39:43 Program 4:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,E),next(A,G),my_succ(E,F),lasso(G,B,D),insert(D,F,C).
+14:39:43 Program 5:
+14:39:43 lasso(A,B,C):- nullptr(A),empty(C),nullptr(B).
+14:39:43 lasso(A,B,C):- value(A,F),next(A,E),lasso(E,B,D),insert(D,F,C).
+14:39:43 Program 6:
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),lt_list(F,E),insert(E,F,C).
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),lt_list(F,E),insert(E,F,C).
+14:39:43 score:None, None, None
+14:39:43 Program 7:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C),gt_list(F,C).
+14:39:43 Program 8:
+14:39:43 lasso(A,B,C):- empty(C),anypointer(B),nullptr(A).
+14:39:43 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),insert(D,F,C).
+14:39:43 Program 9:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,F),next(A,D),lasso(D,B,E),insert(E,F,C),lt_list(F,C).
+14:39:43 Program 10:
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,E),value(A,D),lasso(E,B,F),insert(F,D,C),lt_list(D,F).
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,E),value(A,D),lasso(E,B,F),insert(F,D,C),lt_list(D,F).
+14:39:43 score:None, None, None
+14:39:43 Program 11:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),insert(E,F,C),min_list(E,F).
+14:39:43 Program 12:
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- value(A,F),next(A,E),lasso(E,B,D),insert(D,F,C),max_list(D,F).
+14:39:43 Program 13:
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),gt_list(F,E),insert(E,F,C).
+14:39:43 Program 14:
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),insert(D,F,C),lt_list(F,D).
+14:39:43 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:43 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),insert(D,F,C),lt_list(F,D).
+14:39:43 score:None, None, None
+14:39:43 Program 15:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C),lt_list(E,D).
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C),lt_list(E,D).
+14:39:43 score:None, None, None
+14:39:43 Program 16:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,D),next(A,F),lasso(F,B,E),insert(E,D,C),lt_list(D,E).
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- value(A,D),next(A,F),lasso(F,B,E),insert(E,D,C),lt_list(D,E).
+14:39:43 score:None, None, None
+14:39:43 Program 17:
+14:39:43 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:43 lasso(A,B,C):- next(A,D),value(A,E),lasso(D,B,F),insert(F,E,C),lt_list(E,F).
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- next(A,D),value(A,E),lasso(D,B,F),insert(F,E,C),lt_list(E,F).
+14:39:44 score:None, None, None
+14:39:44 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
+14:39:44 Program 18:
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- value(A,G),my_succ(G,E),next(A,D),lasso(D,B,F),insert(F,G,C),max_list(F,E).
+14:39:44 Program 19:
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- value(A,G),next(A,D),my_succ(G,E),lasso(D,B,F),insert(F,G,C),min_list(F,E).
+14:39:44 Program 20:
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- value(A,G),my_prev(G,D),next(A,E),lasso(E,B,F),insert(F,G,C),max_list(C,D).
+14:39:44 Program 21:
+14:39:44 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:44 lasso(A,B,C):- value(A,G),my_succ(G,D),next(A,E),lasso(E,B,F),insert(F,G,C),min_list(C,D).
+14:39:44 Program 22:
+14:39:44 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:44 lasso(A,B,C):- next(A,E),value(A,G),my_prev(G,D),lasso(E,B,F),insert(F,G,C),min_list(C,D).
+14:39:44 Program 23:
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- value(A,G),next(A,F),my_prev(G,D),lasso(F,B,E),insert(E,G,C),gt_list(D,C).
+14:39:44 Program 24:
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- next(A,F),value(A,G),my_prev(G,D),lasso(F,B,E),insert(E,G,C),gt_list(D,E).
+14:39:44 Program 25:
+14:39:44 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:44 lasso(A,B,C):- next(A,D),value(A,F),my_succ(F,G),lasso(D,B,E),insert(E,F,C),lt_list(G,C).
+14:39:44 Program 26:
+14:39:44 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:44 lasso(A,B,C):- value(A,G),next(A,E),my_succ(G,D),lasso(E,B,F),lt_list(D,F),insert(F,G,C).
+14:39:44 Program 27:
+14:39:44 lasso(A,B,C):- empty(C),same_ptr(A,B).
+14:39:44 lasso(A,B,C):- next(A,F),value(A,G),my_prev(G,D),lasso(F,B,E),min_list(E,D),insert(E,G,C).
+14:39:44 Program 28:
+14:39:44 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:44 lasso(A,B,C):- value(A,F),next(A,D),my_succ(F,G),lasso(D,B,E),insert(E,F,C),max_list(C,G).
+14:39:44 Program 29:
+14:39:44 lasso(A,B,C):- same_ptr(A,B),empty(C).
+14:39:44 lasso(A,B,C):- next(A,D),value(A,G),my_prev(G,F),lasso(D,B,E),insert(E,G,C),max_list(E,F).
+14:39:45 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8

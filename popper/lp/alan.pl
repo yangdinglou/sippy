@@ -13,6 +13,7 @@
 #defined allow_singletons/0.
 #defined body_singletons/0.
 #defined custom_max_size/1.
+#defined recur_num/1.
 
 #show head_literal/4.
 #show body_literal/4.
@@ -536,6 +537,18 @@ base_clause(C,P,A):-
     clause(C),
     head_aux(P,A),
     #count{Vars : body_literal(C,P,A,Vars)} > 2.
+
+:-
+    recur_num(X),
+    C > 0,
+    recursive_clause(C,P,A),
+    #count{Vars : body_literal(C,P,A,Vars)} != X.
+
+% :-
+%     recur_num(X),
+%     clause(C),
+%     head_aux(P,A),
+%     #count{Vars : body_literal(C,P,A,Vars)} != X.
 
 %% PREVENT LEFT RECURSION
 %% TODO: GENERALISE FOR ARITY > 3
@@ -1173,6 +1186,7 @@ equal_var(C, Var3, Var4):-
     Var1 != Var2,
     body_literal(C, P, _, Vars1),
     body_literal(C, P, _, Vars2),
+    Vars1 != Vars2,
     var_pos(Var1, Vars1, Pos),
     var_pos(Var2, Vars2, Pos),
     var_pos(Var3, Vars1, Pos1),
@@ -1202,10 +1216,33 @@ equal_var(C, Var3, Var4):-
     not invented(P, _),
     not equal_pts(P,_),
     not equal_pts(_,P),
+    not symmetric_head(P),
     var_in_body_pos(C, P, Pos, Var1),
     not var_in_body_pos(C, P, Pos, Var2).
 
-equal_var(C, Var1, Var2):- equal_pts(Pt1,Pt2), body_literal(C, Pt1, _, (A,Var1)), body_literal(C, Pt2, _, (A,Var2)).
+:-
+    equal_var(C, Var1, Var2),
+    Var1 != Var2,
+    not invented(P, _),
+    not equal_pts(P,_),
+    not equal_pts(_,P),
+    symmetric_head(P),
+    var_in_body_pos(C, P, 0, Var1),
+    not var_in_body_pos(C, P, 1, Var2).
+
+:-
+    equal_var(C, Var1, Var2),
+    Var1 != Var2,
+    not invented(P, _),
+    not equal_pts(P,_),
+    not equal_pts(_,P),
+    symmetric_head(P),
+    var_in_body_pos(C, P, 1, Var1),
+    not var_in_body_pos(C, P, 0, Var2).
+
+equal_var(C, Var1, Var2):- equal_pts(Pt1,Pt2), body_literal(C, Pt1, _, (A,Var1)), body_literal(C, Pt2, _, (A,Var2)), Var1 < Var2.
+
+equal_var(C, Var1, Var2):- equal_var(C, Var2, Var1), Var2 > Var1.
 
 equal_var(C, Var1, Var2):-
     invented(P, _),
@@ -1238,3 +1275,40 @@ eq(C):-body_literal(C,same_ptr,_,(0,_)).
     head_pred(_, X1),
     invented(_, X2),
     X2>X1.
+
+pure_type(integer).
+pure_type(set).
+
+direction(P,(in,)):- head_pred(P,1).
+
+direction(P,(in,out)):- head_pred(P,2),type(P,(_,T)), pure_type(T).
+direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
+:-
+    direction(P,(in,out)),
+	head_literal(T, P, _, (_, B1)),
+	body_literal(T, P, _, (_, B2)),
+	not partial_le(T, B2, B1).
+
+direction(P,(in,in,out)):- head_pred(P,3),type(P,(_,_,T)), pure_type(T).
+direction(P,(in,in,in)):- head_pred(P,3),type(P,(_,_,T)), not pure_type(T).
+:-
+    direction(P,(in,in,out)),
+	head_literal(T, P, _, (_, _, B1)),
+	body_literal(T, P, _, (_, _, B2)),
+	not partial_le(T, B2, B1).
+
+direction(P,(in,in,in,out)):- head_pred(P,4),type(P,(_,_,_,T)), pure_type(T).
+direction(P,(in,in,in,in)):- head_pred(P,4),type(P,(_,_,_,T)), not pure_type(T).
+:-
+    direction(P,(in,in,in,out)),
+	head_literal(T, P, _, (_, _, _, B1)),
+	body_literal(T, P, _, (_, _, _, B2)),
+	not partial_le(T, B2, B1).
+
+direction(P,(in,in,in,in,out)):- head_pred(P,5),type(P,(_,_,_,_,T)), pure_type(T).
+direction(P,(in,in,in,in,in)):- head_pred(P,5),type(P,(_,_,_,_,T)), not pure_type(T).
+:-
+    direction(P,(in,in,in,in,out)),
+	head_literal(T, P, _, (_, _, _, _, B1)),
+	body_literal(T, P, _, (_, _, _, _, B2)),
+	not partial_le(T, B2, B1).

@@ -1,0 +1,648 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:9
+sll(A,B):- zero(B),nullptr(A), !.
+sll(A,B):- next(A,D),value(A,E),anynumber(E),sll(D,C),my_succ(C,B), !.
+['predicate sll(A,B) ', '{', "|  A==0 ;; ['zero(B)'] ;; []", "|  None ;; ['anynumber(E)', 'my_succ(C,B)'] ;; ['next(A,D)', 'sll(D,C)', 'value(A,E)']"]
+{'head_literal(1, sll, 2, (0,1,))', 'body_literal(1, value, 2, (0,4,))', 'body_literal(0, zero, 1, (1,))', 'head_literal(0, sll, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, anynumber, 1, (4,))', 'body_literal(1, next, 2, (0,3,))', 'body_literal(1, sll, 2, (3,2,))', 'body_literal(1, my_succ, 2, (2,1,))'}
+******************************
+Num. programs: 165
+Ground:
+        Called: 164 times        Total: 3.83     Mean: 0.023     Max: 0.381      Percentage: 37%
+Constrain:
+        Called: 164 times        Total: 3.36     Mean: 0.020     Max: 0.127      Percentage: 32%
+Init:
+        Called: 21 times         Total: 1.70     Mean: 0.081     Max: 1.039      Percentage: 16%
+Find Mucs:
+        Called: 135 times        Total: 0.76     Mean: 0.006     Max: 0.079      Percentage: 7%
+Generate:
+        Called: 185 times        Total: 0.58     Mean: 0.003     Max: 0.300      Percentage: 5%
+Test:
+        Called: 165 times        Total: 0.08     Mean: 0.000     Max: 0.018      Percentage: 0%
+Combine:
+        Called: 30 times         Total: 0.01     Mean: 0.000     Max: 0.007      Percentage: 0%
+Total operation time: 10.32s
+Total execution time: 13.35s
+
+15:37:22 Max rules: 2
+15:37:22 Max vars: 9
+15:37:22 Max body: 12
+15:37:23 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+15:37:23 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+15:37:23 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+15:37:23 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+15:37:23 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+15:37:23 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+15:37:23 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+15:37:23 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+15:37:23 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+15:37:23 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+15:37:23 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+15:37:23 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+15:37:23 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+15:37:23 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+15:37:23 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+15:37:23 Program 1:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 2:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 3:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,C),next(A,D),sll(D,E),maxnum(C,E,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,C),next(A,D),sll(D,E),maxnum(C,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 4:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,E),next(A,C),sll(C,D),maxnum(D,E,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,E),next(A,C),sll(C,D),maxnum(D,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 5:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,C),next(A,E),sll(E,D),maxnum(C,D,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,C),next(A,E),sll(E,D),maxnum(C,D,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 6:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,D),next(A,E),sll(E,C),maxnum(C,D,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,D),next(A,E),sll(E,C),maxnum(C,D,B), !.
+15:37:23 score:None, None, None
+15:37:23 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+15:37:23 Program 7:
+15:37:23 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:23 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:23 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 8:
+15:37:23 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:23 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:23 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 9:
+15:37:23 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B), !.
+15:37:23 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 10:
+15:37:23 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:23 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:23 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 11:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),sll(D,C),diff_lessthanone(C,E),my_succ(C,B), !.
+15:37:23 Program 12:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,C),next(A,E),sll(E,D),diff_lessthanone(C,D),maxnum(C,D,B), !.
+15:37:23 Program 13:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),anynumber(E),sll(D,C),my_succ(C,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),anynumber(E),sll(D,C),my_succ(C,B), !.
+15:37:23 score:24, 1.0, 8
+15:37:23 CURRENT
+15:37:23 sll(A,B):- next(A,D),value(A,E),anynumber(E),sll(D,C),my_succ(C,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 score:24, 1.0, 8
+15:37:23 ********************
+15:37:23 New best hypothesis:
+15:37:23 tp:2 fn:0 size:9
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),anynumber(E),sll(D,C),my_succ(C,B), !.
+15:37:23 ********************
+15:37:23 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+15:37:23 Program 14:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 15:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 16:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,C),next(A,D),sll(D,E),maxnum(C,E,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,C),next(A,D),sll(D,E),maxnum(C,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 17:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,D),next(A,E),sll(E,C),maxnum(C,D,B), !.
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- value(A,D),next(A,E),sll(E,C),maxnum(C,D,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 18:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,C),value(A,E),sll(C,D),maxnum(D,E,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,C),value(A,E),sll(C,D),maxnum(D,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 Program 19:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B), !.
+15:37:23 score:None, None, None
+15:37:23 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
+15:37:23 Program 20:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- next(A,D),value(A,E),sll(D,C),my_succ(C,B),diff_lessthanone(B,E), !.
+15:37:23 Program 21:
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,E),anynumber(E),next(A,D),sll(D,C),my_succ(C,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 sll(A,B):- value(A,E),anynumber(E),next(A,D),sll(D,C),my_succ(C,B), !.
+15:37:23 score:24, 1.0, 8
+15:37:23 CURRENT
+15:37:23 sll(A,B):- value(A,E),anynumber(E),next(A,D),sll(D,C),my_succ(C,B), !.
+15:37:23 sll(A,B):- zero(B),nullptr(A), !.
+15:37:23 score:24, 1.0, 8
+15:37:23 Program 22:
+15:37:23 sll(A,B):- nullptr(A),zero(B), !.
+15:37:23 sll(A,B):- next(A,D),value(A,F),my_prev(F,E),sll(D,C),maxnum(C,E,B), !.
+15:37:24 Program 23:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,C),value(A,E),sll(C,D),maxnum(D,E,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,C),value(A,E),sll(C,D),maxnum(D,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 24:
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- value(A,C),next(A,D),sll(D,E),maxnum(C,E,B), !.
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- value(A,C),next(A,D),sll(D,E),maxnum(C,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 25:
+15:37:24 sll(A,B):- nullptr(A),zero(B), !.
+15:37:24 sll(A,B):- value(A,F),next(A,D),my_succ(F,E),sll(D,C),maxnum(C,E,B), !.
+15:37:24 Program 26:
+15:37:24 sll(A,B):- zero(B),nullptr(A), !.
+15:37:24 sll(A,B):- value(A,D),next(A,E),sll(E,F),maxnum(D,F,C),my_succ(C,B), !.
+15:37:24 Program 27:
+15:37:24 sll(A,B):- nullptr(A),zero(B), !.
+15:37:24 sll(A,B):- value(A,F),next(A,D),sll(D,C),my_succ(C,E),maxnum(E,F,B), !.
+15:37:24 Program 28:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:24 sll(A,B):- next(A,C),value(A,E),sll(C,D),maxnum(D,E,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:24 sll(A,B):- next(A,C),value(A,E),sll(C,D),maxnum(D,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 29:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,D),value(A,C),sll(D,E),maxnum(C,E,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,D),value(A,C),sll(D,E),maxnum(C,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 30:
+15:37:24 sll(A,B):- zero(B),nullptr(A), !.
+15:37:24 sll(A,B):- value(A,D),next(A,E),sll(E,C),my_succ(C,F),maxnum(D,F,B), !.
+15:37:24 Program 31:
+15:37:24 sll(A,B):- nullptr(A),zero(B), !.
+15:37:24 sll(A,B):- value(A,E),next(A,C),sll(C,D),maxnum(D,E,F),my_succ(F,B), !.
+15:37:24 Program 32:
+15:37:24 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B), !.
+15:37:24 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 33:
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B), !.
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 34:
+15:37:24 sll(A,B):- nullptr(A),zero(B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,D),my_succ(D,C),sll(E,F),maxnum(C,F,B), !.
+15:37:24 Program 35:
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B), !.
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 36:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 37:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 38:
+15:37:24 sll(A,B):- zero(B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,C),value(A,E),my_prev(E,D),sll(C,F),maxnum(D,F,B), !.
+15:37:24 Program 39:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,C),sll(E,D),maxnum(C,D,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 40:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:24 sll(A,B):- value(A,D),next(A,E),sll(E,C),maxnum(C,D,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:24 sll(A,B):- value(A,D),next(A,E),sll(E,C),maxnum(C,D,B), !.
+15:37:24 score:None, None, None
+15:37:24 Program 41:
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,D),sll(E,C),maxnum(C,D,B), !.
+15:37:24 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:24 sll(A,B):- next(A,E),value(A,D),sll(E,C),maxnum(C,D,B), !.
+15:37:24 score:None, None, None
+15:37:24 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
+15:37:24 Program 42:
+15:37:24 sll(A,B):- zero(B),nullptr(A), !.
+15:37:24 sll(A,B):- next(A,C),value(A,D),sll(C,E),my_succ(E,B),maxnum(D,E,F),diff_lessthanone(B,F), !.
+15:37:24 Program 43:
+15:37:24 sll(A,B):- nullptr(A),zero(B), !.
+15:37:24 sll(A,B):- next(A,F),value(A,C),sll(F,D),my_prev(D,E),diff_lessthanone(C,E),maxnum(C,D,B), !.
+15:37:24 Program 44:
+15:37:24 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:24 sll(A,B):- value(A,C),next(A,F),my_prev(C,E),sll(F,D),maxnum(D,E,B), !.
+15:37:25 Program 45:
+15:37:25 sll(A,B):- nullptr(A),zero(B), !.
+15:37:25 sll(A,B):- value(A,E),next(A,D),sll(D,C),my_succ(C,F),diff_lessthanone(E,F),maxnum(C,E,B), !.
+15:37:25 Program 46:
+15:37:25 sll(A,B):- zero(B),nullptr(A), !.
+15:37:25 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(D,F), !.
+15:37:25 Program 47:
+15:37:25 sll(A,B):- zero(B),nullptr(A), !.
+15:37:25 sll(A,B):- value(A,C),next(A,F),sll(F,D),maxnum(C,D,B),my_prev(D,E),diff_lessthanone(B,E), !.
+15:37:25 Program 48:
+15:37:25 sll(A,B):- zero(B),nullptr(A), !.
+15:37:25 sll(A,B):- next(A,C),value(A,F),my_succ(F,D),sll(C,E),diff_lessthanone(D,E),maxnum(E,F,B), !.
+15:37:25 Program 49:
+15:37:25 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:25 sll(A,B):- next(A,F),value(A,C),my_prev(C,E),sll(F,D),maxnum(D,E,B), !.
+15:37:25 Program 50:
+15:37:25 sll(A,B):- nullptr(A),zero(B), !.
+15:37:25 sll(A,B):- value(A,E),next(A,D),sll(D,C),my_succ(C,F),maxnum(C,E,B),diff_lessthanone(B,F), !.
+15:37:26 Program 51:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(E,F), !.
+15:37:26 Program 52:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- value(A,C),my_prev(C,E),next(A,F),sll(F,D),maxnum(C,D,B),diff_lessthanone(D,E), !.
+15:37:26 Program 53:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- value(A,C),next(A,D),sll(D,F),maxnum(C,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
+15:37:26 Program 54:
+15:37:26 sll(A,B):- zero(B),nullptr(A), !.
+15:37:26 sll(A,B):- value(A,F),next(A,C),my_succ(F,D),sll(C,E),maxnum(E,F,B),diff_lessthanone(B,D), !.
+15:37:26 Program 55:
+15:37:26 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:26 sll(A,B):- value(A,C),my_prev(C,E),next(A,D),sll(D,F),maxnum(E,F,B), !.
+15:37:26 Program 56:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+15:37:26 Program 57:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+15:37:26 Program 58:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- value(A,C),next(A,F),my_prev(C,E),sll(F,D),maxnum(C,D,B),diff_lessthanone(B,E), !.
+15:37:26 Program 59:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- value(A,C),my_prev(C,D),next(A,E),sll(E,F),my_succ(F,B),diff_lessthanone(B,D), !.
+15:37:26 Program 60:
+15:37:26 sll(A,B):- nullptr(A),zero(B), !.
+15:37:26 sll(A,B):- next(A,C),value(A,F),sll(C,E),maxnum(E,F,B),my_prev(B,D),diff_lessthanone(D,F), !.
+15:37:26 Program 61:
+15:37:26 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:26 sll(A,B):- value(A,C),next(A,D),my_prev(C,E),sll(D,F),maxnum(E,F,B), !.
+15:37:27 Program 62:
+15:37:27 sll(A,B):- zero(B),nullptr(A), !.
+15:37:27 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B),my_succ(B,F),diff_lessthanone(C,F), !.
+15:37:27 Program 63:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(D,F), !.
+15:37:27 Program 64:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,C),next(A,F),sll(F,D),my_succ(D,E),maxnum(C,D,B),diff_lessthanone(B,E), !.
+15:37:27 Program 65:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,C),my_prev(C,D),next(A,E),sll(E,F),diff_lessthanone(D,F),my_succ(F,B), !.
+15:37:27 Program 66:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,F),next(A,C),sll(C,E),maxnum(E,F,B),my_prev(B,D),diff_lessthanone(D,E), !.
+15:37:27 Program 67:
+15:37:27 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:27 sll(A,B):- value(A,F),next(A,E),sll(E,D),my_succ(D,C),maxnum(C,F,B), !.
+15:37:27 Program 68:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,E),my_succ(E,F),next(A,D),sll(D,C),diff_lessthanone(C,F),maxnum(C,E,B), !.
+15:37:27 Program 69:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,C),my_succ(C,E),next(A,F),sll(F,D),maxnum(C,D,B),diff_lessthanone(B,E), !.
+15:37:27 Program 70:
+15:37:27 sll(A,B):- zero(B),nullptr(A), !.
+15:37:27 sll(A,B):- next(A,E),value(A,C),sll(E,F),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(D,F), !.
+15:37:27 Program 71:
+15:37:27 sll(A,B):- nullptr(A),zero(B), !.
+15:37:27 sll(A,B):- value(A,F),next(A,C),my_prev(F,D),sll(C,E),maxnum(E,F,B),diff_lessthanone(B,D), !.
+15:37:27 Program 72:
+15:37:27 sll(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+15:37:27 sll(A,B):- next(A,E),value(A,F),sll(E,D),my_succ(D,C),maxnum(C,F,B), !.
+15:37:28 Program 73:
+15:37:28 sll(A,B):- zero(B),nullptr(A), !.
+15:37:28 sll(A,B):- value(A,D),next(A,F),sll(F,C),maxnum(C,D,B),my_prev(B,E),diff_lessthanone(C,E), !.
+15:37:28 Program 74:
+15:37:28 sll(A,B):- zero(B),nullptr(A), !.
+15:37:28 sll(A,B):- value(A,C),next(A,D),sll(D,F),my_succ(F,B),maxnum(B,C,E),diff_lessthanone(E,F), !.
+15:37:28 Program 75:
+15:37:28 sll(A,B):- nullptr(A),zero(B), !.
+15:37:28 sll(A,B):- value(A,F),next(A,C),sll(C,E),maxnum(E,F,B),my_prev(E,D),diff_lessthanone(D,F), !.
+15:37:28 Program 76:
+15:37:28 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:28 sll(A,B):- value(A,F),my_succ(F,C),next(A,E),sll(E,D),maxnum(C,D,B), !.
+15:37:28 Program 77:
+15:37:28 sll(A,B):- zero(B),nullptr(A), !.
+15:37:28 sll(A,B):- value(A,D),next(A,C),sll(C,E),my_succ(E,B),maxnum(B,D,F),diff_lessthanone(E,F), !.
+15:37:28 Program 78:
+15:37:28 sll(A,B):- nullptr(A),zero(B), !.
+15:37:28 sll(A,B):- next(A,F),value(A,D),sll(F,C),maxnum(C,D,B),my_prev(B,E),diff_lessthanone(D,E), !.
+15:37:28 Program 79:
+15:37:28 sll(A,B):- nullptr(A),zero(B), !.
+15:37:28 sll(A,B):- next(A,C),value(A,F),sll(C,E),maxnum(E,F,B),my_prev(E,D),diff_lessthanone(B,D), !.
+15:37:28 Program 80:
+15:37:28 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:28 sll(A,B):- value(A,F),next(A,E),my_succ(F,C),sll(E,D),maxnum(C,D,B), !.
+15:37:29 Program 81:
+15:37:29 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:29 sll(A,B):- value(A,F),next(A,E),sll(E,D),maxnum(D,F,C),my_succ(C,B), !.
+15:37:29 Program 82:
+15:37:29 sll(A,B):- nullptr(A),zero(B), !.
+15:37:29 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,F),my_succ(C,B),diff_lessthanone(B,F), !.
+15:37:29 Program 83:
+15:37:29 sll(A,B):- zero(B),nullptr(A), !.
+15:37:29 sll(A,B):- next(A,E),value(A,F),sll(E,C),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(D,F), !.
+15:37:29 Program 84:
+15:37:29 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:29 sll(A,B):- next(A,E),value(A,F),sll(E,D),maxnum(D,F,C),my_succ(C,B), !.
+15:37:29 Program 85:
+15:37:29 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:29 sll(A,B):- value(A,C),next(A,E),sll(E,D),maxnum(C,D,F),my_succ(F,B), !.
+15:37:29 Program 86:
+15:37:29 sll(A,B):- nullptr(A),zero(B), !.
+15:37:29 sll(A,B):- value(A,F),next(A,E),sll(E,C),maxnum(C,F,B),my_succ(C,D),diff_lessthanone(D,F), !.
+15:37:29 Program 87:
+15:37:29 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:29 sll(A,B):- next(A,D),value(A,C),anynumber(C),sll(D,E),my_succ(E,B), !.
+15:37:29 Program 88:
+15:37:29 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:29 sll(A,B):- next(A,C),value(A,F),my_succ(F,E),sll(C,D),maxnum(D,E,B), !.
+15:37:30 Program 89:
+15:37:30 sll(A,B):- zero(B),nullptr(A), !.
+15:37:30 sll(A,B):- next(A,C),value(A,F),sll(C,E),maxnum(E,F,B),my_succ(B,D),diff_lessthanone(D,E), !.
+15:37:30 Program 90:
+15:37:30 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:30 sll(A,B):- value(A,E),next(A,D),sll(D,C),my_succ(C,F),maxnum(E,F,B), !.
+15:37:30 Program 91:
+15:37:30 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:30 sll(A,B):- next(A,D),value(A,E),sll(D,C),my_succ(C,F),maxnum(E,F,B), !.
+15:37:30 Program 92:
+15:37:30 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:30 sll(A,B):- next(A,C),value(A,F),my_succ(F,E),sll(C,D),maxnum(D,E,B), !.
+15:37:31 Program 93:
+15:37:31 sll(A,B):- nullptr(A),zero(B), !.
+15:37:31 sll(A,B):- value(A,D),next(A,F),sll(F,E),maxnum(D,E,B),my_succ(B,C),diff_lessthanone(C,D), !.
+15:37:31 Program 94:
+15:37:31 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:31 sll(A,B):- value(A,C),next(A,E),sll(E,D),diff_lessthanone(C,D),maxnum(C,D,B), !.
+15:37:31 Program 95:
+15:37:31 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:31 sll(A,B):- value(A,D),next(A,E),sll(E,F),maxnum(D,F,C),my_succ(C,B), !.
+15:37:31 Program 96:
+15:37:31 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:31 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),diff_lessthanone(D,E), !.
+15:37:31 Program 97:
+15:37:31 sll(A,B):- zero(B),nullptr(A), !.
+15:37:31 sll(A,B):- next(A,F),value(A,D),sll(F,E),maxnum(D,E,B),my_prev(B,C),diff_lessthanone(C,D), !.
+15:37:31 Program 98:
+15:37:31 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:31 sll(A,B):- next(A,D),value(A,E),sll(D,C),maxnum(C,E,B),diff_lessthanone(C,E), !.
+15:37:31 Program 99:
+15:37:31 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:31 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B),diff_lessthanone(C,E), !.
+15:37:31 Program 100:
+15:37:31 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:31 sll(A,B):- value(A,E),anynumber(E),next(A,D),sll(D,C),my_succ(C,B), !.
+15:37:31 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 7
+15:37:32 Program 101:
+15:37:32 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:32 sll(A,B):- value(A,D),next(A,E),my_prev(D,C),sll(E,F),maxnum(D,F,B),diff_lessthanone(C,F), !.
+15:37:32 Program 102:
+15:37:32 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:32 sll(A,B):- next(A,E),value(A,D),my_prev(D,C),sll(E,F),diff_lessthanone(C,F),maxnum(D,F,B), !.
+15:37:32 Program 103:
+15:37:32 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:32 sll(A,B):- value(A,F),next(A,E),sll(E,D),my_prev(D,C),diff_lessthanone(C,F),maxnum(D,F,B), !.
+15:37:32 Program 104:
+15:37:32 sll(A,B):- nullptr(A),zero(B), !.
+15:37:32 sll(A,B):- value(A,C),next(A,F),anynumber(C),sll(F,E),my_prev(E,D),my_succ(E,B),diff_lessthanone(B,D), !.
+15:37:32 Program 105:
+15:37:32 sll(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+15:37:32 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B),my_succ(E,F),diff_lessthanone(B,F), !.
+15:37:32 Program 106:
+15:37:32 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:32 sll(A,B):- next(A,E),value(A,F),sll(E,D),maxnum(D,F,B),my_prev(D,C),diff_lessthanone(C,F), !.
+15:37:32 Program 107:
+15:37:32 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:32 sll(A,B):- next(A,C),value(A,F),sll(C,D),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
+15:37:32 Program 108:
+15:37:32 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:32 sll(A,B):- value(A,E),next(A,C),sll(C,F),maxnum(E,F,B),my_prev(B,D),diff_lessthanone(D,E), !.
+15:37:32 Program 109:
+15:37:32 sll(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+15:37:32 sll(A,B):- value(A,E),next(A,C),sll(C,F),maxnum(E,F,B),my_prev(B,D),diff_lessthanone(D,E), !.
+15:37:33 Program 110:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,D),my_succ(D,F),next(A,C),sll(C,E),maxnum(D,E,B),diff_lessthanone(B,F), !.
+15:37:33 Program 111:
+15:37:33 sll(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+15:37:33 sll(A,B):- next(A,E),value(A,D),my_prev(D,C),sll(E,F),maxnum(D,F,B),diff_lessthanone(B,C), !.
+15:37:33 Program 112:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- next(A,D),value(A,C),sll(D,F),my_succ(F,E),maxnum(C,F,B),diff_lessthanone(C,E), !.
+15:37:33 Program 113:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,F),next(A,C),sll(C,D),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(D,E), !.
+15:37:33 Program 114:
+15:37:33 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:33 sll(A,B):- next(A,F),value(A,C),sll(F,E),my_prev(E,D),maxnum(C,E,B),diff_lessthanone(B,D), !.
+15:37:33 Program 115:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,D),next(A,C),sll(C,E),my_prev(E,F),maxnum(D,E,B),diff_lessthanone(B,F), !.
+15:37:33 Program 116:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:33 sll(A,B):- value(A,D),next(A,C),sll(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(E,F), !.
+15:37:33 Program 117:
+15:37:33 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:33 sll(A,B):- next(A,E),value(A,D),my_prev(D,C),sll(E,F),maxnum(D,F,B),diff_lessthanone(B,C), !.
+15:37:33 Program 118:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,C),next(A,D),sll(D,F),maxnum(C,F,B),my_succ(B,E),diff_lessthanone(C,E), !.
+15:37:33 Program 119:
+15:37:33 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:33 sll(A,B):- value(A,D),next(A,C),sll(C,F),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(D,E), !.
+15:37:33 Program 120:
+15:37:33 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:33 sll(A,B):- next(A,C),value(A,D),sll(C,F),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
+15:37:33 Program 121:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:33 sll(A,B):- next(A,C),value(A,E),my_succ(E,D),sll(C,F),maxnum(E,F,B),diff_lessthanone(B,D), !.
+15:37:33 Program 122:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+15:37:33 Program 123:
+15:37:33 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:33 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(D,F), !.
+15:37:33 Program 124:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- next(A,E),value(A,F),sll(E,D),maxnum(D,F,B),my_prev(D,C),diff_lessthanone(B,C), !.
+15:37:33 Program 125:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,C),next(A,D),sll(D,F),maxnum(C,F,B),my_succ(B,E),diff_lessthanone(E,F), !.
+15:37:33 Program 126:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,F),next(A,C),my_succ(F,E),sll(C,D),maxnum(D,F,B),diff_lessthanone(B,E), !.
+15:37:33 Program 127:
+15:37:33 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:33 sll(A,B):- next(A,C),value(A,E),sll(C,F),maxnum(E,F,B),my_succ(B,D),diff_lessthanone(D,E), !.
+15:37:33 Program 128:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- next(A,C),value(A,D),my_succ(D,F),sll(C,E),diff_lessthanone(E,F),maxnum(D,E,B), !.
+15:37:33 Program 129:
+15:37:33 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:33 sll(A,B):- next(A,C),value(A,D),sll(C,E),my_prev(E,F),diff_lessthanone(D,F),maxnum(D,E,B), !.
+15:37:33 Program 130:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:33 sll(A,B):- next(A,E),value(A,F),sll(E,D),maxnum(D,F,B),my_prev(D,C),diff_lessthanone(B,C), !.
+15:37:33 Program 131:
+15:37:33 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:33 sll(A,B):- value(A,C),my_succ(C,E),next(A,D),sll(D,F),maxnum(C,F,B),diff_lessthanone(E,F), !.
+15:37:34 Program 132:
+15:37:34 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,F),value(A,C),sll(F,E),my_succ(E,D),maxnum(C,E,B),diff_lessthanone(B,D), !.
+15:37:34 Program 133:
+15:37:34 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- value(A,E),next(A,C),sll(C,F),maxnum(E,F,B),my_succ(B,D),diff_lessthanone(D,E), !.
+15:37:34 Program 134:
+15:37:34 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),my_prev(D,F),sll(C,E),maxnum(D,E,B),diff_lessthanone(E,F), !.
+15:37:34 Program 135:
+15:37:34 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,D),value(A,F),sll(D,C),maxnum(C,F,B),my_succ(B,E),diff_lessthanone(C,E), !.
+15:37:34 Program 136:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:34 sll(A,B):- next(A,F),value(A,C),sll(F,E),maxnum(C,E,B),my_succ(B,D),diff_lessthanone(D,E), !.
+15:37:34 Program 137:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:34 sll(A,B):- value(A,F),next(A,C),sll(C,D),maxnum(D,F,B),my_succ(D,E),diff_lessthanone(B,E), !.
+15:37:34 Program 138:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:34 sll(A,B):- value(A,E),next(A,C),sll(C,F),my_succ(F,D),maxnum(E,F,B),diff_lessthanone(D,E), !.
+15:37:34 Program 139:
+15:37:34 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(E,F), !.
+15:37:34 Program 140:
+15:37:34 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_succ(E,F),diff_lessthanone(D,F), !.
+15:37:34 Program 141:
+15:37:34 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,D),value(A,F),sll(D,C),maxnum(C,F,B),my_succ(B,E),diff_lessthanone(E,F), !.
+15:37:34 Program 142:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:34 sll(A,B):- value(A,C),next(A,F),sll(F,E),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(D,E), !.
+15:37:34 Program 143:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:34 sll(A,B):- next(A,C),value(A,F),sll(C,D),maxnum(D,F,B),my_succ(D,E),diff_lessthanone(E,F), !.
+15:37:34 Program 144:
+15:37:34 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,D),value(A,E),my_succ(E,C),sll(D,F),diff_lessthanone(C,F),maxnum(E,F,B), !.
+15:37:34 Program 145:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_prev(E,F),diff_lessthanone(D,F), !.
+15:37:34 Program 146:
+15:37:34 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+15:37:34 Program 147:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:34 sll(A,B):- value(A,F),next(A,C),my_prev(F,E),sll(C,D),maxnum(D,F,B),diff_lessthanone(B,E), !.
+15:37:34 Program 148:
+15:37:34 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),sll(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(D,F), !.
+15:37:34 Program 149:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:34 sll(A,B):- next(A,C),value(A,D),my_prev(D,F),sll(C,E),maxnum(D,E,B),diff_lessthanone(E,F), !.
+15:37:34 Program 150:
+15:37:34 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:34 sll(A,B):- value(A,D),my_succ(D,F),next(A,C),sll(C,E),diff_lessthanone(E,F),maxnum(D,E,B), !.
+15:37:34 Program 151:
+15:37:34 sll(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- value(A,E),next(A,C),sll(C,D),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+15:37:34 Program 152:
+15:37:34 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:34 sll(A,B):- next(A,E),value(A,D),sll(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
+15:37:34 Program 153:
+15:37:34 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- value(A,F),next(A,C),sll(C,D),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
+15:37:34 Program 154:
+15:37:34 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:34 sll(A,B):- value(A,F),next(A,E),sll(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
+15:37:35 Program 155:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,E),next(A,D),sll(D,C),maxnum(C,E,B),my_succ(B,F),diff_lessthanone(C,F), !.
+15:37:35 Program 156:
+15:37:35 sll(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,D),next(A,F),my_prev(D,E),sll(F,C),maxnum(C,D,B),diff_lessthanone(B,E), !.
+15:37:35 Program 157:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,D),next(A,F),sll(F,C),maxnum(C,D,B),my_prev(B,E),diff_lessthanone(D,E), !.
+15:37:35 Program 158:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,F),next(A,C),sll(C,D),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(D,E), !.
+15:37:35 Program 159:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,F),next(A,E),sll(E,D),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
+15:37:35 Program 160:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+15:37:35 sll(A,B):- next(A,E),value(A,F),sll(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
+15:37:35 Program 161:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,D),next(A,F),sll(F,C),maxnum(C,D,B),my_succ(B,E),diff_lessthanone(D,E), !.
+15:37:35 Program 162:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,F),my_succ(F,E),next(A,C),sll(C,D),maxnum(D,F,B),diff_lessthanone(B,E), !.
+15:37:35 Program 163:
+15:37:35 sll(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+15:37:35 sll(A,B):- value(A,F),next(A,C),sll(C,D),maxnum(D,F,B),my_succ(B,E),diff_lessthanone(E,F), !.
+15:37:35 Program 164:
+15:37:35 sll(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+15:37:35 sll(A,B):- value(A,F),next(A,E),sll(E,D),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
+15:37:35 Program 165:
+15:37:35 sll(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+15:37:35 sll(A,B):- value(A,E),next(A,F),sll(F,D),maxnum(D,E,B),my_succ(D,C),diff_lessthanone(B,C), !.
+15:37:35 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 7

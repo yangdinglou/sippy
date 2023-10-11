@@ -10,7 +10,7 @@ from .core import Literal
 
 clingo.script.enable_python()
 
-TIMEOUT=2000
+TIMEOUT=1800
 EVAL_TIMEOUT=0.01
 MAX_LITERALS=40
 MAX_SOLUTIONS=1
@@ -21,6 +21,8 @@ MAX_BODY=12
 MAX_EXAMPLES=10000
 
 STOP_SCORE=0
+
+global_circle = False
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Popper is an ILP system based on learning from failures')
@@ -38,6 +40,7 @@ def parse_args():
     parser.add_argument('--max-examples', type=int, default=MAX_EXAMPLES, help=f'Maximum number of examples per label (positive or negative) to learn from (default: {MAX_EXAMPLES})')
     parser.add_argument('--functional-test', default=False, action='store_true', help='Run functional test')
     parser.add_argument('--threshold', type=int, default=STOP_SCORE, help='Specified version (the input is the threshold score)')
+    parser.add_argument('--circle', default=False, action='store_true', help='For learning the predicate with circle (only work with --threshold))')
     parser.add_argument('--bkcons', default=False, action='store_true', help='EXPERIMENTAL FEATURE: deduce background constraints from Datalog background')
     return parser.parse_args()
 
@@ -133,7 +136,8 @@ def format_rule(rule):
     if head:
         head_str = format_literal(head)
     body_str = ','.join(format_literal(literal) for literal in body)
-    return f'{head_str}:- {body_str}, !.'
+    cut = '' if global_circle else ', !'
+    return f'{head_str}:- {body_str}{cut}.'
 
 def format_body(body):
     pred = None
@@ -298,7 +302,7 @@ def flatten(xs):
     return [item for sublist in xs for item in sublist]
 
 class Settings:
-    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE):
+    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE, circle = False):
 
         if cmd_line:
             args = parse_args()
@@ -316,6 +320,9 @@ class Settings:
             max_rules = args.max_rules
             functional_test = args.functional_test
             threshold = args.threshold
+            circle = args.circle
+            global global_circle
+            global_circle = circle
         else:
             if kbpath:
                 self.bk_file, self.ex_file, self.bias_file = load_kbpath(kbpath)
@@ -343,6 +350,7 @@ class Settings:
         self.max_literals = max_literals
         self.functional_test = functional_test
         self.threshold = threshold
+        self.circle = circle
         self.timeout = timeout
         self.eval_timeout = eval_timeout
         self.max_examples = max_examples

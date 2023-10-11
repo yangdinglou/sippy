@@ -1,18 +1,13 @@
 max_clauses(2).
 enable_recursion.
 
-head_pred(sleg,3).
-type(sleg,(pointer,pointer,set)).
-direction(sleg,(in,in,out)).
+head_pred(clist,3).
+type(clist,(pointer,pointer,set)).
 
 
 input_pointer(next,pointer).
 input_pointer(value,integer).
 
-:-
-	head_literal(1, sleg, _, (_,_, B1)),
-	body_literal(1, sleg, _, (_,_, B2)),
-	not partial_le(1, B2, B1).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -101,6 +96,10 @@ direction(insert,(in,in,out)).
 :-
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
+:-
+    body_literal(T, anynumber, _, (A,)),
+    not out_from_this(T, A).
 
 
 :-

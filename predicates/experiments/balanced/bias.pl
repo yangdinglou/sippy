@@ -4,20 +4,11 @@ enable_recursion.
 
 head_pred(p,2).
 type(p,(pointer,integer)).
-direction(p,(in,out)).
 
 input_pointer(left,pointer).
 input_pointer(right,pointer).
 
 
-:-
-	head_literal(1, p, _, (A, B1)),
-	body_literal(1, p, _, (_, B2)),
-	not partial_le(1, B2, B1).
-
-% not_in(value, 0).
-% not_in(left, 0).
-% not_in(right, 0).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -112,6 +103,10 @@ direction(insert,(in,in,out)).
 :-
     body_literal(T, anynumber, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
+:-
+    body_literal(T, anynumber, _, (A,)),
+    not out_from_this(T, A).
 
 
 :- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
