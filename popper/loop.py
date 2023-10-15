@@ -380,7 +380,8 @@ def popper(settings):
                             current_body = combiner.max_body
                             current_var = combiner.max_var + 1 #start from 0
                             updated = True
-                            break
+                            if not settings.pi_enabled:
+                                break
                         if settings.threshold == 0:
                             return
                         else:

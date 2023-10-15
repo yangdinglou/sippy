@@ -1,5 +1,5 @@
-pos(sll(p1,4)).
-pos(sll(pp1,8)).
+pos(sll_len(p1,4)).
+pos(sll_len(pp1,8)).
 
 % neg(f(n1,[1,2,3,4])).
 

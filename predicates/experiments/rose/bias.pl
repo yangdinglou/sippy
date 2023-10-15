@@ -8,7 +8,7 @@ max_clauses(4).
 enable_recursion.
 enable_pi.
 
-head_pred(p,1).
+head_pred(rose_tree,1).
 
 body_pred(nullptr,1).
 body_pred(anynumber,1).
@@ -17,12 +17,12 @@ inner_pointer(next2, pointer).
 input_pointer(value, integer).
 input_pointer(next1, pointer).
 
-type(p,(pointer,)).
+type(rose_tree,(pointer,)).
 
 type(nullptr,(pointer,)).
 type(anynumber,(integer,)).
 
-direction(p,(in,)).
+direction(rose_tree,(in,)).
 direction(nullptr,(in,)).
 direction(anynumber,(in,)).
 

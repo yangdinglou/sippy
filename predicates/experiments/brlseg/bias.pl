@@ -10,7 +10,6 @@ enable_pi.
 
 head_pred(brlseg,3).
 type(brlseg,(pointer,pointer,pointer)).
-direction(brlseg,(in,in,in)).
 
 input_pointer(next,pointer).
 input_pointer(value,integer).
@@ -20,18 +19,16 @@ inner_pointer(value, integer).
 
 
 % :-
-% 	head_literal(1, brlseg, _, (_,_,_, B1)),
-% 	body_literal(1, brlseg, _, (_,_,_, B2)),
-% 	not partial_le(1, B2, B1).
+%     head_pred(P, _),
+%     body_literal(2, P, _, _).
 
 % :-
-% 	head_literal(3, inv1, _, (_,_, B1)),
-% 	body_literal(3, inv1, _, (_,_, B2)),
-% 	not partial_le(3, B2, B1).
+% 	head_pred(P, _),
+% 	var_in_body_pos(_,P, 0, 0).
 
-:- not invented(_, 2).
-% :- not var_type(2,2,set).
-direction(inv1,(in,in)).
+% :-
+% 	invented(P, _),
+% 	var_in_body_pos(_,P, 0, 0).
 
 :-
     #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
@@ -93,8 +90,7 @@ not_in(same_ptr, 1).
 not_in(same_ptr, 3).
 
 body_pred(empty,1).
-body_pred(min_list,2).
-body_pred(max_list,2).
+ 
 body_pred(gt_list,2).
 body_pred(lt_list,2).
 body_pred(ord_union,3).
@@ -130,8 +126,7 @@ type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
-type(min_list,(set,integer)).
-type(max_list,(set,integer)).
+ 
 type(gt_list,(integer,set)).
 type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
@@ -154,8 +149,7 @@ direction(add,(in,in,out)).
 
 
 direction(empty,(out,)).
-direction(min_list,(in,in)).
-direction(max_list,(in,in)).
+ 
 direction(gt_list,(in,in)).
 direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
@@ -190,8 +184,7 @@ direction(insert,(in,in,out)).
 
 
 
-func_head(min_list).
-func_head(max_list).
+ 
 func_head(ord_union).
 partial_head(ord_union).
 symmetric_head(ord_union).
@@ -317,8 +310,8 @@ func_head(zero).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, max_list, _, (C, B)).
+	body_literal(T, gt_list, _, (B, C)).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, min_list, _, (C, B)).
+	body_literal(T, lt_list, _, (B, C)).

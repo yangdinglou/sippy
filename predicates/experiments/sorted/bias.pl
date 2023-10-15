@@ -10,14 +10,6 @@ input_pointer(next,pointer).
 input_pointer(value,integer).
 
 
-:-
-	head_literal(1, sorted, _, (_, B1)),
-	body_literal(1, sorted, _, (_, B2)),
-	not partial_le(1, B2, B1).
-
-% not_in(value, 0).
-% not_in(left, 0).
-% not_in(right, 0).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -39,16 +31,16 @@ not_in(same_ptr, 1).
 
 
 body_pred(empty,1).
-body_pred(min_list,2).
-body_pred(max_list,2).
+% body_pred(min_list,2).
+% body_pred(max_list,2).
 body_pred(gt_list,2).
 body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
 not_in(empty, 1).
-not_in(min_list, 0).
-not_in(max_list, 0).
+% not_in(min_list, 0).
+% not_in(max_list, 0).
 not_in(gt_list, 0).
 not_in(lt_list, 0).
 not_in(ord_union, 0).
@@ -68,8 +60,8 @@ type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
-type(min_list,(set,integer)).
-type(max_list,(set,integer)).
+% type(min_list,(set,integer)).
+% type(max_list,(set,integer)).
 type(gt_list,(integer,set)).
 type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
@@ -92,8 +84,8 @@ direction(add,(in,in,out)).
 
 
 direction(empty,(out,)).
-direction(min_list,(in,in)).
-direction(max_list,(in,in)).
+% direction(min_list,(in,in)).
+% direction(max_list,(in,in)).
 direction(gt_list,(in,in)).
 direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
@@ -128,8 +120,8 @@ direction(insert,(in,in,out)).
 
 
 
-func_head(min_list).
-func_head(max_list).
+% func_head(min_list).
+% func_head(max_list).
 func_head(ord_union).
 partial_head(ord_union).
 symmetric_head(ord_union).
@@ -233,15 +225,15 @@ func_head(zero).
 
 
 
-:-
-    body_literal(T, lt_list, _, (V, S1)),
-    body_literal(T, min_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
+% :-
+%     body_literal(T, lt_list, _, (V, S1)),
+%     body_literal(T, min_list, _, (S2, V)),
+%     body_literal(T, insert, _, (S1, V, S2)).
 
-:-
-    body_literal(T, gt_list, _, (V, S1)),
-    body_literal(T, max_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
+% :-
+%     body_literal(T, gt_list, _, (V, S1)),
+%     body_literal(T, max_list, _, (S2, V)),
+%     body_literal(T, insert, _, (S1, V, S2)).
 
 % semantic-based
 
@@ -253,10 +245,11 @@ func_head(zero).
 	body_literal(T, my_prev, _, (_, A)),
 	body_literal(T, lt_list, _, (A, _)).
 
-:-
-	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, max_list, _, (C, B)).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, min_list, _, (C, B)).
+	body_literal(T, gt_list, _, (B, C)).
+
+:-
+	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, lt_list, _, (B, C)).

@@ -1265,6 +1265,8 @@ eq(C):-body_literal(C,same_ptr,_,(0,_)).
     not null(2),
     not eq(2).
 
+
+
 :-
     var(Var),
     clause(C),
@@ -1276,39 +1278,101 @@ eq(C):-body_literal(C,same_ptr,_,(0,_)).
     invented(_, X2),
     X2>X1.
 
+prev(2,1).
+prev(3,2).
+prev(4,3).
+prev(5,4).
+
+
 pure_type(integer).
 pure_type(set).
 
 direction(P,(in,)):- head_pred(P,1).
 
+inv_pure(T):-head_pred(P,2),type(P,(_,T)), pure_type(T).
 direction(P,(in,out)):- head_pred(P,2),type(P,(_,T)), pure_type(T).
 direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
 :-
-    direction(P,(in,out)),
-	head_literal(T, P, _, (_, B1)),
-	body_literal(T, P, _, (_, B2)),
-	not partial_le(T, B2, B1).
+    head_pred(P,A),
+    % prev(A, B),
+    B == A - 1,
+    inv_pure(_),
+    var_in_head_pos(1, P, B, B1),
+    var_in_body_pos(1, P, B, B2),
+	not partial_le(1, B2, B1).
 
+inv_pure(T):-head_pred(P,3),type(P,(_,_,T)), pure_type(T).
 direction(P,(in,in,out)):- head_pred(P,3),type(P,(_,_,T)), pure_type(T).
 direction(P,(in,in,in)):- head_pred(P,3),type(P,(_,_,T)), not pure_type(T).
-:-
-    direction(P,(in,in,out)),
-	head_literal(T, P, _, (_, _, B1)),
-	body_literal(T, P, _, (_, _, B2)),
-	not partial_le(T, B2, B1).
+% :-
+%     head_pred(P,3),
+%     inv_pure(_),
+%     var_in_head_pos(1, P, 2, B1),
+%     var_in_body_pos(1, P, 2, B2),
+% 	not partial_le(1, B2, B1).
 
+inv_pure(T):-head_pred(P,4),type(P,(_,_,_,T)), pure_type(T).
 direction(P,(in,in,in,out)):- head_pred(P,4),type(P,(_,_,_,T)), pure_type(T).
 direction(P,(in,in,in,in)):- head_pred(P,4),type(P,(_,_,_,T)), not pure_type(T).
-:-
-    direction(P,(in,in,in,out)),
-	head_literal(T, P, _, (_, _, _, B1)),
-	body_literal(T, P, _, (_, _, _, B2)),
-	not partial_le(T, B2, B1).
+% :-
+%     head_pred(P,4),
+%     inv_pure(_),
+%     var_in_head_pos(1, P, 3, B1),
+%     var_in_body_pos(1, P, 3, B2),
+% 	not partial_le(1, B2, B1).
 
+inv_pure(T):-head_pred(P,5),type(P,(_,_,_,_,T)), pure_type(T).
 direction(P,(in,in,in,in,out)):- head_pred(P,5),type(P,(_,_,_,_,T)), pure_type(T).
 direction(P,(in,in,in,in,in)):- head_pred(P,5),type(P,(_,_,_,_,T)), not pure_type(T).
+% :-
+%     head_pred(P,5),
+%     inv_pure(_),
+%     var_in_head_pos(1, P, 4, B1),
+%     var_in_body_pos(1, P, 4, B2),
+% 	not partial_le(1, B2, B1).
+
+
+% inv_pure:-
+%     direction_(P,_, out),
+%     head_pred(P, _).
+
+
+% var_type(2, B, T):- 
+%     inv_pure(T),
+%     invented(_, A),
+%     B == A - 1.
+
+:- 
+    inv_pure(T),
+    invented(_, A),
+    % prev(A, B),
+    B == A - 1,
+    not var_type(2, B, T).
+
+:- 
+    not inv_pure(_),
+    var_type(2, _, T),
+    pure_type(T).
+%     not var_type(2, A-1, T).
+% type(inv1, (pointer, )):- invented(inv1, 1).
+% type(inv1, (pointer, pointer)):- invented(inv1, 2), not inv_pure(_).
+% type(inv1, (pointer, T)):- invented(inv1, 2), inv_pure(T).
+% type(inv1, (pointer, pointer, pointer)):- invented(inv1, 3), not inv_pure(_).
+% type(inv1, (pointer, pointer, T)):- invented(inv1, 3), inv_pure(T).
+
+direction(P,(in,)):- invented(P,1).
+
+direction(P,(in,out)):- invented(P,2),inv_pure(_).
+direction(P,(in,in)):- invented(P,2), not inv_pure(_).
+
+
+direction(P,(in,in,out)):- invented(P,3),inv_pure(_).
+direction(P,(in,in,in)):- invented(P,3),not inv_pure(_).
+
 :-
-    direction(P,(in,in,in,in,out)),
-	head_literal(T, P, _, (_, _, _, _, B1)),
-	body_literal(T, P, _, (_, _, _, _, B2)),
-	not partial_le(T, B2, B1).
+    invented(P,A),
+    prev(A, B),
+    inv_pure(_),
+    var_in_head_pos(3, P, B, B1),
+    var_in_body_pos(3, P, B, B2),
+	not partial_le(3, B2, B1).

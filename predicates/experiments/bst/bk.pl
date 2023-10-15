@@ -5,10 +5,10 @@ nullptr(null).
 
 gt_list(_, []).
 gt_list(A, B) :-
-    max_list(B, C), A > C.
+    max_list(B, C), A >= C.
 lt_list(_, []).
 lt_list(A, B) :-
-    min_list(B, C), A < C.
+    min_list(B, C), A =< C.
 
 maxnum(A, B, C) :-
     C is max(A, B).
@@ -121,12 +121,12 @@ left(aaa, bbb).
 right(aaa, ccc).
 height(aaa, 2).
 
-value(bbb, 9).
+value(bbb, 10).
 left(bbb, null).
 right(bbb, null).
 height(bbb, 0).
 
-value(ccc, 11).
+value(ccc, 10).
 left(ccc, null).
 right(ccc, ddd).
 height(ccc, 1).

@@ -1,8 +1,8 @@
 max_clauses(2).
 enable_recursion.
 
-head_pred(p,2).
-type(p,(pointer,set)).
+head_pred(bst,2).
+type(bst,(pointer,set)).
 
 input_pointer(left,pointer).
 input_pointer(right,pointer).
@@ -27,16 +27,14 @@ not_in(maxnum, 0).
 not_in(same_ptr, 1).
 
 body_pred(empty,1).
-body_pred(min_list,2).
-body_pred(max_list,2).
+ 
 body_pred(gt_list,2).
 body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
 not_in(empty, 1).
-not_in(min_list, 0).
-not_in(max_list, 0).
+ 
 not_in(gt_list, 0).
 not_in(lt_list, 0).
 not_in(ord_union, 0).
@@ -60,8 +58,7 @@ type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
-type(min_list,(set,integer)).
-type(max_list,(set,integer)).
+ 
 type(gt_list,(integer,set)).
 type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
@@ -82,8 +79,7 @@ direction(add,(in,in,out)).
 
 
 direction(empty,(out,)).
-direction(min_list,(in,in)).
-direction(max_list,(in,in)).
+ 
 direction(gt_list,(in,in)).
 direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
@@ -121,8 +117,7 @@ direction(insert,(in,in,out)).
 
 
 
-func_head(min_list).
-func_head(max_list).
+ 
 func_head(ord_union).
 partial_head(ord_union).
 symmetric_head(ord_union).
@@ -198,11 +193,11 @@ func_head(zero).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, max_list, _, (C, B)).
+	body_literal(T, gt_list, _, (B, C)).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, min_list, _, (C, B)).
+	body_literal(T, lt_list, _, (B, C)).
 
 :-
     body_literal(T, lt_list, _, (V, S1)),

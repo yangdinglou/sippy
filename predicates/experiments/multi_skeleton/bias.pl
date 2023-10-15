@@ -16,8 +16,6 @@ type(nullptr,(pointer,)).
 direction(p,(in,)).
 direction(nullptr,(in,)).
 
-:- not invented(_, 1).
-direction(inv1,(in,)).
 
 :-
     not clause(1).

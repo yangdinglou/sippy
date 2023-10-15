@@ -1,187 +1,275 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:8
-sll(A,B):- empty(B),nullptr(A), !.
-sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B), !.
-['predicate sll(A,B) ', '{', "|  A==0 ;; ['empty(B)'] ;; []", "|  None ;; ['insert(D,E,B)'] ;; ['next(A,C)', 'sll(C,D)', 'value(A,E)']"]
-{'body_literal(1, value, 2, (0,4,))', 'head_literal(1, sll, 2, (0,1,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, insert, 3, (3,4,1,))', 'body_literal(0, nullptr, 1, (0,))', 'head_literal(0, sll, 2, (0,1,))', 'body_literal(1, next, 2, (0,2,))', 'body_literal(1, sll, 2, (2,3,))'}
+sll(A,B):- nullptr(A),empty(B), !.
+sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+predicate sll(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {B==E + [D] ; sll(C,E) ** A + 0 :-> D ** A + 1 :-> C ** [A, 2]}
+}
+{'body_literal(1, value, 2, (0,3,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, insert, 3, (4,3,1,))', 'head_literal(0, sll, 2, (0,1,))', 'head_literal(1, sll, 2, (0,1,))', 'body_literal(1, next, 2, (0,2,))', 'body_literal(1, sll, 2, (2,4,))', 'body_literal(0, nullptr, 1, (0,))'}
 ******************************
-Num. programs: 29
+Num. programs: 38
 Generate:
-        Called: 48 times         Total: 2.42     Mean: 0.051     Max: 1.235      Percentage: 63%
+        Called: 57 times         Total: 1.61     Mean: 0.028     Max: 0.922      Percentage: 80%
 Ground:
-        Called: 28 times         Total: 0.56     Mean: 0.020     Max: 0.062      Percentage: 14%
-Constrain:
-        Called: 28 times         Total: 0.35     Mean: 0.013     Max: 0.023      Percentage: 9%
+        Called: 37 times         Total: 0.15     Mean: 0.004     Max: 0.042      Percentage: 7%
 Init:
-        Called: 20 times         Total: 0.29     Mean: 0.015     Max: 0.180      Percentage: 7%
-Find Mucs:
-        Called: 19 times         Total: 0.12     Mean: 0.006     Max: 0.026      Percentage: 3%
+        Called: 20 times         Total: 0.10     Mean: 0.005     Max: 0.022      Percentage: 5%
+Constrain:
+        Called: 37 times         Total: 0.09     Mean: 0.002     Max: 0.016      Percentage: 4%
 Test:
-        Called: 29 times         Total: 0.04     Mean: 0.001     Max: 0.023      Percentage: 0%
+        Called: 38 times         Total: 0.03     Mean: 0.001     Max: 0.019      Percentage: 1%
 Combine:
-        Called: 10 times         Total: 0.02     Mean: 0.002     Max: 0.006      Percentage: 0%
-Total operation time: 3.79s
-Total execution time: 4.90s
+        Called: 32 times         Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
+Find Mucs:
+        Called: 6 times          Total: 0.00     Mean: 0.001     Max: 0.001      Percentage: 0%
+Total operation time: 1.99s
+Total execution time: 2.68s
 
-14:44:13 Max rules: 2
-14:44:13 Max vars: 9
-14:44:13 Max body: 12
-14:44:13 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-14:44:13 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-14:44:13 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-14:44:13 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-14:44:13 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-14:44:13 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-14:44:13 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-14:44:13 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-14:44:13 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-14:44:13 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-14:44:13 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-14:44:13 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-14:44:14 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-14:44:14 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-14:44:14 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-14:44:14 Program 1:
-14:44:14 sll(A,B):- empty(B),nullptr(A), !.
-14:44:14 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B), !.
-14:44:14 sll(A,B):- empty(B),nullptr(A), !.
-14:44:14 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B), !.
-14:44:14 score:24, 1.0, 128
-14:44:14 CURRENT
-14:44:14 sll(A,B):- empty(B),nullptr(A), !.
-14:44:14 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B), !.
-14:44:14 score:24, 1.0, 128
-14:44:14 ********************
-14:44:14 New best hypothesis:
-14:44:14 tp:2 fn:0 size:8
-14:44:14 sll(A,B):- empty(B),nullptr(A), !.
-14:44:14 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B), !.
-14:44:14 ********************
-14:44:14 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 7
-14:44:14 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 7
-14:44:14 Program 2:
-14:44:14 sll(A,B):- nullptr(A),empty(B), !.
-14:44:14 sll(A,B):- value(A,E),next(A,C),sll(C,D),insert(D,E,B), !.
-14:44:14 sll(A,B):- nullptr(A),empty(B), !.
-14:44:14 sll(A,B):- value(A,E),next(A,C),sll(C,D),insert(D,E,B), !.
-14:44:14 score:24, 1.0, 128
-14:44:14 CURRENT
-14:44:14 sll(A,B):- nullptr(A),empty(B), !.
-14:44:14 sll(A,B):- value(A,E),next(A,C),sll(C,D),insert(D,E,B), !.
-14:44:14 score:24, 1.0, 128
-14:44:15 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 7
-14:44:15 Program 3:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- next(A,F),value(A,C),my_succ(C,D),sll(F,E),insert(E,D,B), !.
-14:44:15 Program 4:
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- next(A,F),value(A,C),my_prev(C,D),sll(F,E),insert(E,D,B), !.
-14:44:15 Program 5:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- next(A,E),value(A,C),sll(E,D),lt_list(C,D),insert(D,C,B), !.
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- next(A,E),value(A,C),sll(E,D),lt_list(C,D),insert(D,C,B), !.
-14:44:15 score:None, None, None
-14:44:15 Program 6:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B),lt_list(E,B), !.
-14:44:15 Program 7:
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- next(A,E),value(A,C),sll(E,D),gt_list(C,D),insert(D,C,B), !.
-14:44:15 Program 8:
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- next(A,E),value(A,C),sll(E,D),insert(D,C,B),max_list(D,C), !.
-14:44:15 Program 9:
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- next(A,E),value(A,D),sll(E,C),insert(C,D,B),gt_list(D,B), !.
-14:44:15 Program 10:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- value(A,C),next(A,E),sll(E,D),min_list(D,C),insert(D,C,B), !.
-14:44:15 Program 11:
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- next(A,E),value(A,D),sll(E,C),lt_list(D,C),insert(C,D,B), !.
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- next(A,E),value(A,D),sll(E,C),lt_list(D,C),insert(C,D,B), !.
-14:44:15 score:None, None, None
-14:44:15 Program 12:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B),lt_list(E,D), !.
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- next(A,C),value(A,E),sll(C,D),insert(D,E,B),lt_list(E,D), !.
-14:44:15 score:None, None, None
-14:44:15 Program 13:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- value(A,D),next(A,C),sll(C,E),lt_list(D,E),insert(E,D,B), !.
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- value(A,D),next(A,C),sll(C,E),lt_list(D,E),insert(E,D,B), !.
-14:44:15 score:None, None, None
-14:44:15 Program 14:
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- value(A,E),next(A,D),sll(D,C),insert(C,E,B),lt_list(E,C), !.
-14:44:15 sll(A,B):- empty(B),nullptr(A), !.
-14:44:15 sll(A,B):- value(A,E),next(A,D),sll(D,C),insert(C,E,B),lt_list(E,C), !.
-14:44:15 score:None, None, None
-14:44:15 Program 15:
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- value(A,C),next(A,D),sll(D,E),insert(E,C,B),lt_list(C,E), !.
-14:44:15 sll(A,B):- nullptr(A),empty(B), !.
-14:44:15 sll(A,B):- value(A,C),next(A,D),sll(D,E),insert(E,C,B),lt_list(C,E), !.
-14:44:15 score:None, None, None
-14:44:16 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 7
-14:44:16 Program 16:
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,F),next(A,C),my_succ(F,D),anynumber(D),sll(C,E),insert(E,F,B), !.
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,F),next(A,C),my_succ(F,D),anynumber(D),sll(C,E),insert(E,F,B), !.
-14:44:16 score:24, 1.0, 104
-14:44:16 CURRENT
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,F),next(A,C),my_succ(F,D),anynumber(D),sll(C,E),insert(E,F,B), !.
-14:44:16 score:24, 1.0, 104
-14:44:16 Program 17:
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,F),next(A,C),my_prev(F,D),anynumber(D),sll(C,E),insert(E,F,B), !.
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,F),next(A,C),my_prev(F,D),anynumber(D),sll(C,E),insert(E,F,B), !.
-14:44:16 score:24, 1.0, 104
-14:44:16 CURRENT
-14:44:16 sll(A,B):- value(A,F),next(A,C),my_prev(F,D),anynumber(D),sll(C,E),insert(E,F,B), !.
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 score:24, 1.0, 104
-14:44:16 Program 18:
-14:44:16 sll(A,B):- nullptr(A),empty(B), !.
-14:44:16 sll(A,B):- next(A,D),value(A,C),my_succ(C,E),sll(D,F),lt_list(E,F),insert(F,C,B), !.
-14:44:16 Program 19:
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,E),my_prev(E,F),next(A,D),sll(D,C),insert(C,E,B),min_list(B,F), !.
-14:44:16 Program 20:
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- value(A,C),next(A,D),my_prev(C,E),sll(D,F),gt_list(E,F),insert(F,C,B), !.
-14:44:16 Program 21:
-14:44:16 sll(A,B):- nullptr(A),empty(B), !.
-14:44:16 sll(A,B):- value(A,F),my_succ(F,D),next(A,C),sll(C,E),insert(E,F,B),min_list(E,D), !.
-14:44:16 Program 22:
-14:44:16 sll(A,B):- nullptr(A),empty(B), !.
-14:44:16 sll(A,B):- value(A,E),next(A,D),my_prev(E,F),sll(D,C),insert(C,E,B),max_list(B,F), !.
-14:44:16 Program 23:
-14:44:16 sll(A,B):- nullptr(A),empty(B), !.
-14:44:16 sll(A,B):- value(A,C),next(A,D),my_prev(C,E),sll(D,F),insert(F,C,B),max_list(F,E), !.
-14:44:16 Program 24:
-14:44:16 sll(A,B):- nullptr(A),empty(B), !.
-14:44:16 sll(A,B):- value(A,F),my_succ(F,D),next(A,C),sll(C,E),insert(E,F,B),max_list(E,D), !.
-14:44:16 Program 25:
-14:44:16 sll(A,B):- empty(B),nullptr(A), !.
-14:44:16 sll(A,B):- next(A,C),value(A,F),my_succ(F,D),sll(C,E),insert(E,F,B),max_list(B,D), !.
-14:44:17 Program 26:
-14:44:17 sll(A,B):- empty(B),nullptr(A), !.
-14:44:17 sll(A,B):- value(A,C),my_prev(C,F),next(A,D),sll(D,E),insert(E,C,B),min_list(E,F), !.
-14:44:17 Program 27:
-14:44:17 sll(A,B):- nullptr(A),empty(B), !.
-14:44:17 sll(A,B):- value(A,C),next(A,D),my_prev(C,E),sll(D,F),insert(F,C,B),gt_list(E,B), !.
-14:44:17 Program 28:
-14:44:17 sll(A,B):- empty(B),nullptr(A), !.
-14:44:17 sll(A,B):- value(A,F),my_succ(F,D),next(A,C),sll(C,E),insert(E,F,B),lt_list(D,B), !.
-14:44:17 Program 29:
-14:44:17 sll(A,B):- nullptr(A),empty(B), !.
-14:44:17 sll(A,B):- next(A,D),value(A,F),my_succ(F,E),sll(D,C),insert(C,F,B),min_list(B,E), !.
-14:44:18 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 7
+03:45:59 Max rules: 2
+03:45:59 Max vars: 9
+03:45:59 Max body: 12
+03:45:59 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+03:45:59 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+03:45:59 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+03:45:59 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+03:45:59 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+03:45:59 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+03:45:59 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+03:45:59 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+03:45:59 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+03:45:59 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+03:45:59 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+03:45:59 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+03:45:59 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+03:45:59 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+03:45:59 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+03:45:59 Program 1:
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 score:24, 1.0, 128
+03:45:59 CURRENT
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 score:24, 1.0, 128
+03:45:59 ********************
+03:45:59 New best hypothesis:
+03:45:59 tp:2 fn:0 size:8
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 ********************
+03:45:59 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 7
+03:45:59 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 7
+03:45:59 Program 2:
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 score:24, 1.0, 128
+03:45:59 CURRENT
+03:45:59 sll(A,B):- nullptr(A),empty(B), !.
+03:45:59 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:45:59 score:24, 1.0, 128
+03:46:00 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 7
+03:46:00 Program 3:
+03:46:00 sll(A,B):- nullptr(A),empty(B), !.
+03:46:00 sll(A,B):- value(A,F),my_prev(F,D),next(A,C),sll(C,E),insert(E,D,B), !.
+03:46:00 Program 4:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,C),value(A,F),my_succ(F,D),sll(C,E),insert(E,D,B), !.
+03:46:00 Program 5:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,C),value(A,D),sll(C,E),insert(E,D,B),lt_list(D,E), !.
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,C),value(A,D),sll(C,E),insert(E,D,B),lt_list(D,E), !.
+03:46:00 score:None, None, None
+03:46:00 Program 6:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,D),value(A,C),sll(D,E),insert(E,C,B),lt_list(C,E), !.
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,D),value(A,C),sll(D,E),insert(E,C,B),lt_list(C,E), !.
+03:46:00 score:None, None, None
+03:46:00 Program 7:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- value(A,D),next(A,C),sll(C,E),insert(E,D,B),gt_list(D,E), !.
+03:46:00 Program 8:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,E),value(A,D),sll(E,C),insert(C,D,B),lt_list(D,C), !.
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,E),value(A,D),sll(E,C),insert(C,D,B),lt_list(D,C), !.
+03:46:00 score:None, None, None
+03:46:00 Program 9:
+03:46:00 sll(A,B):- nullptr(A),empty(B), !.
+03:46:00 sll(A,B):- next(A,E),value(A,C),sll(E,D),insert(D,C,B),lt_list(C,D), !.
+03:46:00 sll(A,B):- nullptr(A),empty(B), !.
+03:46:00 sll(A,B):- next(A,E),value(A,C),sll(E,D),insert(D,C,B),lt_list(C,D), !.
+03:46:00 score:None, None, None
+03:46:00 Program 10:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- value(A,E),next(A,D),sll(D,C),insert(C,E,B),lt_list(E,C), !.
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- value(A,E),next(A,D),sll(D,C),insert(C,E,B),lt_list(E,C), !.
+03:46:00 score:None, None, None
+03:46:00 Program 11:
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,C),value(A,E),sll(C,D),lt_list(E,D),insert(D,E,B), !.
+03:46:00 sll(A,B):- empty(B),nullptr(A), !.
+03:46:00 sll(A,B):- next(A,C),value(A,E),sll(C,D),lt_list(E,D),insert(D,E,B), !.
+03:46:00 score:None, None, None
+03:46:01 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 7
+03:46:01 Program 12:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),my_prev(E,C),next(A,F),sll(F,D),gt_list(C,D),insert(D,E,B), !.
+03:46:01 Program 13:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,F),value(A,E),my_prev(E,C),sll(F,D),insert(D,E,B),gt_list(C,B), !.
+03:46:01 Program 14:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,F),value(A,E),my_succ(E,D),sll(F,C),insert(C,E,B),lt_list(D,B), !.
+03:46:01 Program 15:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,F),my_succ(F,D),next(A,C),sll(C,E),lt_list(D,E),insert(E,F,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,F),my_succ(F,D),next(A,C),sll(C,E),lt_list(D,E),insert(E,F,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 16:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),next(A,F),my_succ(E,C),sll(F,D),lt_list(C,D),insert(D,E,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),next(A,F),my_succ(E,C),sll(F,D),lt_list(C,D),insert(D,E,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 17:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,E),value(A,C),my_succ(C,D),sll(E,F),lt_list(D,F),insert(F,C,B), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,E),value(A,C),my_succ(C,D),sll(E,F),lt_list(D,F),insert(F,C,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 18:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,F),value(A,C),my_succ(C,D),sll(F,E),insert(E,C,B),lt_list(D,E), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,F),value(A,C),my_succ(C,D),sll(F,E),insert(E,C,B),lt_list(D,E), !.
+03:46:01 score:None, None, None
+03:46:01 Program 19:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,C),my_succ(C,E),next(A,F),sll(F,D),lt_list(E,D),insert(D,C,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,C),my_succ(C,E),next(A,F),sll(F,D),lt_list(E,D),insert(D,C,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 20:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- value(A,D),next(A,F),my_succ(D,C),sll(F,E),insert(E,D,B),lt_list(C,E), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- value(A,D),next(A,F),my_succ(D,C),sll(F,E),insert(E,D,B),lt_list(C,E), !.
+03:46:01 score:None, None, None
+03:46:01 Program 21:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),my_succ(E,D),next(A,C),sll(C,F),insert(F,E,B),lt_list(D,F), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),my_succ(E,D),next(A,C),sll(C,F),insert(F,E,B),lt_list(D,F), !.
+03:46:01 score:None, None, None
+03:46:01 Program 22:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,D),value(A,F),my_succ(F,E),sll(D,C),insert(C,F,B),lt_list(E,C), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,D),value(A,F),my_succ(F,E),sll(D,C),insert(C,F,B),lt_list(E,C), !.
+03:46:01 score:None, None, None
+03:46:01 Program 23:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,C),value(A,F),my_succ(F,E),sll(C,D),lt_list(E,D),insert(D,F,B), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,C),value(A,F),my_succ(F,E),sll(C,D),lt_list(E,D),insert(D,F,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 24:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,C),next(A,E),my_succ(C,F),sll(E,D),lt_list(F,D),insert(D,C,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,C),next(A,E),my_succ(C,F),sll(E,D),lt_list(F,D),insert(D,C,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 25:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,E),value(A,D),my_succ(D,C),sll(E,F),insert(F,D,B),lt_list(C,F), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,E),value(A,D),my_succ(D,C),sll(E,F),insert(F,D,B),lt_list(C,F), !.
+03:46:01 score:None, None, None
+03:46:01 Program 26:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,F),my_succ(F,D),next(A,E),sll(E,C),insert(C,F,B),lt_list(D,C), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,F),my_succ(F,D),next(A,E),sll(E,C),insert(C,F,B),lt_list(D,C), !.
+03:46:01 score:None, None, None
+03:46:01 Program 27:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,E),value(A,F),my_succ(F,C),sll(E,D),lt_list(C,D),insert(D,F,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,E),value(A,F),my_succ(F,C),sll(E,D),lt_list(C,D),insert(D,F,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 28:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,C),next(A,D),my_succ(C,F),sll(D,E),insert(E,C,B),lt_list(F,E), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,C),next(A,D),my_succ(C,F),sll(D,E),insert(E,C,B),lt_list(F,E), !.
+03:46:01 score:None, None, None
+03:46:01 Program 29:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),my_succ(E,F),next(A,C),sll(C,D),insert(D,E,B),lt_list(F,D), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,E),my_succ(E,F),next(A,C),sll(C,D),insert(D,E,B),lt_list(F,D), !.
+03:46:01 score:None, None, None
+03:46:01 Program 30:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,D),my_succ(D,F),next(A,C),sll(C,E),lt_list(F,E),insert(E,D,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,D),my_succ(D,F),next(A,C),sll(C,E),lt_list(F,E),insert(E,D,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 31:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,F),value(A,D),my_succ(D,E),sll(F,C),insert(C,D,B),lt_list(E,C), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,F),value(A,D),my_succ(D,E),sll(F,C),insert(C,D,B),lt_list(E,C), !.
+03:46:01 score:None, None, None
+03:46:01 Program 32:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,D),my_succ(D,E),next(A,C),sll(C,F),insert(F,D,B),lt_list(E,F), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- value(A,D),my_succ(D,E),next(A,C),sll(C,F),insert(F,D,B),lt_list(E,F), !.
+03:46:01 score:None, None, None
+03:46:01 Program 33:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,D),value(A,E),my_succ(E,C),sll(D,F),lt_list(C,F),insert(F,E,B), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,D),value(A,E),my_succ(E,C),sll(D,F),lt_list(C,F),insert(F,E,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 34:
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,D),value(A,C),my_succ(C,E),sll(D,F),insert(F,C,B),lt_list(E,F), !.
+03:46:01 sll(A,B):- nullptr(A),empty(B), !.
+03:46:01 sll(A,B):- next(A,D),value(A,C),my_succ(C,E),sll(D,F),insert(F,C,B),lt_list(E,F), !.
+03:46:01 score:None, None, None
+03:46:01 Program 35:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,F),value(A,E),my_succ(E,D),sll(F,C),lt_list(D,C),insert(C,E,B), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,F),value(A,E),my_succ(E,D),sll(F,C),lt_list(D,C),insert(C,E,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 36:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- value(A,D),next(A,E),my_succ(D,F),sll(E,C),lt_list(F,C),insert(C,D,B), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- value(A,D),next(A,E),my_succ(D,F),sll(E,C),lt_list(F,C),insert(C,D,B), !.
+03:46:01 score:None, None, None
+03:46:01 Program 37:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,D),value(A,F),my_succ(F,C),sll(D,E),insert(E,F,B),lt_list(C,E), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- next(A,D),value(A,F),my_succ(F,C),sll(D,E),insert(E,F,B),lt_list(C,E), !.
+03:46:01 score:None, None, None
+03:46:01 Program 38:
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- value(A,E),my_succ(E,F),next(A,D),sll(D,C),lt_list(F,C),insert(C,E,B), !.
+03:46:01 sll(A,B):- empty(B),nullptr(A), !.
+03:46:01 sll(A,B):- value(A,E),my_succ(E,F),next(A,D),sll(D,C),lt_list(F,C),insert(C,E,B), !.
+03:46:01 score:None, None, None
+03:46:01 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 7

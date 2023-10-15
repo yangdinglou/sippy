@@ -4,13 +4,15 @@ import signal
 import argparse
 import os
 import logging
+import operator
 from time import perf_counter
 from contextlib import contextmanager
 from .core import Literal
+from difflib import SequenceMatcher
 
 clingo.script.enable_python()
 
-TIMEOUT=1800
+TIMEOUT=300
 EVAL_TIMEOUT=0.01
 MAX_LITERALS=40
 MAX_SOLUTIONS=1
@@ -139,42 +141,134 @@ def format_rule(rule):
     cut = '' if global_circle else ', !'
     return f'{head_str}:- {body_str}{cut}.'
 
-def format_body(body):
+def from_domain_to_number(str):
+    strlist = ['value','key','next','left','right', 'back', 'prev', 'child']
+    nearest = max(strlist, key=lambda x: SequenceMatcher(None, x, str).ratio())
+
+    if nearest in ['value','key']:
+        return 0
+    elif nearest in ['next', 'left']:
+        return 1
+    elif nearest in ['right','child']:
+        return 2
+    else:
+        return 3
+
+def format_ptrs(inptr, ptrs):
+    ptrs = dict(sorted(ptrs.items(), key=lambda item: from_domain_to_number(item[0])))
+    cnt = 0
+    for i in ptrs:
+        yield f'{inptr} + {cnt} :-> {ptrs[i]}'
+        cnt += 1
+    yield f'[{inptr}, {cnt}]'
+
+def format_pure(pure):
+    if pure.predicate == 'empty':
+        return f'{pure.arguments[0]}==[]'
+    elif pure.predicate == 'insert':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + [{pure.arguments[1]}]'
+    elif pure.predicate == 'ord_union':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + {pure.arguments[1]}'
+    elif pure.predicate == 'min_list':
+        return f'{pure.arguments[1]}==lower({pure.arguments[0]})'
+    elif pure.predicate == 'max_list':
+        return f'{pure.arguments[1]}==upper({pure.arguments[0]})'
+    elif pure.predicate == 'gt_list':
+        return f'{pure.arguments[0]} >= upper({pure.arguments[1]})'
+    elif pure.predicate == 'lt_list':
+        return f'{pure.arguments[0]} <= lower({pure.arguments[1]})'
+    elif pure.predicate == 'diff_lessthanone':
+        return f'{pure.arguments[0]}  <= {pure.arguments[1]} + 1 && {pure.arguments[1]}  <= {pure.arguments[0]} + 1'
+    elif pure.predicate == 'my_succ':
+        return f'{pure.arguments[1]}=={pure.arguments[0]} + 1'
+    elif pure.predicate == 'my_prev':
+        return f'{pure.arguments[0]}=={pure.arguments[1]} + 1'
+    elif pure.predicate == 'maxnum':
+        return f'{pure.arguments[2]}==({pure.arguments[0]} <= {pure.arguments[1]} ? {pure.arguments[1]} : {pure.arguments[0]})'
+    elif pure.predicate == 'zero' or pure.predicate == 'nullptr':
+        return f'{pure.arguments[0]}==0'
+    elif pure.predicate == 'same_ptr':
+        return f'{pure.arguments[0]}=={pure.arguments[1]}'
+    elif pure.predicate == 'anypointer' or pure.predicate == 'anynumber':
+        return None
+    else:
+        raise ValueError(f'Unknown pure predicate {pure.predicate}')
+
+def format_body(body, head):
     pred = None
     pure = []
     spatial = []
+    tmp_pts = {}
+
     for literal in body:
-        if literal.predicate == 'nullptr':
+        if (literal.predicate == 'nullptr') and (literal.arguments[0] == 'A'):
             pred = f'{literal.arguments[0]}==0'
-        elif literal.predicate == 'same_ptr':
+        elif literal.predicate == 'same_ptr' and (literal.arguments[0] == 'A'):
             pred = f'{literal.arguments[0]}=={literal.arguments[1]}'
-        elif literal.predicate in ['anypointer','anynumber','insert', 'empty','ord_union','min_list','max_list','gt_list','lt_list','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'zero']:
-            pure.append(format_literal(literal))
+        elif literal.predicate in ['anypointer','anynumber','insert', 'empty','ord_union','min_list','max_list','gt_list','lt_list','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'zero', 'nullptr', 'same_ptr']:
+            tmppure = format_pure(literal)
+            if tmppure != None:
+                pure.append(tmppure)
         else:
-            spatial.append(format_literal(literal))
-    return pred, pure, spatial
+            if literal.predicate in head:
+                spatial.append(format_literal(literal))
+            else:
+                if f'{literal.arguments[0]}' in tmp_pts:
+                    tmp_pts[f'{literal.arguments[0]}'][literal.predicate] = f'{literal.arguments[1]}'
+                else:
+                    tmp_pts[f'{literal.arguments[0]}'] = {literal.predicate:f'{literal.arguments[1]}'}
+
+    for i in tmp_pts:
+        tmp = format_ptrs(i, tmp_pts[i])
+        spatial.extend(tmp)
+    if len(spatial)== 0:
+        spatial = ['emp']
+    if len(pure) == 0:
+        pure = ['true']
+    return pred, ' && '.join(pure), ' ** '.join(spatial)
 
 # zytodo
-def to_sl_preds(rules):
+def to_sl_preds(rules, head_types):
+    type_to_str = {'pointer':'loc', 'integer':'int', 'set':'interval'}
     preds = dict()
     for rule in rules:
         head, body = rule
-        head_str = format_literal(head)
+        head_str = head.predicate
+        head_args = zip(head.arguments, head_types)
+        head_str = f'{head_str}({",".join([f"{type_to_str[typ]} {arg}" for arg, typ in head_args])})'
         if head_str in preds:
             preds[head_str].append(body)
         else:
             preds[head_str] = [body]
     output = []
+    heads = [head.split('(')[0] for head in preds]
     for head in preds:
-        output.append(f'predicate {head} ')
-        output.append('{')
+        output.append(f'predicate {head} {{')
+        tmppred = None
+        tmppure = None
+        tmpspatial = None
         for body in preds[head]:
+            # headname = head.split('(')[0]
             # body_str = ','.join(format_literal(literal) for literal in body)
-            pred, pure, spatial = format_body(body)
-            output.append(f'|  {pred} ;; {pure} ;; {spatial}')
+            pred, pure, spatial = format_body(body, heads)
+            if pred != None:
+                output.append(f'| {pred} => {{{pure} ; {spatial}}}')
+                if tmppure == None:
+                    tmppred = f"| not ({pred})"
+                else:
+                    output.append(f' not ({pred}) => {{{tmppure} ; {tmpspatial}}}')
+
+            else:
+                if tmppred == None:
+                    tmppure = pure
+                    tmpspatial = spatial
+                else:
+                    output.append(f'{tmppred} => {{{pure} ; {spatial}}}')
+            # output.append(f'|  {pred} => {pure} ; {spatial}')
+        output.append('}')
     return output
 
-def print_prog_score(prog, score, cons):
+def print_prog_score(prog, score, cons, head_types):
     tp, fn, tn, fp, size = score
     precision = 'n/a'
     if (tp+fp) > 0:
@@ -185,7 +279,9 @@ def print_prog_score(prog, score, cons):
     print('*'*10 + ' SOLUTION ' + '*'*10)
     print(f'Precision:{precision} Recall:{recall} TP:{tp} FN:{fn} TN:{tn} FP:{fp} Size:{size}')
     print(format_prog(order_prog(prog)))
-    print(to_sl_preds(order_prog(prog)))
+    out_pred = to_sl_preds(order_prog(prog), head_types)
+    for pred in out_pred:
+        print(pred)
     print(cons)
     print('*'*30)
 
@@ -249,21 +345,6 @@ def order_rule(rule):
     while body_literals:
         selected_literal = None
         for literal in body_literals:
-            # print("lll")
-            # print(format_literal(literal))
-            # print(len(literal.outputs))
-            # print(len(literal.arguments))
-            # print(literal.inputs)
-            # print(grounded_variables)
-            # print(literal.inputs.issubset(grounded_variables))
-            # print("------")
-            # if(literal.predicate.startswith('inv')):
-            #     filter_literal = [x for x in body_literals if not x.predicate.startswith('inv')]
-            #     if len(filter_literal) == 0:
-            #         selected_literal = literal
-            #         break
-            #     else:
-            #         continue
             if len(literal.outputs) == len(literal.arguments):
                 selected_literal = literal
                 break
@@ -376,7 +457,6 @@ class Settings:
         """)
         solver.ground([('bias', [])])
 
-        
 
         self.max_rules = None
         for x in solver.symbolic_atoms.by_signature('max_clauses', arity=1):

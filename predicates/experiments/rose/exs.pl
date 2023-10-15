@@ -1,2 +1,2 @@
-pos(p(p1)).
-pos(p(p11)).
+pos(rose_tree(p1)).
+pos(rose_tree(p11)).
