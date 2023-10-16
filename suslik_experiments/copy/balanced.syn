@@ -1,0 +1,10 @@
+#
+
+
+###
+
+{ balanced(x,s) ** r :-> a }
+  void balanced_copy(loc x, loc r)
+{ balanced(x,s)  ** r :-> y ** balanced(y,s)  }
+
+###

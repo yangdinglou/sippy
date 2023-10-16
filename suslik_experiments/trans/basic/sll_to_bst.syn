@@ -1,0 +1,9 @@
+# -b true -c 2
+
+###
+
+{true ; r :-> 0 ** sll(x, S)}
+void listmorph(loc x, loc r)
+{true ; r :-> y ** bst_fixed(y, S) }
+
+#####

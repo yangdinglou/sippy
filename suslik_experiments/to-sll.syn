@@ -1,0 +1,10 @@
+
+
+should be able to synthesize list copy
+
+#####
+
+
+{ true ; r :-> x ** db_srtl(x, z, s)}
+void dlsrtl_to_sll(loc r)
+{ true ;  r :-> y ** sll(y, s)}

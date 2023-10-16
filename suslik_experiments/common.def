@@ -1,0 +1,107 @@
+predicate balanced(loc A,int B) {
+| A==0 => {C==B + 1 && C==0 ; emp}
+| not (A==0) => {C  <= E + 1 && E  <= C + 1 && B==F + 1 && F==(C <= E ? E : C) ; balanced(D,E) ** balanced(G,C) ** A + 0 :-> D ** A + 1 :-> G ** [A, 2]}
+}
+
+predicate balanced_zero(loc A,int B) {
+| A==0 => {B==0 ; emp}
+| not (A==0) => {F==(C <= G ? G : C) && C  <= G + 1 && G  <= C + 1 && B==F + 1 ; balanced_zero(D,G) ** balanced_zero(E,C) ** A + 0 :-> D ** A + 1 :-> E ** [A, 2]}
+}
+
+predicate bktree(loc A,loc B,interval C) {
+| A==0 => {C==[] ; emp}
+| not (A==0) => {I==E + F && C==I + [G] ; bktree(D,A,E) ** bktree(H,A,F) ** A + 0 :-> G ** A + 1 :-> D ** A + 2 :-> H ** A + 3 :-> B ** [A, 4]}
+}
+
+predicate bst(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {B==F + [H] && F==C + D && H <= lower(C) && H >= upper(D) ; bst(E,C) ** bst(G,D) ** A + 0 :-> H ** A + 1 :-> G ** A + 2 :-> E ** [A, 3]}
+}
+
+predicate btree(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {B==C + [E] && C==D + F ; btree(G,D) ** btree(H,F) ** A + 0 :-> E ** A + 1 :-> G ** A + 2 :-> H ** [A, 3]}
+}
+
+predicate dll(loc A,loc B,interval C) {
+| A==0 => {C==[] ; emp}
+| not (A==0) => {C==D + [E] ; dll(F,A,D) ** A + 0 :-> E ** A + 1 :-> F ** A + 2 :-> B ** [A, 3]}
+}
+
+predicate dlseg(loc A,loc B,loc C,loc D,interval E) {
+| A==C => {E==[] && B==D ; emp}
+| not (A==C) => {E==G + [F] ; dlseg(H,A,C,D,G) ** A + 0 :-> F ** A + 1 :-> H ** A + 2 :-> B ** [A, 3]}
+}
+
+predicate multi_sk_inv(loc A) {
+| A==0 => { true ; emp}
+| not (A==0) => { true ; multi_sk_inv(B) ** A + 0 :-> B ** [A, 1]}
+}
+predicate multi_sk(loc A) {
+| A==0 => { true ; emp}
+| not (A==0) => { true ; multi_sk_inv(C) ** multi_sk(B) ** A + 0 :-> B ** A + 1 :-> C ** [A, 2]}
+}
+
+predicate multilist(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {B==C + D ; multilist_inv(F,C) ** multilist(E,D) ** A + 0 :-> E ** A + 1 :-> F ** [A, 2]}
+}
+predicate multilist_inv(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {B==C + [E] ; multilist_inv(D,C) ** A + 0 :-> E ** A + 1 :-> D ** [A, 2]}
+}
+
+predicate rose_tree(loc A) {
+| A==0 => {true ; emp}
+| not (A==0) => {true ; rose_tree_inv(B) ** A + 0 :-> C ** A + 1 :-> B ** [A, 2]}
+}
+predicate rose_tree_inv(loc A) {
+| A==0 => {true ; emp}
+| not (A==0) => {true ; rose_tree(B) ** rose_tree_inv(C) ** A + 0 :-> B ** A + 1 :-> C ** [A, 2]}
+}
+
+predicate sleg(loc A,loc B,interval C) {
+| A==B => {C==[] ; emp}
+| not (A==B) => {C==D + [F] ; sleg(E,B,D) ** A + 0 :-> F ** A + 1 :-> E ** [A, 2]}
+}
+
+
+predicate sll(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {B==C + [E] ; sll(D,C) ** A + 0 :-> E ** A + 1 :-> D  ** [A, 2]}
+}
+
+predicate sll_len(loc A,int B) {
+| A==0 => {B==0 ; emp}
+| not (A==0) => {B==E + 1 ; sll_len(D,E) ** A + 0 :-> C ** A + 1 :-> D ** [A, 2]}
+}
+
+predicate sorted(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {C <= lower(D) && B==D + [C] ; sorted(E,D) ** A + 0 :-> C ** A + 1 :-> E ** [A, 2]}
+}
+
+predicate sorted_fixed(loc A,interval B) {
+| A==0 => {B==[] ; emp}
+| not (A==0) => {C == lower(B) && B==D + [C] ; sorted_fixed(E,D) ** A + 0 :-> C ** A + 1 :-> E ** [A, 2]}
+}
+
+predicate sorted_dll(loc A,loc B,interval C) {
+| A==0 => {C==[] ; emp}
+| not (A==0) => {C==D + [F] && F <= lower(D) ; sorted_dll(E,A,D) ** A + 0 :-> F ** A + 1 :-> E ** A + 2 :-> B ** [A, 3]}
+}
+
+predicate sorted_dll_fixed(loc A,loc B,interval C) {
+| A==0 => {C==[] ; emp}
+| not (A==0) => {C==D + [F] && F == lower(C) ; sorted_dll_fixed(E,A,D) ** A + 0 :-> F ** A + 1 :-> E ** A + 2 :-> B ** [A, 3]}
+}
+
+predicate brlseg_inv(loc A,loc B) {
+| A==B => {true ; emp}
+| not (A==B) => {true ; brlseg_inv(D,B) ** A + 0 :-> C ** A + 1 :-> D ** [A, 2]}
+}
+
+predicate brlseg(loc A,loc B,loc C) {
+| A==B => {B==C ; emp}
+| not (A==B) => {true ; brlseg_inv(B,A) ** A + 0 :-> D ** A + 1 :-> C ** [A, 2]}
+}

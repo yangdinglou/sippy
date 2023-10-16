@@ -1,0 +1,12 @@
+# -c 2
+
+should be able to convert a singly-linked list to a double-linked list
+
+#######
+
+{ f :-> x ** btree(x, s)}
+void btree_to_bktree(loc f)
+{ f :-> i ** bktree(i, 0, s)}
+
+
+#####

@@ -1,0 +1,11 @@
+# -o 2
+
+should be able to deallocate a rose tree
+
+###
+
+{ multilist(x,s) }
+  void multilist_free(loc x)
+{ emp }
+
+###

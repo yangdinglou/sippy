@@ -1,0 +1,9 @@
+# -c 2 -b true
+
+sort a list
+
+#####
+
+{ dll(x, y, s) }
+void sort (loc x)
+{ sorted_dll_fixed(x, y, s) }

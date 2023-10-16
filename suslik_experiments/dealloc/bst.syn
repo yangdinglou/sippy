@@ -1,0 +1,11 @@
+#
+
+should be able to deallocate a rose tree
+
+###
+
+{ bst(x,s) }
+  void bst_free(loc x)
+{ emp }
+
+###

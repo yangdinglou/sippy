@@ -1,0 +1,11 @@
+#
+
+should be able to deallocate a dlseg
+
+###
+
+{ dlseg(x,a,0,y,s) }
+  void dlseg_free(loc x, loc y)
+{ emp }
+
+###

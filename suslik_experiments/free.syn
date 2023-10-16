@@ -1,0 +1,9 @@
+
+
+should be able to synthesize list copy
+
+#####
+
+{true ; db_srtl(x, a, s)}
+void dll_free(loc x)
+{true ; emp}

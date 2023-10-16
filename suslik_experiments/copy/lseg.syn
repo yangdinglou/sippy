@@ -1,0 +1,11 @@
+#
+
+should be able to copy a lseg
+
+###
+
+{ sleg(x,0,s) ** r :-> a }
+  void lseg_copy(loc x, loc r)
+{ sleg(x,0,s)  ** r :-> y ** sleg(y,0,s)  }
+
+###

@@ -1,0 +1,9 @@
+# -c 2 -f 1
+
+should be able to synthesize list copy
+
+#####
+
+{true ; r :-> x ** db_srtl(x, a, s)}
+void dll_copy(loc r)
+{true ; r :-> y ** db_srtl(x, a, s) ** db_srtl(y, b, s) }

@@ -1,0 +1,11 @@
+# -c 2 -f 1
+
+doesn't work
+
+###
+
+{ bktree(x, a, s) ** r :-> x }
+  void bktree_copy(loc x, loc r)
+{ bktree(x, a, s) ** r:-> y ** bktree(y, b, s) }
+
+###

@@ -1,0 +1,9 @@
+# -c 2
+
+should be able to flatten a rose tree into a list
+
+###
+
+{ r :-> 0 ** bst(x, s) }
+void flatten(loc x, loc r)
+{ r :-> y ** sorted(y, s) }

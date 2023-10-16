@@ -1,0 +1,11 @@
+#
+
+should be able to deallocate a sll
+
+###
+
+{ sll(x,s) }
+  void sll_free(loc x)
+{ emp }
+
+###

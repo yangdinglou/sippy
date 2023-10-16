@@ -1,0 +1,11 @@
+#
+
+should be able to copy a lseg
+
+###
+
+{ btree(x,s) ** r :-> a }
+  void btree_copy(loc x, loc r)
+{ btree(x,s)  ** r :-> y ** btree(y,s)  }
+
+###

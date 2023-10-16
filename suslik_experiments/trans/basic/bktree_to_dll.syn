@@ -1,0 +1,11 @@
+# -o 2 -c 2
+
+doesn't work
+
+###
+
+{true ; r :-> a ** btree(x,s) }
+void listmorph(loc x, loc r)
+{true ; r :-> y ** bktree(y, c, s) ** btree(x,s) }
+
+#####

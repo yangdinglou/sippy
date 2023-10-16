@@ -1,0 +1,9 @@
+# -c 2 -b true
+
+sort a list
+
+#####
+
+{ sll(x, s) }
+void sort (loc x)
+{ sorted_fixed(x, s) }

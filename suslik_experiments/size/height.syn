@@ -1,0 +1,9 @@
+balanced tree: height  -1 doesn't work, 0 works
+
+#####
+
+{ ret :-> a ** balanced_zero(x, n) }
+void tree_height (loc x, loc ret)
+{ ret :-> n ** balanced_zero(x, n) }
+
+#####

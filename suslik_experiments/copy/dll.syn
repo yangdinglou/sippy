@@ -1,0 +1,11 @@
+# -c 2 -f 1
+
+only with parameters
+
+###
+
+{ dll(x, a, s) ** r :-> x }
+  void dll_copy(loc x, loc r)
+{ dll(x, a, s) ** r:-> y ** dll(y, b, s) }
+
+###

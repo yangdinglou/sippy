@@ -1,0 +1,11 @@
+# -c 2 -p true
+
+flatten a BST into a sorted list
+
+#####
+
+{ r :-> 0 ** bst(x, s) }
+void flatten(loc x, loc r)
+{ r :-> y ** db_srtl(y, a, s) }
+
+#####
