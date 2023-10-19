@@ -1,6 +1,0 @@
-********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:13
-p(A,B):- empty(B),nullptr(A), !.
-p(A,B):- value(A,H),right(A,D),left(A,E),my_succ(H,C),p(E,F),p(D,G),ord_union(G,F,I),insert(I,H,B),lt_list(C,G), !.
-
-Because of the quality of examples

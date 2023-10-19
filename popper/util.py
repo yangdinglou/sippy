@@ -12,7 +12,7 @@ from difflib import SequenceMatcher
 
 clingo.script.enable_python()
 
-TIMEOUT=300
+TIMEOUT=3000
 EVAL_TIMEOUT=0.01
 MAX_LITERALS=40
 MAX_SOLUTIONS=1

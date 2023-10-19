@@ -215,11 +215,7 @@ func_head(zero).
 
 
 
-:-
-    body_literal(T, lt_list, _, (V, S1)),
-    body_literal(T, min_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
-
+ 
 :-
     body_literal(T, gt_list, _, (V, S1)),
     body_literal(T, max_list, _, (S2, V)),

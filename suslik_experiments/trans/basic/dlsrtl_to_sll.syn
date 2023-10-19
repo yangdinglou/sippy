@@ -1,9 +1,9 @@
-listmorph (existing)
+1
 
 ###
 
-{true ; r :-> 0 ** sorted_dll(x, a, S)}
-void dlsrtl_to_sll(loc x, loc r)
-{true ; r :-> y ** sll(y, S) ** sorted_dll(x, a, S) }
+{f :-> x ** sorted_dll_fixed(x, z, s)}
+void dlsrtl_to_sll(loc f)
+{f :-> y ** sll(y, s)}
 
 #####

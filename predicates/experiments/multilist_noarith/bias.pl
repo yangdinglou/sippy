@@ -1,8 +1,57 @@
+% p(A):-nullptr(A).
+% p(A):-inv1(B),child(A,B),next(A,C),p(C).
+% inv1(A):-nullptr(A).
+% inv1(A):-next(A,C),inv1(C).
 
-max_clauses(2).
+max_clauses(4).
 enable_recursion.
 
+enable_pi.
+
 head_pred(p,2).
+type(p,(pointer,set)).
+% direction(p,(in,out)).
+
+input_pointer(next,pointer).
+input_pointer(child,pointer).
+
+inner_pointer(next2, pointer).
+inner_pointer(value, integer).
+
+
+
+:-
+    #count{P,Vars : body_literal(0,P,_,Vars)} > 3.
+
+:-
+    #count{P,Vars : body_literal(2,P,_,Vars)} > 3.
+:-
+    not clause(1).
+:-
+    not clause(2).
+:-
+    not clause(3).
+
+:-
+    head_literal(0,P,_,_),
+    not head_literal(1,P,_,_).
+
+:-
+    head_literal(1,P,_,_),
+    head_literal(2,P,_,_).
+
+:-
+    head_literal(2,P,_,_),
+    not head_literal(3,P,_,_).
+
+
+
+
+
+
+% not_in(value, 0).
+% not_in(left, 0).
+% not_in(right, 0).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
@@ -13,17 +62,22 @@ body_pred(my_succ,2).
 body_pred(my_prev,2).
 body_pred(maxnum,3).
 body_pred(same_ptr,2).
-body_pred(ge,2).
-% body_pred(add,3).
+% body_pred(ge,2).
 
 not_in(anypointer, 1).
+not_in(anypointer, 3).
 not_in(anynumber, 0).
+not_in(anynumber, 2).
 not_in(nullptr, 1).
+not_in(nullptr, 3).
 not_in(zero, 1).
+not_in(zero, 3).
 not_in(diff_lessthanone, 0).
+not_in(diff_lessthanone, 2).
 not_in(maxnum, 0).
+not_in(maxnum, 2).
 not_in(same_ptr, 1).
-not_in(ge, 0).
+not_in(same_ptr, 3).
 
 body_pred(empty,1).
  
@@ -33,15 +87,20 @@ body_pred(ord_union,3).
 body_pred(insert,3).
 
 not_in(empty, 1).
- 
+not_in(empty, 3).
+not_in(min_list, 0).
+not_in(min_list, 2).
+not_in(max_list, 0).
+not_in(max_list, 2).
 not_in(gt_list, 0).
+not_in(gt_list, 2).
 not_in(lt_list, 0).
+not_in(lt_list, 2).
 not_in(ord_union, 0).
+not_in(ord_union, 2).
 not_in(insert, 0).
+not_in(insert, 2).
 
-
-
-type(p,(pointer,set)).
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -64,11 +123,11 @@ type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
 
 
-direction(p,(in,out)).
 
-direction(anypointer, (out,)).
+
+direction(anypointer, (in,)).
 direction(anynumber, (in,)).
-direction(nullptr,(out,)).
+direction(nullptr,(in,)).
 direction(zero,(out,)).
 direction(diff_lessthanone,(in,in)).
 direction(my_succ,(in,out)).
@@ -103,11 +162,8 @@ direction(insert,(in,in,out)).
     body_literal(T, anynumber, _, (A,)),
     not out_from_this(T, A).
 
-:-
-	#count{A,Vars : body_literal(0,nullptr,A,Vars)} == 0.
 
-:-
-	#count{A,Var : body_literal(0,nullptr,A,(Var,)), head_var(0, Var)} == 0.
+
 
 :-
     body_literal(T, nullptr, _, (A,)),
@@ -222,11 +278,7 @@ func_head(zero).
 
 
 
-:-
-    body_literal(T, lt_list, _, (V, S1)),
-    body_literal(T, min_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
-
+ 
 :-
     body_literal(T, gt_list, _, (V, S1)),
     body_literal(T, max_list, _, (S2, V)),
@@ -250,4 +302,13 @@ func_head(zero).
 	body_literal(T, insert, _, (_, B, C)),
 	body_literal(T, lt_list, _, (B, C)).
 
-% TODO: 1. partial order on head 2. generate the pointer literal by ASP instead of Python
+:- no_arith(P),
+   var_in_body_pos(_, P, 1, Arg),
+   var_in_body_pos(_, my_prev, 0, Arg).
+
+:- no_arith(P),
+   var_in_body_pos(_, P, 1, Arg),
+   var_in_body_pos(_, my_succ, 0, Arg).
+
+
+no_arith(value).
