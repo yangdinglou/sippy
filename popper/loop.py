@@ -6,6 +6,7 @@ from . util import timeout, format_rule, rule_is_recursive, order_prog, prog_is_
 from . tester import Tester
 from . generate import Generator, Grounder, parse_model, atom_to_symbol, arg_to_symbol
 from . bkcons import deduce_bk_cons
+import timeout_decorator
 
 def parse_handles(generator, new_handles):
     for rule in new_handles:
@@ -86,6 +87,7 @@ def explain_inconsistent(settings, generator, tester, prog, rule_ordering, new_c
                 pruned_subprog = True
     return pruned_subprog
 
+@timeout_decorator.timeout(1)
 def constrain(settings, new_cons, generator, all_ground_cons, cached_clingo_atoms, model, new_ground_cons):
     all_ground_cons.update(new_ground_cons)
     ground_bodies = set()
@@ -420,7 +422,10 @@ def popper(settings):
                         all_handles.update(parse_handles(generator, new_rule_handles))
 
                     # CONSTRAIN
-                    constrain(settings, new_cons, generator, all_ground_cons, cached_clingo_atoms, model, new_ground_cons)
+                    try:
+                        constrain(settings, new_cons, generator, all_ground_cons, cached_clingo_atoms, model, new_ground_cons)
+                    except timeout_decorator.TimeoutError:
+                        pass
             # update current_body and current_var when we find a solution have_a_solution
             if updated:
                 updated = False
