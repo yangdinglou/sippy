@@ -17,7 +17,6 @@ exclusive_head(right,back).
 recur_num(2).
 
 
-
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
 body_pred(nullptr,1).
@@ -38,14 +37,12 @@ not_in(same_ptr, 1).
 
 
 body_pred(empty,1).
- 
 body_pred(gt_list,2).
 body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
 not_in(empty, 1).
- 
 not_in(gt_list, 0).
 not_in(lt_list, 0).
 not_in(ord_union, 0).
@@ -60,12 +57,9 @@ type(my_succ,(integer,integer)).
 type(my_prev,(integer,integer)).
 type(maxnum,(integer,integer,integer)).
 type(same_ptr,(pointer,pointer)).
-type(ge,(integer,integer)).
-type(add,(integer,integer,integer)).
 
 
 type(empty,(set,)).
- 
 type(gt_list,(integer,set)).
 type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
@@ -83,12 +77,9 @@ direction(my_succ,(in,out)).
 direction(my_prev,(in,out)).
 direction(maxnum,(in,in,out)).
 direction(same_ptr,(in,in)).
-direction(ge,(in,in)).
-direction(add,(in,in,out)).
 
 
 direction(empty,(out,)).
- 
 direction(gt_list,(in,in)).
 direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
@@ -112,8 +103,6 @@ direction(insert,(in,in,out)).
     not out_from_this(T, A).
 
 
-% :- #sum{1:body_literal(0,nullptr,1,(0,));1:body_literal(0,same_ptr,2,(0,_))} != 1.
-
 :-
     body_literal(T, nullptr, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
@@ -123,14 +112,12 @@ direction(insert,(in,in,out)).
 
 
 
- 
 func_head(ord_union).
 partial_head(ord_union).
 symmetric_head(ord_union).
 injective_head(ord_union).
 
 symmetric_head(same_ptr).
-partial_head(ge).
 
 
 func_head(insert).
@@ -226,13 +213,6 @@ func_head(zero).
 	body_literal(T, maxnum, _, (A2, A4, _)).
 
 
-
- 
-:-
-    body_literal(T, gt_list, _, (V, S1)),
-    body_literal(T, max_list, _, (S2, V)),
-    body_literal(T, insert, _, (S1, V, S2)).
-
 % semantic-based
 
 :-
@@ -242,6 +222,7 @@ func_head(zero).
 :-
 	body_literal(T, my_prev, _, (_, A)),
 	body_literal(T, lt_list, _, (A, _)).
+
 
 :-
 	body_literal(T, insert, _, (_, B, C)),

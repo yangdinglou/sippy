@@ -29,15 +29,14 @@ not_in(diff_lessthanone, 0).
 not_in(maxnum, 0).
 not_in(same_ptr, 1).
 
+
 body_pred(empty,1).
- 
 body_pred(gt_list,2).
 body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
 not_in(empty, 1).
- 
 not_in(gt_list, 0).
 not_in(lt_list, 0).
 not_in(ord_union, 0).
@@ -55,7 +54,6 @@ type(same_ptr,(pointer,pointer)).
 
 
 type(empty,(set,)).
- 
 type(gt_list,(integer,set)).
 type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
@@ -76,7 +74,6 @@ direction(same_ptr,(in,in)).
 
 
 direction(empty,(out,)).
- 
 direction(gt_list,(in,in)).
 direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
@@ -100,7 +97,6 @@ direction(insert,(in,in,out)).
     not out_from_this(T, A).
 
 
-
 :-
     body_literal(T, nullptr, _, (A,)),
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
@@ -110,7 +106,6 @@ direction(insert,(in,in,out)).
 
 
 
- 
 func_head(ord_union).
 partial_head(ord_union).
 symmetric_head(ord_union).
@@ -210,7 +205,6 @@ func_head(zero).
 	body_literal(T, my_succ, _, (A1, A2)),
 	body_literal(T, my_succ, _, (A3, A4)),
 	body_literal(T, maxnum, _, (A2, A4, _)).
-
 
 
 % semantic-based
