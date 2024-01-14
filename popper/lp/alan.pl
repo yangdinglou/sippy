@@ -1352,6 +1352,16 @@ direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
     var_in_body_pos(1, P, B, B2),
 	not partial_le(1, B2, B1).
 
+:-
+    head_pred(P,A),
+    % prev(A, B),
+    B == A - 1,
+    inv_pure(X),
+    not po_type(X),
+    var_in_head_pos(1, P, B, B1),
+    var_in_body_pos(1, P, B, B2),
+	not contain_in_list(1, B2, B1).
+
 inv_pure(T):-head_pred(P,3),type(P,(_,_,T)), pure_type(T).
 direction(P,(in,in,out)):- head_pred(P,3),type(P,(_,_,T)), pure_type(T).
 direction(P,(in,in,in)):- head_pred(P,3),type(P,(_,_,T)), not pure_type(T).
@@ -1423,7 +1433,17 @@ direction(P,(in,in,in)):- invented(P,3),not inv_pure(_).
 :-
     invented(P,A),
     prev(A, B),
-    inv_pure(_),
+    inv_pure(X),
+    po_type(X),
     var_in_head_pos(3, P, B, B1),
     var_in_body_pos(3, P, B, B2),
 	not partial_le(3, B2, B1).
+
+:-
+    invented(P,A),
+    prev(A, B),
+    inv_pure(X),
+    not po_type(X),
+    var_in_head_pos(3, P, B, B1),
+    var_in_body_pos(3, P, B, B2),
+	not contain_in_list(3, B2, B1).

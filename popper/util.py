@@ -215,7 +215,7 @@ def format_body(body, head):
             pred = f'{literal.arguments[0]}==0'
         elif literal.predicate == 'same_ptr' and (literal.arguments[0] == 'A'):
             pred = f'{literal.arguments[0]}=={literal.arguments[1]}'
-        elif literal.predicate in ['anypointer','anynumber','insert', 'empty','ord_union','min_list','max_list','gt_list','lt_list','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'zero', 'nullptr', 'same_ptr']:
+        elif literal.predicate in ['anypointer','anynumber','insert', 'empty','ord_union','min_list','max_list','gt_list','lt_list','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'zero', 'nullptr', 'same_ptr', 'cons', 'append', 'gt_set', 'lt_set', 'nil']:
             tmppure = format_pure(literal)
             if tmppure != None:
                 pure.append(tmppure)
@@ -393,7 +393,7 @@ def flatten(xs):
     return [item for sublist in xs for item in sublist]
 
 class Settings:
-    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE, circle = False):
+    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE, circle = True):
 
         if cmd_line:
             args = parse_args()

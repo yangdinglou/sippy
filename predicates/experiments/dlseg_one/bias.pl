@@ -14,13 +14,13 @@ input_pointer(prev,pointer).
 input_pointer(key,integer).
 
 body_pred(anypointer, 1).
-body_pred(anynumber, 1).
+body_pred(anynumber, 1):-inv_pure(integer).
 body_pred(nullptr,1).
-body_pred(zero,1).
-body_pred(diff_lessthanone,2).
-body_pred(my_succ,2).
-body_pred(my_prev,2).
-body_pred(maxnum,3).
+body_pred(zero,1):-inv_pure(integer).
+body_pred(diff_lessthanone,2):-inv_pure(integer).
+body_pred(my_succ,2):-inv_pure(integer).
+body_pred(my_prev,2):-inv_pure(integer).
+body_pred(maxnum,3):-inv_pure(integer).
 body_pred(same_ptr,2).
 
 not_in(anypointer, 1).
@@ -32,17 +32,17 @@ not_in(maxnum, 0).
 not_in(same_ptr, 1).
 
 
-body_pred(empty,1).
-body_pred(gt_set,2).
-body_pred(lt_set,2).
-body_pred(ord_union,3).
-body_pred(insert,3).
+body_pred(empty,1):-inv_pure(set).
+body_pred(gt_set,2):-inv_pure(set).
+body_pred(lt_set,2):-inv_pure(set).
+body_pred(ord_union,3):-inv_pure(set).
+body_pred(insert,3):-inv_pure(set).
 
-body_pred(nil,1).
-body_pred(gt_list,2).
-body_pred(lt_list,2).
-body_pred(append,3).
-body_pred(cons,3).
+body_pred(nil,1):-inv_pure(list).
+body_pred(gt_list,2):-inv_pure(list).
+body_pred(lt_list,2):-inv_pure(list).
+body_pred(append,3):-inv_pure(list).
+body_pred(cons,3):-inv_pure(list).
 
 not_in(empty, 1).
 not_in(gt_set, 0).

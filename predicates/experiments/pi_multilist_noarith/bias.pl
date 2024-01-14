@@ -54,13 +54,13 @@ inner_pointer(value, integer).
 % not_in(right, 0).
 
 body_pred(anypointer, 1).
-body_pred(anynumber, 1).
+body_pred(anynumber, 1):-inv_pure(integer).
 body_pred(nullptr,1).
-body_pred(zero,1).
-body_pred(diff_lessthanone,2).
-body_pred(my_succ,2).
-body_pred(my_prev,2).
-body_pred(maxnum,3).
+body_pred(zero,1):-inv_pure(integer).
+body_pred(diff_lessthanone,2):-inv_pure(integer).
+body_pred(my_succ,2):-inv_pure(integer).
+body_pred(my_prev,2):-inv_pure(integer).
+body_pred(maxnum,3):-inv_pure(integer).
 body_pred(same_ptr,2).
 % body_pred(ge,2).
 
