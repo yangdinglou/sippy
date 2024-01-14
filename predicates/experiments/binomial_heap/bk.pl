@@ -30,13 +30,25 @@ q(X, S) :- key(X, V), child(X, C), q(C, S1), sibling(X, X1), q(X1, S2), ord_unio
 
 use_module(library(lists)).
 empty([]).
+nil([]).
 zero(0).
+nullptr(null).
+
+cons(A, B, C) :-
+    append([B], A, C).
 
 gt_list(_, []).
 gt_list(A, B) :-
     max_list(B, C), A >= C.
 lt_list(_, []).
 lt_list(A, B) :-
+    min_list(B, C), A =< C.
+
+gt_set(_, []).
+gt_set(A, B) :-
+    max_list(B, C), A >= C.
+lt_set(_, []).
+lt_set(A, B) :-
     min_list(B, C), A =< C.
 
 maxnum(A, B, C) :-
@@ -48,6 +60,23 @@ minnum(A, B, C) :-
 diff_lessthanone(A, B):-
     D is A - B, abs(D, AbsD), AbsD =< 1.
 
+my_succ(A, B) :-
+    B is A + 1.
+
+my_prev(A, B) :-
+    B is A - 1.
 
 insert(A, B, C) :-
     is_ordset(A), ord_union([B], A, C).
+
+anypointer(_).
+anynumber(_).
+
+same_ptr(A, A).
+
+ge(A, B) :-
+    A >= B.
+
+
+add(A, B, C) :-
+    C is A + B.

@@ -1,0 +1,310 @@
+********** SOLUTION **********
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:14
+inv1(A):- nullptr(A), !.
+p(A):- nullptr(A), !.
+p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+['predicate inv1(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; [] ;; ['p(C)', 'pointto(A,C)', 'next2(A,B)', 'inv1(B)']", 'predicate p(A) ', '{', '|  A==0 ;; [] ;; []', "|  None ;; ['anynumber(C)'] ;; ['inv1(B)', 'next1(A,B)', 'value(A,C)']"]
+{'body_literal(1, anynumber, 1, (2,))', 'head_literal(3, inv1, 1, (0,))', 'head_literal(2, inv1, 1, (0,))', 'body_literal(1, next1, 2, (0,1,))', 'body_literal(3, pointto, 2, (0,2,))', 'body_literal(1, inv1, 1, (1,))', 'body_literal(2, nullptr, 1, (0,))', 'head_literal(0, p, 1, (0,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(3, inv1, 1, (1,))', 'body_literal(3, next2, 2, (0,1,))', 'head_literal(1, p, 1, (0,))', 'body_literal(3, p, 1, (2,))', 'body_literal(0, nullptr, 1, (0,))'}
+******************************
+Num. programs: 47
+Ground:
+        Called: 46 times         Total: 2.17     Mean: 0.047     Max: 0.084      Percentage: 61%
+Constrain:
+        Called: 46 times         Total: 0.90     Mean: 0.020     Max: 0.024      Percentage: 25%
+Init:
+        Called: 17 times         Total: 0.25     Mean: 0.015     Max: 0.228      Percentage: 7%
+Test:
+        Called: 47 times         Total: 0.19     Mean: 0.004     Max: 0.033      Percentage: 5%
+Generate:
+        Called: 63 times         Total: 0.02     Mean: 0.000     Max: 0.001      Percentage: 0%
+Combine:
+        Called: 2 times          Total: 0.01     Mean: 0.004     Max: 0.006      Percentage: 0%
+Total operation time: 3.54s
+Total execution time: 3.87s
+
+21:40:22 Max rules: 4
+21:40:22 Max vars: 7
+21:40:22 Max body: 7
+21:40:22 SIZE: 12 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 13 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 14 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 15 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 16 MAX_LENGTH: 3 MAX_VAR: 3
+21:40:22 SIZE: 12 MAX_LENGTH: 4 MAX_VAR: 4
+21:40:22 Program 1:
+21:40:22 p(A):- nullptr(A), !.
+21:40:22 inv1(A):- nullptr(A), !.
+21:40:22 inv1(A):- next2(A,B),pointto(A,B), !.
+21:40:22 p(A):- next1(A,B),value(A,C),inv1(B),anynumber(C), !.
+21:40:23 SIZE: 13 MAX_LENGTH: 4 MAX_VAR: 4
+21:40:23 SIZE: 14 MAX_LENGTH: 4 MAX_VAR: 4
+21:40:23 Program 2:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 CURRENT
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 ********************
+21:40:23 New best hypothesis:
+21:40:23 tp:2 fn:0 size:14
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),inv1(B), !.
+21:40:23 ********************
+21:40:23 SIZE: 14 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:23 Program 3:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,C),nullptr(B),inv1(C), !.
+21:40:23 p(A):- next1(A,C),value(A,B),inv1(C),anynumber(B),p(C), !.
+21:40:23 Program 4:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- next2(A,C),pointto(A,B),nullptr(B),inv1(C), !.
+21:40:23 Program 5:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,C),next1(A,B),inv1(A),anynumber(C),p(B), !.
+21:40:23 inv1(A):- p(A),next2(A,B),p(B),pointto(A,C),nullptr(C),inv1(B), !.
+21:40:23 Program 6:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,C),next1(A,B),inv1(B),anynumber(C),p(B), !.
+21:40:23 inv1(A):- next2(A,B),p(B),pointto(A,C),p(C),inv1(C), !.
+21:40:23 Program 7:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),p(C), !.
+21:40:23 p(A):- value(A,C),anynumber(C),next1(A,B),inv1(B), !.
+21:40:23 Program 8:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,B), !.
+21:40:23 p(A):- inv1(A),next1(A,B),value(A,C),anynumber(C),nullptr(B), !.
+21:40:23 Program 9:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),nullptr(B),next2(A,C),inv1(C), !.
+21:40:23 p(A):- value(A,B),inv1(A),next1(A,C),anynumber(B),p(C), !.
+21:40:23 Program 10:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 CURRENT
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:23 p(A):- value(A,B),anynumber(B),next1(A,C),inv1(C), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 score:34, 1.0, 26
+21:40:23 Program 11:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- inv1(A),next1(A,B),nullptr(B),value(A,C),anynumber(C), !.
+21:40:23 inv1(A):- p(A),pointto(A,C),nullptr(C),next2(A,B),p(B),inv1(B), !.
+21:40:23 Program 12:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,C),nullptr(B),p(C), !.
+21:40:23 Program 13:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- pointto(A,B),next2(A,B), !.
+21:40:23 p(A):- inv1(A),value(A,C),anynumber(C),next1(A,B),p(B), !.
+21:40:23 Program 14:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- inv1(A),next1(A,C),value(A,B),anynumber(B),nullptr(C), !.
+21:40:23 inv1(A):- next2(A,C),pointto(A,B),nullptr(B),inv1(C), !.
+21:40:23 Program 15:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:23 inv1(A):- p(A),next2(A,C),pointto(A,B),p(B),inv1(C), !.
+21:40:23 Program 16:
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 p(A):- next1(A,B),nullptr(B),value(A,C),inv1(A),anynumber(C), !.
+21:40:23 inv1(A):- pointto(A,C),p(C),next2(A,B),p(B),inv1(C), !.
+21:40:23 Program 17:
+21:40:23 p(A):- nullptr(A), !.
+21:40:23 inv1(A):- nullptr(A), !.
+21:40:23 p(A):- value(A,C),next1(A,B),anynumber(C),inv1(B),p(B), !.
+21:40:23 inv1(A):- p(A),next2(A,C),pointto(A,B),p(B),nullptr(C),inv1(B), !.
+21:40:24 Program 18:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:24 inv1(A):- next2(A,C),p(C),pointto(A,B),inv1(B), !.
+21:40:24 Program 19:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,B),p(B),next2(A,C),inv1(C), !.
+21:40:24 p(A):- value(A,C),next1(A,B),anynumber(C),inv1(B),p(B), !.
+21:40:24 Program 20:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,B),inv1(A),nullptr(B),value(A,C),anynumber(C), !.
+21:40:24 inv1(A):- next2(A,C),pointto(A,B),p(B),inv1(C), !.
+21:40:24 Program 21:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,B),next2(A,C),p(B),inv1(C), !.
+21:40:24 p(A):- next1(A,B),inv1(A),value(A,C),anynumber(C),p(B), !.
+21:40:24 Program 22:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- value(A,C),inv1(A),next1(A,B),nullptr(B),anynumber(C), !.
+21:40:24 inv1(A):- next2(A,C),p(A),nullptr(C),pointto(A,B),p(B),inv1(B), !.
+21:40:24 Program 23:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:24 inv1(A):- pointto(A,B),next2(A,C),p(B),nullptr(C), !.
+21:40:24 Program 24:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- inv1(A),value(A,B),anynumber(B),next1(A,C),p(C), !.
+21:40:24 inv1(A):- pointto(A,C),p(C),next2(A,B),p(B),inv1(C), !.
+21:40:24 Program 25:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- value(A,B),inv1(A),anynumber(B),next1(A,C),nullptr(C), !.
+21:40:24 inv1(A):- next2(A,B),pointto(A,C),p(C),nullptr(B),inv1(C), !.
+21:40:24 Program 26:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- inv1(A),value(A,B),anynumber(B),next1(A,C),p(C), !.
+21:40:24 inv1(A):- pointto(A,C),next2(A,B),p(C),nullptr(B),inv1(C), !.
+21:40:24 Program 27:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,C),next2(A,B),nullptr(B),nullptr(C), !.
+21:40:24 p(A):- next1(A,B),inv1(B),value(A,C),anynumber(C),p(B), !.
+21:40:24 Program 28:
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 inv1(A):- pointto(A,C),next2(A,B),nullptr(B),p(C), !.
+21:40:24 p(A):- inv1(A),next1(A,B),nullptr(B),value(A,C),anynumber(C), !.
+21:40:24 Program 29:
+21:40:24 inv1(A):- nullptr(A), !.
+21:40:24 p(A):- nullptr(A), !.
+21:40:24 p(A):- next1(A,C),value(A,B),anynumber(B),inv1(C), !.
+21:40:24 inv1(A):- next2(A,C),pointto(A,B),nullptr(B),nullptr(C), !.
+21:40:25 Program 30:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- next1(A,C),inv1(C),value(A,B),anynumber(B), !.
+21:40:25 inv1(A):- next2(A,B),nullptr(B),pointto(A,C),inv1(C), !.
+21:40:25 Program 31:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- p(A),next2(A,B),pointto(A,C),nullptr(C),nullptr(B), !.
+21:40:25 p(A):- next1(A,B),inv1(A),nullptr(B),value(A,C),anynumber(C), !.
+21:40:25 Program 32:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),nullptr(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- inv1(A),value(A,C),anynumber(C),next1(A,B),nullptr(B), !.
+21:40:25 Program 33:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),p(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- inv1(A),value(A,C),next1(A,B),anynumber(C),p(B), !.
+21:40:25 Program 34:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- inv1(A),value(A,B),anynumber(B),next1(A,C),nullptr(C), !.
+21:40:25 inv1(A):- pointto(A,C),next2(A,B),p(B),inv1(C), !.
+21:40:25 Program 35:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- p(A),pointto(A,C),nullptr(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- next1(A,B),inv1(A),value(A,C),anynumber(C),p(B), !.
+21:40:25 Program 36:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),nullptr(C),next2(A,B),nullptr(B), !.
+21:40:25 p(A):- next1(A,B),value(A,C),inv1(A),anynumber(C),p(B), !.
+21:40:25 Program 37:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 p(A):- value(A,B),anynumber(B),next1(A,C),nullptr(C),inv1(A), !.
+21:40:25 inv1(A):- next2(A,B),pointto(A,C),nullptr(B),inv1(C), !.
+21:40:25 Program 38:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 p(A):- value(A,B),anynumber(B),inv1(A),next1(A,C),p(C), !.
+21:40:25 inv1(A):- pointto(A,C),next2(A,B),p(B),p(A),inv1(C), !.
+21:40:25 Program 39:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 inv1(A):- p(A),next2(A,B),pointto(A,C),nullptr(C),p(B), !.
+21:40:25 p(A):- inv1(A),next1(A,B),nullptr(B),value(A,C),anynumber(C), !.
+21:40:25 Program 40:
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 inv1(A):- next2(A,B),pointto(A,C),p(B),nullptr(C),p(A), !.
+21:40:25 p(A):- next1(A,B),inv1(A),value(A,C),anynumber(C),p(B), !.
+21:40:25 Program 41:
+21:40:25 inv1(A):- nullptr(A), !.
+21:40:25 p(A):- nullptr(A), !.
+21:40:25 inv1(A):- pointto(A,C),nullptr(C),next2(A,B),p(B), !.
+21:40:25 p(A):- value(A,C),anynumber(C),next1(A,B),nullptr(B),inv1(A), !.
+21:40:26 Program 42:
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 inv1(A):- next2(A,B),p(B),pointto(A,C),inv1(C), !.
+21:40:26 p(A):- value(A,B),inv1(A),next1(A,C),anynumber(B),p(C), !.
+21:40:26 Program 43:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 p(A):- next1(A,C),value(A,B),inv1(A),anynumber(B),p(C), !.
+21:40:26 inv1(A):- pointto(A,C),next2(A,B),p(A),nullptr(B),inv1(C), !.
+21:40:26 Program 44:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- pointto(A,B),next2(A,C),p(C),p(B), !.
+21:40:26 p(A):- value(A,B),inv1(A),next1(A,C),anynumber(B),nullptr(C), !.
+21:40:26 Program 45:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- pointto(A,C),next2(A,B),p(B),nullptr(C), !.
+21:40:26 p(A):- next1(A,B),value(A,C),anynumber(C),inv1(A),p(B), !.
+21:40:26 Program 46:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- next2(A,B),p(B),pointto(A,C),p(C), !.
+21:40:26 p(A):- inv1(A),value(A,C),next1(A,B),anynumber(C),p(B), !.
+21:40:26 Program 47:
+21:40:26 inv1(A):- nullptr(A), !.
+21:40:26 p(A):- nullptr(A), !.
+21:40:26 inv1(A):- next2(A,B),nullptr(B),pointto(A,C),inv1(C), !.
+21:40:26 p(A):- value(A,B),next1(A,C),anynumber(B),inv1(A),p(C), !.
+21:40:26 SIZE: 15 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 16 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 17 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 18 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 19 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 20 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 21 MAX_LENGTH: 6 MAX_VAR: 5
+21:40:26 SIZE: 22 MAX_LENGTH: 6 MAX_VAR: 5

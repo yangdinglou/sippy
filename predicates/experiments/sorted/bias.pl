@@ -36,11 +36,23 @@ body_pred(lt_list,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
+body_pred(nil,1).
+body_pred(max_member,2).
+body_pred(min_member,2).
+body_pred(append,3).
+body_pred(cons,3).
+
 not_in(empty, 1).
 not_in(gt_list, 0).
 not_in(lt_list, 0).
 not_in(ord_union, 0).
 not_in(insert, 0).
+
+not_in(nil, 1).
+not_in(max_member, 0).
+not_in(min_member, 0).
+not_in(append, 0).
+not_in(cons, 0).
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -58,6 +70,12 @@ type(gt_list,(integer,set)).
 type(lt_list,(integer,set)).
 type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
+
+type(nil,(list,)).
+type(max_member,(integer,list)).
+type(min_member,(integer,list)).
+type(append,(list,list,list)).
+type(cons,(list,integer,list)).
 
 
 
@@ -78,6 +96,12 @@ direction(gt_list,(in,in)).
 direction(lt_list,(in,in)).
 direction(ord_union,(in,in,out)).
 direction(insert,(in,in,out)).
+
+direction(nil,(out,)).
+direction(min_member,(in,in)).
+direction(max_member,(in,in)).
+direction(append,(in,in,out)).
+direction(cons,(in,in,out)).
 
  
 :-

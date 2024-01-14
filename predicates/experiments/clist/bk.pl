@@ -1,13 +1,24 @@
 use_module(library(lists)).
 empty([]).
+nil([]).
 zero(0).
 nullptr(null).
+
+cons(A, B, C) :-
+    append([B], A, C).
 
 gt_list(_, []).
 gt_list(A, B) :-
     max_list(B, C), A >= C.
 lt_list(_, []).
 lt_list(A, B) :-
+    min_list(B, C), A =< C.
+
+gt_set(_, []).
+gt_set(A, B) :-
+    max_list(B, C), A >= C.
+lt_set(_, []).
+lt_set(A, B) :-
     min_list(B, C), A =< C.
 
 maxnum(A, B, C) :-
@@ -33,6 +44,12 @@ anynumber(_).
 
 same_ptr(A, A).
 
+ge(A, B) :-
+    A >= B.
+
+
+add(A, B, C) :-
+    C is A + B.
 
 value(p1,1).
 value(p2,2).

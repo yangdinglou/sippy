@@ -992,6 +992,51 @@ partial_le(T, A, B) :-
     partial_le(T, A, B1),
     partial_le(T, B1, B).
 
+contain_in_list(T, A, A):-
+    var_type(T, A, list).
+
+% A in B
+
+contain_in_list(T, A, B):- 
+    body_literal(T, cons, _, (C, _, B)),
+    contain_in_list(T, A, C).
+
+contain_in_list(T, A, B):- 
+    body_literal(T, append, _, (C, _, B)),
+    contain_in_list(T, A, C).
+
+contain_in_list(T, A, B):- 
+    body_literal(T, append, _, (_, C, B)),
+    contain_in_list(T, A, C).
+
+contain_in_list(T, A, B):- 
+    body_literal(T, cons, _, (A, _, B)).
+
+
+
+contain_in_list(T, A, B):- 
+    body_literal(T, append, _, (A, _, B)).
+
+contain_in_list(T, A, B):- 
+    body_literal(T, append, _, (_, A, B)).
+
+contain_in_list(T, A, B):- 
+    var_type(T, A, integer),
+    var_type(T, B, list),
+    body_literal(T, cons, _, (_, A, B)).
+
+
+repeat_in_list(T, A, C):-
+    contain_in_list(T, A, B),
+    body_literal(T, append, _, (A, B, C)).
+
+repeat_in_list(T, A, C):-
+    contain_in_list(T, B, A),
+    body_literal(T, append, _, (A, B, C)).
+
+repeat_in_list(T, A, C):-
+    contain_in_list(T, B, A),
+    body_literal(T, cons, _, (A, B, C)).
 
 
 
@@ -1019,6 +1064,8 @@ partial_le(T, A, B) :-
     partial_le(T, A, B),
     partial_le(T, B, A),
     A != B.
+
+
 
 
 % symmetric head
@@ -1285,7 +1332,10 @@ prev(5,4).
 
 
 pure_type(integer).
+po_type(integer).
 pure_type(set).
+po_type(set).
+pure_type(list).
 
 direction(P,(in,)):- head_pred(P,1).
 
@@ -1296,7 +1346,8 @@ direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
     head_pred(P,A),
     % prev(A, B),
     B == A - 1,
-    inv_pure(_),
+    inv_pure(X),
+    po_type(X),
     var_in_head_pos(1, P, B, B1),
     var_in_body_pos(1, P, B, B2),
 	not partial_le(1, B2, B1).

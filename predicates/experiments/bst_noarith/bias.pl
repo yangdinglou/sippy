@@ -7,7 +7,6 @@ type(bst,(pointer,set)).
 input_pointer(left,pointer).
 input_pointer(right,pointer).
 input_pointer(value,integer).
-
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).
 body_pred(nullptr,1).
@@ -28,16 +27,28 @@ not_in(same_ptr, 1).
 
 
 body_pred(empty,1).
-body_pred(gt_list,2).
-body_pred(lt_list,2).
+body_pred(gt_set,2).
+body_pred(lt_set,2).
 body_pred(ord_union,3).
 body_pred(insert,3).
 
+body_pred(nil,1).
+body_pred(gt_list,2).
+body_pred(lt_list,2).
+body_pred(append,3).
+body_pred(cons,3).
+
 not_in(empty, 1).
-not_in(gt_list, 0).
-not_in(lt_list, 0).
+not_in(gt_set, 0).
+not_in(lt_set, 0).
 not_in(ord_union, 0).
 not_in(insert, 0).
+
+not_in(nil, 1).
+not_in(gt_list, 0).
+not_in(lt_list, 0).
+not_in(append, 0).
+not_in(cons, 0).
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -51,10 +62,16 @@ type(same_ptr,(pointer,pointer)).
 
 
 type(empty,(set,)).
-type(gt_list,(integer,set)).
-type(lt_list,(integer,set)).
+type(gt_set,(integer,set)).
+type(lt_set,(integer,set)).
 type(ord_union,(set,set,set)).
 type(insert,(set,integer,set)).
+
+type(nil,(list,)).
+type(gt_list,(integer,list)).
+type(lt_list,(integer,list)).
+type(append,(list,list,list)).
+type(cons,(list,integer,list)).
 
 
 
@@ -71,10 +88,16 @@ direction(same_ptr,(in,in)).
 
 
 direction(empty,(out,)).
-direction(gt_list,(in,in)).
-direction(lt_list,(in,in)).
+direction(gt_set,(in,in)).
+direction(lt_set,(in,in)).
 direction(ord_union,(in,in,out)).
 direction(insert,(in,in,out)).
+
+direction(nil,(out,)).
+direction(lt_list,(in,in)).
+direction(gt_list,(in,in)).
+direction(append,(in,in,out)).
+direction(cons,(in,in,out)).
 
  
 :-
@@ -108,10 +131,16 @@ partial_head(ord_union).
 symmetric_head(ord_union).
 injective_head(ord_union).
 
+func_head(append).
+injective_head(append).
+
+injective_head(ord_union).
+
 symmetric_head(same_ptr).
 
 
 func_head(insert).
+func_head(cons).
 
 :-
     body_literal(T, insert, _, (A1, B1, C1)),
@@ -208,6 +237,14 @@ func_head(zero).
 
 :-
 	body_literal(T, my_succ, _, (_, A)),
+	body_literal(T, gt_set, _, (A, _)).
+
+:-
+	body_literal(T, my_prev, _, (_, A)),
+	body_literal(T, lt_set, _, (A, _)).
+
+:-
+	body_literal(T, my_succ, _, (_, A)),
 	body_literal(T, gt_list, _, (A, _)).
 
 :-
@@ -217,11 +254,28 @@ func_head(zero).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
-	body_literal(T, gt_list, _, (B, C)).
+	body_literal(T, gt_set, _, (B, C)).
 
 :-
 	body_literal(T, insert, _, (_, B, C)),
+	body_literal(T, lt_set, _, (B, C)).
+
+
+:-
+	body_literal(T, cons, _, (_, B, C)),
+	body_literal(T, gt_list, _, (B, C)).
+
+:-
+	body_literal(T, cons, _, (_, B, C)),
 	body_literal(T, lt_list, _, (B, C)).
+
+:-
+	body_literal(T, lt_list, _, (_, C)),
+	repeat_in_list(T, _, C).
+
+:-
+	body_literal(T, gt_list, _, (_, C)),
+	repeat_in_list(T, _, C).
 
 
 :- no_arith(P),

@@ -165,14 +165,24 @@ def format_ptrs(inptr, ptrs):
 def format_pure(pure):
     if pure.predicate == 'empty':
         return f'{pure.arguments[0]}==[]'
+    elif pure.predicate == 'nil':
+        return f'{pure.arguments[0]}==[]'
     elif pure.predicate == 'insert':
         return f'{pure.arguments[2]}=={pure.arguments[0]} + [{pure.arguments[1]}]'
+    elif pure.predicate == 'cons':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + [{pure.arguments[1]}]'
     elif pure.predicate == 'ord_union':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + {pure.arguments[1]}'
+    elif pure.predicate == 'append':
         return f'{pure.arguments[2]}=={pure.arguments[0]} + {pure.arguments[1]}'
     elif pure.predicate == 'min_list':
         return f'{pure.arguments[1]}==lower({pure.arguments[0]})'
     elif pure.predicate == 'max_list':
         return f'{pure.arguments[1]}==upper({pure.arguments[0]})'
+    elif pure.predicate == 'gt_set':
+        return f'{pure.arguments[0]} >= upper({pure.arguments[1]})'
+    elif pure.predicate == 'lt_set':
+        return f'{pure.arguments[0]} <= lower({pure.arguments[1]})'
     elif pure.predicate == 'gt_list':
         return f'{pure.arguments[0]} >= upper({pure.arguments[1]})'
     elif pure.predicate == 'lt_list':
@@ -229,7 +239,7 @@ def format_body(body, head):
 
 # zytodo
 def to_sl_preds(rules, head_types):
-    type_to_str = {'pointer':'loc', 'integer':'int', 'set':'interval'}
+    type_to_str = {'pointer':'loc', 'integer':'int', 'set':'interval', 'list':'list'}
     preds = dict()
     for rule in rules:
         head, body = rule
