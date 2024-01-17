@@ -1,6 +1,5 @@
-pos(balanced(aa,2)).
-pos(balanced(aaa,2)).
-pos(balanced(a,3)).
+pos(p(x0,null,1)).
+pos(p(p1,null,3)).
 
 % neg(f(n1,[1,2,3,4])).
 % 2 + 2*n +n * k

@@ -24,7 +24,7 @@ MAX_EXAMPLES=10000
 
 STOP_SCORE=0
 
-global_circle = False
+global_circle = True
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Popper is an ILP system based on learning from failures')

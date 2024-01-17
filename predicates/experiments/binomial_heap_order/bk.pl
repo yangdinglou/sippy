@@ -1,5 +1,5 @@
-p(X, R) :- nullptr(X), zero(R).
-p(X, R) :- key(X, V), child(X, C), p(C, R1), my_succ(R1, R), sibling(X, X1), p(X1, R2), anynumber(R2), anynumber(V).
+p(X, Y, R) :- nullptr(X), zero(R), anypointer(Y).
+p(X, Y, R) :- key(X, V), child(X, C), parent(X, Y), p(C, X, R1), my_succ(R1, R), sibling(X, X1), p(X1, Y, R2), anynumber(R2), anynumber(V).
 
 nullptr(null).
 anynumber(_).
@@ -21,6 +21,12 @@ sibling(x1,null).
 sibling(x2,x4).
 sibling(x3,null).
 sibling(x4,null).
+
+parent(x0,null).
+parent(x1,null).
+parent(x2,x1).
+parent(x3,x2).
+parent(x4,x1).
 
 my_succ(A, B) :-
     B is A + 1.
@@ -80,3 +86,56 @@ ge(A, B) :-
 
 add(A, B, C) :-
     C is A + B.
+
+key(p1, 3).
+key(p2, 7).
+key(p3, 21).
+key(p4, 21).
+key(p5, 4).
+key(p6, 6).
+key(p7, 13).
+key(p8, 27).
+key(p9, 7).
+key(p10, 13).
+key(p11, 62).
+key(p12, 22).
+
+child(p1, p2).
+child(p2, p4).
+child(p3, null).
+child(p4, null).
+child(p5, p6).
+child(p6, p9).
+child(p7, p11).
+child(p8, null).
+child(p9, p12).
+child(p10, null).
+child(p11, null).
+child(p12, null).
+
+sibling(p1, p5).
+sibling(p2, p3).
+sibling(p3, null).
+sibling(p4, null).
+sibling(p5, null).
+sibling(p6, p7).
+sibling(p7, p8).
+sibling(p8, null).
+sibling(p9, p10).
+sibling(p10, null).
+sibling(p11, null).
+sibling(p12, null).
+
+parent(p1, null).
+parent(p2, p1).
+parent(p3, p1).
+parent(p4, p2).
+parent(p5, null).
+parent(p6, p5).
+parent(p7, p5).
+parent(p8, p5).
+parent(p9, p6).
+parent(p10, p6).
+parent(p11, p7).
+parent(p12, p9).
+
