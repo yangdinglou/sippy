@@ -1,412 +1,109 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:9
 sorted(A,B):- nullptr(A),empty(B), !.
-sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
+sorted(A,B):- value(A,E),next(A,C),sorted(C,D),lt_set(E,D),insert(D,E,B), !.
 predicate sorted(loc A,interval B) {
 | A==0 => {B==[] ; emp}
-| not (A==0) => {C <= lower(D) && B==D + [C] ; sorted(E,D) ** A + 0 :-> C ** A + 1 :-> E ** [A, 2]}
+| not (A==0) => {E <= lower(D) && B==D + [E] ; sorted(C,D) ** A + 0 :-> E ** A + 1 :-> C ** [A, 2]}
 }
-{'head_literal(0, sorted, 2, (0,1,))', 'body_literal(1, lt_list, 2, (2,3,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, sorted, 2, (4,3,))', 'body_literal(1, insert, 3, (3,2,1,))', 'body_literal(1, next, 2, (0,4,))', 'body_literal(1, value, 2, (0,2,))', 'head_literal(1, sorted, 2, (0,1,))', 'body_literal(0, empty, 1, (1,))'}
+{'body_literal(1, lt_set, 2, (4,3,))', 'body_literal(1, sorted, 2, (2,3,))', 'head_literal(0, sorted, 2, (0,1,))', 'body_literal(1, value, 2, (0,4,))', 'body_literal(1, next, 2, (0,2,))', 'head_literal(1, sorted, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, empty, 1, (1,))', 'body_literal(1, insert, 3, (3,4,1,))'}
 ******************************
-Num. programs: 58
+Num. programs: 5
 Generate:
-        Called: 79 times         Total: 1.11     Mean: 0.014     Max: 0.360      Percentage: 72%
-Ground:
-        Called: 56 times         Total: 0.16     Mean: 0.003     Max: 0.040      Percentage: 10%
+        Called: 26 times         Total: 0.71     Mean: 0.027     Max: 0.469      Percentage: 82%
 Init:
-        Called: 23 times         Total: 0.11     Mean: 0.005     Max: 0.022      Percentage: 7%
-Constrain:
-        Called: 56 times         Total: 0.09     Mean: 0.002     Max: 0.018      Percentage: 5%
+        Called: 23 times         Total: 0.07     Mean: 0.003     Max: 0.011      Percentage: 8%
+Ground:
+        Called: 3 times          Total: 0.03     Mean: 0.011     Max: 0.012      Percentage: 3%
 Test:
-        Called: 58 times         Total: 0.04     Mean: 0.001     Max: 0.019      Percentage: 2%
-Combine:
-        Called: 52 times         Total: 0.01     Mean: 0.000     Max: 0.004      Percentage: 0%
+        Called: 9 times          Total: 0.03     Mean: 0.003     Max: 0.019      Percentage: 3%
+Constrain:
+        Called: 3 times          Total: 0.01     Mean: 0.004     Max: 0.005      Percentage: 1%
 Find Mucs:
-        Called: 6 times          Total: 0.00     Mean: 0.001     Max: 0.001      Percentage: 0%
-Total operation time: 1.53s
-Total execution time: 2.25s
+        Called: 1 times          Total: 0.00     Mean: 0.001     Max: 0.001      Percentage: 0%
+Combine:
+        Called: 8 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 0.86s
+Total execution time: 1.29s
 
-03:49:46 Max rules: 2
-03:49:46 Max vars: 9
-03:49:46 Max body: 12
-03:49:46 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-03:49:46 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-03:49:46 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-03:49:46 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-03:49:46 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-03:49:46 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-03:49:46 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-03:49:46 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-03:49:46 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-03:49:46 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-03:49:46 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-03:49:46 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-03:49:46 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-03:49:46 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-03:49:46 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-03:49:46 Program 1:
-03:49:46 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:46 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B), !.
-03:49:46 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:46 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B), !.
-03:49:46 score:24, 1.0, 128
-03:49:46 CURRENT
-03:49:46 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B), !.
-03:49:46 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:46 score:24, 1.0, 128
-03:49:46 ********************
-03:49:46 New best hypothesis:
-03:49:46 tp:2 fn:0 size:8
-03:49:46 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:46 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),insert(E,D,B), !.
-03:49:46 ********************
-03:49:46 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 7
-03:49:46 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 7
-03:49:46 Program 2:
-03:49:46 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:46 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
-03:49:46 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:46 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
-03:49:46 score:24, 1.0, 128
-03:49:46 CURRENT
-03:49:46 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:46 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
-03:49:46 score:24, 1.0, 128
-03:49:47 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 7
-03:49:47 Program 3:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),my_prev(C,D),sorted(E,F),insert(F,D,B), !.
-03:49:47 Program 4:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),my_succ(C,D),sorted(E,F),insert(F,D,B), !.
-03:49:47 Program 5:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
-03:49:47 score:24, 1.0, 224
-03:49:47 CURRENT
-03:49:47 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 score:24, 1.0, 224
-03:49:47 ********************
-03:49:47 New best hypothesis:
-03:49:47 tp:2 fn:0 size:9
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B),lt_list(C,D), !.
-03:49:47 ********************
-03:49:47 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
-03:49:47 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
-03:49:47 Program 6:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,C),sorted(D,E),insert(E,C,B),gt_list(C,E), !.
-03:49:47 Program 7:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),lt_list(C,E),insert(E,C,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),lt_list(C,E),insert(E,C,B), !.
-03:49:47 score:24, 1.0, 224
-03:49:47 CURRENT
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,C),next(A,D),sorted(D,E),lt_list(C,E),insert(E,C,B), !.
-03:49:47 score:24, 1.0, 224
-03:49:47 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
-03:49:47 Program 8:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),my_succ(F,E),next(A,D),sorted(D,C),insert(C,F,B),lt_list(E,C), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),my_succ(F,E),next(A,D),sorted(D,C),insert(C,F,B),lt_list(E,C), !.
-03:49:47 score:None, None, None
-03:49:47 Program 9:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,F),my_succ(F,E),sorted(D,C),insert(C,F,B),lt_list(E,B), !.
-03:49:47 Program 10:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),next(A,D),my_prev(F,E),sorted(D,C),insert(C,F,B),gt_list(E,C), !.
-03:49:47 Program 11:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,F),my_succ(F,C),sorted(D,E),lt_list(C,E),insert(E,F,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,F),my_succ(F,C),sorted(D,E),lt_list(C,E),insert(E,F,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 12:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,F),my_prev(F,E),sorted(D,C),insert(C,F,B),gt_list(E,B), !.
-03:49:47 Program 13:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),my_succ(C,F),sorted(E,D),lt_list(F,D),insert(D,C,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),my_succ(C,F),sorted(E,D),lt_list(F,D),insert(D,C,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 14:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),next(A,C),my_succ(F,E),sorted(C,D),insert(D,F,B),lt_list(E,D), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),next(A,C),my_succ(F,E),sorted(C,D),insert(D,F,B),lt_list(E,D), !.
-03:49:47 score:None, None, None
-03:49:47 Program 15:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,E),next(A,F),my_succ(E,C),sorted(F,D),lt_list(C,D),insert(D,E,B), !.
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,E),next(A,F),my_succ(E,C),sorted(F,D),lt_list(C,D),insert(D,E,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 16:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,F),value(A,D),my_succ(D,C),sorted(F,E),insert(E,D,B),lt_list(C,E), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,F),value(A,D),my_succ(D,C),sorted(F,E),insert(E,D,B),lt_list(C,E), !.
-03:49:47 score:None, None, None
-03:49:47 Program 17:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),my_succ(F,D),next(A,E),sorted(E,C),lt_list(D,C),insert(C,F,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,F),my_succ(F,D),next(A,E),sorted(E,C),lt_list(D,C),insert(C,F,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 18:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,F),my_succ(F,C),sorted(E,D),lt_list(C,D),insert(D,F,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,F),my_succ(F,C),sorted(E,D),lt_list(C,D),insert(D,F,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 19:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,D),my_succ(D,F),sorted(E,C),insert(C,D,B),lt_list(F,C), !.
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,D),my_succ(D,F),sorted(E,C),insert(C,D,B),lt_list(F,C), !.
-03:49:47 score:None, None, None
-03:49:47 Program 20:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,C),my_succ(C,E),next(A,F),sorted(F,D),lt_list(E,D),insert(D,C,B), !.
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,C),my_succ(C,E),next(A,F),sorted(F,D),lt_list(E,D),insert(D,C,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 21:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,C),my_succ(C,F),sorted(D,E),lt_list(F,E),insert(E,C,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,C),my_succ(C,F),sorted(D,E),lt_list(F,E),insert(E,C,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 22:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,E),my_succ(E,D),next(A,C),sorted(C,F),lt_list(D,F),insert(F,E,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,E),my_succ(E,D),next(A,C),sorted(C,F),lt_list(D,F),insert(F,E,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 23:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,F),value(A,C),my_succ(C,D),sorted(F,E),lt_list(D,E),insert(E,C,B), !.
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- next(A,F),value(A,C),my_succ(C,D),sorted(F,E),lt_list(D,E),insert(E,C,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 24:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),my_succ(C,D),sorted(E,F),insert(F,C,B),lt_list(D,F), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,C),my_succ(C,D),sorted(E,F),insert(F,C,B),lt_list(D,F), !.
-03:49:47 score:None, None, None
-03:49:47 Program 25:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,C),my_succ(C,E),sorted(D,F),insert(F,C,B),lt_list(E,F), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,D),value(A,C),my_succ(C,E),sorted(D,F),insert(F,C,B),lt_list(E,F), !.
-03:49:47 score:None, None, None
-03:49:47 Program 26:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,E),my_succ(E,F),next(A,C),sorted(C,D),lt_list(F,D),insert(D,E,B), !.
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,E),my_succ(E,F),next(A,C),sorted(C,D),lt_list(F,D),insert(D,E,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 27:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,F),value(A,E),my_succ(E,D),sorted(F,C),lt_list(D,C),insert(C,E,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,F),value(A,E),my_succ(E,D),sorted(F,C),lt_list(D,C),insert(C,E,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 28:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,D),my_succ(D,F),next(A,C),sorted(C,E),insert(E,D,B),lt_list(F,E), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,D),my_succ(D,F),next(A,C),sorted(C,E),insert(E,D,B),lt_list(F,E), !.
-03:49:47 score:None, None, None
-03:49:47 Program 29:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,D),my_succ(D,C),sorted(E,F),lt_list(C,F),insert(F,D,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,E),value(A,D),my_succ(D,C),sorted(E,F),lt_list(C,F),insert(F,D,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 30:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,C),value(A,D),my_succ(D,E),sorted(C,F),insert(F,D,B),lt_list(E,F), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,C),value(A,D),my_succ(D,E),sorted(C,F),insert(F,D,B),lt_list(E,F), !.
-03:49:47 score:None, None, None
-03:49:47 Program 31:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,D),next(A,F),my_succ(D,E),sorted(F,C),insert(C,D,B),lt_list(E,C), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,D),next(A,F),my_succ(D,E),sorted(F,C),insert(C,D,B),lt_list(E,C), !.
-03:49:47 score:None, None, None
-03:49:47 Program 32:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,E),my_succ(E,C),next(A,D),sorted(D,F),lt_list(C,F),insert(F,E,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- value(A,E),my_succ(E,C),next(A,D),sorted(D,F),lt_list(C,F),insert(F,E,B), !.
-03:49:47 score:None, None, None
-03:49:47 Program 33:
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,E),next(A,D),my_succ(E,F),sorted(D,C),insert(C,E,B),lt_list(F,C), !.
-03:49:47 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:47 sorted(A,B):- value(A,E),next(A,D),my_succ(E,F),sorted(D,C),insert(C,E,B),lt_list(F,C), !.
-03:49:47 score:None, None, None
-03:49:47 Program 34:
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,C),value(A,F),my_succ(F,D),sorted(C,E),lt_list(D,E),insert(E,F,B), !.
-03:49:47 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:47 sorted(A,B):- next(A,C),value(A,F),my_succ(F,D),sorted(C,E),lt_list(D,E),insert(E,F,B), !.
-03:49:47 score:None, None, None
-03:49:48 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 7
-03:49:48 Program 35:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,F),my_succ(F,E),sorted(D,C),lt_list(E,C),insert(C,F,B),lt_list(F,C), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,F),my_succ(F,E),sorted(D,C),lt_list(E,C),insert(C,F,B),lt_list(F,C), !.
-03:49:48 score:None, None, None
-03:49:48 Program 36:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,F),my_succ(F,C),sorted(D,E),insert(E,F,B),lt_list(F,E),lt_list(C,E), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,F),my_succ(F,C),sorted(D,E),insert(E,F,B),lt_list(F,E),lt_list(C,E), !.
-03:49:48 score:None, None, None
-03:49:48 Program 37:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,F),my_succ(F,C),next(A,E),sorted(E,D),lt_list(C,D),insert(D,F,B),lt_list(F,D), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,F),my_succ(F,C),next(A,E),sorted(E,D),lt_list(C,D),insert(D,F,B),lt_list(F,D), !.
-03:49:48 score:None, None, None
-03:49:48 Program 38:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,D),my_succ(D,E),sorted(C,F),lt_list(D,F),insert(F,D,B),lt_list(E,F), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,D),my_succ(D,E),sorted(C,F),lt_list(D,F),insert(F,D,B),lt_list(E,F), !.
-03:49:48 score:None, None, None
-03:49:48 Program 39:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,C),next(A,F),my_succ(C,D),sorted(F,E),insert(E,C,B),lt_list(C,E),lt_list(D,E), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,C),next(A,F),my_succ(C,D),sorted(F,E),insert(E,C,B),lt_list(C,E),lt_list(D,E), !.
-03:49:48 score:None, None, None
-03:49:48 Program 40:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,F),my_succ(F,D),next(A,C),sorted(C,E),insert(E,F,B),lt_list(D,E),lt_list(F,E), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,F),my_succ(F,D),next(A,C),sorted(C,E),insert(E,F,B),lt_list(D,E),lt_list(F,E), !.
-03:49:48 score:None, None, None
-03:49:48 Program 41:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,E),my_succ(E,D),next(A,C),sorted(C,F),lt_list(D,F),lt_list(E,F),insert(F,E,B), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,E),my_succ(E,D),next(A,C),sorted(C,F),lt_list(D,F),lt_list(E,F),insert(F,E,B), !.
-03:49:48 score:None, None, None
-03:49:48 Program 42:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,E),my_succ(E,F),sorted(C,D),insert(D,E,B),lt_list(F,D),lt_list(E,D), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,E),my_succ(E,F),sorted(C,D),insert(D,E,B),lt_list(F,D),lt_list(E,D), !.
-03:49:48 score:None, None, None
-03:49:48 Program 43:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,C),my_succ(C,E),next(A,D),sorted(D,F),insert(F,C,B),lt_list(E,F),lt_list(C,F), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,C),my_succ(C,E),next(A,D),sorted(D,F),insert(F,C,B),lt_list(E,F),lt_list(C,F), !.
-03:49:48 score:None, None, None
-03:49:48 Program 44:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,F),my_succ(F,D),sorted(E,C),insert(C,F,B),lt_list(F,C),lt_list(D,C), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,F),my_succ(F,D),sorted(E,C),insert(C,F,B),lt_list(F,C),lt_list(D,C), !.
-03:49:48 score:None, None, None
-03:49:48 Program 45:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,D),my_succ(D,C),next(A,F),sorted(F,E),lt_list(D,E),lt_list(C,E),insert(E,D,B), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,D),my_succ(D,C),next(A,F),sorted(F,E),lt_list(D,E),lt_list(C,E),insert(E,D,B), !.
-03:49:48 score:None, None, None
-03:49:48 Program 46:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,F),value(A,C),my_succ(C,E),sorted(F,D),insert(D,C,B),lt_list(C,D),lt_list(E,D), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,F),value(A,C),my_succ(C,E),sorted(F,D),insert(D,C,B),lt_list(C,D),lt_list(E,D), !.
-03:49:48 score:None, None, None
-03:49:48 Program 47:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,F),my_succ(F,E),sorted(C,D),insert(D,F,B),lt_list(E,D),lt_list(F,D), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,F),my_succ(F,E),sorted(C,D),insert(D,F,B),lt_list(E,D),lt_list(F,D), !.
-03:49:48 score:None, None, None
-03:49:48 Program 48:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,E),my_succ(E,C),sorted(D,F),insert(F,E,B),lt_list(C,F),lt_list(E,F), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,E),my_succ(E,C),sorted(D,F),insert(F,E,B),lt_list(C,F),lt_list(E,F), !.
-03:49:48 score:None, None, None
-03:49:48 Program 49:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,E),next(A,F),my_succ(E,C),sorted(F,D),lt_list(C,D),lt_list(E,D),insert(D,E,B), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,E),next(A,F),my_succ(E,C),sorted(F,D),lt_list(C,D),lt_list(E,D),insert(D,E,B), !.
-03:49:48 score:None, None, None
-03:49:48 Program 50:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,C),my_succ(C,F),sorted(D,E),lt_list(F,E),insert(E,C,B),lt_list(C,E), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,C),my_succ(C,F),sorted(D,E),lt_list(F,E),insert(E,C,B),lt_list(C,E), !.
-03:49:48 score:None, None, None
-03:49:48 Program 51:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,C),next(A,E),my_succ(C,F),sorted(E,D),insert(D,C,B),lt_list(C,D),lt_list(F,D), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- value(A,C),next(A,E),my_succ(C,F),sorted(E,D),insert(D,C,B),lt_list(C,D),lt_list(F,D), !.
-03:49:48 score:None, None, None
-03:49:48 Program 52:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,D),my_succ(D,F),sorted(C,E),lt_list(D,E),insert(E,D,B),lt_list(F,E), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,C),value(A,D),my_succ(D,F),sorted(C,E),lt_list(D,E),insert(E,D,B),lt_list(F,E), !.
-03:49:48 score:None, None, None
-03:49:48 Program 53:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,E),my_succ(E,D),next(A,F),sorted(F,C),insert(C,E,B),lt_list(D,C),lt_list(E,C), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,E),my_succ(E,D),next(A,F),sorted(F,C),insert(C,E,B),lt_list(D,C),lt_list(E,C), !.
-03:49:48 score:None, None, None
-03:49:48 Program 54:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,D),my_succ(D,E),next(A,F),sorted(F,C),insert(C,D,B),lt_list(E,C),lt_list(D,C), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- value(A,D),my_succ(D,E),next(A,F),sorted(F,C),insert(C,D,B),lt_list(E,C),lt_list(D,C), !.
-03:49:48 score:None, None, None
-03:49:48 Program 55:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,D),my_succ(D,F),sorted(E,C),insert(C,D,B),lt_list(D,C),lt_list(F,C), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,D),my_succ(D,F),sorted(E,C),insert(C,D,B),lt_list(D,C),lt_list(F,C), !.
-03:49:48 score:None, None, None
-03:49:48 Program 56:
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,D),my_succ(D,C),sorted(E,F),insert(F,D,B),lt_list(D,F),lt_list(C,F), !.
-03:49:48 sorted(A,B):- nullptr(A),empty(B), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,D),my_succ(D,C),sorted(E,F),insert(F,D,B),lt_list(D,F),lt_list(C,F), !.
-03:49:48 score:None, None, None
-03:49:48 Program 57:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,E),my_succ(E,F),sorted(D,C),lt_list(F,C),lt_list(E,C),insert(C,E,B), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,D),value(A,E),my_succ(E,F),sorted(D,C),lt_list(F,C),lt_list(E,C),insert(C,E,B), !.
-03:49:48 score:None, None, None
-03:49:48 Program 58:
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,C),my_succ(C,D),sorted(E,F),lt_list(D,F),lt_list(C,F),insert(F,C,B), !.
-03:49:48 sorted(A,B):- empty(B),nullptr(A), !.
-03:49:48 sorted(A,B):- next(A,E),value(A,C),my_succ(C,D),sorted(E,F),lt_list(D,F),lt_list(C,F),insert(F,C,B), !.
-03:49:48 score:None, None, None
-03:49:48 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 7
+02:08:58 Max rules: 2
+02:08:58 Max vars: 9
+02:08:58 Max body: 12
+02:08:58 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+02:08:58 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+02:08:58 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+02:08:58 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+02:08:58 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+02:08:58 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+02:08:58 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+02:08:58 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+02:08:58 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+02:08:58 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+02:08:58 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+02:08:58 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+02:08:58 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+02:08:58 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+02:08:58 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+02:08:58 Program 1:
+02:08:58 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:58 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
+02:08:58 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:58 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
+02:08:58 score:24, 1.0, 128
+02:08:58 CURRENT
+02:08:58 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:58 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
+02:08:58 score:24, 1.0, 128
+02:08:58 ********************
+02:08:58 New best hypothesis:
+02:08:58 tp:2 fn:0 size:8
+02:08:58 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:58 sorted(A,B):- next(A,C),value(A,D),sorted(C,E),insert(E,D,B), !.
+02:08:58 ********************
+02:08:58 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 7
+02:08:58 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 7
+02:08:58 Program 2:
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B), !.
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B), !.
+02:08:58 score:24, 1.0, 128
+02:08:58 CURRENT
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- next(A,E),value(A,C),sorted(E,D),insert(D,C,B), !.
+02:08:58 score:24, 1.0, 128
+02:08:58 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 7
+02:08:58 Program 3:
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- next(A,C),value(A,E),sorted(C,D),insert(D,E,B),gt_set(E,D), !.
+02:08:58 Program 4:
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- value(A,E),next(A,C),sorted(C,D),lt_set(E,D),insert(D,E,B), !.
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- value(A,E),next(A,C),sorted(C,D),lt_set(E,D),insert(D,E,B), !.
+02:08:58 score:24, 1.0, 224
+02:08:58 CURRENT
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- value(A,E),next(A,C),sorted(C,D),lt_set(E,D),insert(D,E,B), !.
+02:08:58 score:24, 1.0, 224
+02:08:58 ********************
+02:08:58 New best hypothesis:
+02:08:58 tp:2 fn:0 size:9
+02:08:58 sorted(A,B):- nullptr(A),empty(B), !.
+02:08:58 sorted(A,B):- value(A,E),next(A,C),sorted(C,D),lt_set(E,D),insert(D,E,B), !.
+02:08:58 ********************
+02:08:58 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+02:08:59 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
+02:08:59 Program 5:
+02:08:59 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:59 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),lt_set(D,E),insert(E,D,B), !.
+02:08:59 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:59 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),lt_set(D,E),insert(E,D,B), !.
+02:08:59 score:24, 1.0, 224
+02:08:59 CURRENT
+02:08:59 sorted(A,B):- empty(B),nullptr(A), !.
+02:08:59 sorted(A,B):- value(A,D),next(A,C),sorted(C,E),lt_set(D,E),insert(E,D,B), !.
+02:08:59 score:24, 1.0, 224
+02:08:59 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
+02:08:59 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 7
+02:08:59 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 7

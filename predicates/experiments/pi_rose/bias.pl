@@ -8,7 +8,7 @@ max_clauses(4).
 enable_recursion.
 enable_pi.
 
-head_pred(rose_tree,1).
+head_pred(rose_tree,2).
 
 body_pred(nullptr,1).
 body_pred(anynumber,1).
@@ -17,7 +17,7 @@ inner_pointer(next2, pointer).
 input_pointer(value, integer).
 input_pointer(next1, pointer).
 
-type(rose_tree,(pointer,)).
+type(rose_tree,(pointer,set)).
 
 type(nullptr,(pointer,)).
 type(anynumber,(integer,)).
@@ -26,8 +26,8 @@ direction(rose_tree,(in,)).
 direction(nullptr,(in,)).
 direction(anynumber,(in,)).
 
-direction(inv1,(in,)):-invented(_, 1).
-direction(inv1,(in,in)):-invented(_, 2).
+% direction(inv1,(in,)):-invented(_, 1).
+% direction(inv1,(in,in)):-invented(_, 2).
 
 
 :-

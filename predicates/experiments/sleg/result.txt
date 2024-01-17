@@ -1,749 +1,274 @@
+python3 ./popper.py ./predicates/experiments/sleg --threshold 1000 --debug --stats
+
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:8
-sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
+sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C), !.
 predicate sleg(loc A,loc B,interval C) {
 | A==B => {C==[] ; emp}
-| not (A==B) => {C==E + [F] ; sleg(D,B,E) ** A + 0 :-> F ** A + 1 :-> D ** [A, 2]}
+| not (A==B) => {C==E + [D] ; sleg(F,B,E) ** A + 0 :-> D ** A + 1 :-> F ** [A, 2]}
 }
-{'body_literal(1, value, 2, (0,5,))', 'body_literal(1, insert, 3, (4,5,2,))', 'body_literal(1, sleg, 3, (3,1,4,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(1, next, 2, (0,3,))', 'head_literal(0, sleg, 3, (0,1,2,))', 'head_literal(1, sleg, 3, (0,1,2,))'}
+{'body_literal(0, empty, 1, (2,))', 'body_literal(1, insert, 3, (4,3,2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(1, sleg, 3, (5,1,4,))', 'head_literal(1, sleg, 3, (0,1,2,))', 'body_literal(1, next, 2, (0,5,))', 'head_literal(0, sleg, 3, (0,1,2,))', 'body_literal(1, value, 2, (0,3,))'}
 ******************************
-Num. programs: 122
+Num. programs: 35
 Generate:
-        Called: 147 times        Total: 1.03     Mean: 0.007     Max: 0.436      Percentage: 66%
-Ground:
-        Called: 121 times        Total: 0.20     Mean: 0.002     Max: 0.026      Percentage: 12%
-Constrain:
-        Called: 121 times        Total: 0.12     Mean: 0.001     Max: 0.008      Percentage: 7%
+        Called: 60 times         Total: 0.56     Mean: 0.009     Max: 0.279      Percentage: 77%
 Init:
-        Called: 26 times         Total: 0.11     Mean: 0.004     Max: 0.023      Percentage: 6%
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.011      Percentage: 10%
 Test:
-        Called: 122 times        Total: 0.06     Mean: 0.001     Max: 0.020      Percentage: 4%
-Combine:
-        Called: 104 times        Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
+        Called: 37 times         Total: 0.04     Mean: 0.001     Max: 0.022      Percentage: 5%
+Ground:
+        Called: 34 times         Total: 0.03     Mean: 0.001     Max: 0.009      Percentage: 3%
+Constrain:
+        Called: 34 times         Total: 0.01     Mean: 0.000     Max: 0.003      Percentage: 1%
 Find Mucs:
-        Called: 18 times         Total: 0.01     Mean: 0.001     Max: 0.001      Percentage: 0%
-Total operation time: 1.55s
-Total execution time: 2.32s
+        Called: 3 times          Total: 0.00     Mean: 0.001     Max: 0.001      Percentage: 0%
+Combine:
+        Called: 64 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 0.72s
+Total execution time: 1.22s
 
-03:45:06 Max rules: 2
-03:45:06 Max vars: 9
-03:45:06 Max body: 12
-03:45:06 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-03:45:06 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-03:45:06 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-03:45:06 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-03:45:06 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-03:45:06 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-03:45:06 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-03:45:06 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-03:45:06 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-03:45:06 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-03:45:06 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-03:45:06 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-03:45:06 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-03:45:07 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-03:45:07 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-03:45:07 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
-03:45:07 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
-03:45:07 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
-03:45:07 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
-03:45:07 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
-03:45:07 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
-03:45:07 Program 1:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 score:30, 1.0, 168
-03:45:07 CURRENT
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 score:30, 1.0, 168
-03:45:07 ********************
-03:45:07 New best hypothesis:
-03:45:07 tp:3 fn:0 size:8
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 ********************
-03:45:07 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
-03:45:07 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
-03:45:07 Program 2:
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 score:30, 1.0, 168
-03:45:07 CURRENT
-03:45:07 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 score:30, 1.0, 168
-03:45:07 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
-03:45:07 Program 3:
-03:45:07 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:07 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:07 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 4:
-03:45:07 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 5:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,F),sleg(G,B,D),insert(D,F,C), !.
-03:45:07 Program 6:
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- next(A,G),value(A,E),my_prev(E,F),sleg(G,B,D),insert(D,F,C), !.
-03:45:07 Program 7:
-03:45:07 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 8:
-03:45:07 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C), !.
-03:45:07 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 9:
-03:45:07 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 10:
-03:45:07 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,E),next(A,F),sleg(F,B,D),insert(D,E,C), !.
-03:45:07 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,E),next(A,F),sleg(F,B,D),insert(D,E,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 11:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),gt_list(F,E),insert(E,F,C), !.
-03:45:07 Program 12:
-03:45:07 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),insert(D,F,C), !.
-03:45:07 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),insert(D,F,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 13:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),lt_list(F,E),insert(E,F,C), !.
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),lt_list(F,E),insert(E,F,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 14:
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_list(E,F), !.
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_list(E,F), !.
-03:45:07 score:None, None, None
-03:45:07 Program 15:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),insert(D,F,C),lt_list(F,D), !.
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),insert(D,F,C),lt_list(F,D), !.
-03:45:07 score:None, None, None
-03:45:07 Program 16:
-03:45:07 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),insert(D,F,C), !.
-03:45:07 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:07 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),insert(D,F,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 17:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_list(D,F), !.
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_list(D,F), !.
-03:45:07 score:None, None, None
-03:45:07 Program 18:
-03:45:07 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
-03:45:07 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 19:
-03:45:07 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
-03:45:07 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 20:
-03:45:07 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
-03:45:07 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 21:
-03:45:07 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
-03:45:07 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
-03:45:07 score:None, None, None
-03:45:07 Program 22:
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C),lt_list(D,E), !.
-03:45:07 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:07 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C),lt_list(D,E), !.
-03:45:07 score:None, None, None
-03:45:07 Program 23:
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),lt_list(E,D),insert(D,E,C), !.
-03:45:07 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),lt_list(E,D),insert(D,E,C), !.
-03:45:07 score:None, None, None
-03:45:07 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
-03:45:07 Program 24:
-03:45:07 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:07 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,D),sleg(F,B,G),insert(G,D,C), !.
-03:45:08 Program 25:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,F),my_succ(E,D),sleg(F,B,G),insert(G,D,C), !.
-03:45:08 Program 26:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_prev(E,D),sleg(F,B,G),insert(G,D,C), !.
-03:45:08 Program 27:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,F),next(A,E),sleg(E,B,G),insert(G,D,C),lt_list(F,G), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,F),next(A,E),sleg(E,B,G),insert(G,D,C),lt_list(F,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 28:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,D),my_prev(D,E),sleg(F,B,G),insert(G,D,C),gt_list(E,C), !.
-03:45:08 Program 29:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_prev(E,D),sleg(F,B,G),insert(G,E,C),gt_list(D,G), !.
-03:45:08 Program 30:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_prev(E,D),sleg(F,B,G),insert(G,D,C), !.
-03:45:08 Program 31:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,D),sleg(F,B,G),insert(G,E,C),lt_list(D,G), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,D),sleg(F,B,G),insert(G,E,C),lt_list(D,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 32:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,G),next(A,F),sleg(F,B,D),lt_list(G,D),insert(D,E,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,G),next(A,F),sleg(F,B,D),lt_list(G,D),insert(D,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 33:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),my_succ(D,F),sleg(E,B,G),insert(G,D,C),lt_list(F,C), !.
-03:45:08 Program 34:
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_list(E,D), !.
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_list(E,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 35:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,E),next(A,F),sleg(F,B,G),lt_list(E,G),insert(G,D,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,E),next(A,F),sleg(F,B,G),lt_list(E,G),insert(G,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 36:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,D),sleg(E,B,G),lt_list(D,G),insert(G,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,D),sleg(E,B,G),lt_list(D,G),insert(G,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 37:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_list(E,D), !.
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_list(E,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 38:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,F),sleg(D,B,E),insert(E,G,C),lt_list(F,E), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,F),sleg(D,B,E),insert(E,G,C),lt_list(F,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 39:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,E),sleg(G,B,F),insert(F,D,C),lt_list(E,F), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,E),sleg(G,B,F),insert(F,D,C),lt_list(E,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 40:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,E),sleg(F,B,D),insert(D,G,C),lt_list(E,D), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,E),sleg(F,B,D),insert(D,G,C),lt_list(E,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 41:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),gt_list(E,D),insert(D,E,C), !.
-03:45:08 Program 42:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,G),next(A,D),sleg(D,B,E),lt_list(G,E),insert(E,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,G),next(A,D),sleg(D,B,E),lt_list(G,E),insert(E,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 43:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,G),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,E), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,G),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 44:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C),lt_list(F,E), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C),lt_list(F,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 45:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,F),sleg(F,B,D),insert(D,E,C),gt_list(E,D), !.
-03:45:08 Program 46:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),lt_list(F,D),insert(D,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),lt_list(F,D),insert(D,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 47:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,G),next(A,E),sleg(E,B,F),insert(F,D,C),lt_list(G,F), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,G),next(A,E),sleg(E,B,F),insert(F,D,C),lt_list(G,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 48:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,F),my_succ(F,E),sleg(G,B,D),lt_list(E,D),insert(D,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,F),my_succ(F,E),sleg(G,B,D),lt_list(E,D),insert(D,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 49:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),lt_list(F,D),insert(D,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),lt_list(F,D),insert(D,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 50:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,F),sleg(G,B,D),insert(D,E,C),lt_list(F,D), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,F),sleg(G,B,D),insert(D,E,C),lt_list(F,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 51:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),lt_list(F,E),insert(E,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),lt_list(F,E),insert(E,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 52:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),lt_list(D,F),insert(F,D,C), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),lt_list(D,F),insert(F,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 53:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,F),my_succ(F,D),sleg(G,B,E),insert(E,F,C),lt_list(D,E), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,F),my_succ(F,D),sleg(G,B,E),insert(E,F,C),lt_list(D,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 54:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,D),my_succ(D,G),sleg(F,B,E),lt_list(G,E),insert(E,D,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,D),my_succ(D,G),sleg(F,B,E),lt_list(G,E),insert(E,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 55:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,D),sleg(G,B,F),lt_list(D,F),insert(F,E,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,D),sleg(G,B,F),lt_list(D,F),insert(F,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 56:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_list(E,F), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_list(E,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 57:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_list(D,F), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_list(D,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 58:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,D),my_succ(F,E),sleg(D,B,G),lt_list(E,G),insert(G,F,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,D),my_succ(F,E),sleg(D,B,G),lt_list(E,G),insert(G,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 59:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,D),sleg(F,B,E),insert(E,G,C),lt_list(D,E), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,D),sleg(F,B,E),insert(E,G,C),lt_list(D,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 60:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,G),my_succ(G,F),next(A,E),sleg(E,B,D),lt_list(F,D),insert(D,G,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,G),my_succ(G,F),next(A,E),sleg(E,B,D),lt_list(F,D),insert(D,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 61:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_list(E,F), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_list(E,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 62:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,F),next(A,D),sleg(D,B,G),insert(G,E,C),lt_list(F,G), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,F),next(A,D),sleg(D,B,G),insert(G,E,C),lt_list(F,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 63:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),lt_list(D,E),insert(E,D,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),lt_list(D,E),insert(E,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 64:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,G),next(A,E),sleg(E,B,D),insert(D,F,C),lt_list(G,D), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,G),next(A,E),sleg(E,B,D),insert(D,F,C),lt_list(G,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 65:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,G),my_succ(G,D),sleg(E,B,F),lt_list(D,F),insert(F,G,C), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,G),my_succ(G,D),sleg(E,B,F),lt_list(D,F),insert(F,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 66:
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,G),sleg(D,B,F),insert(F,E,C),lt_list(G,F), !.
-03:45:08 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,G),sleg(D,B,F),insert(F,E,C),lt_list(G,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 67:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),lt_list(D,E),insert(E,D,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),lt_list(D,E),insert(E,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 68:
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,E),sleg(D,B,F),insert(F,G,C),lt_list(E,F), !.
-03:45:08 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,E),sleg(D,B,F),insert(F,G,C),lt_list(E,F), !.
-03:45:08 score:None, None, None
-03:45:08 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8
-03:45:08 Program 69:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,G),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,E), !.
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,G),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 70:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,G),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,E), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,G),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 71:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,F),sleg(G,B,E),insert(E,D,C),lt_list(F,C), !.
-03:45:08 Program 72:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,G),my_prev(G,F),next(A,D),sleg(D,B,E),insert(E,G,C),gt_list(F,C), !.
-03:45:08 Program 73:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,G),next(A,D),sleg(D,B,E),insert(E,F,C),lt_list(G,E), !.
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,G),next(A,D),sleg(D,B,E),insert(E,F,C),lt_list(G,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 74:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,F),my_succ(E,G),sleg(F,B,D),insert(D,E,C),lt_list(G,D), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,F),my_succ(E,G),sleg(F,B,D),insert(D,E,C),lt_list(G,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 75:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,F),sleg(D,B,E),lt_list(F,E),insert(E,G,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,F),sleg(D,B,E),lt_list(F,E),insert(E,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 76:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,G),my_succ(G,F),next(A,D),sleg(D,B,E),insert(E,G,C),lt_list(F,C), !.
-03:45:08 Program 77:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-03:45:08 sleg(A,B,C):- value(A,G),next(A,D),my_prev(G,F),sleg(D,B,E),insert(E,G,C),gt_list(F,E), !.
-03:45:08 Program 78:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,G),sleg(F,B,D),insert(D,E,C),lt_list(G,D), !.
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,G),sleg(F,B,D),insert(D,E,C),lt_list(G,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 79:
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,F),sleg(D,B,E),lt_list(F,E),insert(E,G,C), !.
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,F),sleg(D,B,E),lt_list(F,E),insert(E,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 80:
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_prev(G,F),sleg(D,B,E),insert(E,G,C),gt_list(F,C), !.
-03:45:08 Program 81:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_prev(G,F),sleg(D,B,E),gt_list(F,E),insert(E,G,C), !.
-03:45:08 Program 82:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,F),my_succ(F,G),sleg(D,B,E),lt_list(G,E),insert(E,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,F),my_succ(F,G),sleg(D,B,E),lt_list(G,E),insert(E,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 83:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,F),my_succ(E,D),sleg(F,B,G),insert(G,E,C),lt_list(D,G), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,F),my_succ(E,D),sleg(F,B,G),insert(G,E,C),lt_list(D,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 84:
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,G),my_succ(F,D),sleg(G,B,E),insert(E,F,C),lt_list(D,E), !.
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,G),my_succ(F,D),sleg(G,B,E),insert(E,F,C),lt_list(D,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 85:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,D),next(A,G),sleg(G,B,E),lt_list(D,E),insert(E,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),my_succ(F,D),next(A,G),sleg(G,B,E),lt_list(D,E),insert(E,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 86:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,G),sleg(D,B,F),insert(F,E,C),lt_list(G,F), !.
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,G),sleg(D,B,F),insert(F,E,C),lt_list(G,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 87:
-03:45:08 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,F),sleg(D,B,G),insert(G,E,C),lt_list(F,G), !.
-03:45:08 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,F),sleg(D,B,G),insert(G,E,C),lt_list(F,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 88:
-03:45:08 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,G),my_succ(G,D),sleg(E,B,F),lt_list(D,F),insert(F,G,C), !.
-03:45:08 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,G),my_succ(G,D),sleg(E,B,F),lt_list(D,F),insert(F,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 89:
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,F),my_succ(F,E),sleg(G,B,D),insert(D,F,C),lt_list(E,D), !.
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,F),my_succ(F,E),sleg(G,B,D),insert(D,F,C),lt_list(E,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 90:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,D),next(A,G),sleg(G,B,F),lt_list(D,F),insert(F,E,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,D),next(A,G),sleg(G,B,F),lt_list(D,F),insert(F,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 91:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,E),my_succ(D,G),sleg(E,B,F),insert(F,D,C),lt_list(G,F), !.
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,E),my_succ(D,G),sleg(E,B,F),insert(F,D,C),lt_list(G,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 92:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,F),my_succ(F,E),sleg(D,B,G),lt_list(E,G),insert(G,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,F),my_succ(F,E),sleg(D,B,G),lt_list(E,G),insert(G,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 93:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,G),sleg(D,B,F),lt_list(G,F),insert(F,E,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,D),my_succ(E,G),sleg(D,B,F),lt_list(G,F),insert(F,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 94:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,E),sleg(D,B,F),insert(F,G,C),lt_list(E,F), !.
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,E),sleg(D,B,F),insert(F,G,C),lt_list(E,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 95:
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,D),sleg(F,B,E),insert(E,G,C),lt_list(D,E), !.
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,D),sleg(F,B,E),insert(E,G,C),lt_list(D,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 96:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,F),my_succ(F,E),sleg(D,B,G),insert(G,F,C),lt_list(E,G), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,F),my_succ(F,E),sleg(D,B,G),insert(G,F,C),lt_list(E,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 97:
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,F),sleg(G,B,D),lt_list(F,D),insert(D,E,C), !.
-03:45:08 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,E),my_succ(E,F),sleg(G,B,D),lt_list(F,D),insert(D,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 98:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,E),next(A,F),sleg(F,B,G),lt_list(E,G),insert(G,D,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,E),next(A,F),sleg(F,B,G),lt_list(E,G),insert(G,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 99:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,F),next(A,D),sleg(D,B,G),lt_list(F,G),insert(G,E,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,F),next(A,D),sleg(D,B,G),lt_list(F,G),insert(G,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 100:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,G),my_succ(G,F),next(A,E),sleg(E,B,D),insert(D,G,C),lt_list(F,D), !.
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,G),my_succ(G,F),next(A,E),sleg(E,B,D),insert(D,G,C),lt_list(F,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 101:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,G),my_succ(G,D),sleg(E,B,F),insert(F,G,C),lt_list(D,F), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,G),my_succ(G,D),sleg(E,B,F),insert(F,G,C),lt_list(D,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 102:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,G),next(A,E),my_succ(G,F),sleg(E,B,D),lt_list(F,D),insert(D,G,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- value(A,G),next(A,E),my_succ(G,F),sleg(E,B,D),lt_list(F,D),insert(D,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 103:
-03:45:08 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,D),sleg(E,B,G),lt_list(D,G),insert(G,F,C), !.
-03:45:08 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,D),sleg(E,B,G),lt_list(D,G),insert(G,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 104:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,F),next(A,E),sleg(E,B,G),insert(G,D,C),lt_list(F,G), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,D),my_succ(D,F),next(A,E),sleg(E,B,G),insert(G,D,C),lt_list(F,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 105:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,E),sleg(G,B,F),lt_list(E,F),insert(F,D,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,E),sleg(G,B,F),lt_list(E,F),insert(F,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 106:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,G),my_succ(F,E),sleg(G,B,D),insert(D,F,C),lt_list(E,D), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,F),next(A,G),my_succ(F,E),sleg(G,B,D),insert(D,F,C),lt_list(E,D), !.
-03:45:08 score:None, None, None
-03:45:08 Program 107:
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,G),next(A,F),my_succ(G,D),sleg(F,B,E),lt_list(D,E),insert(E,G,C), !.
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,G),next(A,F),my_succ(G,D),sleg(F,B,E),lt_list(D,E),insert(E,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 108:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,E),sleg(D,B,F),insert(F,G,C),lt_list(E,F), !.
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,D),value(A,G),my_succ(G,E),sleg(D,B,F),insert(F,G,C),lt_list(E,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 109:
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),my_succ(D,G),sleg(F,B,E),insert(E,D,C),lt_list(G,E), !.
-03:45:08 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),my_succ(D,G),sleg(F,B,E),insert(E,D,C),lt_list(G,E), !.
-03:45:08 score:None, None, None
-03:45:08 Program 110:
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,G),sleg(E,B,D),lt_list(G,D),insert(D,F,C), !.
-03:45:08 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,G),sleg(E,B,D),lt_list(G,D),insert(D,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 111:
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,D),next(A,G),sleg(G,B,F),insert(F,E,C),lt_list(D,F), !.
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- value(A,E),my_succ(E,D),next(A,G),sleg(G,B,F),insert(F,E,C),lt_list(D,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 112:
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,G),sleg(E,B,D),lt_list(G,D),insert(D,F,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,G),sleg(E,B,D),lt_list(G,D),insert(D,F,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 113:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,D),sleg(E,B,G),insert(G,F,C),lt_list(D,G), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,F),my_succ(F,D),sleg(E,B,G),insert(G,F,C),lt_list(D,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 114:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),my_succ(D,G),sleg(E,B,F),insert(F,D,C),lt_list(G,F), !.
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),my_succ(D,G),sleg(E,B,F),insert(F,D,C),lt_list(G,F), !.
-03:45:08 score:None, None, None
-03:45:08 Program 115:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,D),my_succ(D,G),sleg(F,B,E),lt_list(G,E),insert(E,D,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,D),my_succ(D,G),sleg(F,B,E),lt_list(G,E),insert(E,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 116:
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,D),sleg(F,B,G),lt_list(D,G),insert(G,E,C), !.
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,E),my_succ(E,D),sleg(F,B,G),lt_list(D,G),insert(G,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 117:
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),my_succ(D,F),sleg(E,B,G),lt_list(F,G),insert(G,D,C), !.
-03:45:08 sleg(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,E),value(A,D),my_succ(D,F),sleg(E,B,G),lt_list(F,G),insert(G,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 118:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,E),sleg(G,B,F),lt_list(E,F),insert(F,D,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,G),value(A,D),my_succ(D,E),sleg(G,B,F),lt_list(E,F),insert(F,D,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 119:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,G),my_succ(E,F),sleg(G,B,D),lt_list(F,D),insert(D,E,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,E),next(A,G),my_succ(E,F),sleg(G,B,D),lt_list(F,D),insert(D,E,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 120:
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),my_succ(D,E),sleg(F,B,G),insert(G,D,C),lt_list(E,G), !.
-03:45:08 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-03:45:08 sleg(A,B,C):- value(A,D),next(A,F),my_succ(D,E),sleg(F,B,G),insert(G,D,C),lt_list(E,G), !.
-03:45:08 score:None, None, None
-03:45:08 Program 121:
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,E),sleg(F,B,D),lt_list(E,D),insert(D,G,C), !.
-03:45:08 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,E),sleg(F,B,D),lt_list(E,D),insert(D,G,C), !.
-03:45:08 score:None, None, None
-03:45:08 Program 122:
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,E),sleg(F,B,D),lt_list(E,D),insert(D,G,C), !.
-03:45:08 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-03:45:08 sleg(A,B,C):- next(A,F),value(A,G),my_succ(G,E),sleg(F,B,D),lt_list(E,D),insert(D,G,C), !.
-03:45:08 score:None, None, None
+02:02:40 Max rules: 2
+02:02:40 Max vars: 9
+02:02:40 Max body: 12
+02:02:40 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+02:02:40 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+02:02:40 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+02:02:40 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+02:02:40 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+02:02:40 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+02:02:40 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+02:02:40 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+02:02:40 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+02:02:40 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+02:02:40 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+02:02:40 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+02:02:40 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+02:02:40 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+02:02:40 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+02:02:40 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+02:02:40 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
+02:02:40 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
+02:02:40 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
+02:02:40 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
+02:02:40 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+02:02:40 Program 1:
+02:02:40 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:40 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C), !.
+02:02:40 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:40 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C), !.
+02:02:40 score:30, 1.0, 168
+02:02:40 CURRENT
+02:02:40 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C), !.
+02:02:40 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:40 score:30, 1.0, 168
+02:02:40 ********************
+02:02:40 New best hypothesis:
+02:02:40 tp:3 fn:0 size:8
+02:02:40 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:40 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C), !.
+02:02:40 ********************
+02:02:40 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
+02:02:40 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
+02:02:40 Program 2:
+02:02:40 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:40 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:40 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:40 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:40 score:30, 1.0, 168
+02:02:40 CURRENT
+02:02:40 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:40 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:40 score:30, 1.0, 168
+02:02:41 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
+02:02:41 Program 3:
+02:02:41 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:41 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 4:
+02:02:41 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:41 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 5:
+02:02:41 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 6:
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 7:
+02:02:41 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),lt_set(E,D),insert(D,E,C), !.
+02:02:41 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),lt_set(E,D),insert(D,E,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 8:
+02:02:41 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
+02:02:41 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 9:
+02:02:41 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,F),sleg(F,B,D),insert(D,E,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,F),sleg(F,B,D),insert(D,E,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 10:
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 11:
+02:02:41 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 12:
+02:02:41 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),gt_set(E,D),insert(D,E,C), !.
+02:02:41 Program 13:
+02:02:41 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C), !.
+02:02:41 sleg(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 14:
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),insert(D,F,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),insert(D,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 15:
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 16:
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),lt_set(D,E),insert(E,D,C), !.
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),lt_set(D,E),insert(E,D,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 17:
+02:02:41 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C),lt_set(E,F), !.
+02:02:41 sleg(A,B,C):- empty(C),same_ptr(A,B), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),insert(F,E,C),lt_set(E,F), !.
+02:02:41 score:None, None, None
+02:02:41 Program 18:
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_set(D,F), !.
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_set(D,F), !.
+02:02:41 score:None, None, None
+02:02:41 Program 19:
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C),lt_set(F,E), !.
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,D),value(A,F),sleg(D,B,E),insert(E,F,C),lt_set(F,E), !.
+02:02:41 score:None, None, None
+02:02:41 Program 20:
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),insert(D,F,C), !.
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),insert(D,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 21:
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),lt_set(F,D),insert(D,F,C), !.
+02:02:41 sleg(A,B,C):- same_ptr(A,B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),lt_set(F,D),insert(D,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
+02:02:41 Program 22:
+02:02:41 sleg(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),gt_set(D,E),insert(E,D,C), !.
+02:02:41 Program 23:
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),insert(E,D,C),gt_set(D,E), !.
+02:02:41 Program 24:
+02:02:41 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),lt_set(D,E),insert(E,D,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,F),sleg(F,B,E),lt_set(D,E),insert(E,D,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 25:
+02:02:41 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C),lt_set(D,E), !.
+02:02:41 sleg(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,D),sleg(F,B,E),insert(E,D,C),lt_set(D,E), !.
+02:02:41 score:None, None, None
+02:02:41 Program 26:
+02:02:41 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_set(E,F), !.
+02:02:41 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,D),value(A,E),sleg(D,B,F),insert(F,E,C),lt_set(E,F), !.
+02:02:41 score:None, None, None
+02:02:41 Program 27:
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),lt_set(F,E),insert(E,F,C), !.
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),lt_set(F,E),insert(E,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 28:
+02:02:41 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),lt_set(E,F),insert(F,E,C), !.
+02:02:41 sleg(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+02:02:41 sleg(A,B,C):- value(A,E),next(A,D),sleg(D,B,F),lt_set(E,F),insert(F,E,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 29:
+02:02:41 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C),lt_set(F,E), !.
+02:02:41 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,D),sleg(D,B,E),insert(E,F,C),lt_set(F,E), !.
+02:02:41 score:None, None, None
+02:02:41 Program 30:
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_set(E,D), !.
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_set(E,D), !.
+02:02:41 score:None, None, None
+02:02:41 Program 31:
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_set(E,D), !.
+02:02:41 sleg(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+02:02:41 sleg(A,B,C):- next(A,F),value(A,E),sleg(F,B,D),insert(D,E,C),lt_set(E,D), !.
+02:02:41 score:None, None, None
+02:02:41 Program 32:
+02:02:41 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),lt_set(F,D),insert(D,F,C), !.
+02:02:41 sleg(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,F),sleg(E,B,D),lt_set(F,D),insert(D,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 33:
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_set(D,F), !.
+02:02:41 sleg(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+02:02:41 sleg(A,B,C):- next(A,E),value(A,D),sleg(E,B,F),insert(F,D,C),lt_set(D,F), !.
+02:02:41 score:None, None, None
+02:02:41 Program 34:
+02:02:41 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),lt_set(F,D),insert(D,F,C), !.
+02:02:41 sleg(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+02:02:41 sleg(A,B,C):- value(A,F),next(A,E),sleg(E,B,D),lt_set(F,D),insert(D,F,C), !.
+02:02:41 score:None, None, None
+02:02:41 Program 35:
+02:02:41 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C),lt_set(D,F), !.
+02:02:41 sleg(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+02:02:41 sleg(A,B,C):- value(A,D),next(A,E),sleg(E,B,F),insert(F,D,C),lt_set(D,F), !.
+02:02:41 score:None, None, None
+02:02:41 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8

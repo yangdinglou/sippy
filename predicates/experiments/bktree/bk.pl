@@ -139,6 +139,3 @@ back(k, i).
 left(k, null).
 right(k, null).
 height(k, 0).
-
-% p(A,B,C):- empty(B),nullptr(A), anypointer(C).
-% p(A,B,I):- back(A,I),value(A,E),left(A,H),right(A,D),p(H,C,A),p(D,G,A),ord_union(G,C,F),insert(F,E,B), !.

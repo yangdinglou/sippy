@@ -1,287 +1,126 @@
+python3 ./popper.py ./predicates/experiments/lasso --threshold 1000 --debug --stats --circle
 ********** SOLUTION **********
-Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:8
+Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:8
 lasso(A,B,C):- empty(C),same_ptr(A,B).
-lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
+lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C).
 predicate lasso(loc A,loc B,interval C) {
 | A==B => {C==[] ; emp}
-| not (A==B) => {C==E + [D] ; lasso(F,B,E) ** A + 0 :-> D ** A + 1 :-> F ** [A, 2]}
+| not (A==B) => {C==D + [E] ; lasso(F,B,D) ** A + 0 :-> E ** A + 1 :-> F ** [A, 2]}
 }
-{'body_literal(0, empty, 1, (2,))', 'body_literal(1, insert, 3, (4,3,2,))', 'body_literal(1, lasso, 3, (5,1,4,))', 'head_literal(0, lasso, 3, (0,1,2,))', 'body_literal(1, value, 2, (0,3,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'head_literal(1, lasso, 3, (0,1,2,))', 'body_literal(1, next, 2, (0,5,))'}
+{'body_literal(1, value, 2, (0,4,))', 'head_literal(1, lasso, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(1, insert, 3, (3,4,2,))', 'body_literal(1, lasso, 3, (5,1,3,))', 'head_literal(0, lasso, 3, (0,1,2,))'}
 ******************************
-Num. programs: 40
-Test:
-        Called: 40 times         Total: 0.71     Mean: 0.018     Max: 0.042      Percentage: 39%
+Num. programs: 10
 Generate:
-        Called: 65 times         Total: 0.67     Mean: 0.010     Max: 0.434      Percentage: 37%
-Find Mucs:
-        Called: 8 times          Total: 0.16     Mean: 0.020     Max: 0.079      Percentage: 9%
+        Called: 35 times         Total: 0.31     Mean: 0.009     Max: 0.256      Percentage: 48%
+Test:
+        Called: 12 times         Total: 0.16     Mean: 0.013     Max: 0.030      Percentage: 25%
 Init:
-        Called: 26 times         Total: 0.10     Mean: 0.004     Max: 0.015      Percentage: 5%
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.011      Percentage: 12%
+Find Mucs:
+        Called: 2 times          Total: 0.05     Mean: 0.027     Max: 0.054      Percentage: 8%
 Ground:
-        Called: 39 times         Total: 0.09     Mean: 0.002     Max: 0.026      Percentage: 4%
+        Called: 9 times          Total: 0.03     Mean: 0.003     Max: 0.010      Percentage: 4%
 Constrain:
-        Called: 39 times         Total: 0.04     Mean: 0.001     Max: 0.007      Percentage: 2%
+        Called: 9 times          Total: 0.01     Mean: 0.001     Max: 0.003      Percentage: 1%
 Combine:
-        Called: 32 times         Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
-Total operation time: 1.79s
-Total execution time: 2.45s
+        Called: 16 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 0.63s
+Total execution time: 1.35s
 
-02:42:39 Max rules: 2
-02:42:39 Max vars: 9
-02:42:39 Max body: 12
-02:42:39 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-02:42:39 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-02:42:39 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-02:42:39 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-02:42:39 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-02:42:39 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-02:42:39 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-02:42:39 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-02:42:39 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-02:42:39 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-02:42:39 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-02:42:39 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-02:42:39 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-02:42:39 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-02:42:39 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-02:42:39 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
-02:42:39 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
-02:42:39 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
-02:42:39 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
-02:42:39 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
-02:42:39 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
-02:42:39 Program 1:
-02:42:39 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:39 lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
-02:42:40 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:40 lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
-02:42:40 score:30, 1.0, 168
-02:42:40 CURRENT
-02:42:40 lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
-02:42:40 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:40 score:30, 1.0, 168
-02:42:40 ********************
-02:42:40 New best hypothesis:
-02:42:40 tp:3 fn:0 size:8
-02:42:40 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:40 lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
-02:42:40 ********************
-02:42:40 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
-02:42:40 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
-02:42:40 Program 2:
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),insert(D,F,C).
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),insert(D,F,C).
-02:42:40 score:30, 1.0, 168
-02:42:40 CURRENT
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),insert(D,F,C).
-02:42:40 score:30, 1.0, 168
-02:42:40 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
-02:42:40 Program 3:
-02:42:40 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:40 lasso(A,B,C):- value(A,G),my_prev(G,D),next(A,E),lasso(E,B,F),insert(F,D,C).
-02:42:40 Program 4:
-02:42:40 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,G),my_succ(G,D),lasso(E,B,F),insert(F,D,C).
-02:42:40 Program 5:
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),lt_list(F,D),insert(D,F,C).
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),lt_list(F,D),insert(D,F,C).
-02:42:40 score:None, None, None
-02:42:40 Program 6:
-02:42:40 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:40 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),insert(F,D,C),gt_list(D,F).
-02:42:40 Program 7:
-02:42:40 lasso(A,B,C):- nullptr(B),empty(C),nullptr(A).
-02:42:40 lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
-02:42:40 Program 8:
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,D),lasso(E,B,F),lt_list(D,F),insert(F,D,C).
-02:42:40 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,E),value(A,D),lasso(E,B,F),lt_list(D,F),insert(F,D,C).
-02:42:40 score:None, None, None
-02:42:40 Program 9:
-02:42:40 lasso(A,B,C):- nullptr(A),anypointer(B),empty(C).
-02:42:40 lasso(A,B,C):- next(A,F),value(A,D),lasso(F,B,E),insert(E,D,C).
-02:42:41 Program 10:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,E),lasso(D,B,F),lt_list(E,F),insert(F,E,C).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,E),lasso(D,B,F),lt_list(E,F),insert(F,E,C).
-02:42:41 score:None, None, None
-02:42:41 Program 11:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,F),next(A,D),lasso(D,B,E),insert(E,F,C),lt_list(F,E).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,F),next(A,D),lasso(D,B,E),insert(E,F,C),lt_list(F,E).
-02:42:41 score:None, None, None
-02:42:41 Program 12:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C),lt_list(E,D).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),next(A,F),lasso(F,B,D),insert(D,E,C),lt_list(E,D).
-02:42:41 score:None, None, None
-02:42:41 Program 13:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,D),next(A,F),lasso(F,B,E),lt_list(D,E),insert(E,D,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,D),next(A,F),lasso(F,B,E),lt_list(D,E),insert(E,D,C).
-02:42:41 score:None, None, None
-02:42:41 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
-02:42:41 Program 14:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,E),my_succ(E,G),lasso(F,B,D),lt_list(G,D),insert(D,E,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,E),my_succ(E,G),lasso(F,B,D),lt_list(G,D),insert(D,E,C).
-02:42:41 score:None, None, None
-02:42:41 Program 15:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,E),my_succ(E,G),lasso(F,B,D),insert(D,E,C),lt_list(G,C).
-02:42:41 Program 16:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,E),my_prev(E,G),lasso(F,B,D),insert(D,E,C),gt_list(G,D).
-02:42:41 Program 17:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,E),my_succ(E,D),lasso(F,B,G),insert(G,E,C),lt_list(D,G).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,E),my_succ(E,D),lasso(F,B,G),insert(G,E,C),lt_list(D,G).
-02:42:41 score:None, None, None
-02:42:41 Program 18:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,F),my_succ(F,D),lasso(E,B,G),insert(G,F,C),lt_list(D,G).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,F),my_succ(F,D),lasso(E,B,G),insert(G,F,C),lt_list(D,G).
-02:42:41 score:None, None, None
-02:42:41 Program 19:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,G),value(A,D),my_succ(D,E),lasso(G,B,F),insert(F,D,C),lt_list(E,F).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,G),value(A,D),my_succ(D,E),lasso(G,B,F),insert(F,D,C),lt_list(E,F).
-02:42:41 score:None, None, None
-02:42:41 Program 20:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),next(A,F),my_prev(E,G),lasso(F,B,D),insert(D,E,C),gt_list(G,C).
-02:42:41 Program 21:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,D),my_succ(D,G),lasso(E,B,F),insert(F,D,C),lt_list(G,F).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,D),my_succ(D,G),lasso(E,B,F),insert(F,D,C),lt_list(G,F).
-02:42:41 score:None, None, None
-02:42:41 Program 22:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,E),my_succ(E,F),lasso(D,B,G),lt_list(F,G),insert(G,E,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,E),my_succ(E,F),lasso(D,B,G),lt_list(F,G),insert(G,E,C).
-02:42:41 score:None, None, None
-02:42:41 Program 23:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,G),my_succ(G,D),next(A,F),lasso(F,B,E),lt_list(D,E),insert(E,G,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,G),my_succ(G,D),next(A,F),lasso(F,B,E),lt_list(D,E),insert(E,G,C).
-02:42:41 score:None, None, None
-02:42:41 Program 24:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,G),value(A,D),my_succ(D,F),lasso(G,B,E),insert(E,D,C),lt_list(F,E).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,G),value(A,D),my_succ(D,F),lasso(G,B,E),insert(E,D,C),lt_list(F,E).
-02:42:41 score:None, None, None
-02:42:41 Program 25:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,D),my_succ(D,F),lasso(E,B,G),lt_list(F,G),insert(G,D,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,D),my_succ(D,F),lasso(E,B,G),lt_list(F,G),insert(G,D,C).
-02:42:41 score:None, None, None
-02:42:41 Program 26:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),next(A,G),my_succ(E,D),lasso(G,B,F),insert(F,E,C),lt_list(D,F).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),next(A,G),my_succ(E,D),lasso(G,B,F),insert(F,E,C),lt_list(D,F).
-02:42:41 score:None, None, None
-02:42:41 Program 27:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),my_succ(E,G),next(A,D),lasso(D,B,F),lt_list(G,F),insert(F,E,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,E),my_succ(E,G),next(A,D),lasso(D,B,F),lt_list(G,F),insert(F,E,C).
-02:42:41 score:None, None, None
-02:42:41 Program 28:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,G),my_succ(G,D),lasso(E,B,F),insert(F,G,C),lt_list(D,F).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,G),my_succ(G,D),lasso(E,B,F),insert(F,G,C),lt_list(D,F).
-02:42:41 score:None, None, None
-02:42:41 Program 29:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,G),my_succ(G,F),lasso(E,B,D),insert(D,G,C),lt_list(F,D).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,E),value(A,G),my_succ(G,F),lasso(E,B,D),insert(D,G,C),lt_list(F,D).
-02:42:41 score:None, None, None
-02:42:41 Program 30:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,F),my_succ(F,D),next(A,G),lasso(G,B,E),insert(E,F,C),lt_list(D,E).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,F),my_succ(F,D),next(A,G),lasso(G,B,E),insert(E,F,C),lt_list(D,E).
-02:42:41 score:None, None, None
-02:42:41 Program 31:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,E),my_succ(E,F),next(A,G),lasso(G,B,D),insert(D,E,C),lt_list(F,D).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,E),my_succ(E,F),next(A,G),lasso(G,B,D),insert(D,E,C),lt_list(F,D).
-02:42:41 score:None, None, None
-02:42:41 Program 32:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,G),my_succ(G,F),next(A,D),lasso(D,B,E),insert(E,G,C),lt_list(F,E).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,G),my_succ(G,F),next(A,D),lasso(D,B,E),insert(E,G,C),lt_list(F,E).
-02:42:41 score:None, None, None
-02:42:41 Program 33:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,G),my_succ(G,E),lasso(F,B,D),insert(D,G,C),lt_list(E,D).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,G),my_succ(G,E),lasso(F,B,D),insert(D,G,C),lt_list(E,D).
-02:42:41 score:None, None, None
-02:42:41 Program 34:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,G),my_succ(G,E),lasso(D,B,F),lt_list(E,F),insert(F,G,C).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,G),my_succ(G,E),lasso(D,B,F),lt_list(E,F),insert(F,G,C).
-02:42:41 score:None, None, None
-02:42:41 Program 35:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,F),next(A,G),my_succ(F,E),lasso(G,B,D),lt_list(E,D),insert(D,F,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,F),next(A,G),my_succ(F,E),lasso(G,B,D),lt_list(E,D),insert(D,F,C).
-02:42:41 score:None, None, None
-02:42:41 Program 36:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,D),next(A,F),my_succ(D,G),lasso(F,B,E),insert(E,D,C),lt_list(G,E).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- value(A,D),next(A,F),my_succ(D,G),lasso(F,B,E),insert(E,D,C),lt_list(G,E).
-02:42:41 score:None, None, None
-02:42:41 Program 37:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,F),my_succ(F,E),lasso(D,B,G),lt_list(E,G),insert(G,F,C).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,F),my_succ(F,E),lasso(D,B,G),lt_list(E,G),insert(G,F,C).
-02:42:41 score:None, None, None
-02:42:41 Program 38:
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,F),next(A,E),my_succ(F,G),lasso(E,B,D),lt_list(G,D),insert(D,F,C).
-02:42:41 lasso(A,B,C):- same_ptr(A,B),empty(C).
-02:42:41 lasso(A,B,C):- value(A,F),next(A,E),my_succ(F,G),lasso(E,B,D),lt_list(G,D),insert(D,F,C).
-02:42:41 score:None, None, None
-02:42:41 Program 39:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,D),my_succ(D,E),lasso(F,B,G),lt_list(E,G),insert(G,D,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,F),value(A,D),my_succ(D,E),lasso(F,B,G),lt_list(E,G),insert(G,D,C).
-02:42:41 score:None, None, None
-02:42:41 Program 40:
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,F),my_succ(F,G),lasso(D,B,E),lt_list(G,E),insert(E,F,C).
-02:42:41 lasso(A,B,C):- empty(C),same_ptr(A,B).
-02:42:41 lasso(A,B,C):- next(A,D),value(A,F),my_succ(F,G),lasso(D,B,E),lt_list(G,E),insert(E,F,C).
-02:42:41 score:None, None, None
-02:42:41 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8
+01:35:27 Max rules: 2
+01:35:27 Max vars: 9
+01:35:27 Max body: 12
+01:35:27 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+01:35:28 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+01:35:28 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+01:35:28 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+01:35:28 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+01:35:28 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+01:35:28 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+01:35:28 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+01:35:28 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+01:35:28 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+01:35:28 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+01:35:28 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+01:35:28 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+01:35:28 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+01:35:28 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+01:35:28 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+01:35:28 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
+01:35:28 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
+01:35:28 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
+01:35:28 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
+01:35:28 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+01:35:28 Program 1:
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C).
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C).
+01:35:28 score:24, 1.0, 128
+01:35:28 CURRENT
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C).
+01:35:28 score:24, 1.0, 128
+01:35:28 ********************
+01:35:28 New best hypothesis:
+01:35:28 tp:2 fn:0 size:8
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C).
+01:35:28 ********************
+01:35:28 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
+01:35:28 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
+01:35:28 Program 2:
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),insert(F,D,C).
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),insert(F,D,C).
+01:35:28 score:24, 1.0, 128
+01:35:28 CURRENT
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),insert(F,D,C).
+01:35:28 score:24, 1.0, 128
+01:35:28 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
+01:35:28 Program 3:
+01:35:28 lasso(A,B,C):- same_ptr(A,B),empty(C).
+01:35:28 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),lt_set(F,E),insert(E,F,C).
+01:35:28 lasso(A,B,C):- same_ptr(A,B),empty(C).
+01:35:28 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),lt_set(F,E),insert(E,F,C).
+01:35:28 score:None, None, None
+01:35:28 Program 4:
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,D),value(A,F),lasso(D,B,E),gt_set(F,E),insert(E,F,C).
+01:35:28 Program 5:
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),lt_set(F,D),insert(D,F,C).
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,E),value(A,F),lasso(E,B,D),lt_set(F,D),insert(D,F,C).
+01:35:28 score:None, None, None
+01:35:28 Program 6:
+01:35:28 lasso(A,B,C):- nullptr(B),empty(C),nullptr(A).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),insert(F,D,C).
+01:35:28 Program 7:
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,D),value(A,E),lasso(D,B,F),lt_set(E,F),insert(F,E,C).
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- next(A,D),value(A,E),lasso(D,B,F),lt_set(E,F),insert(F,E,C).
+01:35:28 score:None, None, None
+01:35:28 Program 8:
+01:35:28 lasso(A,B,C):- same_ptr(A,B),empty(C).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,F),lasso(F,B,E),insert(E,D,C),lt_set(D,E).
+01:35:28 lasso(A,B,C):- same_ptr(A,B),empty(C).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,F),lasso(F,B,E),insert(E,D,C),lt_set(D,E).
+01:35:28 score:None, None, None
+01:35:28 Program 9:
+01:35:28 lasso(A,B,C):- same_ptr(A,B),empty(C).
+01:35:28 lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C),lt_set(E,D).
+01:35:28 lasso(A,B,C):- same_ptr(A,B),empty(C).
+01:35:28 lasso(A,B,C):- next(A,F),value(A,E),lasso(F,B,D),insert(D,E,C),lt_set(E,D).
+01:35:28 score:None, None, None
+01:35:28 Program 10:
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),lt_set(D,F),insert(F,D,C).
+01:35:28 lasso(A,B,C):- empty(C),same_ptr(A,B).
+01:35:28 lasso(A,B,C):- value(A,D),next(A,E),lasso(E,B,F),lt_set(D,F),insert(F,D,C).
+01:35:28 score:None, None, None
+01:35:28 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
+01:35:28 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8

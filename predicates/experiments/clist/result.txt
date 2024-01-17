@@ -1,287 +1,130 @@
+python3 ./popper.py ./predicates/experiments/clist --threshold 1000 --debug --stats --circle
+
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:8
-clist(A,B,C):- same_ptr(A,B),empty(C).
-clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C).
+clist(A,B,C):- empty(C),same_ptr(A,B).
+clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C).
 predicate clist(loc A,loc B,interval C) {
 | A==B => {C==[] ; emp}
-| not (A==B) => {C==F + [E] ; clist(D,B,F) ** A + 0 :-> E ** A + 1 :-> D ** [A, 2]}
+| not (A==B) => {C==D + [F] ; clist(E,B,D) ** A + 0 :-> F ** A + 1 :-> E ** [A, 2]}
 }
-{'body_literal(0, empty, 1, (2,))', 'head_literal(0, clist, 3, (0,1,2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(1, clist, 3, (3,1,5,))', 'body_literal(1, insert, 3, (5,4,2,))', 'head_literal(1, clist, 3, (0,1,2,))', 'body_literal(1, value, 2, (0,4,))', 'body_literal(1, next, 2, (0,3,))'}
+{'body_literal(1, insert, 3, (3,5,2,))', 'body_literal(0, same_ptr, 2, (0,1,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, clist, 3, (4,1,3,))', 'head_literal(0, clist, 3, (0,1,2,))', 'body_literal(1, value, 2, (0,5,))', 'body_literal(1, next, 2, (0,4,))', 'head_literal(1, clist, 3, (0,1,2,))'}
 ******************************
-Num. programs: 40
+Num. programs: 11
 Generate:
-        Called: 65 times         Total: 0.74     Mean: 0.011     Max: 0.442      Percentage: 42%
+        Called: 36 times         Total: 0.41     Mean: 0.011     Max: 0.259      Percentage: 50%
 Test:
-        Called: 40 times         Total: 0.63     Mean: 0.016     Max: 0.029      Percentage: 36%
+        Called: 13 times         Total: 0.19     Mean: 0.015     Max: 0.030      Percentage: 23%
 Find Mucs:
-        Called: 8 times          Total: 0.11     Mean: 0.014     Max: 0.054      Percentage: 6%
+        Called: 3 times          Total: 0.11     Mean: 0.036     Max: 0.054      Percentage: 12%
 Init:
-        Called: 26 times         Total: 0.10     Mean: 0.004     Max: 0.019      Percentage: 5%
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.012      Percentage: 9%
 Ground:
-        Called: 39 times         Total: 0.10     Mean: 0.003     Max: 0.026      Percentage: 5%
+        Called: 10 times         Total: 0.03     Mean: 0.003     Max: 0.010      Percentage: 3%
 Constrain:
-        Called: 39 times         Total: 0.04     Mean: 0.001     Max: 0.007      Percentage: 2%
+        Called: 10 times         Total: 0.01     Mean: 0.001     Max: 0.003      Percentage: 1%
 Combine:
-        Called: 32 times         Total: 0.01     Mean: 0.000     Max: 0.005      Percentage: 0%
-Total operation time: 1.73s
-Total execution time: 2.42s
+        Called: 16 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 0.83s
+Total execution time: 1.32s
 
-02:41:37 Max rules: 2
-02:41:37 Max vars: 9
-02:41:37 Max body: 12
-02:41:38 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-02:41:38 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-02:41:38 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-02:41:38 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-02:41:38 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-02:41:38 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-02:41:38 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-02:41:38 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-02:41:38 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-02:41:38 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-02:41:38 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-02:41:38 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-02:41:38 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-02:41:38 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-02:41:38 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-02:41:38 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
-02:41:38 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
-02:41:38 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
-02:41:38 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
-02:41:38 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
-02:41:38 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
-02:41:38 Program 1:
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C).
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C).
-02:41:38 score:24, 1.0, 128
-02:41:38 CURRENT
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C).
-02:41:38 score:24, 1.0, 128
-02:41:38 ********************
-02:41:38 New best hypothesis:
-02:41:38 tp:2 fn:0 size:8
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C).
-02:41:38 ********************
-02:41:38 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
-02:41:38 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
-02:41:38 Program 2:
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 clist(A,B,C):- next(A,D),value(A,F),clist(D,B,E),insert(E,F,C).
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 clist(A,B,C):- next(A,D),value(A,F),clist(D,B,E),insert(E,F,C).
-02:41:38 score:24, 1.0, 128
-02:41:38 CURRENT
-02:41:38 clist(A,B,C):- next(A,D),value(A,F),clist(D,B,E),insert(E,F,C).
-02:41:38 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:38 score:24, 1.0, 128
-02:41:39 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
-02:41:39 Program 3:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,E),value(A,F),my_succ(F,G),clist(E,B,D),insert(D,G,C).
-02:41:39 Program 4:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- value(A,F),next(A,E),my_prev(F,G),clist(E,B,D),insert(D,G,C).
-02:41:39 Program 5:
-02:41:39 clist(A,B,C):- nullptr(A),nullptr(B),empty(C).
-02:41:39 clist(A,B,C):- value(A,E),next(A,D),clist(D,B,F),insert(F,E,C).
-02:41:39 Program 6:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C),gt_list(F,D).
-02:41:39 Program 7:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,E),value(A,F),clist(E,B,D),lt_list(F,D),insert(D,F,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,E),value(A,F),clist(E,B,D),lt_list(F,D),insert(D,F,C).
-02:41:39 score:None, None, None
-02:41:39 Program 8:
-02:41:39 clist(A,B,C):- anypointer(B),empty(C),nullptr(A).
-02:41:39 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C).
-02:41:39 Program 9:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),lt_list(E,F),insert(F,E,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),lt_list(E,F),insert(F,E,C).
-02:41:39 score:None, None, None
-02:41:39 Program 10:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,D),value(A,F),clist(D,B,E),lt_list(F,E),insert(E,F,C).
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,D),value(A,F),clist(D,B,E),lt_list(F,E),insert(E,F,C).
-02:41:39 score:None, None, None
-02:41:39 Program 11:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,E),next(A,F),clist(F,B,D),lt_list(E,D),insert(D,E,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,E),next(A,F),clist(F,B,D),lt_list(E,D),insert(D,E,C).
-02:41:39 score:None, None, None
-02:41:39 Program 12:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,D),next(A,F),clist(F,B,E),lt_list(D,E),insert(E,D,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,D),next(A,F),clist(F,B,E),lt_list(D,E),insert(E,D,C).
-02:41:39 score:None, None, None
-02:41:39 Program 13:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,D),next(A,E),clist(E,B,F),lt_list(D,F),insert(F,D,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,D),next(A,E),clist(E,B,F),lt_list(D,F),insert(F,D,C).
-02:41:39 score:None, None, None
-02:41:39 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
-02:41:39 Program 14:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,F),value(A,G),my_succ(G,D),clist(F,B,E),insert(E,G,C),lt_list(D,C).
-02:41:39 Program 15:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,F),value(A,G),my_succ(G,D),clist(F,B,E),lt_list(D,E),insert(E,G,C).
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,F),value(A,G),my_succ(G,D),clist(F,B,E),lt_list(D,E),insert(E,G,C).
-02:41:39 score:None, None, None
-02:41:39 Program 16:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,D),value(A,E),my_succ(E,G),clist(D,B,F),lt_list(G,F),insert(F,E,C).
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,D),value(A,E),my_succ(E,G),clist(D,B,F),lt_list(G,F),insert(F,E,C).
-02:41:39 score:None, None, None
-02:41:39 Program 17:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- value(A,G),my_prev(G,D),next(A,F),clist(F,B,E),insert(E,G,C),gt_list(D,C).
-02:41:39 Program 18:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,F),value(A,D),my_prev(D,G),clist(F,B,E),insert(E,D,C),gt_list(G,E).
-02:41:39 Program 19:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,D),value(A,G),my_succ(G,E),clist(D,B,F),lt_list(E,F),insert(F,G,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,D),value(A,G),my_succ(G,E),clist(D,B,F),lt_list(E,F),insert(F,G,C).
-02:41:39 score:None, None, None
-02:41:39 Program 20:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- value(A,D),next(A,F),my_succ(D,G),clist(F,B,E),lt_list(G,E),insert(E,D,C).
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- value(A,D),next(A,F),my_succ(D,G),clist(F,B,E),lt_list(G,E),insert(E,D,C).
-02:41:39 score:None, None, None
-02:41:39 Program 21:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,E),value(A,G),my_succ(G,F),clist(E,B,D),insert(D,G,C),lt_list(F,D).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,E),value(A,G),my_succ(G,F),clist(E,B,D),insert(D,G,C),lt_list(F,D).
-02:41:39 score:None, None, None
-02:41:39 Program 22:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,E),value(A,F),my_succ(F,G),clist(E,B,D),insert(D,F,C),lt_list(G,D).
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- next(A,E),value(A,F),my_succ(F,G),clist(E,B,D),insert(D,F,C),lt_list(G,D).
-02:41:39 score:None, None, None
-02:41:39 Program 23:
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- value(A,E),my_succ(E,F),next(A,G),clist(G,B,D),lt_list(F,D),insert(D,E,C).
-02:41:39 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:39 clist(A,B,C):- value(A,E),my_succ(E,F),next(A,G),clist(G,B,D),lt_list(F,D),insert(D,E,C).
-02:41:39 score:None, None, None
-02:41:39 Program 24:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,G),value(A,D),my_succ(D,E),clist(G,B,F),lt_list(E,F),insert(F,D,C).
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,G),value(A,D),my_succ(D,E),clist(G,B,F),lt_list(E,F),insert(F,D,C).
-02:41:39 score:None, None, None
-02:41:39 Program 25:
-02:41:39 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:39 clist(A,B,C):- next(A,G),value(A,F),my_succ(F,E),clist(G,B,D),lt_list(E,D),insert(D,F,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,G),value(A,F),my_succ(F,E),clist(G,B,D),lt_list(E,D),insert(D,F,C).
-02:41:40 score:None, None, None
-02:41:40 Program 26:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,F),value(A,G),my_succ(G,E),clist(F,B,D),lt_list(E,D),insert(D,G,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,F),value(A,G),my_succ(G,E),clist(F,B,D),lt_list(E,D),insert(D,G,C).
-02:41:40 score:None, None, None
-02:41:40 Program 27:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,G),value(A,E),my_succ(E,D),clist(G,B,F),lt_list(D,F),insert(F,E,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,G),value(A,E),my_succ(E,D),clist(G,B,F),lt_list(D,F),insert(F,E,C).
-02:41:40 score:None, None, None
-02:41:40 Program 28:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,G),my_succ(G,D),next(A,E),clist(E,B,F),lt_list(D,F),insert(F,G,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,G),my_succ(G,D),next(A,E),clist(E,B,F),lt_list(D,F),insert(F,G,C).
-02:41:40 score:None, None, None
-02:41:40 Program 29:
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- next(A,D),value(A,G),my_succ(G,F),clist(D,B,E),insert(E,G,C),lt_list(F,E).
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- next(A,D),value(A,G),my_succ(G,F),clist(D,B,E),insert(E,G,C),lt_list(F,E).
-02:41:40 score:None, None, None
-02:41:40 Program 30:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,F),my_succ(F,G),next(A,D),clist(D,B,E),insert(E,F,C),lt_list(G,E).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,F),my_succ(F,G),next(A,D),clist(D,B,E),insert(E,F,C),lt_list(G,E).
-02:41:40 score:None, None, None
-02:41:40 Program 31:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,D),my_succ(D,F),next(A,G),clist(G,B,E),lt_list(F,E),insert(E,D,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,D),my_succ(D,F),next(A,G),clist(G,B,E),lt_list(F,E),insert(E,D,C).
-02:41:40 score:None, None, None
-02:41:40 Program 32:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,E),my_succ(E,D),next(A,F),clist(F,B,G),lt_list(D,G),insert(G,E,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,E),my_succ(E,D),next(A,F),clist(F,B,G),lt_list(D,G),insert(G,E,C).
-02:41:40 score:None, None, None
-02:41:40 Program 33:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,E),value(A,D),my_succ(D,G),clist(E,B,F),lt_list(G,F),insert(F,D,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- next(A,E),value(A,D),my_succ(D,G),clist(E,B,F),lt_list(G,F),insert(F,D,C).
-02:41:40 score:None, None, None
-02:41:40 Program 34:
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- value(A,D),my_succ(D,E),next(A,F),clist(F,B,G),lt_list(E,G),insert(G,D,C).
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- value(A,D),my_succ(D,E),next(A,F),clist(F,B,G),lt_list(E,G),insert(G,D,C).
-02:41:40 score:None, None, None
-02:41:40 Program 35:
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- value(A,F),my_succ(F,D),next(A,G),clist(G,B,E),lt_list(D,E),insert(E,F,C).
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- value(A,F),my_succ(F,D),next(A,G),clist(G,B,E),lt_list(D,E),insert(E,F,C).
-02:41:40 score:None, None, None
-02:41:40 Program 36:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,F),next(A,D),my_succ(F,E),clist(D,B,G),lt_list(E,G),insert(G,F,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,F),next(A,D),my_succ(F,E),clist(D,B,G),lt_list(E,G),insert(G,F,C).
-02:41:40 score:None, None, None
-02:41:40 Program 37:
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- next(A,F),value(A,E),my_succ(E,G),clist(F,B,D),lt_list(G,D),insert(D,E,C).
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- next(A,F),value(A,E),my_succ(E,G),clist(F,B,D),lt_list(G,D),insert(D,E,C).
-02:41:40 score:None, None, None
-02:41:40 Program 38:
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- value(A,D),my_succ(D,F),next(A,E),clist(E,B,G),lt_list(F,G),insert(G,D,C).
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- value(A,D),my_succ(D,F),next(A,E),clist(E,B,G),lt_list(F,G),insert(G,D,C).
-02:41:40 score:None, None, None
-02:41:40 Program 39:
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- next(A,E),value(A,F),my_succ(F,D),clist(E,B,G),lt_list(D,G),insert(G,F,C).
-02:41:40 clist(A,B,C):- same_ptr(A,B),empty(C).
-02:41:40 clist(A,B,C):- next(A,E),value(A,F),my_succ(F,D),clist(E,B,G),lt_list(D,G),insert(G,F,C).
-02:41:40 score:None, None, None
-02:41:40 Program 40:
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,E),next(A,D),my_succ(E,F),clist(D,B,G),lt_list(F,G),insert(G,E,C).
-02:41:40 clist(A,B,C):- empty(C),same_ptr(A,B).
-02:41:40 clist(A,B,C):- value(A,E),next(A,D),my_succ(E,F),clist(D,B,G),lt_list(F,G),insert(G,E,C).
-02:41:40 score:None, None, None
-02:41:40 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8
+01:25:42 Max rules: 2
+01:25:42 Max vars: 9
+01:25:42 Max body: 12
+01:25:43 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+01:25:43 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+01:25:43 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+01:25:43 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+01:25:43 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+01:25:43 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+01:25:43 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+01:25:43 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+01:25:43 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+01:25:43 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+01:25:43 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+01:25:43 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+01:25:43 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+01:25:43 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+01:25:43 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+01:25:43 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+01:25:43 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
+01:25:43 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
+01:25:43 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
+01:25:43 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
+01:25:43 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+01:25:43 Program 1:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C).
+01:25:43 score:24, 1.0, 128
+01:25:43 CURRENT
+01:25:43 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 score:24, 1.0, 128
+01:25:43 ********************
+01:25:43 New best hypothesis:
+01:25:43 tp:2 fn:0 size:8
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C).
+01:25:43 ********************
+01:25:43 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 8
+01:25:43 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 8
+01:25:43 Program 2:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,D),clist(D,B,E),insert(E,F,C).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,D),clist(D,B,E),insert(E,F,C).
+01:25:43 score:24, 1.0, 128
+01:25:43 CURRENT
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,D),clist(D,B,E),insert(E,F,C).
+01:25:43 score:24, 1.0, 128
+01:25:43 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 8
+01:25:43 Program 3:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C),gt_set(E,F).
+01:25:43 Program 4:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C),lt_set(E,F).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- next(A,D),value(A,E),clist(D,B,F),insert(F,E,C),lt_set(E,F).
+01:25:43 score:None, None, None
+01:25:43 Program 5:
+01:25:43 clist(A,B,C):- empty(C),nullptr(B),nullptr(A).
+01:25:43 clist(A,B,C):- value(A,E),next(A,D),clist(D,B,F),insert(F,E,C).
+01:25:43 Program 6:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,D),clist(D,B,E),lt_set(F,E),insert(E,F,C).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,D),clist(D,B,E),lt_set(F,E),insert(E,F,C).
+01:25:43 score:None, None, None
+01:25:43 Program 7:
+01:25:43 clist(A,B,C):- anypointer(B),nullptr(A),empty(C).
+01:25:43 clist(A,B,C):- next(A,D),value(A,F),clist(D,B,E),insert(E,F,C).
+01:25:43 Program 8:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- next(A,F),value(A,E),clist(F,B,D),lt_set(E,D),insert(D,E,C).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- next(A,F),value(A,E),clist(F,B,D),lt_set(E,D),insert(D,E,C).
+01:25:43 score:None, None, None
+01:25:43 Program 9:
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C),lt_set(F,D).
+01:25:43 clist(A,B,C):- empty(C),same_ptr(A,B).
+01:25:43 clist(A,B,C):- value(A,F),next(A,E),clist(E,B,D),insert(D,F,C),lt_set(F,D).
+01:25:43 score:None, None, None
+01:25:44 Program 10:
+01:25:44 clist(A,B,C):- same_ptr(A,B),empty(C).
+01:25:44 clist(A,B,C):- next(A,F),value(A,D),clist(F,B,E),insert(E,D,C),lt_set(D,E).
+01:25:44 clist(A,B,C):- same_ptr(A,B),empty(C).
+01:25:44 clist(A,B,C):- next(A,F),value(A,D),clist(F,B,E),insert(E,D,C),lt_set(D,E).
+01:25:44 score:None, None, None
+01:25:44 Program 11:
+01:25:44 clist(A,B,C):- same_ptr(A,B),empty(C).
+01:25:44 clist(A,B,C):- next(A,E),value(A,D),clist(E,B,F),lt_set(D,F),insert(F,D,C).
+01:25:44 clist(A,B,C):- same_ptr(A,B),empty(C).
+01:25:44 clist(A,B,C):- next(A,E),value(A,D),clist(E,B,F),lt_set(D,F),insert(F,D,C).
+01:25:44 score:None, None, None
+01:25:44 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 8
+01:25:44 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 8

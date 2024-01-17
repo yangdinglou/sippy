@@ -1,663 +1,744 @@
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:2 FN:0 TN:0 FP:0 Size:9
-sll_len(A,B):- zero(B),nullptr(A), !.
-sll_len(A,B):- value(A,C),next(A,E),anynumber(C),sll_len(E,D),my_succ(D,B), !.
+sll_len(A,B):- nullptr(A),zero(B), !.
+sll_len(A,B):- value(A,E),next(A,C),anynumber(E),sll_len(C,D),my_succ(D,B), !.
 predicate sll_len(loc A,int B) {
 | A==0 => {B==0 ; emp}
-| not (A==0) => {B==D + 1 ; sll_len(E,D) ** A + 0 :-> C ** A + 1 :-> E ** [A, 2]}
+| not (A==0) => {B==D + 1 ; sll_len(C,D) ** A + 0 :-> E ** A + 1 :-> C ** [A, 2]}
 }
-{'head_literal(0, sll_len, 2, (0,1,))', 'body_literal(1, anynumber, 1, (2,))', 'head_literal(1, sll_len, 2, (0,1,))', 'body_literal(1, sll_len, 2, (4,3,))', 'body_literal(1, next, 2, (0,4,))', 'body_literal(1, value, 2, (0,2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(0, zero, 1, (1,))', 'body_literal(1, my_succ, 2, (3,1,))'}
+{'body_literal(0, zero, 1, (1,))', 'body_literal(1, my_succ, 2, (3,1,))', 'head_literal(1, sll_len, 2, (0,1,))', 'body_literal(1, anynumber, 1, (4,))', 'body_literal(1, sll_len, 2, (2,3,))', 'body_literal(1, next, 2, (0,2,))', 'body_literal(1, value, 2, (0,4,))', 'head_literal(0, sll_len, 2, (0,1,))', 'body_literal(0, nullptr, 1, (0,))'}
 ******************************
-Num. programs: 167
-Ground:
-        Called: 166 times        Total: 3.37     Mean: 0.020     Max: 0.385      Percentage: 35%
+Num. programs: 193
 Constrain:
-        Called: 166 times        Total: 3.12     Mean: 0.019     Max: 0.130      Percentage: 32%
+        Called: 192 times        Total: 1.87     Mean: 0.010     Max: 0.017      Percentage: 29%
+Ground:
+        Called: 192 times        Total: 1.62     Mean: 0.008     Max: 0.078      Percentage: 25%
 Init:
-        Called: 21 times         Total: 1.72     Mean: 0.082     Max: 1.176      Percentage: 18%
-Generate:
-        Called: 187 times        Total: 0.63     Mean: 0.003     Max: 0.266      Percentage: 6%
+        Called: 21 times         Total: 1.39     Mean: 0.066     Max: 0.639      Percentage: 22%
 Find Mucs:
-        Called: 135 times        Total: 0.60     Mean: 0.004     Max: 0.078      Percentage: 6%
+        Called: 160 times        Total: 0.76     Mean: 0.005     Max: 0.068      Percentage: 12%
+Generate:
+        Called: 213 times        Total: 0.51     Mean: 0.002     Max: 0.081      Percentage: 8%
 Test:
-        Called: 167 times        Total: 0.08     Mean: 0.000     Max: 0.015      Percentage: 0%
+        Called: 195 times        Total: 0.09     Mean: 0.000     Max: 0.017      Percentage: 1%
 Combine:
-        Called: 32 times         Total: 0.01     Mean: 0.000     Max: 0.006      Percentage: 0%
-Total operation time: 9.52s
-Total execution time: 12.37s
+        Called: 66 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 6.24s
+Total execution time: 9.35s
 
-03:46:32 Max rules: 2
-03:46:32 Max vars: 9
-03:46:32 Max body: 12
-03:46:32 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-03:46:32 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-03:46:32 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-03:46:32 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-03:46:32 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-03:46:32 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-03:46:32 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-03:46:32 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-03:46:32 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-03:46:32 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-03:46:32 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-03:46:32 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-03:46:32 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-03:46:32 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-03:46:32 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-03:46:32 Program 1:
-03:46:32 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:32 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B), !.
-03:46:32 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:32 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B), !.
-03:46:32 score:None, None, None
-03:46:32 Program 2:
-03:46:32 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:32 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:32 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:32 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:32 score:None, None, None
-03:46:32 Program 3:
-03:46:32 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:32 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),maxnum(C,E,B), !.
-03:46:32 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:32 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),maxnum(C,E,B), !.
-03:46:32 score:None, None, None
-03:46:32 Program 4:
-03:46:32 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
-03:46:32 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
-03:46:32 score:None, None, None
-03:46:32 Program 5:
-03:46:32 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:32 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:32 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:32 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:32 score:None, None, None
-03:46:32 Program 6:
-03:46:32 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:32 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
-03:46:32 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:32 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
-03:46:32 score:None, None, None
-03:46:33 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
-03:46:33 Program 7:
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 8:
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 9:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),diff_lessthanone(C,E),my_succ(C,B), !.
-03:46:33 Program 10:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),diff_lessthanone(C,D), !.
-03:46:33 Program 11:
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 12:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),my_succ(D,B),diff_lessthanone(B,C), !.
-03:46:33 Program 13:
-03:46:33 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 14:
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 15:
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 16:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,E),anynumber(C),sll_len(E,D),my_succ(D,B), !.
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,E),anynumber(C),sll_len(E,D),my_succ(D,B), !.
-03:46:33 score:24, 1.0, 8
-03:46:33 CURRENT
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,E),anynumber(C),sll_len(E,D),my_succ(D,B), !.
-03:46:33 score:24, 1.0, 8
-03:46:33 ********************
-03:46:33 New best hypothesis:
-03:46:33 tp:2 fn:0 size:9
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,E),anynumber(C),sll_len(E,D),my_succ(D,B), !.
-03:46:33 ********************
-03:46:33 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
-03:46:33 Program 17:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 18:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 19:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 20:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 21:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 22:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
-03:46:33 Program 23:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,C),maxnum(C,D,E),my_succ(E,B), !.
-03:46:33 Program 24:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,D),maxnum(C,D,E),my_succ(E,B), !.
-03:46:33 Program 25:
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 26:
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 27:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,E),my_succ(E,F),maxnum(C,F,B), !.
-03:46:33 Program 28:
-03:46:33 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 29:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,D),next(A,F),my_prev(D,C),sll_len(F,E),maxnum(C,E,B), !.
-03:46:33 Program 30:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),anynumber(D),sll_len(E,C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),anynumber(D),sll_len(E,C),my_succ(C,B), !.
-03:46:33 score:24, 1.0, 8
-03:46:33 CURRENT
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),anynumber(D),sll_len(E,C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 score:24, 1.0, 8
-03:46:33 Program 31:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),my_succ(C,F),next(A,D),sll_len(D,E),maxnum(E,F,B), !.
-03:46:33 Program 32:
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 33:
-03:46:33 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:33 sll_len(A,B):- value(A,D),my_prev(D,E),next(A,F),sll_len(F,C),maxnum(C,E,B), !.
-03:46:33 Program 34:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,F),sll_len(C,E),my_succ(E,D),maxnum(D,F,B), !.
-03:46:33 Program 35:
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 36:
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 37:
-03:46:33 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,D),value(A,C),my_succ(C,E),sll_len(D,F),maxnum(E,F,B), !.
-03:46:33 Program 38:
-03:46:33 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 39:
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 40:
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 41:
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 42:
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 Program 43:
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:33 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
-03:46:33 score:None, None, None
-03:46:33 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
-03:46:34 Program 44:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,D),maxnum(C,D,E),my_succ(D,B),diff_lessthanone(B,E), !.
-03:46:34 Program 45:
-03:46:34 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:34 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,D),maxnum(C,D,E),my_succ(E,B), !.
-03:46:34 Program 46:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,E),my_succ(E,B),maxnum(B,F,C),diff_lessthanone(C,E), !.
-03:46:34 Program 47:
-03:46:34 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:34 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,C),maxnum(C,D,E),my_succ(E,B), !.
-03:46:34 Program 48:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(C,F), !.
-03:46:34 Program 49:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- value(A,C),my_prev(C,D),next(A,E),sll_len(E,F),maxnum(C,F,B),diff_lessthanone(D,F), !.
-03:46:34 Program 50:
-03:46:34 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:34 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),diff_lessthanone(C,E),maxnum(C,E,B), !.
-03:46:34 Program 51:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,F),my_prev(F,E),maxnum(C,F,B),diff_lessthanone(C,E), !.
-03:46:34 Program 52:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,C),my_succ(C,B),maxnum(C,D,E),diff_lessthanone(B,E), !.
-03:46:34 Program 53:
-03:46:34 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:34 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,F),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(D,F), !.
-03:46:34 Program 54:
-03:46:34 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:34 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),diff_lessthanone(C,E),maxnum(C,E,B), !.
-03:46:34 Program 55:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,E),value(A,C),my_prev(C,D),sll_len(E,F),my_succ(F,B),diff_lessthanone(B,D), !.
-03:46:34 Program 56:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,F),my_prev(F,E),maxnum(C,F,B),diff_lessthanone(B,E), !.
-03:46:34 Program 57:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(C,F), !.
-03:46:34 Program 58:
-03:46:34 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:34 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,F),maxnum(C,F,B),my_prev(B,D),diff_lessthanone(D,F), !.
-03:46:34 Program 59:
-03:46:34 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:34 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),my_succ(C,F),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:34 Program 60:
-03:46:34 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:34 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),my_succ(D,F),maxnum(C,D,B),diff_lessthanone(C,F), !.
-03:46:34 Program 61:
-03:46:34 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:34 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),my_succ(C,F),maxnum(D,F,B), !.
-03:46:35 Program 62:
-03:46:35 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:35 sll_len(A,B):- next(A,E),value(A,C),my_succ(C,D),sll_len(E,F),diff_lessthanone(D,F),maxnum(C,F,B), !.
-03:46:35 Program 63:
-03:46:35 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:35 sll_len(A,B):- next(A,D),value(A,C),my_prev(C,E),sll_len(D,F),maxnum(C,F,B),diff_lessthanone(B,E), !.
-03:46:35 Program 64:
-03:46:35 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:35 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,F),my_succ(F,D),maxnum(C,F,B),diff_lessthanone(B,D), !.
-03:46:35 Program 65:
-03:46:35 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:35 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,C),my_succ(C,B),maxnum(B,F,D),diff_lessthanone(C,D), !.
-03:46:35 Program 66:
-03:46:35 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:35 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),my_succ(C,F),maxnum(D,F,B), !.
-03:46:36 Program 67:
-03:46:36 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:36 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(D,F), !.
-03:46:36 Program 68:
-03:46:36 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:36 sll_len(A,B):- value(A,E),next(A,D),my_prev(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:36 Program 69:
-03:46:36 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:36 sll_len(A,B):- value(A,C),next(A,D),my_succ(C,E),sll_len(D,F),maxnum(C,F,B),diff_lessthanone(B,E), !.
-03:46:36 Program 70:
-03:46:36 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:36 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(C,D), !.
-03:46:36 Program 71:
-03:46:36 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:36 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),my_succ(C,D),maxnum(D,F,B), !.
-03:46:36 Program 72:
-03:46:36 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:36 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,B),my_prev(B,D),diff_lessthanone(D,F), !.
-03:46:36 Program 73:
-03:46:36 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:36 sll_len(A,B):- next(A,D),value(A,E),my_succ(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:36 Program 74:
-03:46:36 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:36 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,C),maxnum(C,F,B),my_prev(C,E),diff_lessthanone(B,E), !.
-03:46:36 Program 75:
-03:46:36 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:36 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),my_succ(C,B),diff_lessthanone(B,D), !.
-03:46:36 Program 76:
-03:46:36 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:36 sll_len(A,B):- value(A,F),next(A,E),my_prev(F,D),sll_len(E,C),diff_lessthanone(C,D),my_succ(C,B), !.
-03:46:36 Program 77:
-03:46:36 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:36 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,C),my_succ(C,D),maxnum(D,F,B), !.
-03:46:37 Program 78:
-03:46:37 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:37 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,C),maxnum(C,F,B),my_prev(C,D),diff_lessthanone(D,F), !.
-03:46:37 Program 79:
-03:46:37 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:37 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),my_succ(C,B),diff_lessthanone(B,D), !.
-03:46:37 Program 80:
-03:46:37 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:37 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,F),maxnum(D,F,C),my_succ(C,B), !.
-03:46:37 Program 81:
-03:46:37 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:37 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),my_succ(C,D),maxnum(C,F,B),diff_lessthanone(D,F), !.
-03:46:37 Program 82:
-03:46:37 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:37 sll_len(A,B):- next(A,D),value(A,E),my_succ(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(C,F), !.
-03:46:37 Program 83:
-03:46:37 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:37 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,B),my_prev(B,D),diff_lessthanone(C,D), !.
-03:46:37 Program 84:
-03:46:37 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:37 sll_len(A,B):- value(A,D),my_succ(D,C),next(A,E),sll_len(E,F),maxnum(C,F,B), !.
-03:46:37 Program 85:
-03:46:37 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:37 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B),diff_lessthanone(C,D), !.
-03:46:37 Program 86:
-03:46:37 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:37 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
-03:46:37 Program 87:
-03:46:37 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:37 sll_len(A,B):- next(A,D),value(A,F),my_prev(F,E),sll_len(D,C),maxnum(C,E,B), !.
-03:46:38 Program 88:
-03:46:38 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:38 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
-03:46:38 Program 89:
-03:46:38 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:38 sll_len(A,B):- next(A,E),value(A,D),my_succ(D,C),sll_len(E,F),maxnum(C,F,B), !.
-03:46:38 Program 90:
-03:46:38 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:38 sll_len(A,B):- value(A,C),my_prev(C,D),next(A,E),sll_len(E,F),maxnum(D,F,B), !.
-03:46:38 Program 91:
-03:46:38 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:38 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
-03:46:38 Program 92:
-03:46:38 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:38 sll_len(A,B):- value(A,F),next(A,D),my_prev(F,E),sll_len(D,C),maxnum(C,E,B), !.
-03:46:39 Program 93:
-03:46:39 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:39 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
-03:46:39 Program 94:
-03:46:39 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:39 sll_len(A,B):- value(A,C),next(A,E),my_succ(C,F),sll_len(E,D),maxnum(D,F,B), !.
-03:46:39 Program 95:
-03:46:39 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:39 sll_len(A,B):- value(A,E),next(A,D),my_prev(E,C),sll_len(D,F),maxnum(C,F,B), !.
-03:46:39 Program 96:
-03:46:39 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:39 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
-03:46:39 Program 97:
-03:46:39 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:39 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,F),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
-03:46:39 Program 98:
-03:46:39 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:39 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),diff_lessthanone(C,D), !.
-03:46:39 Program 99:
-03:46:39 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:39 sll_len(A,B):- next(A,D),value(A,E),my_succ(E,F),sll_len(D,C),maxnum(C,F,B), !.
-03:46:39 Program 100:
-03:46:39 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:39 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
-03:46:40 Program 101:
-03:46:40 sll_len(A,B):- zero(B),nullptr(A), !.
-03:46:40 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
-03:46:40 Program 102:
-03:46:40 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:40 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),maxnum(D,F,C),my_succ(C,B), !.
-03:46:40 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 7
-03:46:41 Program 103:
-03:46:41 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:41 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(C,F), !.
-03:46:41 Program 104:
-03:46:41 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:41 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
-03:46:41 Program 105:
-03:46:41 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:41 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
-03:46:41 Program 106:
-03:46:41 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:41 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(C,F), !.
-03:46:41 Program 107:
-03:46:41 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:41 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),my_prev(D,C),diff_lessthanone(C,F),maxnum(D,F,B), !.
-03:46:41 Program 108:
-03:46:41 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:41 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),my_prev(D,F),maxnum(D,E,B),diff_lessthanone(B,F), !.
-03:46:41 Program 109:
-03:46:41 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:41 sll_len(A,B):- value(A,D),next(A,F),my_succ(D,C),sll_len(F,E),maxnum(D,E,B),diff_lessthanone(B,C), !.
-03:46:41 Program 110:
-03:46:41 sll_len(A,B):- nullptr(A),zero(B), !.
-03:46:41 sll_len(A,B):- value(A,D),anynumber(D),next(A,E),sll_len(E,F),my_prev(F,C),my_succ(F,B),diff_lessthanone(B,C), !.
-03:46:41 Program 111:
-03:46:41 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:41 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,F),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,F), !.
-03:46:42 Program 112:
-03:46:42 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- value(A,E),next(A,D),my_succ(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:42 Program 113:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),my_prev(D,C),maxnum(D,F,B),diff_lessthanone(C,F), !.
-03:46:42 Program 114:
-03:46:42 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B),my_prev(D,F),diff_lessthanone(B,F), !.
-03:46:42 Program 115:
-03:46:42 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- next(A,F),value(A,D),my_succ(D,C),sll_len(F,E),maxnum(D,E,B),diff_lessthanone(B,C), !.
-03:46:42 Program 116:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,F), !.
-03:46:42 Program 117:
-03:46:42 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- next(A,D),value(A,E),my_succ(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(C,F), !.
-03:46:42 Program 118:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B),my_prev(D,F),diff_lessthanone(E,F), !.
-03:46:42 Program 119:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,E),maxnum(D,E,B),my_succ(B,C),diff_lessthanone(C,D), !.
-03:46:42 Program 120:
-03:46:42 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- next(A,E),value(A,D),my_succ(D,C),sll_len(E,F),maxnum(D,F,B),diff_lessthanone(C,F), !.
-03:46:42 Program 121:
-03:46:42 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,E),next(A,D),my_succ(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:42 Program 122:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
-03:46:42 Program 123:
-03:46:42 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),my_prev(D,F),diff_lessthanone(E,F),maxnum(D,E,B), !.
-03:46:42 Program 124:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- value(A,D),next(A,F),sll_len(F,E),maxnum(D,E,B),my_succ(B,C),diff_lessthanone(C,D), !.
-03:46:42 Program 125:
-03:46:42 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,D),my_succ(D,C),next(A,E),sll_len(E,F),maxnum(D,F,B),diff_lessthanone(C,F), !.
-03:46:42 Program 126:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- next(A,D),value(A,E),my_succ(E,F),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(C,F), !.
-03:46:42 Program 127:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,F),maxnum(D,F,B),my_succ(F,C),diff_lessthanone(C,D), !.
-03:46:42 Program 128:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
-03:46:42 Program 129:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
-03:46:42 Program 130:
-03:46:42 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- next(A,F),value(A,D),my_prev(D,C),sll_len(F,E),maxnum(D,E,B),diff_lessthanone(B,C), !.
-03:46:42 Program 131:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),my_succ(F,C),maxnum(D,F,B),diff_lessthanone(B,C), !.
-03:46:42 Program 132:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- value(A,E),my_prev(E,F),next(A,D),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:42 Program 133:
-03:46:42 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
-03:46:42 Program 134:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,F), !.
-03:46:42 Program 135:
-03:46:42 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
-03:46:42 Program 136:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,F),next(A,C),sll_len(C,D),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
-03:46:42 Program 137:
-03:46:42 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- next(A,F),value(A,D),my_prev(D,C),sll_len(F,E),maxnum(D,E,B),diff_lessthanone(B,C), !.
-03:46:42 Program 138:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:42 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),my_succ(F,C),maxnum(D,F,B),diff_lessthanone(B,C), !.
-03:46:42 Program 139:
-03:46:42 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:42 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,F),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,F), !.
-03:46:42 Program 140:
-03:46:42 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:42 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,F), !.
-03:46:43 Program 141:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,F), !.
-03:46:43 Program 142:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:43 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(D,F), !.
-03:46:43 Program 143:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- value(A,F),next(A,C),sll_len(C,D),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
-03:46:43 Program 144:
-03:46:43 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- value(A,D),next(A,E),my_prev(D,F),sll_len(E,C),maxnum(C,D,B),diff_lessthanone(C,F), !.
-03:46:43 Program 145:
-03:46:43 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- next(A,F),value(A,D),my_prev(D,C),sll_len(F,E),diff_lessthanone(C,E),maxnum(D,E,B), !.
-03:46:43 Program 146:
-03:46:43 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_succ(F,C),diff_lessthanone(C,D), !.
-03:46:43 Program 147:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_prev(F,C),diff_lessthanone(B,C), !.
-03:46:43 Program 148:
-03:46:43 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(D,F), !.
-03:46:43 Program 149:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:43 sll_len(A,B):- next(A,F),value(A,D),my_prev(D,C),sll_len(F,E),diff_lessthanone(C,E),maxnum(D,E,B), !.
-03:46:43 Program 150:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:43 sll_len(A,B):- value(A,E),my_prev(E,F),next(A,D),sll_len(D,C),maxnum(C,E,B),diff_lessthanone(B,F), !.
-03:46:43 Program 151:
-03:46:43 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
-03:46:43 Program 152:
-03:46:43 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_prev(F,C),diff_lessthanone(B,C), !.
-03:46:43 Program 153:
-03:46:43 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_succ(D,C),diff_lessthanone(B,C), !.
-03:46:43 Program 154:
-03:46:43 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),my_succ(C,F),diff_lessthanone(D,F),maxnum(C,D,B), !.
-03:46:43 Program 155:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:43 sll_len(A,B):- value(A,F),next(A,C),my_prev(F,E),sll_len(C,D),maxnum(D,F,B),diff_lessthanone(D,E), !.
-03:46:43 Program 156:
-03:46:43 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),my_succ(D,C),maxnum(D,F,B),diff_lessthanone(B,C), !.
-03:46:43 Program 157:
-03:46:43 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,F),maxnum(D,F,B),my_succ(B,E),diff_lessthanone(D,E), !.
-03:46:43 Program 158:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:43 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B),my_succ(D,F),diff_lessthanone(E,F), !.
-03:46:43 Program 159:
-03:46:43 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
-03:46:43 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
-03:46:43 Program 160:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,F),maxnum(D,F,B),my_succ(B,E),diff_lessthanone(D,E), !.
-03:46:43 Program 161:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:43 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,E),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(C,D), !.
-03:46:43 Program 162:
-03:46:43 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:43 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,E),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(C,D), !.
-03:46:44 Program 163:
-03:46:44 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:44 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
-03:46:44 Program 164:
-03:46:44 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
-03:46:44 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
-03:46:44 Program 165:
-03:46:44 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:44 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
-03:46:44 Program 166:
-03:46:44 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
-03:46:44 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,D),maxnum(C,D,B),my_prev(B,E),diff_lessthanone(D,E), !.
-03:46:44 Program 167:
-03:46:44 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
-03:46:44 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
-03:46:44 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 7
+02:04:24 Max rules: 2
+02:04:24 Max vars: 9
+02:04:24 Max body: 12
+02:04:24 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+02:04:24 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+02:04:24 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+02:04:24 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+02:04:24 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+02:04:24 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+02:04:24 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+02:04:24 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+02:04:24 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+02:04:24 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+02:04:24 Program 1:
+02:04:24 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:24 sll_len(A,B):- value(A,B),next(A,C),sll_len(C,D),anynumber(D), !.
+02:04:24 Program 2:
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,D),anynumber(D),sll_len(C,B), !.
+02:04:24 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+02:04:24 Program 3:
+02:04:24 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,D),anynumber(D),sll_len(C,B), !.
+02:04:24 Program 4:
+02:04:24 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,D),anynumber(D),sll_len(C,B), !.
+02:04:24 Program 5:
+02:04:24 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:24 sll_len(A,B):- value(A,B),next(A,C),sll_len(C,D),diff_lessthanone(B,D), !.
+02:04:24 Program 6:
+02:04:24 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,B),sll_len(C,D),diff_lessthanone(B,D), !.
+02:04:24 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+02:04:24 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+02:04:24 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+02:04:24 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+02:04:24 Program 7:
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 8:
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 9:
+02:04:24 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:24 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
+02:04:24 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:24 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 10:
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 11:
+02:04:24 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:24 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:24 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:24 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 12:
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B), !.
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B), !.
+02:04:24 score:None, None, None
+02:04:24 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+02:04:24 Program 13:
+02:04:24 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:24 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),diff_lessthanone(D,E),maxnum(D,E,B), !.
+02:04:24 Program 14:
+02:04:24 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:24 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
+02:04:24 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:24 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 15:
+02:04:24 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:24 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:24 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:24 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 16:
+02:04:24 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:24 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
+02:04:24 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:24 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),maxnum(D,E,B), !.
+02:04:24 score:None, None, None
+02:04:24 Program 17:
+02:04:24 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:24 sll_len(A,B):- value(A,C),next(A,E),sll_len(E,D),maxnum(C,D,B),diff_lessthanone(C,D), !.
+02:04:25 Program 18:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),my_prev(D,B),sll_len(E,C),diff_lessthanone(B,C), !.
+02:04:25 Program 19:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 20:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),my_prev(D,B),diff_lessthanone(B,E), !.
+02:04:25 Program 21:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 22:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),my_succ(D,B),sll_len(E,C),diff_lessthanone(B,C), !.
+02:04:25 Program 23:
+02:04:25 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 24:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 25:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),my_succ(C,B),diff_lessthanone(B,D), !.
+02:04:25 Program 26:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,C),anynumber(E),sll_len(C,D),my_succ(D,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,C),anynumber(E),sll_len(C,D),my_succ(D,B), !.
+02:04:25 score:24, 1.0, 8
+02:04:25 CURRENT
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,C),anynumber(E),sll_len(C,D),my_succ(D,B), !.
+02:04:25 score:24, 1.0, 8
+02:04:25 ********************
+02:04:25 New best hypothesis:
+02:04:25 tp:2 fn:0 size:9
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,C),anynumber(E),sll_len(C,D),my_succ(D,B), !.
+02:04:25 ********************
+02:04:25 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+02:04:25 Program 27:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 28:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 29:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 30:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 31:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 32:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
+02:04:25 Program 33:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,F),my_succ(F,B), !.
+02:04:25 Program 34:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),anynumber(D),sll_len(C,E),my_succ(E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),anynumber(D),sll_len(C,E),my_succ(E,B), !.
+02:04:25 score:24, 1.0, 8
+02:04:25 CURRENT
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),anynumber(D),sll_len(C,E),my_succ(E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 score:24, 1.0, 8
+02:04:25 Program 35:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 36:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,F),my_prev(F,D),maxnum(D,E,B), !.
+02:04:25 Program 37:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),my_succ(D,F),maxnum(E,F,B), !.
+02:04:25 Program 38:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),my_prev(D,F),sll_len(C,E),maxnum(E,F,B), !.
+02:04:25 Program 39:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,F),my_succ(F,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 Program 40:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 41:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 42:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,F),my_succ(F,D),maxnum(D,E,B), !.
+02:04:25 Program 43:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),my_prev(D,F),maxnum(E,F,B), !.
+02:04:25 Program 44:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,D),my_prev(D,B), !.
+02:04:25 Program 45:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 46:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 47:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,F),my_prev(F,B), !.
+02:04:25 Program 48:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,D),my_succ(D,B), !.
+02:04:25 Program 49:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 50:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,E),value(A,D),my_prev(D,C),sll_len(E,F),maxnum(C,F,B), !.
+02:04:25 Program 51:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 52:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 53:
+02:04:25 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,E),my_succ(D,C),sll_len(E,F),maxnum(C,F,B), !.
+02:04:25 Program 54:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 55:
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:25 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 56:
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 Program 57:
+02:04:25 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:25 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B), !.
+02:04:25 score:None, None, None
+02:04:25 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
+02:04:25 Program 58:
+02:04:25 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:25 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,B),my_prev(B,D),diff_lessthanone(C,D), !.
+02:04:26 Program 59:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,C),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(C,D), !.
+02:04:26 Program 60:
+02:04:26 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:26 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,D),my_succ(D,B),maxnum(C,D,E),diff_lessthanone(B,E), !.
+02:04:26 Program 61:
+02:04:26 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:26 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,F),my_succ(F,B), !.
+02:04:26 Program 62:
+02:04:26 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:26 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,E),my_succ(E,B),maxnum(B,C,D),diff_lessthanone(D,E), !.
+02:04:26 Program 63:
+02:04:26 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:26 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,E),my_succ(E,C),maxnum(C,D,B), !.
+02:04:26 Program 64:
+02:04:26 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:26 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,D),maxnum(C,D,E),my_succ(E,B), !.
+02:04:26 Program 65:
+02:04:26 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:26 sll_len(A,B):- value(A,C),next(A,E),my_prev(C,B),sll_len(E,D),diff_lessthanone(C,D), !.
+02:04:26 Program 66:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- next(A,E),value(A,F),my_prev(F,D),sll_len(E,C),diff_lessthanone(C,D),maxnum(C,F,B), !.
+02:04:26 Program 67:
+02:04:26 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:26 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,D),maxnum(C,D,E),my_prev(E,B), !.
+02:04:26 Program 68:
+02:04:26 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:26 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,C),maxnum(C,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
+02:04:26 Program 69:
+02:04:26 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:26 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),diff_lessthanone(D,E),maxnum(D,E,B), !.
+02:04:26 Program 70:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,E),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(D,E), !.
+02:04:26 Program 71:
+02:04:26 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:26 sll_len(A,B):- value(A,D),next(A,F),sll_len(F,E),my_succ(E,C),maxnum(C,D,B), !.
+02:04:26 Program 72:
+02:04:26 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:26 sll_len(A,B):- next(A,E),value(A,C),my_prev(C,B),sll_len(E,D),diff_lessthanone(C,D), !.
+02:04:26 Program 73:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- next(A,E),value(A,C),my_succ(C,D),sll_len(E,F),diff_lessthanone(D,F),maxnum(C,F,B), !.
+02:04:26 Program 74:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- value(A,F),my_succ(F,D),next(A,E),sll_len(E,C),diff_lessthanone(C,D),maxnum(C,F,B), !.
+02:04:26 Program 75:
+02:04:26 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:26 sll_len(A,B):- value(A,F),next(A,D),my_prev(F,E),sll_len(D,C),my_succ(C,B),diff_lessthanone(B,E), !.
+02:04:26 Program 76:
+02:04:26 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:26 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),diff_lessthanone(D,E),maxnum(D,E,B), !.
+02:04:26 Program 77:
+02:04:26 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:26 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,E),my_prev(E,C),maxnum(C,D,B), !.
+02:04:26 Program 78:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- next(A,D),value(A,C),my_prev(C,E),sll_len(D,F),diff_lessthanone(E,F),maxnum(C,F,B), !.
+02:04:26 Program 79:
+02:04:26 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:26 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,C),my_succ(C,B),maxnum(B,F,D),diff_lessthanone(C,D), !.
+02:04:26 Program 80:
+02:04:26 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:26 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,C),my_succ(C,B),my_prev(C,E),diff_lessthanone(E,F), !.
+02:04:27 Program 81:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- value(A,E),next(A,C),my_succ(E,F),sll_len(C,D),maxnum(D,E,B),diff_lessthanone(B,F), !.
+02:04:27 Program 82:
+02:04:27 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:27 sll_len(A,B):- value(A,D),next(A,F),sll_len(F,E),my_prev(E,C),maxnum(C,D,B), !.
+02:04:27 Program 83:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,F),maxnum(C,F,B),my_succ(B,D),diff_lessthanone(D,F), !.
+02:04:27 Program 84:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,F),maxnum(C,F,B),my_succ(F,E),diff_lessthanone(C,E), !.
+02:04:27 Program 85:
+02:04:27 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:27 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),my_succ(C,B),maxnum(C,E,F),diff_lessthanone(B,F), !.
+02:04:27 Program 86:
+02:04:27 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),maxnum(C,E,F),my_prev(F,B), !.
+02:04:27 Program 87:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,D),my_succ(D,F),maxnum(D,E,B),diff_lessthanone(B,F), !.
+02:04:27 Program 88:
+02:04:27 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:27 sll_len(A,B):- value(A,D),next(A,F),sll_len(F,E),maxnum(D,E,C),my_prev(C,B), !.
+02:04:27 Program 89:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,F),my_prev(F,E),diff_lessthanone(C,E),maxnum(C,F,B), !.
+02:04:27 Program 90:
+02:04:27 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:27 sll_len(A,B):- value(A,E),next(A,D),anynumber(E),sll_len(D,C),my_succ(C,B), !.
+02:04:27 Program 91:
+02:04:27 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:27 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,D),maxnum(D,E,B),my_prev(D,F),diff_lessthanone(B,F), !.
+02:04:27 Program 92:
+02:04:27 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:27 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,E),maxnum(D,E,C),my_succ(C,B), !.
+02:04:27 Program 93:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,F),maxnum(C,F,B),my_succ(F,E),diff_lessthanone(B,E), !.
+02:04:27 Program 94:
+02:04:27 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:27 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
+02:04:27 Program 95:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,D),value(A,F),my_prev(F,E),sll_len(D,C),maxnum(C,F,B),diff_lessthanone(B,E), !.
+02:04:27 Program 96:
+02:04:27 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:27 sll_len(A,B):- value(A,E),anynumber(E),next(A,D),sll_len(D,C),my_succ(C,B), !.
+02:04:27 Program 97:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,E),maxnum(C,E,B),my_succ(B,D),diff_lessthanone(C,D), !.
+02:04:27 Program 98:
+02:04:27 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:27 sll_len(A,B):- value(A,C),next(A,F),my_succ(C,D),sll_len(F,E),maxnum(D,E,B), !.
+02:04:27 Program 99:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,F),my_prev(F,E),maxnum(C,F,B),diff_lessthanone(B,E), !.
+02:04:27 Program 100:
+02:04:27 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:27 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
+02:04:27 Program 101:
+02:04:27 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:27 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,C),maxnum(C,F,B),my_succ(C,E),diff_lessthanone(E,F), !.
+02:04:28 Program 102:
+02:04:28 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,E),anynumber(E),sll_len(D,C),my_prev(C,B), !.
+02:04:28 Program 103:
+02:04:28 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:28 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,E),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(C,D), !.
+02:04:28 Program 104:
+02:04:28 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:28 sll_len(A,B):- value(A,C),next(A,F),my_succ(C,D),sll_len(F,E),maxnum(D,E,B), !.
+02:04:28 Program 105:
+02:04:28 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,C),my_succ(C,E),sll_len(D,F),maxnum(C,F,B),diff_lessthanone(B,E), !.
+02:04:28 Program 106:
+02:04:28 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,C),maxnum(C,F,B),my_succ(B,E),diff_lessthanone(E,F), !.
+02:04:28 Program 107:
+02:04:28 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,E),anynumber(E),sll_len(D,C),my_prev(C,B), !.
+02:04:28 Program 108:
+02:04:28 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:28 sll_len(A,B):- next(A,C),value(A,E),my_succ(E,B),sll_len(C,D),diff_lessthanone(B,D), !.
+02:04:28 Program 109:
+02:04:28 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:28 sll_len(A,B):- next(A,F),value(A,C),my_prev(C,D),sll_len(F,E),maxnum(C,E,B),diff_lessthanone(B,D), !.
+02:04:28 Program 110:
+02:04:28 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:28 sll_len(A,B):- value(A,C),my_prev(C,D),next(A,F),sll_len(F,E),maxnum(D,E,B), !.
+02:04:28 Program 111:
+02:04:28 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:28 sll_len(A,B):- value(A,E),next(A,D),my_prev(E,F),sll_len(D,C),maxnum(C,F,B), !.
+02:04:28 Program 112:
+02:04:28 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),my_succ(C,F),maxnum(E,F,B), !.
+02:04:28 Program 113:
+02:04:28 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:28 sll_len(A,B):- value(A,D),next(A,F),sll_len(F,E),maxnum(D,E,B),my_prev(B,C),diff_lessthanone(C,D), !.
+02:04:28 Program 114:
+02:04:28 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:28 sll_len(A,B):- value(A,C),next(A,F),my_prev(C,D),sll_len(F,E),maxnum(D,E,B), !.
+02:04:28 Program 115:
+02:04:28 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,C),sll_len(D,E),maxnum(C,E,B),my_prev(B,F),diff_lessthanone(E,F), !.
+02:04:28 Program 116:
+02:04:28 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:28 sll_len(A,B):- value(A,E),my_prev(E,F),next(A,D),sll_len(D,C),maxnum(C,F,B), !.
+02:04:28 Program 117:
+02:04:28 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:28 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,C),my_succ(C,F),maxnum(E,F,B), !.
+02:04:28 Program 118:
+02:04:28 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:28 sll_len(A,B):- value(A,E),next(A,C),my_succ(E,F),sll_len(C,D),maxnum(D,F,B), !.
+02:04:28 Program 119:
+02:04:28 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:28 sll_len(A,B):- value(A,C),next(A,D),sll_len(D,E),maxnum(C,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+02:04:28 Program 120:
+02:04:28 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:28 sll_len(A,B):- next(A,E),value(A,F),my_succ(F,D),sll_len(E,C),maxnum(C,D,B), !.
+02:04:28 Program 121:
+02:04:28 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:28 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),my_prev(C,F),maxnum(E,F,B), !.
+02:04:28 Program 122:
+02:04:28 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:28 sll_len(A,B):- next(A,F),value(A,D),sll_len(F,E),maxnum(D,E,B),my_succ(B,C),diff_lessthanone(C,D), !.
+02:04:28 Program 123:
+02:04:28 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:28 sll_len(A,B):- value(A,C),my_succ(C,B),next(A,D),sll_len(D,E),anynumber(E), !.
+02:04:29 Program 124:
+02:04:29 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:29 sll_len(A,B):- value(A,E),next(A,D),sll_len(D,C),my_prev(C,F),maxnum(E,F,B), !.
+02:04:29 Program 125:
+02:04:29 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:29 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,E),maxnum(E,F,B),my_prev(B,C),diff_lessthanone(C,E), !.
+02:04:29 Program 126:
+02:04:29 sll_len(A,B):- nullptr(A),zero(B), !.
+02:04:29 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,E),maxnum(E,F,B),my_succ(B,C),diff_lessthanone(C,E), !.
+02:04:29 Program 127:
+02:04:29 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:29 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,E),maxnum(E,F,C),my_prev(C,B), !.
+02:04:29 Program 128:
+02:04:29 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:29 sll_len(A,B):- next(A,E),value(A,F),sll_len(E,D),maxnum(D,F,C),my_succ(C,B), !.
+02:04:29 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 7
+02:04:30 Program 129:
+02:04:30 sll_len(A,B):- zero(B),nullptr(A), !.
+02:04:30 sll_len(A,B):- value(A,C),anynumber(C),next(A,E),sll_len(E,D),my_prev(D,F),my_succ(D,B),diff_lessthanone(B,F), !.
+02:04:30 Program 130:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_succ(B,C),diff_lessthanone(C,D), !.
+02:04:30 Program 131:
+02:04:30 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- value(A,E),next(A,F),sll_len(F,C),maxnum(C,E,B),my_succ(C,D),diff_lessthanone(D,E), !.
+02:04:30 Program 132:
+02:04:30 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- next(A,C),value(A,F),sll_len(C,E),maxnum(E,F,B),my_succ(E,D),diff_lessthanone(B,D), !.
+02:04:30 Program 133:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,E),maxnum(E,F,B),my_succ(B,C),diff_lessthanone(C,E), !.
+02:04:30 Program 134:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
+02:04:30 Program 135:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),maxnum(D,F,B),my_prev(B,C),diff_lessthanone(C,D), !.
+02:04:30 Program 136:
+02:04:30 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- next(A,F),value(A,D),my_succ(D,E),sll_len(F,C),maxnum(C,D,B),diff_lessthanone(B,E), !.
+02:04:30 Program 137:
+02:04:30 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- value(A,E),next(A,F),sll_len(F,C),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(D,E), !.
+02:04:30 Program 138:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- next(A,F),value(A,E),sll_len(F,C),maxnum(C,E,B),my_succ(B,D),diff_lessthanone(D,E), !.
+02:04:30 Program 139:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,C),my_succ(C,E),diff_lessthanone(E,F),maxnum(C,F,B), !.
+02:04:30 Program 140:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(C,F), !.
+02:04:30 Program 141:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),my_prev(F,C),next(A,E),sll_len(E,D),maxnum(D,F,B),diff_lessthanone(C,D), !.
+02:04:30 Program 142:
+02:04:30 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- next(A,F),value(A,D),my_succ(D,E),sll_len(F,C),maxnum(C,D,B),diff_lessthanone(B,E), !.
+02:04:30 Program 143:
+02:04:30 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- value(A,D),my_succ(D,E),next(A,F),sll_len(F,C),diff_lessthanone(C,E),maxnum(C,D,B), !.
+02:04:30 Program 144:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- next(A,D),value(A,F),sll_len(D,C),maxnum(C,F,B),my_succ(C,E),diff_lessthanone(B,E), !.
+02:04:30 Program 145:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
+02:04:30 Program 146:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,C),sll_len(C,E),my_prev(E,D),maxnum(E,F,B),diff_lessthanone(B,D), !.
+02:04:30 Program 147:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,E),maxnum(E,F,B),my_prev(B,C),diff_lessthanone(C,E), !.
+02:04:30 Program 148:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- next(A,F),value(A,D),my_succ(D,E),sll_len(F,C),diff_lessthanone(C,E),maxnum(C,D,B), !.
+02:04:30 Program 149:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,E),next(A,F),sll_len(F,C),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(C,D), !.
+02:04:30 Program 150:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,C),my_prev(C,E),maxnum(C,F,B),diff_lessthanone(E,F), !.
+02:04:30 Program 151:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,E),sll_len(E,D),my_prev(D,C),maxnum(D,F,B),diff_lessthanone(B,C), !.
+02:04:30 Program 152:
+02:04:30 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:30 sll_len(A,B):- next(A,C),value(A,F),my_prev(F,D),sll_len(C,E),maxnum(E,F,B),diff_lessthanone(B,D), !.
+02:04:30 Program 153:
+02:04:30 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,E),next(A,F),sll_len(F,C),maxnum(C,E,B),my_succ(B,D),diff_lessthanone(D,E), !.
+02:04:30 Program 154:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:30 sll_len(A,B):- value(A,F),next(A,D),sll_len(D,C),maxnum(C,F,B),my_prev(C,E),diff_lessthanone(E,F), !.
+02:04:30 Program 155:
+02:04:30 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:30 sll_len(A,B):- value(A,D),next(A,E),my_prev(D,F),sll_len(E,C),diff_lessthanone(C,F),maxnum(C,D,B), !.
+02:04:31 Program 156:
+02:04:31 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,E),value(A,F),my_prev(F,C),sll_len(E,D),maxnum(D,F,B),diff_lessthanone(B,C), !.
+02:04:31 Program 157:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,C),value(A,F),my_prev(F,D),sll_len(C,E),maxnum(E,F,B),diff_lessthanone(D,E), !.
+02:04:31 Program 158:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,D),value(A,F),my_succ(F,C),sll_len(D,E),maxnum(E,F,B),diff_lessthanone(C,E), !.
+02:04:31 Program 159:
+02:04:31 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:31 sll_len(A,B):- value(A,D),my_succ(D,C),next(A,E),sll_len(E,F),maxnum(D,F,B),diff_lessthanone(B,C), !.
+02:04:31 Program 160:
+02:04:31 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:31 sll_len(A,B):- value(A,E),next(A,F),sll_len(F,C),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(D,E), !.
+02:04:31 Program 161:
+02:04:31 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:31 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_succ(C,F),diff_lessthanone(D,F), !.
+02:04:31 Program 162:
+02:04:31 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,E),value(A,F),my_succ(F,C),sll_len(E,D),diff_lessthanone(C,D),maxnum(D,F,B), !.
+02:04:31 Program 163:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),my_prev(F,C),maxnum(D,F,B),diff_lessthanone(B,C), !.
+02:04:31 Program 164:
+02:04:31 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:31 sll_len(A,B):- next(A,F),value(A,E),sll_len(F,C),maxnum(C,E,B),my_succ(B,D),diff_lessthanone(C,D), !.
+02:04:31 Program 165:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_prev(C,F),diff_lessthanone(D,F), !.
+02:04:31 Program 166:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+02:04:31 Program 167:
+02:04:31 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,D),maxnum(C,D,B),my_prev(D,E),diff_lessthanone(B,E), !.
+02:04:31 Program 168:
+02:04:31 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:31 sll_len(A,B):- next(A,E),value(A,D),my_prev(D,C),sll_len(E,F),maxnum(D,F,B),diff_lessthanone(B,C), !.
+02:04:31 Program 169:
+02:04:31 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:31 sll_len(A,B):- next(A,C),value(A,F),my_prev(F,E),sll_len(C,D),maxnum(D,F,B),diff_lessthanone(D,E), !.
+02:04:31 Program 170:
+02:04:31 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,F),value(A,E),sll_len(F,C),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(C,D), !.
+02:04:31 Program 171:
+02:04:31 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:31 sll_len(A,B):- next(A,E),value(A,D),sll_len(E,C),maxnum(C,D,B),my_succ(B,F),diff_lessthanone(D,F), !.
+02:04:31 Program 172:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(E,F), !.
+02:04:31 Program 173:
+02:04:31 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:31 sll_len(A,B):- next(A,F),value(A,C),sll_len(F,D),my_prev(D,E),diff_lessthanone(C,E),maxnum(C,D,B), !.
+02:04:31 Program 174:
+02:04:31 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,F),maxnum(D,F,B),my_succ(F,C),diff_lessthanone(B,C), !.
+02:04:31 Program 175:
+02:04:31 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:31 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
+02:04:31 Program 176:
+02:04:31 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:31 sll_len(A,B):- value(A,D),next(A,E),sll_len(E,C),maxnum(C,D,B),my_succ(C,F),diff_lessthanone(D,F), !.
+02:04:32 Program 177:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(D,F), !.
+02:04:32 Program 178:
+02:04:32 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B),my_prev(B,F),diff_lessthanone(D,F), !.
+02:04:32 Program 179:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- next(A,E),value(A,D),my_succ(D,C),sll_len(E,F),maxnum(D,F,B),diff_lessthanone(B,C), !.
+02:04:32 Program 180:
+02:04:32 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- next(A,D),value(A,E),my_prev(E,C),sll_len(D,F),maxnum(E,F,B),diff_lessthanone(B,C), !.
+02:04:32 Program 181:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- next(A,C),value(A,E),sll_len(C,F),maxnum(E,F,B),my_succ(B,D),diff_lessthanone(D,F), !.
+02:04:32 Program 182:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,F),maxnum(E,F,B),my_prev(B,D),diff_lessthanone(D,F), !.
+02:04:32 Program 183:
+02:04:32 sll_len(A,B):- nullptr(A),zero(C),my_prev(C,B), !.
+02:04:32 sll_len(A,B):- next(A,C),value(A,D),sll_len(C,F),maxnum(D,F,B),my_succ(B,E),diff_lessthanone(E,F), !.
+02:04:32 Program 184:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),my_succ(E,F),maxnum(D,E,B),diff_lessthanone(B,F), !.
+02:04:32 Program 185:
+02:04:32 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,D),maxnum(C,D,B),my_succ(B,E),diff_lessthanone(C,E), !.
+02:04:32 Program 186:
+02:04:32 sll_len(A,B):- nullptr(A),zero(C),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- value(A,C),next(A,F),sll_len(F,E),maxnum(C,E,B),my_prev(B,D),diff_lessthanone(C,D), !.
+02:04:32 Program 187:
+02:04:32 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,F),maxnum(E,F,B),my_succ(B,D),diff_lessthanone(D,E), !.
+02:04:32 Program 188:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_prev(C,B), !.
+02:04:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,F),maxnum(D,F,B),my_prev(B,E),diff_lessthanone(E,F), !.
+02:04:32 Program 189:
+02:04:32 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- next(A,D),value(A,E),sll_len(D,F),maxnum(E,F,B),my_prev(B,C),diff_lessthanone(C,E), !.
+02:04:32 Program 190:
+02:04:32 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- value(A,E),next(A,C),sll_len(C,F),maxnum(E,F,B),my_prev(B,D),diff_lessthanone(D,E), !.
+02:04:32 Program 191:
+02:04:32 sll_len(A,B):- zero(C),my_succ(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- value(A,D),next(A,C),sll_len(C,E),maxnum(D,E,B),my_succ(B,F),diff_lessthanone(E,F), !.
+02:04:32 Program 192:
+02:04:32 sll_len(A,B):- zero(C),my_prev(C,B),nullptr(A), !.
+02:04:32 sll_len(A,B):- value(A,D),next(A,F),sll_len(F,E),maxnum(D,E,B),my_succ(B,C),diff_lessthanone(C,D), !.
+02:04:32 Program 193:
+02:04:32 sll_len(A,B):- zero(C),nullptr(A),my_succ(C,B), !.
+02:04:32 sll_len(A,B):- next(A,E),value(A,C),sll_len(E,D),maxnum(C,D,B),my_prev(B,F),diff_lessthanone(D,F), !.
+02:04:32 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 7

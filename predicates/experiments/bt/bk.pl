@@ -244,5 +244,3 @@ value(n_31, 97).
 left(n_31, null).
 right(n_31, null).
 
-% btree(A,B):- nullptr(A),empty(B), !.
-% btree(A,B):- value(A,E),right(A,C),left(A,D),btree(D,F),btree(C,G),ord_union(F,G,H),insert(H,E,B), !.

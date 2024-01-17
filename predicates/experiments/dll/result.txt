@@ -1,352 +1,180 @@
+python3 ./popper.py ./predicates/experiments/dll --threshold 1000 --debug --stats
+
 ********** SOLUTION **********
 Precision:1.00 Recall:1.00 TP:3 FN:0 TN:0 FP:0 Size:10
-dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),insert(D,E,C), !.
+dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+dll(A,B,C):- prev(A,B),next(A,E),key(A,D),dll(E,A,F),insert(F,D,C), !.
 predicate dll(loc A,loc B,interval C) {
 | A==0 => {C==[] ; emp}
-| not (A==0) => {C==D + [E] ; dll(F,A,D) ** A + 0 :-> E ** A + 1 :-> F ** A + 2 :-> B ** [A, 3]}
+| not (A==0) => {C==F + [D] ; dll(E,A,F) ** A + 0 :-> D ** A + 1 :-> E ** A + 2 :-> B ** [A, 3]}
 }
-{'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(1, dll, 3, (5,0,3,))', 'body_literal(0, anypointer, 1, (1,))', 'body_literal(1, next, 2, (0,5,))', 'body_literal(1, prev, 2, (0,1,))', 'body_literal(1, insert, 3, (3,4,2,))', 'body_literal(0, nullptr, 1, (0,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(1, key, 2, (0,4,))'}
+{'body_literal(1, next, 2, (0,4,))', 'body_literal(1, dll, 3, (4,0,5,))', 'body_literal(0, anypointer, 1, (1,))', 'head_literal(1, dll, 3, (0,1,2,))', 'body_literal(0, empty, 1, (2,))', 'body_literal(0, nullptr, 1, (0,))', 'body_literal(1, insert, 3, (5,3,2,))', 'body_literal(1, prev, 2, (0,1,))', 'head_literal(0, dll, 3, (0,1,2,))', 'body_literal(1, key, 2, (0,3,))'}
 ******************************
-Num. programs: 61
+Num. programs: 27
 Generate:
-        Called: 88 times         Total: 1.52     Mean: 0.017     Max: 0.507      Percentage: 59%
+        Called: 54 times         Total: 1.45     Mean: 0.027     Max: 0.466      Percentage: 74%
 Find Mucs:
-        Called: 29 times         Total: 0.55     Mean: 0.019     Max: 0.389      Percentage: 21%
-Ground:
-        Called: 60 times         Total: 0.21     Mean: 0.004     Max: 0.023      Percentage: 8%
+        Called: 19 times         Total: 0.25     Mean: 0.013     Max: 0.168      Percentage: 12%
 Init:
-        Called: 28 times         Total: 0.12     Mean: 0.004     Max: 0.023      Percentage: 4%
-Constrain:
-        Called: 60 times         Total: 0.12     Mean: 0.002     Max: 0.015      Percentage: 4%
+        Called: 28 times         Total: 0.09     Mean: 0.003     Max: 0.012      Percentage: 4%
+Ground:
+        Called: 26 times         Total: 0.09     Mean: 0.003     Max: 0.025      Percentage: 4%
 Test:
-        Called: 61 times         Total: 0.04     Mean: 0.001     Max: 0.016      Percentage: 1%
+        Called: 29 times         Total: 0.04     Mean: 0.001     Max: 0.017      Percentage: 1%
+Constrain:
+        Called: 26 times         Total: 0.04     Mean: 0.001     Max: 0.007      Percentage: 1%
 Combine:
-        Called: 32 times         Total: 0.01     Mean: 0.000     Max: 0.006      Percentage: 0%
-Total operation time: 2.57s
-Total execution time: 3.29s
+        Called: 16 times         Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 1.95s
+Total execution time: 2.90s
 
-02:44:12 Max rules: 2
-02:44:12 Max vars: 9
-02:44:12 Max body: 12
-02:44:13 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
-02:44:13 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
-02:44:13 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
-02:44:13 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
-02:44:13 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
-02:44:13 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
-02:44:13 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
-02:44:13 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
-02:44:13 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
-02:44:13 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
-02:44:13 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
-02:44:13 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
-02:44:13 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
-02:44:13 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
-02:44:13 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
-02:44:13 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
-02:44:13 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
-02:44:13 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
-02:44:13 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
-02:44:13 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
-02:44:13 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
-02:44:13 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
-02:44:13 Program 1:
-02:44:13 dll(A,B,C):- empty(C),same_ptr(A,B), !.
-02:44:13 dll(A,B,C):- prev(A,B),next(A,F),key(A,D),dll(B,F,E),insert(E,D,C), !.
-02:44:13 Program 2:
-02:44:13 dll(A,B,C):- empty(C),same_ptr(A,B), !.
-02:44:13 dll(A,B,C):- prev(A,F),next(A,B),key(A,D),dll(B,F,E),insert(E,D,C), !.
-02:44:13 Program 3:
-02:44:13 dll(A,B,C):- empty(C),same_ptr(A,B), !.
-02:44:13 dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,B,E),insert(E,D,C), !.
-02:44:13 Program 4:
-02:44:13 dll(A,B,C):- empty(C),same_ptr(A,B), !.
-02:44:13 dll(A,B,C):- prev(A,E),next(A,E),key(A,D),dll(E,B,F),insert(F,D,C), !.
-02:44:13 Program 5:
-02:44:13 dll(A,B,C):- same_ptr(A,B),empty(C), !.
-02:44:13 dll(A,B,C):- prev(A,B),key(A,D),next(A,F),dll(F,A,E),insert(E,D,C), !.
-02:44:13 Program 6:
-02:44:13 dll(A,B,C):- same_ptr(A,B),empty(C), !.
-02:44:13 dll(A,B,C):- next(A,B),prev(A,F),key(A,D),dll(F,A,E),insert(E,D,C), !.
-02:44:14 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
-02:44:14 Program 7:
-02:44:14 dll(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
-02:44:14 dll(A,B,C):- key(A,E),prev(A,F),next(A,F),dll(F,B,D),insert(D,E,C), !.
-02:44:14 Program 8:
-02:44:14 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:14 dll(A,B,C):- next(A,F),key(A,E),prev(A,F),dll(F,B,D),insert(D,E,C), !.
-02:44:14 Program 9:
-02:44:14 dll(A,B,C):- empty(C),nullptr(A),nullptr(B), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(B,F,D),insert(D,E,C), !.
-02:44:14 Program 10:
-02:44:14 dll(A,B,C):- nullptr(A),empty(C),nullptr(B), !.
-02:44:14 dll(A,B,C):- prev(A,B),next(A,E),key(A,F),dll(E,B,D),insert(D,F,C), !.
-02:44:14 Program 11:
-02:44:14 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:14 dll(A,B,C):- key(A,D),prev(A,E),next(A,B),dll(B,E,F),insert(F,D,C), !.
-02:44:14 Program 12:
-02:44:14 dll(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
-02:44:14 dll(A,B,C):- key(A,D),next(A,B),prev(A,E),dll(B,E,F),insert(F,D,C), !.
-02:44:14 Program 13:
-02:44:14 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:14 dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(B,D,E),insert(E,F,C), !.
-02:44:14 Program 14:
-02:44:14 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:14 dll(A,B,C):- key(A,F),prev(A,B),next(A,E),dll(E,B,D),insert(D,F,C), !.
-02:44:14 Program 15:
-02:44:14 dll(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
-02:44:14 dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(D,A,E),insert(E,F,C), !.
-02:44:14 Program 16:
-02:44:14 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),insert(D,E,C), !.
-02:44:14 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),insert(D,E,C), !.
-02:44:14 score:51, 1.0, 154
-02:44:14 CURRENT
-02:44:14 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),insert(D,E,C), !.
-02:44:14 score:51, 1.0, 154
-02:44:14 ********************
-02:44:14 New best hypothesis:
-02:44:14 tp:3 fn:0 size:10
-02:44:14 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),insert(D,E,C), !.
-02:44:14 ********************
-02:44:14 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 8
-02:44:14 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 8
-02:44:14 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 8
-02:44:14 Program 17:
-02:44:14 dll(A,B,C):- empty(C),same_ptr(A,B), !.
-02:44:14 dll(A,B,C):- next(A,B),key(A,G),my_succ(G,D),prev(A,E),dll(E,B,F),insert(F,D,C), !.
-02:44:14 Program 18:
-02:44:14 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,F),next(A,D),dll(D,A,E),insert(E,F,C), !.
-02:44:14 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,F),next(A,D),dll(D,A,E),insert(E,F,C), !.
-02:44:14 score:51, 1.0, 154
-02:44:14 CURRENT
-02:44:14 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,F),next(A,D),dll(D,A,E),insert(E,F,C), !.
-02:44:14 score:51, 1.0, 154
-02:44:14 Program 19:
-02:44:14 dll(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-02:44:14 dll(A,B,C):- next(A,B),prev(A,D),key(A,F),dll(D,A,E),insert(E,F,C), !.
-02:44:14 Program 20:
-02:44:14 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:14 dll(A,B,C):- prev(A,D),key(A,F),next(A,B),dll(D,A,E),insert(E,F,C), !.
-02:44:14 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 8
-02:44:14 Program 21:
-02:44:14 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,G),my_succ(G,E),next(A,F),dll(B,F,D),insert(D,E,C), !.
-02:44:14 Program 22:
-02:44:14 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:14 dll(A,B,C):- prev(A,B),key(A,G),next(A,F),my_prev(G,E),dll(B,F,D),insert(D,E,C), !.
-02:44:14 Program 23:
-02:44:14 dll(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
-02:44:14 dll(A,B,C):- key(A,E),my_succ(E,G),next(A,B),prev(A,D),dll(D,B,F),insert(F,G,C), !.
-02:44:14 Program 24:
-02:44:14 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:14 dll(A,B,C):- prev(A,B),next(A,F),key(A,E),my_succ(E,D),dll(F,A,G),insert(G,D,C), !.
-02:44:15 Program 25:
-02:44:15 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:15 dll(A,B,C):- key(A,G),next(A,B),my_prev(G,D),prev(A,E),dll(E,B,F),insert(F,D,C), !.
-02:44:15 Program 26:
-02:44:15 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:15 dll(A,B,C):- next(A,F),key(A,E),my_prev(E,D),prev(A,B),dll(F,A,G),insert(G,D,C), !.
-02:44:15 Program 27:
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- next(A,E),prev(A,B),key(A,F),dll(E,A,D),gt_list(F,D),insert(D,F,C), !.
-02:44:15 Program 28:
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- prev(A,B),key(A,F),next(A,E),dll(E,A,D),insert(D,F,C),lt_list(F,D), !.
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- prev(A,B),key(A,F),next(A,E),dll(E,A,D),insert(D,F,C),lt_list(F,D), !.
-02:44:15 score:None, None, None
-02:44:15 Program 29:
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- next(A,F),prev(A,B),key(A,E),dll(F,A,D),insert(D,E,C),lt_list(E,D), !.
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- next(A,F),prev(A,B),key(A,E),dll(F,A,D),insert(D,E,C),lt_list(E,D), !.
-02:44:15 score:None, None, None
-02:44:15 Program 30:
-02:44:15 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:15 dll(A,B,C):- prev(A,B),key(A,F),next(A,D),dll(D,A,E),lt_list(F,E),insert(E,F,C), !.
-02:44:15 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:15 dll(A,B,C):- prev(A,B),key(A,F),next(A,D),dll(D,A,E),lt_list(F,E),insert(E,F,C), !.
-02:44:15 score:None, None, None
-02:44:15 Program 31:
-02:44:15 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-02:44:15 dll(A,B,C):- next(A,E),key(A,D),prev(A,B),dll(E,A,F),insert(F,D,C),lt_list(D,F), !.
-02:44:15 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-02:44:15 dll(A,B,C):- next(A,E),key(A,D),prev(A,B),dll(E,A,F),insert(F,D,C),lt_list(D,F), !.
-02:44:15 score:None, None, None
-02:44:15 Program 32:
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- prev(A,B),key(A,E),next(A,D),dll(D,A,F),lt_list(E,F),insert(F,E,C), !.
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- prev(A,B),key(A,E),next(A,D),dll(D,A,F),lt_list(E,F),insert(F,E,C), !.
-02:44:15 score:None, None, None
-02:44:15 Program 33:
-02:44:15 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:15 dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,A,E),lt_list(D,E),insert(E,D,C), !.
-02:44:15 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:15 dll(A,B,C):- next(A,F),prev(A,B),key(A,D),dll(F,A,E),lt_list(D,E),insert(E,D,C), !.
-02:44:15 score:None, None, None
-02:44:15 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 8
-02:44:15 Program 34:
-02:44:15 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:15 dll(A,B,C):- key(A,E),next(A,D),prev(A,B),dll(D,A,F),dll(B,D,G),ord_union(F,G,C),gt_list(E,G), !.
-02:44:15 Program 35:
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- key(A,D),next(A,G),prev(A,B),my_succ(D,E),dll(G,A,F),insert(F,D,C),lt_list(E,F), !.
-02:44:15 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:15 dll(A,B,C):- key(A,D),next(A,G),prev(A,B),my_succ(D,E),dll(G,A,F),insert(F,D,C),lt_list(E,F), !.
-02:44:15 score:None, None, None
-02:44:15 Program 36:
-02:44:15 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:15 dll(A,B,C):- next(A,G),prev(A,B),key(A,D),my_prev(D,F),dll(G,A,E),gt_list(F,E),insert(E,D,C), !.
-02:44:15 Program 37:
-02:44:15 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:15 dll(A,B,C):- key(A,F),next(A,G),prev(A,B),my_succ(F,D),dll(G,A,E),lt_list(D,E),insert(E,F,C), !.
-02:44:15 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:15 dll(A,B,C):- key(A,F),next(A,G),prev(A,B),my_succ(F,D),dll(G,A,E),lt_list(D,E),insert(E,F,C), !.
-02:44:15 score:None, None, None
-02:44:15 Program 38:
-02:44:15 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:15 dll(A,B,C):- key(A,D),next(A,G),prev(A,B),my_prev(D,F),dll(G,A,E),insert(E,D,C),gt_list(F,C), !.
-02:44:16 Program 39:
-02:44:16 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:16 dll(A,B,C):- next(A,G),key(A,D),my_succ(D,F),prev(A,B),dll(G,A,E),insert(E,D,C),lt_list(F,C), !.
-02:44:16 Program 40:
-02:44:16 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),key(A,D),my_succ(D,F),next(A,G),dll(G,A,E),lt_list(F,E),insert(E,D,C), !.
-02:44:16 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),key(A,D),my_succ(D,F),next(A,G),dll(G,A,E),lt_list(F,E),insert(E,D,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 41:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,D),my_succ(D,G),prev(A,B),next(A,F),dll(F,A,E),lt_list(G,E),insert(E,D,C), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,D),my_succ(D,G),prev(A,B),next(A,F),dll(F,A,E),lt_list(G,E),insert(E,D,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 42:
-02:44:16 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,D),prev(A,B),next(A,E),my_succ(D,F),dll(E,A,G),lt_list(F,G),insert(G,D,C), !.
-02:44:16 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,D),prev(A,B),next(A,E),my_succ(D,F),dll(E,A,G),lt_list(F,G),insert(G,D,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 43:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,E),key(A,F),my_succ(F,D),dll(E,A,G),insert(G,F,C),lt_list(D,G), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,E),key(A,F),my_succ(F,D),dll(E,A,G),insert(G,F,C),lt_list(D,G), !.
-02:44:16 score:None, None, None
-02:44:16 Program 44:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),key(A,F),my_succ(F,E),next(A,G),dll(G,A,D),lt_list(E,D),insert(D,F,C), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),key(A,F),my_succ(F,E),next(A,G),dll(G,A,D),lt_list(E,D),insert(D,F,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 45:
-02:44:16 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:16 dll(A,B,C):- next(A,G),prev(A,B),key(A,E),my_succ(E,D),dll(G,A,F),lt_list(D,F),insert(F,E,C), !.
-02:44:16 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:16 dll(A,B,C):- next(A,G),prev(A,B),key(A,E),my_succ(E,D),dll(G,A,F),lt_list(D,F),insert(F,E,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 46:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,E),key(A,G),my_succ(G,D),dll(E,A,F),insert(F,G,C),lt_list(D,F), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,E),key(A,G),my_succ(G,D),dll(E,A,F),insert(F,G,C),lt_list(D,F), !.
-02:44:16 score:None, None, None
-02:44:16 Program 47:
-02:44:16 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:16 dll(A,B,C):- key(A,E),prev(A,B),my_succ(E,F),next(A,G),dll(G,A,D),lt_list(F,D),insert(D,E,C), !.
-02:44:16 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:16 dll(A,B,C):- key(A,E),prev(A,B),my_succ(E,F),next(A,G),dll(G,A,D),lt_list(F,D),insert(D,E,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 48:
-02:44:16 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:16 dll(A,B,C):- key(A,D),next(A,E),my_succ(D,G),prev(A,B),dll(E,A,F),insert(F,D,C),lt_list(G,F), !.
-02:44:16 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
-02:44:16 dll(A,B,C):- key(A,D),next(A,E),my_succ(D,G),prev(A,B),dll(E,A,F),insert(F,D,C),lt_list(G,F), !.
-02:44:16 score:None, None, None
-02:44:16 Program 49:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,E),my_succ(E,D),prev(A,B),next(A,F),dll(F,A,G),insert(G,E,C),lt_list(D,G), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,E),my_succ(E,D),prev(A,B),next(A,F),dll(F,A,G),insert(G,E,C),lt_list(D,G), !.
-02:44:16 score:None, None, None
-02:44:16 Program 50:
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,G),next(A,D),my_succ(G,E),prev(A,B),dll(D,A,F),lt_list(E,F),insert(F,G,C), !.
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,G),next(A,D),my_succ(G,E),prev(A,B),dll(D,A,F),lt_list(E,F),insert(F,G,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 51:
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,D),key(A,G),my_succ(G,F),dll(D,A,E),insert(E,G,C),lt_list(F,E), !.
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,D),key(A,G),my_succ(G,F),dll(D,A,E),insert(E,G,C),lt_list(F,E), !.
-02:44:16 score:None, None, None
-02:44:16 Program 52:
-02:44:16 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,F),key(A,D),my_succ(D,E),dll(F,A,G),lt_list(E,G),insert(G,D,C), !.
-02:44:16 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,F),key(A,D),my_succ(D,E),dll(F,A,G),lt_list(E,G),insert(G,D,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 53:
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,G),my_succ(G,E),next(A,F),prev(A,B),dll(F,A,D),insert(D,G,C),lt_list(E,D), !.
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,G),my_succ(G,E),next(A,F),prev(A,B),dll(F,A,D),insert(D,G,C),lt_list(E,D), !.
-02:44:16 score:None, None, None
-02:44:16 Program 54:
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,F),key(A,G),my_succ(G,D),dll(F,A,E),insert(E,G,C),lt_list(D,E), !.
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- prev(A,B),next(A,F),key(A,G),my_succ(G,D),dll(F,A,E),insert(E,G,C),lt_list(D,E), !.
-02:44:16 score:None, None, None
-02:44:16 Program 55:
-02:44:16 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:16 dll(A,B,C):- prev(A,B),key(A,G),my_succ(G,F),next(A,E),dll(E,A,D),insert(D,G,C),lt_list(F,D), !.
-02:44:16 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
-02:44:16 dll(A,B,C):- prev(A,B),key(A,G),my_succ(G,F),next(A,E),dll(E,A,D),insert(D,G,C),lt_list(F,D), !.
-02:44:16 score:None, None, None
-02:44:16 Program 56:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- next(A,F),prev(A,B),key(A,E),my_succ(E,G),dll(F,A,D),insert(D,E,C),lt_list(G,D), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- next(A,F),prev(A,B),key(A,E),my_succ(E,G),dll(F,A,D),insert(D,E,C),lt_list(G,D), !.
-02:44:16 score:None, None, None
-02:44:16 Program 57:
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- next(A,D),key(A,F),my_succ(F,E),prev(A,B),dll(D,A,G),lt_list(E,G),insert(G,F,C), !.
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- next(A,D),key(A,F),my_succ(F,E),prev(A,B),dll(D,A,G),lt_list(E,G),insert(G,F,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 58:
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,E),next(A,D),prev(A,B),my_succ(E,F),dll(D,A,G),insert(G,E,C),lt_list(F,G), !.
-02:44:16 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
-02:44:16 dll(A,B,C):- key(A,E),next(A,D),prev(A,B),my_succ(E,F),dll(D,A,G),insert(G,E,C),lt_list(F,G), !.
-02:44:16 score:None, None, None
-02:44:16 Program 59:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- next(A,E),key(A,F),my_succ(F,G),prev(A,B),dll(E,A,D),lt_list(G,D),insert(D,F,C), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- next(A,E),key(A,F),my_succ(F,G),prev(A,B),dll(E,A,D),lt_list(G,D),insert(D,F,C), !.
-02:44:16 score:None, None, None
-02:44:16 Program 60:
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,F),next(A,D),my_succ(F,G),prev(A,B),dll(D,A,E),insert(E,F,C),lt_list(G,E), !.
-02:44:16 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,F),next(A,D),my_succ(F,G),prev(A,B),dll(D,A,E),insert(E,F,C),lt_list(G,E), !.
-02:44:16 score:None, None, None
-02:44:16 Program 61:
-02:44:16 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,E),my_succ(E,G),next(A,D),prev(A,B),dll(D,A,F),insert(F,E,C),lt_list(G,F), !.
-02:44:16 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
-02:44:16 dll(A,B,C):- key(A,E),my_succ(E,G),next(A,D),prev(A,B),dll(D,A,F),insert(F,E,C),lt_list(G,F), !.
-02:44:16 score:None, None, None
+01:28:49 Max rules: 2
+01:28:49 Max vars: 9
+01:28:49 Max body: 12
+01:28:50 SIZE: 6 MAX_LENGTH: 3 MAX_VAR: 3
+01:28:50 SIZE: 7 MAX_LENGTH: 3 MAX_VAR: 3
+01:28:50 SIZE: 8 MAX_LENGTH: 3 MAX_VAR: 3
+01:28:50 SIZE: 6 MAX_LENGTH: 4 MAX_VAR: 4
+01:28:50 SIZE: 7 MAX_LENGTH: 4 MAX_VAR: 4
+01:28:50 SIZE: 8 MAX_LENGTH: 4 MAX_VAR: 4
+01:28:50 SIZE: 9 MAX_LENGTH: 4 MAX_VAR: 4
+01:28:50 SIZE: 6 MAX_LENGTH: 5 MAX_VAR: 5
+01:28:50 SIZE: 7 MAX_LENGTH: 5 MAX_VAR: 5
+01:28:50 SIZE: 8 MAX_LENGTH: 5 MAX_VAR: 5
+01:28:50 SIZE: 9 MAX_LENGTH: 5 MAX_VAR: 5
+01:28:50 SIZE: 10 MAX_LENGTH: 5 MAX_VAR: 5
+01:28:50 SIZE: 6 MAX_LENGTH: 6 MAX_VAR: 6
+01:28:50 SIZE: 7 MAX_LENGTH: 6 MAX_VAR: 6
+01:28:50 SIZE: 8 MAX_LENGTH: 6 MAX_VAR: 6
+01:28:50 SIZE: 9 MAX_LENGTH: 6 MAX_VAR: 6
+01:28:50 SIZE: 10 MAX_LENGTH: 6 MAX_VAR: 6
+01:28:50 SIZE: 11 MAX_LENGTH: 6 MAX_VAR: 6
+01:28:50 SIZE: 6 MAX_LENGTH: 7 MAX_VAR: 7
+01:28:50 SIZE: 7 MAX_LENGTH: 7 MAX_VAR: 7
+01:28:50 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 7
+01:28:50 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 7
+01:28:50 Program 1:
+01:28:50 dll(A,B,C):- same_ptr(A,B),empty(C), !.
+01:28:50 dll(A,B,C):- prev(A,F),key(A,D),next(A,B),dll(B,F,E),insert(E,D,C), !.
+01:28:50 Program 2:
+01:28:50 dll(A,B,C):- same_ptr(A,B),empty(C), !.
+01:28:50 dll(A,B,C):- next(A,F),key(A,D),prev(A,B),dll(B,F,E),insert(E,D,C), !.
+01:28:50 Program 3:
+01:28:50 dll(A,B,C):- empty(C),same_ptr(A,B), !.
+01:28:50 dll(A,B,C):- prev(A,B),next(A,D),key(A,E),dll(D,B,F),insert(F,E,C), !.
+01:28:50 Program 4:
+01:28:50 dll(A,B,C):- same_ptr(A,B),empty(C), !.
+01:28:50 dll(A,B,C):- next(A,B),prev(A,D),key(A,F),dll(D,A,E),insert(E,F,C), !.
+01:28:50 Program 5:
+01:28:50 dll(A,B,C):- empty(C),same_ptr(A,B), !.
+01:28:50 dll(A,B,C):- key(A,F),prev(A,D),next(A,B),dll(D,B,E),insert(E,F,C), !.
+01:28:50 Program 6:
+01:28:50 dll(A,B,C):- same_ptr(A,B),empty(C), !.
+01:28:50 dll(A,B,C):- key(A,D),next(A,E),prev(A,B),dll(E,A,F),insert(F,D,C), !.
+01:28:50 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 7
+01:28:50 Program 7:
+01:28:50 dll(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+01:28:50 dll(A,B,C):- key(A,D),prev(A,F),next(A,B),dll(F,B,E),insert(E,D,C), !.
+01:28:50 Program 8:
+01:28:50 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+01:28:50 dll(A,B,C):- next(A,B),prev(A,F),key(A,D),dll(F,B,E),insert(E,D,C), !.
+01:28:50 Program 9:
+01:28:50 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:50 dll(A,B,C):- prev(A,F),key(A,D),next(A,B),dll(B,F,E),insert(E,D,C), !.
+01:28:50 Program 10:
+01:28:50 dll(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+01:28:50 dll(A,B,C):- prev(A,F),key(A,D),next(A,B),dll(B,F,E),insert(E,D,C), !.
+01:28:50 Program 11:
+01:28:50 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+01:28:50 dll(A,B,C):- key(A,D),next(A,F),prev(A,B),dll(F,B,E),insert(E,D,C), !.
+01:28:50 Program 12:
+01:28:50 dll(A,B,C):- nullptr(B),empty(C),nullptr(A), !.
+01:28:50 dll(A,B,C):- key(A,D),prev(A,B),next(A,E),dll(E,B,F),insert(F,D,C), !.
+01:28:50 Program 13:
+01:28:50 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:50 dll(A,B,C):- next(A,B),prev(A,F),key(A,D),dll(F,A,E),insert(E,D,C), !.
+01:28:50 Program 14:
+01:28:50 dll(A,B,C):- nullptr(B),nullptr(A),empty(C), !.
+01:28:50 dll(A,B,C):- key(A,D),prev(A,B),next(A,E),dll(B,E,F),insert(F,D,C), !.
+01:28:51 Program 15:
+01:28:51 dll(A,B,C):- empty(C),nullptr(B),nullptr(A), !.
+01:28:51 dll(A,B,C):- key(A,D),prev(A,B),next(A,E),dll(E,A,F),insert(F,D,C), !.
+01:28:51 Program 16:
+01:28:51 dll(A,B,C):- anypointer(B),empty(C),nullptr(A), !.
+01:28:51 dll(A,B,C):- next(A,D),prev(A,B),key(A,F),dll(B,D,E),insert(E,F,C), !.
+01:28:51 Program 17:
+01:28:51 dll(A,B,C):- nullptr(A),nullptr(B),empty(C), !.
+01:28:51 dll(A,B,C):- key(A,E),next(A,B),prev(A,D),dll(D,A,F),insert(F,E,C), !.
+01:28:51 Program 18:
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),next(A,E),key(A,D),dll(E,A,F),insert(F,D,C), !.
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),next(A,E),key(A,D),dll(E,A,F),insert(F,D,C), !.
+01:28:51 score:51, 1.0, 154
+01:28:51 CURRENT
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),next(A,E),key(A,D),dll(E,A,F),insert(F,D,C), !.
+01:28:51 score:51, 1.0, 154
+01:28:51 ********************
+01:28:51 New best hypothesis:
+01:28:51 tp:3 fn:0 size:10
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),next(A,E),key(A,D),dll(E,A,F),insert(F,D,C), !.
+01:28:51 ********************
+01:28:51 SIZE: 8 MAX_LENGTH: 7 MAX_VAR: 8
+01:28:51 SIZE: 9 MAX_LENGTH: 7 MAX_VAR: 8
+01:28:51 SIZE: 10 MAX_LENGTH: 7 MAX_VAR: 8
+01:28:51 Program 19:
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),key(A,F),next(A,E),dll(E,A,D),insert(D,F,C), !.
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),key(A,F),next(A,E),dll(E,A,D),insert(D,F,C), !.
+01:28:51 score:51, 1.0, 154
+01:28:51 CURRENT
+01:28:51 dll(A,B,C):- nullptr(A),anypointer(B),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),key(A,F),next(A,E),dll(E,A,D),insert(D,F,C), !.
+01:28:51 score:51, 1.0, 154
+01:28:51 SIZE: 11 MAX_LENGTH: 7 MAX_VAR: 8
+01:28:51 Program 20:
+01:28:51 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),key(A,F),next(A,E),dll(E,A,D),gt_set(F,D),insert(D,F,C), !.
+01:28:51 Program 21:
+01:28:51 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:51 dll(A,B,C):- key(A,F),prev(A,B),next(A,E),dll(E,A,D),insert(D,F,C),lt_set(F,D), !.
+01:28:51 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:51 dll(A,B,C):- key(A,F),prev(A,B),next(A,E),dll(E,A,D),insert(D,F,C),lt_set(F,D), !.
+01:28:51 score:None, None, None
+01:28:51 Program 22:
+01:28:51 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),lt_set(E,D),insert(D,E,C), !.
+01:28:51 dll(A,B,C):- anypointer(B),nullptr(A),empty(C), !.
+01:28:51 dll(A,B,C):- prev(A,B),key(A,E),next(A,F),dll(F,A,D),lt_set(E,D),insert(D,E,C), !.
+01:28:51 score:None, None, None
+01:28:51 Program 23:
+01:28:51 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+01:28:51 dll(A,B,C):- next(A,E),key(A,D),prev(A,B),dll(E,A,F),insert(F,D,C),lt_set(D,F), !.
+01:28:51 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+01:28:51 dll(A,B,C):- next(A,E),key(A,D),prev(A,B),dll(E,A,F),insert(F,D,C),lt_set(D,F), !.
+01:28:51 score:None, None, None
+01:28:51 Program 24:
+01:28:51 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:51 dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(D,A,E),lt_set(F,E),insert(E,F,C), !.
+01:28:51 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:51 dll(A,B,C):- key(A,F),next(A,D),prev(A,B),dll(D,A,E),lt_set(F,E),insert(E,F,C), !.
+01:28:51 score:None, None, None
+01:28:51 Program 25:
+01:28:51 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:51 dll(A,B,C):- next(A,F),key(A,D),prev(A,B),dll(F,A,E),lt_set(D,E),insert(E,D,C), !.
+01:28:51 dll(A,B,C):- nullptr(A),empty(C),anypointer(B), !.
+01:28:51 dll(A,B,C):- next(A,F),key(A,D),prev(A,B),dll(F,A,E),lt_set(D,E),insert(E,D,C), !.
+01:28:51 score:None, None, None
+01:28:51 Program 26:
+01:28:51 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+01:28:51 dll(A,B,C):- next(A,D),key(A,E),prev(A,B),dll(D,A,F),insert(F,E,C),lt_set(E,F), !.
+01:28:51 dll(A,B,C):- empty(C),anypointer(B),nullptr(A), !.
+01:28:51 dll(A,B,C):- next(A,D),key(A,E),prev(A,B),dll(D,A,F),insert(F,E,C),lt_set(E,F), !.
+01:28:51 score:None, None, None
+01:28:51 SIZE: 12 MAX_LENGTH: 7 MAX_VAR: 8
+01:28:51 Program 27:
+01:28:51 dll(A,B,C):- empty(C),nullptr(A),anypointer(B), !.
+01:28:51 dll(A,B,C):- key(A,E),next(A,F),prev(A,B),dll(B,F,D),gt_set(E,D),dll(F,A,G),ord_union(D,G,C), !.
