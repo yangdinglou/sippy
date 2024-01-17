@@ -364,7 +364,8 @@ class Combiner:
             return True
         else:
             # with self.settings.stats.duration('combine_update_prog_index'):
-            self.update_prog_index(prog, pos_covered)
+            with self.settings.stats.duration('combine'):
+                self.update_prog_index(prog, pos_covered)
 
             prog2 = prog
 
@@ -372,52 +373,53 @@ class Combiner:
             new_factv = None
             new_specv = None
             if len(pos_covered) == self.tester.num_pos:
-                new_factnum, new_factv, new_specv = self.tester.get_score(prog2)
+                with self.settings.stats.duration('test'):
+                    new_factnum, new_factv, new_specv = self.tester.get_score(prog2)
+            with self.settings.stats.duration('combine'):
+                for rule in order_prog(prog):
+                    self.settings.logger.debug(format_rule(order_rule(rule)))
+                self.settings.logger.debug(f'score:{new_factnum}, {new_factv}, {new_specv}')
+                # Pruning non SL programs
+                if new_factv != None and abs(new_factv - 1.0) > 0.0001:
+                    self.settings.logger.debug(f'Pruning non SL program')
+                    return None
+                if new_factnum != None:
+                    self.settings.logger.info(f'CURRENT')
+                    # self.settings.logger.info(f'{prog}')
+                    for rule in prog:
+                        self.settings.logger.info(format_rule(order_rule(rule)))
+                    self.settings.logger.info(f'score:{new_factnum}, {new_factv}, {new_specv}')
+                    # self.settings.logger.info(f'{current_cons}')
+                if not self.solution_found and pos_covered.issubset(self.pos_covered):
+                    # self.skip_count += 1
+                    # print('skip_count', self.skip_count)
+                    return False
+                if len(pos_covered) < self.tester.num_pos:
+                    return False
+                elif not self.better_prog(new_factnum, new_factv, new_specv):
+                    return False
+                self.best_factnum = new_factnum
+                self.best_factv = new_factv
+                self.best_specv = new_specv
+                self.settings.solution = prog
+                self.settings.best_cons = current_cons
+                size = prog_size(prog)
+                self.max_body = max(rule_size(rule) for rule in prog) - 1
+                self.max_var = num_of_var
 
-            for rule in order_prog(prog):
-                self.settings.logger.debug(format_rule(order_rule(rule)))
-            self.settings.logger.debug(f'score:{new_factnum}, {new_factv}, {new_specv}')
-            # Pruning non SL programs
-            if new_factv != None and abs(new_factv - 1.0) > 0.0001:
-                self.settings.logger.debug(f'Pruning non SL program')
-                return None
-            if new_factnum != None:
-                self.settings.logger.info(f'CURRENT')
-                # self.settings.logger.info(f'{prog}')
-                for rule in prog:
-                    self.settings.logger.info(format_rule(order_rule(rule)))
-                self.settings.logger.info(f'score:{new_factnum}, {new_factv}, {new_specv}')
-                # self.settings.logger.info(f'{current_cons}')
-            if not self.solution_found and pos_covered.issubset(self.pos_covered):
-                # self.skip_count += 1
-                # print('skip_count', self.skip_count)
-                return False
-            if len(pos_covered) < self.tester.num_pos:
-                return False
-            elif not self.better_prog(new_factnum, new_factv, new_specv):
-                return False
-            self.best_factnum = new_factnum
-            self.best_factv = new_factv
-            self.best_specv = new_specv
-            self.settings.solution = prog
-            self.settings.best_cons = current_cons
-            size = prog_size(prog)
-            self.max_body = max(rule_size(rule) for rule in prog) - 1
-            self.max_var = num_of_var
+                tn = self.tester.num_neg
+                fp = 0
 
-            tn = self.tester.num_neg
-            fp = 0
+                # if fn > 0:
+                #     tp = self.tester.num_pos - fn
+                #     self.num_covered = tp
+                #     self.settings.print_incomplete_solution(prog, tp, fn, size)
+                #     self.settings.best_prog_score = (tp, fn, tn, fp, size)
+                #     return False
 
-            # if fn > 0:
-            #     tp = self.tester.num_pos - fn
-            #     self.num_covered = tp
-            #     self.settings.print_incomplete_solution(prog, tp, fn, size)
-            #     self.settings.best_prog_score = (tp, fn, tn, fp, size)
-            #     return False
-
-            self.settings.print_incomplete_solution(prog, self.tester.num_pos, 0, size)
-            self.solution_found = True
-            self.max_size = size
-            self.best_prog = prog
-            self.settings.best_prog_score = (self.tester.num_pos, 0, tn, fp, size)
+                self.settings.print_incomplete_solution(prog, self.tester.num_pos, 0, size)
+                self.solution_found = True
+                self.max_size = size
+                self.best_prog = prog
+                self.settings.best_prog_score = (self.tester.num_pos, 0, tn, fp, size)
             return True

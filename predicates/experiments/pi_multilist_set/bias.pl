@@ -47,7 +47,7 @@ inner_pointer(value, integer).
 
 
 body_pred(anypointer, 1).
-body_pred(anynumber, 1):-inv_pure(integer).
+body_pred(anynumber, 1).
 body_pred(nullptr,1).
 body_pred(zero,1):-inv_pure(integer).
 body_pred(diff_lessthanone,2):-inv_pure(integer).
@@ -57,19 +57,17 @@ body_pred(maxnum,3):-inv_pure(integer).
 body_pred(same_ptr,2).
 
 not_in(anypointer, 1).
-not_in(anypointer, 3).
-not_in(anynumber, 0).
-not_in(anynumber, 2).
+not_in(anypointer, 3):-enable_pi.
 not_in(nullptr, 1).
-not_in(nullptr, 3).
+not_in(nullptr, 3):-enable_pi.
 not_in(zero, 1).
-not_in(zero, 3).
+not_in(zero, 3):-enable_pi.
 not_in(diff_lessthanone, 0).
-not_in(diff_lessthanone, 2).
+not_in(diff_lessthanone, 2):-enable_pi.
 not_in(maxnum, 0).
-not_in(maxnum, 2).
+not_in(maxnum, 2):-enable_pi.
 not_in(same_ptr, 1).
-not_in(same_ptr, 3).
+not_in(same_ptr, 3):-enable_pi.
 
 body_pred(empty,1):-inv_pure(set).
 body_pred(gt_set,2):-inv_pure(set).
@@ -84,26 +82,26 @@ body_pred(append,3):-inv_pure(list).
 body_pred(cons,3):-inv_pure(list).
 
 not_in(empty, 1).
-not_in(empty, 3).
+not_in(empty, 3):-enable_pi.
 not_in(gt_set, 0).
-not_in(gt_set, 2).
+not_in(gt_set, 2):-enable_pi.
 not_in(lt_set, 0).
-not_in(lt_set, 2).
+not_in(lt_set, 2):-enable_pi.
 not_in(ord_union, 0).
-not_in(ord_union, 2).
+not_in(ord_union, 2):-enable_pi.
 not_in(insert, 0).
-not_in(insert, 2).
+not_in(insert, 2):-enable_pi.
 
 not_in(nil, 1).
-not_in(nil, 3).
+not_in(nil, 3):-enable_pi.
 not_in(gt_list, 0).
-not_in(gt_list, 2).
+not_in(gt_list, 2):-enable_pi.
 not_in(lt_list, 0).
-not_in(lt_list, 2).
+not_in(lt_list, 2):-enable_pi.
 not_in(append, 0).
-not_in(append, 2).
+not_in(append, 2):-enable_pi.
 not_in(cons, 0).
-not_in(cons, 2).
+not_in(cons, 2):-enable_pi.
 
 type(anypointer,(pointer,)).
 type(anynumber,(integer,)).
@@ -168,8 +166,20 @@ direction(cons,(in,in,out)).
     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 :-
-    body_literal(T, anynumber, _, (A,)),
-    not out_from_this(T, A).
+	body_literal(T, my_succ, _, (_, A)),
+	body_literal(T, anynumber, _, (A,)).
+
+:-
+	body_literal(T, my_prev, _, (_, A)),
+	body_literal(T, anynumber, _, (A,)).
+
+:-
+	body_literal(T, maxnum, _, (_,_, A)),
+	body_literal(T, anynumber, _, (A,)).
+
+:-
+	body_literal(T, zero, _, (A,)),
+	body_literal(T, anynumber, _, (A,)).
 
 
 :-

@@ -362,8 +362,8 @@ def popper(settings):
                             rec_success_sets[pos_covered] = prog
 
                         # COMBINE
-                        with settings.stats.duration('combine'):
-                            new_solution_found = combiner.update_best_prog(prog, pos_covered, current_cons, num_of_var)
+                        # with settings.stats.duration('combine'):
+                        new_solution_found = combiner.update_best_prog(prog, pos_covered, current_cons, num_of_var)
                         if new_solution_found == None:
                             add_spec = True
                             new_solution_found = False

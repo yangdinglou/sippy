@@ -1332,7 +1332,7 @@ prev(5,4).
 
 
 pure_type(integer).
-po_type(integer).
+% po_type(integer).
 pure_type(set).
 po_type(set).
 pure_type(list).
@@ -1356,8 +1356,7 @@ direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
     head_pred(P,A),
     % prev(A, B),
     B == A - 1,
-    inv_pure(X),
-    not po_type(X),
+    inv_pure(list),
     var_in_head_pos(1, P, B, B1),
     var_in_body_pos(1, P, B, B2),
 	not contain_in_list(1, B2, B1).

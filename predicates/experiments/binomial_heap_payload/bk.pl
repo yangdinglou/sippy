@@ -1,5 +1,5 @@
-p(X, Y, R) :- nullptr(X), zero(R), anypointer(Y).
-p(X, Y, R) :- key(X, V), child(X, C), parent(X, Y), p(C, X, R1), my_succ(R1, R), sibling(X, X1), p(X1, Y, R2), anynumber(R2), anynumber(V).
+% p(X, Y, R) :- nullptr(X), zero(R), anypointer(Y).
+% p(X, Y, R) :- key(X, V), child(X, C), parent(X, Y), p(C, X, R1), my_succ(R1, R), sibling(X, X1), p(X1, Y, R2), anynumber(R2), anynumber(V).
 
 nullptr(null).
 anynumber(_).
@@ -31,8 +31,8 @@ parent(x4,x1).
 my_succ(A, B) :-
     B is A + 1.
 
-q(X, S) :- nullptr(X), empty(S).
-q(X, S) :- key(X, V), child(X, C), q(C, S1), sibling(X, X1), q(X1, S2), ord_union(S1,S2,Tmp),insert(Tmp,V,S).
+% q(X, Y, S) :- nullptr(X), empty(S), anypointer(Y).
+% q(X, Y, S) :- key(X, V), child(X, C), parent(X, Y), q(C, X, S1), sibling(X, X1), q(X1, Y, S2), ord_union(S1,S2,Tmp),insert(Tmp,V,S).
 
 use_module(library(lists)).
 empty([]).
