@@ -1,0 +1,190 @@
+python3 ./popper.py ./predicates/experiments/lasso --threshold 1000 --debug --stats --circle
+100
+Num. programs: 5
+Test:
+        Called: 7 times          Total: 0.31     Mean: 0.044     Max: 0.071      Percentage: 36%
+Generate:
+        Called: 30 times         Total: 0.29     Mean: 0.010     Max: 0.221      Percentage: 34%
+Find Mucs:
+        Called: 3 times          Total: 0.13     Mean: 0.045     Max: 0.132      Percentage: 15%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.013      Percentage: 9%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.007     Max: 0.009      Percentage: 3%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 1%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 0.85s
+Total execution time: 2.03s
+
+200
+Num. programs: 5
+Test:
+        Called: 7 times          Total: 0.63     Mean: 0.089     Max: 0.201      Percentage: 59%
+Generate:
+        Called: 30 times         Total: 0.16     Mean: 0.005     Max: 0.115      Percentage: 15%
+Find Mucs:
+        Called: 3 times          Total: 0.14     Mean: 0.045     Max: 0.132      Percentage: 12%
+Init:
+        Called: 26 times         Total: 0.09     Mean: 0.003     Max: 0.015      Percentage: 8%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.007     Max: 0.009      Percentage: 2%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 1.05s
+Total execution time: 2.57s
+
+300
+Num. programs: 5
+Test:
+        Called: 7 times          Total: 1.46     Mean: 0.209     Max: 0.621      Percentage: 80%
+Find Mucs:
+        Called: 3 times          Total: 0.13     Mean: 0.044     Max: 0.128      Percentage: 7%
+Generate:
+        Called: 30 times         Total: 0.10     Mean: 0.003     Max: 0.059      Percentage: 5%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.012      Percentage: 4%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.009     Max: 0.009      Percentage: 1%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 1.82s
+Total execution time: 3.17s
+
+400
+Num. programs: 5
+Test:
+        Called: 7 times          Total: 2.69     Mean: 0.384     Max: 1.232      Percentage: 83%
+Generate:
+        Called: 30 times         Total: 0.27     Mean: 0.009     Max: 0.132      Percentage: 8%
+Find Mucs:
+        Called: 3 times          Total: 0.13     Mean: 0.043     Max: 0.123      Percentage: 4%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.011      Percentage: 2%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.009     Max: 0.010      Percentage: 1%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 3.21s
+Total execution time: 4.40s
+
+500
+Num. programs: 2
+Test:
+        Called: 4 times          Total: 4.78     Mean: 1.194     Max: 2.375      Percentage: 97%
+Init:
+        Called: 23 times         Total: 0.07     Mean: 0.003     Max: 0.013      Percentage: 1%
+Generate:
+        Called: 23 times         Total: 0.04     Mean: 0.002     Max: 0.006      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 4.88s
+Total execution time: 6.09s
+
+******************************
+Num. programs: 2
+Specificity:
+        Called: 2 times          Total: 4.80     Mean: 2.399     Max: 2.400      Percentage: 97%
+Init:
+        Called: 23 times         Total: 0.07     Mean: 0.003     Max: 0.014      Percentage: 1%
+Generate:
+        Called: 23 times         Total: 0.04     Mean: 0.002     Max: 0.005      Percentage: 0%
+Test:
+        Called: 2 times          Total: 0.03     Mean: 0.013     Max: 0.023      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 4.93s
+Total execution time: 6.28s
+
+4
+Num. programs: 5
+Specificity:
+        Called: 2 times          Total: 4.09     Mean: 2.047     Max: 2.063      Percentage: 87%
+Test:
+        Called: 5 times          Total: 0.19     Mean: 0.038     Max: 0.058      Percentage: 4%
+Generate:
+        Called: 30 times         Total: 0.17     Mean: 0.006     Max: 0.127      Percentage: 3%
+Find Mucs:
+        Called: 3 times          Total: 0.12     Mean: 0.038     Max: 0.107      Percentage: 2%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.012      Percentage: 1%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.008     Max: 0.010      Percentage: 0%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 4.70s
+Total execution time: 6.03s
+
+3
+******************************
+Num. programs: 5
+Specificity:
+        Called: 2 times          Total: 2.86     Mean: 1.432     Max: 1.437      Percentage: 84%
+Generate:
+        Called: 30 times         Total: 0.16     Mean: 0.005     Max: 0.116      Percentage: 4%
+Test:
+        Called: 5 times          Total: 0.15     Mean: 0.030     Max: 0.043      Percentage: 4%
+Find Mucs:
+        Called: 3 times          Total: 0.08     Mean: 0.028     Max: 0.078      Percentage: 2%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.013      Percentage: 2%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.007     Max: 0.009      Percentage: 0%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 3.37s
+Total execution time: 4.82s
+
+2
+******************************
+Num. programs: 5
+Specificity:
+        Called: 2 times          Total: 2.13     Mean: 1.064     Max: 1.065      Percentage: 82%
+Generate:
+        Called: 30 times         Total: 0.18     Mean: 0.006     Max: 0.133      Percentage: 6%
+Test:
+        Called: 5 times          Total: 0.11     Mean: 0.021     Max: 0.030      Percentage: 4%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.013      Percentage: 2%
+Find Mucs:
+        Called: 3 times          Total: 0.06     Mean: 0.020     Max: 0.055      Percentage: 2%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.008     Max: 0.009      Percentage: 1%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 2.59s
+Total execution time: 3.79s
+
+******************************
+Num. programs: 5
+Specificity:
+        Called: 2 times          Total: 1.35     Mean: 0.675     Max: 0.677      Percentage: 82%
+Init:
+        Called: 26 times         Total: 0.08     Mean: 0.003     Max: 0.013      Percentage: 4%
+Generate:
+        Called: 30 times         Total: 0.07     Mean: 0.002     Max: 0.025      Percentage: 4%
+Test:
+        Called: 5 times          Total: 0.06     Mean: 0.012     Max: 0.020      Percentage: 3%
+Find Mucs:
+        Called: 3 times          Total: 0.03     Mean: 0.011     Max: 0.028      Percentage: 1%
+Ground:
+        Called: 4 times          Total: 0.03     Mean: 0.007     Max: 0.009      Percentage: 1%
+Constrain:
+        Called: 4 times          Total: 0.01     Mean: 0.002     Max: 0.003      Percentage: 0%
+Combine:
+        Called: 4 times          Total: 0.00     Mean: 0.000     Max: 0.000      Percentage: 0%
+Total operation time: 1.63s
+Total execution time: 2.84s

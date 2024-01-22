@@ -373,7 +373,7 @@ class Combiner:
             new_factv = None
             new_specv = None
             if len(pos_covered) == self.tester.num_pos:
-                with self.settings.stats.duration('test'):
+                with self.settings.stats.duration('specificity'):
                     new_factnum, new_factv, new_specv = self.tester.get_score(prog2)
             with self.settings.stats.duration('combine'):
                 for rule in order_prog(prog):

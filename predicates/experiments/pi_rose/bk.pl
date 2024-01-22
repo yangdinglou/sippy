@@ -74,12 +74,6 @@ pointto(q1121,null).
 
 
 
-% rose_tree(A,S):- nullptr(A),empty(S).
-% rose_tree(A,S):- next1(A,B),buds(B,S1),value(A,C),insert(S1,C,S).
-% buds(A,S):- nullptr(A),empty(S).
-% buds(A,S):- pointto(A,C),rose_tree(C,S1),next2(A,B),buds(B,S2), ord_union(S1,S2,S).
-
-
 next1(r1, r1_s11).
 next1(s11, s11_t111).
 next1(s12, s12_t121).
