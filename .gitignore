@@ -144,3 +144,6 @@ static
 
 # macOS files
 .DS_Store
+
+# .vscode
+.vscode/
