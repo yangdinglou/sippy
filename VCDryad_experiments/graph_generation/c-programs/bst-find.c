@@ -37,6 +37,7 @@ int bst_find_rec(BNode * x, int k)
       } else if (k < x->key) {
         if (x->left != NULL) {
           assert(x->left->key <= x->key);
+          assert(x->left!=x->right);
         }
         int r = bst_find_rec(x->left, k);
         return r;

@@ -28,24 +28,20 @@
 
 
 from pathlib import Path
+import subprocess
+import sys
+import tempfile
 from clingo import Control, Function, Number, String
 from random import randint
 
-domains = ["key","next"]
-node = "SNnode"
 
 class GraphGenerator:
-    def __init__(self, domains, node):
-        self.domains = domains
+    def __init__(self,  node):
         self.node = node
         self.control = Control(['-Wnone',"-t8"])
-        self.control.load((Path(__file__).parent / "lists.lp").__str__())
+        self.control.load((Path(__file__).parent / "generator.lp").__str__())
         self.control.configuration.solve.models = 0
-        self.random_const(10)
-        # self.control.ground([("base", [])])
-    def random_const(self, number):
-        for i in range(number):
-            self.control.add("base", [], f"const({randint(0, 20)}).")
+        self.control.ground([("base", [])])
     def get_c_func(self, model):
         print(model.symbols(shown = True))
         
@@ -60,40 +56,40 @@ class GraphGenerator:
         assert len(start_atom) == 1
         for atom in node_atom:
             c_code += f"{self.node} * {atom.arguments[0]} = ({self.node} *) malloc(sizeof({self.node}));\n"
+            c_code += f"memset({atom.arguments[0]}, 0, sizeof({self.node}));\n"
         for atom in model.symbols(shown = True):
-            if atom.name == "value":
-                if "value" not in self.domains and "key" in self.domains:
-                    c_code += f"{atom.arguments[0]}->key = {atom.arguments[1]};\n"
-                else:
-                    c_code += f"{atom.arguments[0]}->value = {atom.arguments[1]};\n"
-            elif atom.name == "next":
-                c_code += f"{atom.arguments[0]}->next = {atom.arguments[1]};\n"
-            elif atom.name == "prev":
-                c_code += f"{atom.arguments[0]}->prev = {atom.arguments[1]};\n"
-            elif atom.name == "nullnext":
-                c_code += f"{atom.arguments[0]}->next = NULL;\n"
-            elif atom.name == "left":
-                c_code += f"{atom.arguments[0]}->left = {atom.arguments[1]};\n"
-            elif atom.name == "right":
-                c_code += f"{atom.arguments[0]}->right = {atom.arguments[1]};\n"
-            elif atom.name == "nullleft":
-                c_code += f"{atom.arguments[0]}->left = NULL;\n"
-            elif atom.name == "nullright":
-                c_code += f"{atom.arguments[0]}->right = NULL;\n"
+            if atom.name == "relation":
+                c_code += f"{atom.arguments[1]}->{atom.arguments[0]} = {atom.arguments[2]};\n"
         c_code += f"return {list(start_atom)[0].arguments[0]};\n}}"
         return c_code
-    def generate_graph(self):
-        self.control.ground([("base", [])])
-        with self.control.solve(yield_ = True) as handle:
+    
+    def test_on_program(self, graph_generator):
+        with tempfile.NamedTemporaryFile(mode='w', suffix=".c") as f:
+            f.write(graph_generator)
+            f.flush()
+            print(f.name)
+            subprocess.run(["gcc", f.name, "-o", f.name[:-2]], check = True)
+            output = subprocess.run([f.name[:-2]], stdout=subprocess.PIPE)
+            outputstr = output.stdout.decode("utf-8")
+    def generate_graph(self,number_of_nodes, count_to_generate):
+        total_cnt = 0
+        correct_cnt = 0
+        with self.control.solve(yield_ = True,assumptions= [(Function("num_of_nodes",[Number(number_of_nodes)]),True)]) as handle:
             handle = iter(handle)
-            for i in range(10):
-                model = next(handle, None)
-                if model == None:
-                    break
-                print(self.get_c_func(model))
+            model = next(handle, None)
+            if model == None:
+                return (total_cnt, correct_cnt)
+            print(self.get_c_func(model))
 
 if __name__ == "__main__":
-    domains = ["key","next"]
+    # command line arguments
+    args = sys.argv
+    assert len(args) == 2
+    path = Path.cwd() / args[1]
+    program = path.read_text()
+    print(program)
+
     node = "SNnode"
-    gg = GraphGenerator(domains,node)
-    gg.generate_graph()
+    gg = GraphGenerator(node)
+    for i in range(1000):
+        gg.generate_graph()
