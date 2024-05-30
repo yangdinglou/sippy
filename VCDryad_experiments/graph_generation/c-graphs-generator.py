@@ -36,8 +36,9 @@ from random import randint
 
 
 class GraphGenerator:
-    def __init__(self,  node):
+    def __init__(self, node,init_program):
         self.node = node
+        self.init_program = init_program
         self.control = Control(['-Wnone',"-t8"])
         self.control.load((Path(__file__).parent / "generator.lp").__str__())
         self.control.configuration.solve.models = 0
@@ -71,6 +72,8 @@ class GraphGenerator:
             subprocess.run(["gcc", f.name, "-o", f.name[:-2]], check = True)
             output = subprocess.run([f.name[:-2]], stdout=subprocess.PIPE)
             outputstr = output.stdout.decode("utf-8")
+            #delete the file
+            subprocess.run(["rm", f.name[:-2]])
     def generate_graph(self,number_of_nodes, count_to_generate):
         total_cnt = 0
         correct_cnt = 0
@@ -86,10 +89,9 @@ if __name__ == "__main__":
     args = sys.argv
     assert len(args) == 2
     path = Path.cwd() / args[1]
-    program = path.read_text()
-    print(program)
+    init_program = path.read_text()
 
     node = "SNnode"
-    gg = GraphGenerator(node)
+    gg = GraphGenerator(node,init_program)
     for i in range(1000):
         gg.generate_graph()
