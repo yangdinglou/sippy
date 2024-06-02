@@ -4,21 +4,14 @@
 % type(extra,int).
 
 type(next,pointer).
+type(prev,pointer_back).
 type(key,int).
-
-large:- type(X1,pointer), type(X2,pointer), X1<X2.
-:- node(n05), not large.
 
 {node(n00)}.
 {node(n01)}:- node(n00).
 {node(n02)}:- node(n01).
 {node(n03)}:- node(n02).
 {node(n04)}:- node(n03).
-{node(n05)}:- node(n04).
-{node(n06)}:- node(n05).
-{node(n07)}:- node(n06).
-{node(n08)}:- node(n07).
-{node(n09)}:- node(n08).
 num_of_nodes(X):- X = #count{N1:node(N1)}.
 #show num_of_nodes/1.
 
@@ -30,8 +23,10 @@ start(n00):- node(n00).
 #show start/1.
 
 0{relation(P,N,N1):node(N1),N1>N}1:- node(N),type(P,pointer).
+0{relation(P,N,N1):node(N1)}1:- node(N),type(P,pointer_back).
 
-:- relation(P,N1,N),relation(P,N2,N),N1<N2.
+:- relation(P,N1,N),relation(P,N2,N),N1<N2, type(P,pointer).
+:- relation(P,N1,N),relation(P,N2,N),N1<N2, type(P,pointer_back).
 
 reachable(N1,N2):- relation(_,N1,N2).
 reachable(N1,N2):- reachable(N1,N3), reachable(N3,N2).
@@ -43,6 +38,6 @@ reachable(N1,N2):- reachable(N1,N3), reachable(N3,N2).
 
 #show relation/3.
 
-const(1..10).
+const(0..3).
 
 1{relation(P,N,V):const(V)}1:- node(N),type(P,int).

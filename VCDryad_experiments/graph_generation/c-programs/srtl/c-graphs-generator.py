@@ -6,16 +6,19 @@ import sys
 import tempfile
 from clingo import Control, Function, Number, String
 from random import randint
+from math import ceil
 
 
 class GraphGenerator:
     def __init__(self, node,init_program):
         self.node = node
         self.init_program = init_program
-        self.control = Control(['-Wnone',"-t8"])
+        self.control = Control(['-Wnone',"-t8","--rand-freq=0.9"])
         self.control.load((Path(__file__).parent / "generator.lp").__str__())
         self.control.configuration.solve.models = 0
         self.control.ground([("base", [])])
+        self.total_cnt = 0
+        self.correct_cnt = 0
     def get_c_func(self, model):
         
         c_code = f"{self.node}* build_graph()" + "{\n"
@@ -59,34 +62,37 @@ class GraphGenerator:
                 if model == None:
                     return (total_cnt, correct_cnt)
                 total_cnt += 1
-                if total_cnt % 100 == 0:
+                if total_cnt % 10 == 0:
                     print(f"Generated {total_cnt} graphs in the current configuration")
                 test = self.test_on_program(self.init_program+self.get_c_func(model))
                 if test:
+                    print(model.symbols(shown = True))
                     correct_cnt += 1
+                    self.correct_cnt += 1
+                    print(f"Correct:{self.correct_cnt}")
                     if correct_cnt == count_to_generate:
                         return (total_cnt, correct_cnt)
+                    
+    def loop(self,to_generate):
+        for i in range(1,6):
+            out=gg.generate_graph(i, ceil((to_generate-self.correct_cnt)/(6-i)))
+            self.total_cnt += out[0]
+            print(f"Total number of graphs generated: {self.total_cnt}")
+            print(f"Correct number of graphs generated: {self.correct_cnt}")
 
 if __name__ == "__main__":
     # command line arguments
     args = sys.argv
-    assert len(args) == 2
+    assert len(args) == 2 or len(args) == 3
+    to_generate = 30
     path = Path.cwd() / args[1]
+    if len(args) == 3:
+        to_generate = int(args[2])
     init_program = path.read_text()
 
     node = "SNnode"
     gg = GraphGenerator(node,init_program)
-    total_cnt = 0
-    correct_cnt = 0
 
-    for i in range(1,6):
-        if i != 5:
-            out=gg.generate_graph(i, 20)
-            total_cnt += out[0]
-            correct_cnt += out[1]
-        else:
-            out=gg.generate_graph(i, 100-correct_cnt)
-            total_cnt += out[0]
-            correct_cnt += out[1]
+    gg.loop(to_generate)
 
-    print(f"Total number of graphs generated: {total_cnt}")
+    print(f"Total number of graphs generated: {gg.total_cnt}")

@@ -1,0 +1,42 @@
+Generating 20 graphs with 1 nodes
+Generating 23 graphs with 2 nodes
+Generating 23 graphs with 3 nodes
+Generating 22 graphs with 4 nodes
+Generated 100 graphs in the current configuration
+Generated 200 graphs in the current configuration
+Generated 300 graphs in the current configuration
+Generating 22 graphs with 5 nodes
+Generated 100 graphs in the current configuration
+Generated 200 graphs in the current configuration
+Generated 300 graphs in the current configuration
+Generated 400 graphs in the current configuration
+Generated 500 graphs in the current configuration
+Generated 600 graphs in the current configuration
+Generated 700 graphs in the current configuration
+Generated 800 graphs in the current configuration
+Generated 900 graphs in the current configuration
+Generated 1000 graphs in the current configuration
+Generated 1100 graphs in the current configuration
+Generated 1200 graphs in the current configuration
+Generated 1300 graphs in the current configuration
+Generated 1400 graphs in the current configuration
+Generated 1500 graphs in the current configuration
+Generated 1600 graphs in the current configuration
+Generated 1700 graphs in the current configuration
+Generated 1800 graphs in the current configuration
+Generated 1900 graphs in the current configuration
+Generated 2000 graphs in the current configuration
+Generated 2100 graphs in the current configuration
+Generated 2200 graphs in the current configuration
+Generated 2300 graphs in the current configuration
+Generated 2400 graphs in the current configuration
+Generated 2500 graphs in the current configuration
+Generated 2600 graphs in the current configuration
+Generated 2700 graphs in the current configuration
+Generated 2800 graphs in the current configuration
+Generated 2900 graphs in the current configuration
+Generated 3000 graphs in the current configuration
+Generated 3100 graphs in the current configuration
+Generated 3200 graphs in the current configuration
+Total number of graphs generated: 3755
+python c-graphs-generator.py ./srtlist.c  267.62s user 118.81s system 27% cpu 23:06.30 total

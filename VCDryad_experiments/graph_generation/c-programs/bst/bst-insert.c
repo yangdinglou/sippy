@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <assert.h>
+#include <string.h>
 
 typedef
 /*D_tag b_node */
@@ -9,7 +10,7 @@ struct b_node {
   int key;
 } BNode;
 
-
+BNode * build_graph();
 
 BNode * bst_insert_rec(BNode * x, int k)
   /*D_requires (bst^(x) & (~ (k i-in keys^(x)))) */
@@ -26,6 +27,10 @@ BNode * bst_insert_rec(BNode * x, int k)
 
     return leaf;
   } else if (k < x->key) {
+    assert(x->left!=x->right || (x->left==NULL && x->right==NULL));
+    if(x->left != NULL) {
+      assert(x->left->key <= x->key);
+    }
     BNode * l = x->left;
     BNode * r = x->right;
     BNode * tmp = bst_insert_rec(l, k);
@@ -34,6 +39,10 @@ BNode * bst_insert_rec(BNode * x, int k)
 
     return x;
   } else {
+    assert(x->left!=x->right || (x->left==NULL && x->right==NULL));
+    if(x->right != NULL) {
+      assert(x->right->key >= x->key);
+    }
     BNode * l = x->left;
     BNode * r = x->right;
     BNode * tmp = bst_insert_rec(r, k);
@@ -46,18 +55,17 @@ BNode * bst_insert_rec(BNode * x, int k)
 
 
 int main() {
-    BNode * root = NULL;
-    root = bst_insert_rec(root, 10);
-    root = bst_insert_rec(root, 20);
-    root = bst_insert_rec(root, 5);
-    root = bst_insert_rec(root, 15);
-    int r = bst_find_rec(root, 15);
-    assert(r == 1);
-    BNode * root2 = NULL;
-    root2 = bst_insert_rec(root2, 10);
-    root2 = bst_insert_rec(root2, 20);
-    int r2 = bst_find_rec(root2, 15);
-    assert(r2 == 0);
+    
+  BNode * root0 = build_graph();
+  BNode* ret = bst_insert_rec(root0, 0);
+  BNode * root1 = build_graph();
+  ret = bst_insert_rec(root1, 1);
+  BNode * root2 = build_graph();
+  ret = bst_insert_rec(root2, 2);
+  BNode * root3 = build_graph();
+  ret = bst_insert_rec(root3, 3);
+  BNode * root4 = build_graph();
+  ret = bst_insert_rec(root4, 4);
 
   return 0;
 }
