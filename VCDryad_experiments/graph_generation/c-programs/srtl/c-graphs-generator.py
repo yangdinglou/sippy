@@ -13,12 +13,15 @@ class GraphGenerator:
     def __init__(self, node,init_program):
         self.node = node
         self.init_program = init_program
-        self.control = Control(['-Wnone',"-t8","--rand-freq=0.9"])
+        self.control = None
+        self.correct_cnt = 0
+        self.total_cnt = 0
+    def init_solver(self,number):
+        self.control = Control(['-Wnone',"--rand-freq=0.9"])
         self.control.load((Path(__file__).parent / "generator.lp").__str__())
+        self.control.add("base", [], f":- not num_of_nodes({number}).")
         self.control.configuration.solve.models = 0
         self.control.ground([("base", [])])
-        self.total_cnt = 0
-        self.correct_cnt = 0
     def get_c_func(self, model):
         
         c_code = f"{self.node}* build_graph()" + "{\n"
@@ -75,6 +78,7 @@ class GraphGenerator:
                     
     def loop(self,to_generate):
         for i in range(1,6):
+            self.init_solver(i)
             out=gg.generate_graph(i, ceil((to_generate-self.correct_cnt)/(6-i)))
             self.total_cnt += out[0]
             print(f"Total number of graphs generated: {self.total_cnt}")
@@ -84,7 +88,7 @@ if __name__ == "__main__":
     # command line arguments
     args = sys.argv
     assert len(args) == 2 or len(args) == 3
-    to_generate = 30
+    to_generate = 100
     path = Path.cwd() / args[1]
     if len(args) == 3:
         to_generate = int(args[2])

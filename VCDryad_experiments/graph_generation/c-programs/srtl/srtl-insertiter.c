@@ -101,5 +101,9 @@ int main() {
     SNnode * x9 = build_graph();
     to_insert = 9;
     res = sorted_insert_iter(x9, to_insert);
+
+    SNnode * x10 = build_graph();
+    to_insert = 10;
+    res = sorted_insert_iter(x10, to_insert);
     return 0;
 }

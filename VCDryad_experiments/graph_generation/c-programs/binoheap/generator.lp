@@ -33,7 +33,9 @@ start(n00):- node(n00).
 
 0{relation(P,N,N1):node(N1),N1>N}1:- node(N),type(P,pointer).
 
-:- type(P,pointer),relation(P,N1,N),relation(P,N2,N),N1<N2.
+% :- relation(P,N1,N),relation(P,N2,N),N1<N2, type(P,pointer).
+
+:- node(N), #count{P,F:relation(P,F,N),type(P,pointer)}>1.
 
 reachable(N1,N2):- relation(_,N1,N2).
 reachable(N1,N2):- reachable(N1,N3), reachable(N3,N2).
