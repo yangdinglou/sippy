@@ -20,9 +20,7 @@ int sorted_find(SNnode * l, int k)
 	} else if (l->key == k) {
 		return 1;
 	} else {
-        if (l->next != NULL) {
-            assert(l->key <= l->next->key);
-        }
+        if (l->next != NULL) assert(l->key <= l->next->key);
 		int res = sorted_find(l->next, k);
 		return res;
 	}

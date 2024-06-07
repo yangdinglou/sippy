@@ -168,7 +168,7 @@ def popper(settings):
         max_size = (5 + mx_body) * int(settings.max_rules/2)
         min_size = (3 + current_body) * int(settings.max_rules/2)
         for size in range(min_size,max_size+1):
-            settings.logger.info(f'SIZE: {size} MAX_LENGTH: {mx_body} MAX_VAR: {mx_var+1}')
+            settings.logger.info(f'SIZE: {size} MAX_LENGTH: {mx_body} MAX_VAR: {mx_var}')
             generator.update_number_of_literals(size, mx_body, mx_var)
             with settings.stats.duration('init'):
                 generator.update_solver(size, all_handles, bad_handles, all_ground_cons)

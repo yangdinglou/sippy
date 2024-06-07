@@ -17,7 +17,7 @@ class GraphGenerator:
         self.correct_cnt = 0
         self.total_cnt = 0
     def init_solver(self,number):
-        self.control = Control(['-Wnone',"--rand-freq=0.9"])
+        self.control = Control(['-Wnone',"--rand-freq=1","--rand-prob=10","--configuration=trendy"])
         self.control.load((Path(__file__).parent / "generator.lp").__str__())
         self.control.add("base", [], f":- not num_of_nodes({number}).")
         self.control.configuration.solve.models = 0
@@ -35,9 +35,14 @@ class GraphGenerator:
         for atom in node_atom:
             c_code += f"{self.node} * {atom.arguments[0]} = ({self.node} *) malloc(sizeof({self.node}));\n"
             c_code += f"memset({atom.arguments[0]}, 0, sizeof({self.node}));\n"
+
+        # tmpstr = ""
         for atom in model.symbols(shown = True):
             if atom.name == "relation":
                 c_code += f"{atom.arguments[1]}->{atom.arguments[0]} = {atom.arguments[2]};\n"
+                # if str(atom.arguments[0]) == "children" or str(atom.arguments[0]) == "sibling":
+                #     tmpstr += f"{atom.arguments[1]}->{atom.arguments[0]} = {atom.arguments[2]};\n"
+        # print(tmpstr)
         c_code += f"return {list(start_atom)[0].arguments[0]};\n}}"
         return c_code
     

@@ -487,9 +487,7 @@ bigger(C1,C2):-
 %% ########################################
 %% RECURSION
 %% ########################################
-num_recursive(P,N):-
-    head_literal(_,P,_,_),
-    #count{C : recursive_clause(C,P,_)} == N.
+
 
 recursive:-
     recursive_clause(_,_,_).
@@ -527,7 +525,6 @@ base_clause(C,P,A):-
 
 %% DISALLOW TWO RECURSIVE CALLS
 %% WHY DID WE ADD THIS??
-% YDL
 :-
     C > 0,
     recursive_clause(C,P,A),
@@ -1446,3 +1443,5 @@ direction(P,(in,in,in)):- invented(P,3),not inv_pure(_).
     var_in_head_pos(3, P, B, B1),
     var_in_body_pos(3, P, B, B2),
 	not contain_in_list(3, B2, B1).
+
+:- #count{P:invented(P,_)} > 1.

@@ -47,16 +47,16 @@ reachable(N1,N2):- reachable(N1,N3), reachable(N3,N2).
 
 #show relation/3.
 
-const(0..3).
+const(0..2).
 
 1{relation(P,N,V):const(V)}1:- node(N),type(P,int).
 
-% :- not relation(order,n00,2).
-% :- not num_of_nodes(4).
+% :- not relation(order,n00,0).
+% :- not num_of_nodes(3).
 
 % :- not relation(children,n01,n03).
-% :- not relation(children,n00,n01).
-% :- not relation(sibling,n01,n02).
+% :- not relation(children,n01,n02).
+% :- not relation(sibling,n00,n01).
 
 % :- not relation(order,n00,2).
 % :- not relation(order,n01,1).
