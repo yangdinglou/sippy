@@ -1,2 +1,0 @@
-pq(X, N, M):- nullptr(X), zero(N), zero(M).
-pq(X, N, M):- value(X, V), left(X, L), nleft(X, Nl), right(X, R), nright(X, Nr), pq(L, Nl, Ml), pq(R, Nr, Mr), N is Ml + Mr + 1, diff_lessthanone(Ml, Mr), maxnum(Ml, Mr, M1), M1 <= V, M >= V.

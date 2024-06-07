@@ -310,7 +310,6 @@ def format_body2(body, head):
                 (pred_call, tmpsubst, tmpsecond) = format_literal2(literal)
                 
                 second = tmpsecond
-                print(f'second: {second}')
                 spatial.append(pred_call)
                 subst.update(tmpsubst)
             else:
@@ -431,9 +430,11 @@ def print_prog_score(prog, score, cons, head_types):
     print(format_prog(order_prog(prog)))
     
     out_pred = to_sl_preds(order_prog(prog), head_types) if not global_vcd else to_dryad_preds(order_prog(prog), head_types)
+    print("Output predicates:")
     for pred in out_pred:
         print(pred)
-    print(cons)
+    print()
+    # print(cons)
     print('*'*30)
 
 def prog_size(prog):

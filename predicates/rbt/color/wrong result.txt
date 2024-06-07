@@ -1,6 +1,0 @@
-20:17:31 CURRENT
-20:17:31 rbt(A,B):- nullptr(A),red(B), !.
-20:17:31 inv1(A,B,C):- rbt(B,E),anycolor(E),black(C),rbt(A,D),anycolor(D), !.
-20:17:31 rbt(A,B):- right(A,E),left(A,C),color(A,B),black(D),inv1(C,E,D), !.
-20:17:31 inv1(A,B,C):- rbt(B,D),black(C),rbt(A,D), !.
-20:17:31 score:63, 1.0, 284

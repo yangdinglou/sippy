@@ -1,8 +1,0 @@
-15:32:28 score:1335
-15:32:28 ********************  (ONE example)
-15:32:28 New best hypothesis:
-15:32:28 tp:1 fn:0 size:12
-15:32:28 skiplist(A,B):- equal(B,A), !.
-15:32:28 skiplist(A,B):- forward(A,B),down(A,C),skiplist(C,A), !.
-15:32:28 skiplist(A,B):- down(A,C),forward(A,D),down(D,E),skiplist(B,E),skiplist(C,E), !.
-15:32:28 ********************
