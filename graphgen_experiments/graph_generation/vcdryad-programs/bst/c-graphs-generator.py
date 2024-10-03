@@ -20,6 +20,12 @@ class GraphGenerator:
         self.outputbk = open("bk.pl", "w")
         # self.outputbk.write(f"num_of_nodes({node}).\n") TODO
         self.outputexs = open("exs.pl", "w")
+    def init_solver(self,number):
+        self.control = Control(['-Wnone',"--rand-freq=0.9"])
+        self.control.load((Path(__file__).parent / "generator.lp").__str__())
+        self.control.add("base", [], f":- not num_of_nodes({number}).")
+        self.control.configuration.solve.models = 0
+        self.control.ground([("base", [])])
     def get_c_func(self, model):
         
         c_code = f"{self.node}* build_graph()" + "{\n"
