@@ -7,6 +7,8 @@ type(next,pointer).
 type(prev,pointer_back).
 type(key,int).
 
+#show type/2.
+
 {node(n00)}.
 {node(n01)}:- node(n00).
 {node(n02)}:- node(n01).

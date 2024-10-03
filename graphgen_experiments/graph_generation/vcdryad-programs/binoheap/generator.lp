@@ -3,15 +3,26 @@
 % type(value,int).
 % type(extra,int).
 
-type(next,pointer).
+type(children,pointer).
+type(sibling,pointer).
 type(key,int).
+type(order,int).
 
+#show type/2.
+
+% large:- type(X1,pointer), type(X2,pointer), X1<X2.
+% :- node(n05), not large.
 
 {node(n00)}.
 {node(n01)}:- node(n00).
 {node(n02)}:- node(n01).
 {node(n03)}:- node(n02).
 {node(n04)}:- node(n03).
+% {node(n05)}:- node(n04).
+% {node(n06)}:- node(n05).
+% {node(n07)}:- node(n06).
+% {node(n08)}:- node(n07).
+% {node(n09)}:- node(n08).
 num_of_nodes(X):- X = #count{N1:node(N1)}.
 #show num_of_nodes/1.
 
@@ -38,6 +49,21 @@ reachable(N1,N2):- reachable(N1,N3), reachable(N3,N2).
 
 #show relation/3.
 
-const(0..3).
+const(0..2).
 
 1{relation(P,N,V):const(V)}1:- node(N),type(P,int).
+
+% :- not relation(order,n00,0).
+% :- not num_of_nodes(3).
+
+% :- not relation(children,n01,n03).
+% :- not relation(children,n01,n02).
+% :- not relation(sibling,n00,n01).
+
+% :- not relation(order,n00,2).
+% :- not relation(order,n01,1).
+% :- not relation(order,n02,0).
+% :- not relation(order,n03,0).
+% :- not relation(key,n00,0).
+% :- not relation(key,n01,1).
+% :- not relation(key,n02,2).

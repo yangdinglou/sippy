@@ -2,12 +2,12 @@
 max_clauses(2).
 enable_recursion.
 
-head_pred(sorted,2).
-type(sorted,(pointer,set)).
-direction(sorted,(in,out)).
+head_pred(p,2).
+type(p,(pointer,set)).
+direction(p,(in,out)).
 
 input_pointer(next,pointer).
-input_pointer(value,integer).
+input_pointer(key,integer).
 
 body_pred(anypointer, 1).
 body_pred(anynumber, 1).

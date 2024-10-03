@@ -4,7 +4,8 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
-from clingo import Control, Function, Number, String
+from clingo import Control, Number, SymbolType
+from clingo.symbol import Function
 from random import randint
 from math import ceil
 
@@ -16,6 +17,9 @@ class GraphGenerator:
         self.control = None
         self.correct_cnt = 0
         self.total_cnt = 0
+        self.outputbk = open("bk.pl", "w")
+        # self.outputbk.write(f"num_of_nodes({node}).\n") TODO
+        self.outputexs = open("exs.pl", "w")
     def init_solver(self,number):
         self.control = Control(['-Wnone',"--rand-freq=0.9"])
         self.control.load((Path(__file__).parent / "generator.lp").__str__())
@@ -54,6 +58,38 @@ class GraphGenerator:
                 return True
             else:
                 return False
+    def model_to_graph(self, model):
+        prefix = "g"+str(self.correct_cnt)
+        node_atom = list(filter(lambda x: x.name == "node", model.symbols(shown = True)))
+        node_atom = list(map(lambda x: x.arguments[0].name, node_atom))
+        start_atom = list(filter(lambda x: x.name == "start", model.symbols(shown = True)))
+        start_atom = start_atom[0].arguments[0].name
+        pts = list(filter(lambda x: x.name == "type", model.symbols(shown = True)))
+        pts = list(map(lambda x: x.arguments[0].name, pts))
+        fullpts = dict()
+        for pt in pts:
+            fullpts[pt] = node_atom
+        if len(node_atom) == 0:
+            return None
+        valueset = []
+        # graph = {}
+        for atom in model.symbols(shown = True):
+            if atom.name == "relation":
+                # relation(name, node1, node2) into name(node1, node2)
+                # relation(name, node1, non_node) into name(node1, non_node)
+                fullpts[atom.arguments[0].name] = list(filter(lambda x: x != atom.arguments[1].name, fullpts[atom.arguments[0].name])) 
+                if atom.arguments[2].type == SymbolType.Function:
+                    self.outputbk.write(f"{atom.arguments[0].name}({prefix}_{atom.arguments[1].name},{prefix}_{atom.arguments[2].name}).\n")
+                else:
+                    # print(atom.arguments[2].type)
+                    self.outputbk.write(f"{atom.arguments[0].name}({prefix}_{atom.arguments[1].name},{atom.arguments[2].number}).\n")
+                    valueset.append(atom.arguments[2].number)
+        for pt in fullpts:
+            for node in fullpts[pt]:
+                self.outputbk.write(f"{pt}({prefix}_{node}, null).\n")
+        self.outputbk.write(f"\n")
+        valueset = list(dict.fromkeys(valueset))
+        self.outputexs.write(f"pos(p({prefix}_{start_atom},[{','.join(map(str,valueset))}])).\n")
     def generate_graph(self,number_of_nodes, count_to_generate):
         total_cnt = 0
         correct_cnt = 0
@@ -69,7 +105,8 @@ class GraphGenerator:
                     print(f"Generated {total_cnt} graphs in the current configuration")
                 test = self.test_on_program(self.init_program+self.get_c_func(model))
                 if test:
-                    print(model.symbols(shown = True))
+                    # print(model.symbols(shown = True))
+                    self.model_to_graph(model)
                     correct_cnt += 1
                     self.correct_cnt += 1
                     print(f"Correct:{self.correct_cnt}")
@@ -94,7 +131,7 @@ if __name__ == "__main__":
         to_generate = int(args[2])
     init_program = path.read_text()
 
-    node = "SNnode"
+    node = "DLNode"
     gg = GraphGenerator(node,init_program)
 
     gg.loop(to_generate)

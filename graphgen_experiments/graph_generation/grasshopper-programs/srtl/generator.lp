@@ -3,9 +3,11 @@
 % type(value,int).
 % type(extra,int).
 
-type(left,pointer).
-type(right,pointer).
+type(next,pointer).
 type(key,int).
+
+#show type/2.
+
 
 {node(n00)}.
 {node(n01)}:- node(n00).
