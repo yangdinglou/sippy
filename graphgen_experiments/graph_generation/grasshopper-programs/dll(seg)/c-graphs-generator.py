@@ -88,7 +88,7 @@ class GraphGenerator:
             for node in fullpts[pt]:
                 self.outputbk.write(f"{pt}({prefix}_{node}, null).\n")
         self.outputbk.write(f"\n")
-        valueset = list(dict.fromkeys(valueset))
+        valueset = sorted(dict.fromkeys(valueset))
         self.outputexs.write(f"pos(p({prefix}_{start_atom},[{','.join(map(str,valueset))}])).\n")
     def generate_graph(self,number_of_nodes, count_to_generate):
         total_cnt = 0
