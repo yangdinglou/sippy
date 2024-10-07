@@ -1038,30 +1038,30 @@ repeat_in_list(T, A, C):-
 
 % tag: quasi-well-founded
 
-:-
-    partial_head(Head),
-    body_literal(T, Head, _, (A, B)),
-    partial_le(T, A, B).
+% :-
+%     partial_head(Head),
+%     body_literal(T, Head, _, (A, B)),
+%     partial_le(T, A, B).
 
-:-
-    partial_head(Head),
-    body_literal(T, Head, _, (A, B)),
-    partial_le(T, B, A).
+% :-
+%     partial_head(Head),
+%     body_literal(T, Head, _, (A, B)),
+%     partial_le(T, B, A).
 
-:-
-    partial_head(Head),
-    body_literal(T, Head, _, (A, B, _)),
-    partial_le(T, A, B).
+% :-
+%     partial_head(Head),
+%     body_literal(T, Head, _, (A, B, _)),
+%     partial_le(T, A, B).
 
-:-
-    partial_head(Head),
-    body_literal(T, Head, _, (A, B, _)),
-    partial_le(T, B, A).
+% :-
+%     partial_head(Head),
+%     body_literal(T, Head, _, (A, B, _)),
+%     partial_le(T, B, A).
 
-:-
-    partial_le(T, A, B),
-    partial_le(T, B, A),
-    A != B.
+% :-
+%     partial_le(T, A, B),
+%     partial_le(T, B, A),
+%     A != B.
 
 
 
@@ -1133,24 +1133,24 @@ inv_pure(T):-head_pred(P,2),type(P,(_,T)), pure_type(T).
 direction(P,(in,out)):- head_pred(P,2),type(P,(_,T)), pure_type(T).
 direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
 % tag: quasi-well-founded
-:-
-    head_pred(P,A),
-    % prev(A, B),
-    B == A - 1,
-    inv_pure(X),
-    po_type(X),
-    var_in_head_pos(1, P, B, B1),
-    var_in_body_pos(1, P, B, B2),
-	not partial_le(1, B2, B1).
+% :-
+%     head_pred(P,A),
+%     % prev(A, B),
+%     B == A - 1,
+%     inv_pure(X),
+%     po_type(X),
+%     var_in_head_pos(1, P, B, B1),
+%     var_in_body_pos(1, P, B, B2),
+% 	not partial_le(1, B2, B1).
 
-:-
-    head_pred(P,A),
-    % prev(A, B),
-    B == A - 1,
-    inv_pure(list),
-    var_in_head_pos(1, P, B, B1),
-    var_in_body_pos(1, P, B, B2),
-	not contain_in_list(1, B2, B1).
+% :-
+%     head_pred(P,A),
+%     % prev(A, B),
+%     B == A - 1,
+%     inv_pure(list),
+%     var_in_head_pos(1, P, B, B1),
+%     var_in_body_pos(1, P, B, B2),
+% 	not contain_in_list(1, B2, B1).
 
 inv_pure(T):-head_pred(P,3),type(P,(_,_,T)), pure_type(T).
 direction(P,(in,in,out)):- head_pred(P,3),type(P,(_,_,T)), pure_type(T).
@@ -1220,23 +1220,23 @@ direction(P,(in,in)):- invented(P,2), not inv_pure(_).
 direction(P,(in,in,out)):- invented(P,3),inv_pure(_).
 direction(P,(in,in,in)):- invented(P,3),not inv_pure(_).
 % tag: quasi-well-founded
-:-
-    invented(P,A),
-    prev(A, B),
-    inv_pure(X),
-    po_type(X),
-    var_in_head_pos(3, P, B, B1),
-    var_in_body_pos(3, P, B, B2),
-	not partial_le(3, B2, B1).
+% :-
+%     invented(P,A),
+%     prev(A, B),
+%     inv_pure(X),
+%     po_type(X),
+%     var_in_head_pos(3, P, B, B1),
+%     var_in_body_pos(3, P, B, B2),
+% 	not partial_le(3, B2, B1).
 
-:-
-    invented(P,A),
-    prev(A, B),
-    inv_pure(X),
-    not po_type(X),
-    var_in_head_pos(3, P, B, B1),
-    var_in_body_pos(3, P, B, B2),
-	not contain_in_list(3, B2, B1).
+% :-
+%     invented(P,A),
+%     prev(A, B),
+%     inv_pure(X),
+%     not po_type(X),
+%     var_in_head_pos(3, P, B, B1),
+%     var_in_body_pos(3, P, B, B2),
+% 	not contain_in_list(3, B2, B1).
 
 :- #count{P:invented(P,_)} > 1.
 
@@ -1266,47 +1266,47 @@ direction(Name, (in, out)) :- input_pointer(Name, _).
 type(Name, (pointer, T)) :- input_pointer(Name, T).
 
 % tag: Heap functionality
-:-
-    input_pointer(Name, _),
-    head_literal(1, _, _, Args),
-    var_pos(A, Args, 0),
-    not body_literal(1, Name, _, (A, _)).
+% :-
+%     input_pointer(Name, _),
+%     head_literal(1, _, _, Args),
+%     var_pos(A, Args, 0),
+%     not body_literal(1, Name, _, (A, _)).
 
 
-:-
-    input_pointer(Name, _),
-    body_literal(T, Name, _, (A, B1)),
-    body_literal(T, Name, _, (A, B2)),
-    B1 != B2.
+% :-
+%     input_pointer(Name, _),
+%     body_literal(T, Name, _, (A, B1)),
+%     body_literal(T, Name, _, (A, B2)),
+%     B1 != B2.
 
-:-
-    input_pointer(Name, _),
-    #count{A, Vars: body_literal(1, Name, A, Vars)} != 1.
+% :-
+%     input_pointer(Name, _),
+%     #count{A, Vars: body_literal(1, Name, A, Vars)} != 1.
 
 % tag: Basic Reachability
-:-
-    input_pointer(Name, _),
-    body_literal(T, Name, _, (A, _)),
-    not first_in_head(T, A).
+% :-
+%     input_pointer(Name, _),
+%     body_literal(T, Name, _, (A, _)),
+%     not first_in_head(T, A).
 
-:-
-    head_literal(1, Head, _, _),
-    body_literal(1, Head, _, Args),
-    var_pos(A, Args, 0),
-    not out_from_this(1, A).
+% :-
+%     head_literal(1, Head, _, _),
+%     body_literal(1, Head, _, Args),
+%     var_pos(A, Args, 0),
+%     not out_from_this(1, A).
 
 
 % tag: Basic Assumptions
-not_in(Name, 0):-
-    input_pointer(Name, _).
+% not_in(Name, 0):-
+%     input_pointer(Name, _).
     
 
-not_in(Name, 2):-
-    input_pointer(Name, _).
+% not_in(Name, 2):-
+%     input_pointer(Name, _).
 
-not_in(Name, 3):-
-    input_pointer(Name, _),
-    not inner_pointer(Name, _).
+% not_in(Name, 3):-
+%     input_pointer(Name, _),
+%     not inner_pointer(Name, _).
 
 
 %  inner pts (to be invented), inner_pointer(name, type)
@@ -1316,31 +1316,31 @@ direction(Name, (in, out)) :- inner_pointer(Name, _).
 type(Name, (pointer, T)) :- inner_pointer(Name, T).
 
 % tag: Heap functionality
-:-
-    inner_pointer(Name, _),
-    body_literal(T, Name, _, (A, B1)),
-    body_literal(T, Name, _, (A, B2)),
-    B1 != B2.
+% :-
+%     inner_pointer(Name, _),
+%     body_literal(T, Name, _, (A, B1)),
+%     body_literal(T, Name, _, (A, B2)),
+%     B1 != B2.
 
-:-
-    inner_pointer(Name, _),
-    #count{A, Vars: body_literal(3, Name, A, Vars)} != 1.
+% :-
+%     inner_pointer(Name, _),
+%     #count{A, Vars: body_literal(3, Name, A, Vars)} != 1.
 
-:-
-    inner_pointer(Name, _),
-    body_literal(T, Name, _, (A, _)),
-    not first_in_head(T, A).
+% :-
+%     inner_pointer(Name, _),
+%     body_literal(T, Name, _, (A, _)),
+%     not first_in_head(T, A).
 
 % tag: Basic Assumptions
-not_in(Name, 0):-
-    inner_pointer(Name, _).
+% not_in(Name, 0):-
+%     inner_pointer(Name, _).
 
-not_in(Name, 1):-
-    inner_pointer(Name, _),
-    not input_pointer(Name, _).
+% not_in(Name, 1):-
+%     inner_pointer(Name, _),
+%     not input_pointer(Name, _).
 
-not_in(Name, 2):-
-    inner_pointer(Name, _).
+% not_in(Name, 2):-
+%     inner_pointer(Name, _).
 
 
 :-
@@ -1448,9 +1448,9 @@ eq(C):-body_literal(C,same_ptr,_,(0,_)).
     not eq(2).
 
 % tag: Restricted use of null
-:-
-    body_literal(T, nullptr, _, (A,)),
-    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+% :-
+%     body_literal(T, nullptr, _, (A,)),
+%     #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
 
 :-
     var(Var),

@@ -122,9 +122,7 @@ direction(cons,(in,in,out)).
     not out_from_this(T, A).
 
 
-:-
-    body_literal(T, nullptr, _, (A,)),
-    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
 	#count{P,A,Vars : body_literal(0,P,A,Vars)} > 3.

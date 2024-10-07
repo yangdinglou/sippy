@@ -11,9 +11,6 @@ from clingo import Function, Number, Tuple_
 
 arg_lookup = {clingo.Number(i):chr(ord('A') + i) for i in range(100)}
 
-def args_to_string(args):
-    return '(' + ','.join(str(arg.number) for arg in args) + ',)'
-
 def arg_to_symbol(arg):
     if isinstance(arg, tuple):
         return Tuple_(tuple(arg_to_symbol(a) for a in arg))
@@ -107,28 +104,22 @@ def parse_model(model):
     rule_index_to_head = {}
     rule_index_ordering = defaultdict(set)
 
-    new_constraint = set()
-
     for atom in model:
         args = atom.arguments
 
         if atom.name == 'body_literal':
-            
             rule_index = args[0].number
             predicate = args[1].name
             atom_args = args[3].arguments
-            new_constraint.add(f'body_literal({rule_index}, {predicate}, {len(atom_args)}, {args_to_string(atom_args)})')
             atom_args = tuple(arg_lookup[arg] for arg in atom_args)
             arity = len(atom_args)
             body_literal = (predicate, atom_args, arity)
             rule_index_to_body[rule_index].add(body_literal)
-            
 
         elif atom.name == 'head_literal':
             rule_index = args[0].number
             predicate = args[1].name
             atom_args = args[3].arguments
-            new_constraint.add(f'head_literal({rule_index}, {predicate}, {len(atom_args)}, {args_to_string(atom_args)})')
             atom_args = tuple(arg_lookup[arg] for arg in atom_args)
             arity = len(atom_args)
             head_literal = (predicate, atom_args, arity)
@@ -151,10 +142,6 @@ def parse_model(model):
             rule1 = args[0].number
             rule2 = args[1].number
             rule_index_ordering[rule1].add(rule2)
-        elif atom.name == 'tmpout':
-            num_of_var = args[0].number
-        else:
-            print(atom)
 
     prog = []
     rule_lookup = {}
@@ -177,7 +164,7 @@ def parse_model(model):
         r1 = rule_lookup[r1_index]
         rule_ordering[r1] = set(rule_lookup[r2_index] for r2_index in lower_rule_indices)
 
-    return frozenset(prog), rule_ordering, directions, new_constraint, num_of_var
+    return frozenset(prog), rule_ordering, directions
 
 def build_rule_literals(rule, rule_var):
     literals = []
@@ -247,8 +234,6 @@ class Generator:
         encoding.append(f'max_clauses({settings.max_rules}).')
         encoding.append(f'max_body({settings.max_body}).')
         encoding.append(f'max_vars({settings.max_vars}).')
-        if settings.unopt:
-            encoding.append('unopt.')
         max_size = (1 + settings.max_body) * settings.max_rules
         if settings.max_literals < max_size:
             encoding.append(f'custom_max_size({settings.max_literals}).')
@@ -266,7 +251,6 @@ class Generator:
         else:
             # solver = clingo.Control(["-t4"])
             # solver = clingo.Control([])
-            # jumpy, tweety, trendy, crafty, handy
             solver = clingo.Control(['-Wnone',"-t8"])
             NUM_OF_LITERALS = """
             %%% External atom for number of literals in the program %%%%%
@@ -274,20 +258,8 @@ class Generator:
             :-
                 size_in_literals(n),
                 #sum{K+1,Clause : body_size(Clause,K)} != n.
-
-            #external max_length(m).
-            :-
-                max_length(m),
-                #max{N : body_size(_,N)} > m.
-                
-            #external max_var(o).
-            :-
-                max_var(o),
-                var_in_literal(_,_,_,o).
             """
-
-            solver.add('number_of_literals', ['n','m','o'], NUM_OF_LITERALS)
-            
+            solver.add('number_of_literals', ['n'], NUM_OF_LITERALS)
 
         solver.configuration.solve.models = 0
         solver.add('base', [], encoding)
@@ -368,53 +340,24 @@ class Generator:
         # for x in set(handle for handle, rule in handles):
         self.seen_handles.update(new_seen_rules)
 
-    def update_number_of_literals(self, size, length, num_of_var): 
-
+    def update_number_of_literals(self, size):
         # 1. Release those that have already been assigned
         for atom, truth_value in self.assigned.items():
             if atom[0] == 'size_in_literals' and truth_value:
                 self.assigned[atom] = False
-                # print(f"release{atom}")
                 symbol = clingo.Function('size_in_literals', [clingo.Number(atom[1])])
-                self.solver.release_external(symbol)
-            if atom[0] == 'max_length' and truth_value and atom[1] != length:
-                self.assigned[atom] = False
-                # print(f"release{atom}")
-                symbol = clingo.Function('max_length', [clingo.Number(atom[1])])
-                self.solver.release_external(symbol)
-            if atom[0] == 'max_var' and truth_value and atom[1] != num_of_var:
-                self.assigned[atom] = False
-                # print(f"release{atom}")
-                symbol = clingo.Function('max_var', [clingo.Number(atom[1])])
                 self.solver.release_external(symbol)
 
         # 2. Ground the new size
-        self.solver.ground([('number_of_literals', [clingo.Number(size), clingo.Number(length), clingo.Number(num_of_var)])])
+        self.solver.ground([('number_of_literals', [clingo.Number(size)])])
 
         # 3. Assign the new size
         self.assigned[('size_in_literals', size)] = True
-        self.assigned[('max_length', length)] = True
-        self.assigned[('max_var', num_of_var)] = True
 
         # @NOTE: Everything passed to Clingo must be Symbol. Refactor after
         # Clingo updates their cffi API
-        symbol1 = clingo.Function('size_in_literals', [clingo.Number(size)])
-        symbol2 = clingo.Function('max_length', [clingo.Number(length)])
-        symbol3 = clingo.Function('max_var', [clingo.Number(num_of_var)])
-        self.solver.assign_external(symbol1, True)
-        self.solver.assign_external(symbol2, True)
-        self.solver.assign_external(symbol3, True)
-        # print("after")
-        # print("size")
-        # for x in self.solver.symbolic_atoms.by_signature('size_in_literals', arity=1):
-        #     print(x.symbol.arguments[0].number)
-        # print("length")
-        # for x in self.solver.symbolic_atoms.by_signature('max_length', arity=1):
-        #     print(x.symbol.arguments[0].number)
-        # print("var")
-        # for x in self.solver.symbolic_atoms.by_signature('max_var', arity=1):
-        #     print(x.symbol.arguments[0].number)
-
+        symbol = clingo.Function('size_in_literals', [clingo.Number(size)])
+        self.solver.assign_external(symbol, True)
 
     def get_ground_rules(self, rule):
         head, body = rule

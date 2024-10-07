@@ -12,23 +12,15 @@
 #defined enable_recursion/0.
 #defined non_datalog/0.
 #defined allow_singletons/0.
-#defined body_singletons/0.
 #defined custom_max_size/1.
-#defined recur_num/1.
 
 #show head_literal/4.
 #show body_literal/4.
 #show direction_/3.
 #show before/2.
-% #show size/1.
-#show tmpout/1.
-% #show var_in_literal/4.
+#show size/1.
 
 #heuristic size(N). [1000-N,true]
-
-:- #sum{K+1,Clause : body_size(Clause,K)} > (b+5)*c/2, max_body(b), max_clauses(c).
-
-
 
 max_size(K):-
     custom_max_size(K).
@@ -103,12 +95,11 @@ head_literal(0,P,A,Vars):-
     not enable_pi.
 
 %% ********** INVENTED RULES **********
-1 {body_literal(Rule,P,A,Vars): body_aux(P,A), vars(A,Vars)} M :-
+1 {body_literal(Rule,P,A,Vars): body_aux(P,A), vars(A,Vars), not bad_body(P,A,Vars)} M :-
     clause(Rule),
     Rule > 0,
     max_body(M),
     enable_pi.
-
 
 bad_body(P,A,Vars):-
     head_pred(P,A),
@@ -135,15 +126,15 @@ type_mismatch(P,Vars):-
     fixed_var_type(Var,T2),
     T1 != T2.
 
-% calls_invented(Rule):-
-%     invented(P,A),
-%     body_literal(Rule,P,A,_).
-% :-
-%     pi,
-%     not recursive,
-%     head_literal(Rule,P,A,_),
-%     head_pred(P,A),
-%     not calls_invented(Rule).
+calls_invented(Rule):-
+    invented(P,A),
+    body_literal(Rule,P,A,_).
+:-
+    pi,
+    not recursive,
+    head_literal(Rule,P,A,_),
+    head_pred(P,A),
+    not calls_invented(Rule).
 
 
 %% THERE IS A CLAUSE IF THERE IS A HEAD LITERAL
@@ -230,9 +221,6 @@ var_in_literal(C,P,Vars,Var):-
     body_literal(C,P,_,Vars),
     var_member(Var,Vars).
 
-
-tmpout(N):- #max{Var: var_in_literal(_,_,_,Var)} ==N.
-
 %% HEAD VARS ARE ALWAYS 0,1,...,A-1
 head_vars(A,@pyhead_vars(A)):-
     head_pred(_,A).
@@ -245,19 +233,7 @@ seen_arity(A):-
 seen_arity(A):-
     body_pred(_,A).
 max_arity(K):-
-    not max_pi_arity(_),
     #max{A : seen_arity(A)} == K.
-max_arity(K):-
-    max_pi_arity(K).
-
-:-
-    max_pi_arity(K),
-    not invented(_,K).
-
-% direction_(inv1,Pos,in):-
-%     max_pi_arity(K),
-%     Pos = 0..K-1.
-
 
 %% POSSIBLE VARIABLE PERMUTATIONS FROM 1..MAX_ARITY
 vars(A,@pyvars(A,MaxVars)):-
@@ -359,11 +335,6 @@ before(C1,C2):-
 :-
     not allow_singletons,
     clause_var(C,Var),
-    #count{P,Vars : var_in_literal(C,P,Vars,Var)} == 1.
-
-:-
-    not body_singletons,
-    body_var(C,Var),
     #count{P,Vars : var_in_literal(C,P,Vars,Var)} == 1.
 
 %% MUST BE CONNECTED
@@ -488,7 +459,9 @@ bigger(C1,C2):-
 %% ########################################
 %% RECURSION
 %% ########################################
-
+num_recursive(P,N):-
+    head_literal(_,P,_,_),
+    #count{C : recursive_clause(C,P,_)} == N.
 
 recursive:-
     recursive_clause(_,_,_).
@@ -531,23 +504,6 @@ base_clause(C,P,A):-
     recursive_clause(C,P,A),
     #count{Vars : body_literal(C,P,A,Vars)} > 2.
 
-:-
-    clause(C),
-    head_aux(P,A),
-    #count{Vars : body_literal(C,P,A,Vars)} > 2.
-
-:-
-    recur_num(X),
-    C > 0,
-    recursive_clause(C,P,A),
-    #count{Vars : body_literal(C,P,A,Vars)} != X.
-
-% :-
-%     recur_num(X),
-%     clause(C),
-%     head_aux(P,A),
-%     #count{Vars : body_literal(C,P,A,Vars)} != X.
-
 %% PREVENT LEFT RECURSION
 %% TODO: GENERALISE FOR ARITY > 3
 :-
@@ -586,15 +542,6 @@ base_clause(C,P,A):-
     var_pos(Var2,Vars2,V2Pos2),
     direction_(P,V2Pos1,in),
     direction_(P,V2Pos2,in).
-
-
-% :-
-%     C > 0,
-%     var(V),
-%     not head_var(C, V),
-%     var_type(C, V, integer),
-%     body_var(C, V),
-%     #count{P,Vars : body_literal(C,P,_,Vars), var_pos(V, Vars, Pos), direction_(P, Pos, in)} > 1.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ENSURES INPUT VARS ARE GROUND
@@ -749,12 +696,12 @@ appears_before(P,A):-
     inv_lower(Q,P),
     not invented(Q,_).
 
-% %% FORCE ORDERING
-% %% inv2(A):- inv1(A)
-% :-
-%     head_literal(C,P,_,_),
-%     body_literal(C,Q,_,_),
-%     lower(Q,P).
+%% FORCE ORDERING
+%% inv2(A):- inv1(A)
+:-
+    head_literal(C,P,_,_),
+    body_literal(C,Q,_,_),
+    lower(Q,P).
 
 %% USE INVENTED SYMBOLS IN ORDER
 %% f(A):- inv2(A)
@@ -851,10 +798,6 @@ var_type(C2,Var2,Type):-
 %%     direction(P2,Pos2,in),
 %%     #count{P3,Vars3: body_literal(Clause,P3,_,Vars3),var_pos(Var,Vars3,Pos3),direction(P3,Pos2,out)} == 0.
 
-:-
-    invented(P,A),
-    head_literal(C,P,A,Vars),
-    body_literal(C,P,A,Vars).
 
 %% PRUNES SINGLE CLAUSE/LITERAL INVENTIONS
 %% inv(A,B):-right(A,B).
@@ -895,11 +838,86 @@ only_once(P,A):-
     N1 + N2 - 1 <= MaxN.
 
 %% %% ==========================================================================================
+%% %% BK BIAS CONSTRAINTS
+%% %% ==========================================================================================
+%% IDEAS FROM THE PAPER:
+%% Learning logic programs by discovering where not to search. A. Cropper and C. Hocquette
+
+#defined prop/2.
+#defined prop/3.
+
+
+%% :- prop(singleton,P), body_literal(Rule,P,1,_), #count{A : body_literal(Rule,P,A,(A,))} > 1.
+:- prop(singleton,P), body_literal(Rule,P,_,_), #count{Vars : body_literal(Rule,P,A,Vars)} > 1.
+
+:- prop(asymmetric_ab_ba,P), body_literal(Rule,P,_,(A,B)), body_literal(Rule,P,_,(B,A)).
+:- prop(asymmetric_abc_acb,P), body_literal(Rule,P,_,(A,B,C)), body_literal(Rule,P,_,(A,C,B)).
+:- prop(asymmetric_abc_bac,P), body_literal(Rule,P,_,(A,B,C)), body_literal(Rule,P,_,(B,A,C)).
+:- prop(asymmetric_abc_bca,P), body_literal(Rule,P,_,(A,B,C)), body_literal(Rule,P,_,(B,C,A)).
+:- prop(asymmetric_abc_cab,P), body_literal(Rule,P,_,(A,B,C)), body_literal(Rule,P,_,(C,A,B)).
+:- prop(asymmetric_abc_cba,P), body_literal(Rule,P,_,(A,B,C)), body_literal(Rule,P,_,(C,B,A)).
+:- prop(asymmetric_abcd_abdc,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(A,B,D,C)).
+:- prop(asymmetric_abcd_acbd,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(A,C,B,D)).
+:- prop(asymmetric_abcd_acdb,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(A,C,D,B)).
+:- prop(asymmetric_abcd_adbc,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(A,D,B,C)).
+:- prop(asymmetric_abcd_adcb,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(A,D,C,B)).
+:- prop(asymmetric_abcd_bacd,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(B,A,C,D)).
+:- prop(asymmetric_abcd_badc,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(B,A,D,C)).
+:- prop(asymmetric_abcd_bcad,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(B,C,A,D)).
+:- prop(asymmetric_abcd_bcda,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(B,C,D,A)).
+:- prop(asymmetric_abcd_bdac,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(B,D,A,C)).
+:- prop(asymmetric_abcd_bdca,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(B,D,C,A)).
+:- prop(asymmetric_abcd_cabd,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(C,A,B,D)).
+:- prop(asymmetric_abcd_cadb,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(C,A,D,B)).
+:- prop(asymmetric_abcd_cbad,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(C,B,A,D)).
+:- prop(asymmetric_abcd_cbda,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(C,B,D,A)).
+:- prop(asymmetric_abcd_cdab,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(C,D,A,B)).
+:- prop(asymmetric_abcd_cdba,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(C,D,B,A)).
+:- prop(asymmetric_abcd_dabc,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(D,A,B,C)).
+:- prop(asymmetric_abcd_dacb,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(D,A,C,B)).
+:- prop(asymmetric_abcd_dbac,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(D,B,A,C)).
+:- prop(asymmetric_abcd_dbca,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(D,B,C,A)).
+:- prop(asymmetric_abcd_dcab,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(D,C,A,B)).
+:- prop(asymmetric_abcd_dcba,P), body_literal(Rule,P,_,(A,B,C,D)), body_literal(Rule,P,_,(D,C,B,A)).
+
+:- prop(unique_a_b,P), body_literal(Rule,P,_,(A,_)), #count{B : body_literal(Rule,P,_,(A,B))} > 1.
+:- prop(unique_a_bc,P), body_literal(Rule,P,_,(A,_,_)), #count{B,C : body_literal(Rule,P,_,(A,B,C))} > 1.
+:- prop(unique_a_bcd,P), body_literal(Rule,P,_,(A,_,_,_)), #count{B,C,D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_ab_c,P), body_literal(Rule,P,_,(A,B,_)), #count{C : body_literal(Rule,P,_,(A,B,C))} > 1.
+:- prop(unique_ab_cd,P), body_literal(Rule,P,_,(A,B,_,_)), #count{C,D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_abc_d,P), body_literal(Rule,P,_,(A,B,C,_)), #count{D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_abd_c,P), body_literal(Rule,P,_,(A,B,_,D)), #count{C : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_ac_b,P), body_literal(Rule,P,_,(A,_,C)), #count{B : body_literal(Rule,P,_,(A,B,C))} > 1.
+:- prop(unique_ac_bd,P), body_literal(Rule,P,_,(A,_,C,_)), #count{B,D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_acd_b,P), body_literal(Rule,P,_,(A,_,C,D)), #count{B : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_ad_bc,P), body_literal(Rule,P,_,(A,_,_,D)), #count{B,C : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_b_a,P), body_literal(Rule,P,_,(_,B)), #count{A : body_literal(Rule,P,_,(A,B))} > 1.
+:- prop(unique_b_ac,P), body_literal(Rule,P,_,(_,B,_)), #count{A,C : body_literal(Rule,P,_,(A,B,C))} > 1.
+:- prop(unique_b_acd,P), body_literal(Rule,P,_,(_,B,_,_)), #count{A,C,D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_bc_a,P), body_literal(Rule,P,_,(_,B,C)), #count{A : body_literal(Rule,P,_,(A,B,C))} > 1.
+:- prop(unique_bc_ad,P), body_literal(Rule,P,_,(_,B,C,_)), #count{A,D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_bcd_a,P), body_literal(Rule,P,_,(_,B,C,D)), #count{A : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_bd_ac,P), body_literal(Rule,P,_,(_,B,_,D)), #count{A,C : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_c_ab,P), body_literal(Rule,P,_,(_,_,C)), #count{A,B : body_literal(Rule,P,_,(A,B,C))} > 1.
+:- prop(unique_c_abd,P), body_literal(Rule,P,_,(_,_,C,_)), #count{A,B,D : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_cd_ab,P), body_literal(Rule,P,_,(_,_,C,D)), #count{A,B : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(unique_d_abc,P), body_literal(Rule,P,_,(_,_,_,D)), #count{A,B,C : body_literal(Rule,P,_,(A,B,C,D))} > 1.
+:- prop(antitransitive,P), body_literal(Rule,P,_,(A,B)), body_literal(Rule,P,_,(B,C)), body_literal(Rule,P,_,(A,C)).
+:- prop(antitriangular,P), body_literal(Rule,P,_,(A,B)), body_literal(Rule,P,_,(B,C)), body_literal(Rule,P,_,(C,A)).
+:- prop(unsat_pair,P,Q), body_literal(Rule,P,_,Vars), body_literal(Rule,Q,_,Vars).
+:- prop(precon,(P,Q)), body_literal(Rule,P,_,(A,)), body_literal(Rule,Q,_,(A,B)).
+:- prop(postcon,(P,Q)), body_literal(Rule,P,_,(A,B)), body_literal(Rule,Q,_,(B,)).
+:- prop(pre_postcon,(P,Q,R)), body_literal(Rule,P,_,(A,)),body_literal(Rule,Q,_,(A,B)),body_literal(Rule,R,_,(B,)).
+:- prop(chain,(P,Q)), body_literal(Rule,P,_,(_,A)),body_literal(Rule,Q,_,(A,_)).
+:- prop(countk,P,K), K > 1, body_pred(P,_), clause(Rule), #count{Vars : body_literal(Rule,P,_,Vars)} > K.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 :-
     not_in(P, C),
     body_literal(C, P, _, _).
-
 
 
 
@@ -1036,7 +1054,7 @@ repeat_in_list(T, A, C):-
     contain_in_list(T, B, A),
     body_literal(T, cons, _, (A, B, C)).
 
-% tag: quasi-well-founded
+
 
 :-
     partial_head(Head),
@@ -1132,7 +1150,6 @@ direction(P,(in,)):- head_pred(P,1).
 inv_pure(T):-head_pred(P,2),type(P,(_,T)), pure_type(T).
 direction(P,(in,out)):- head_pred(P,2),type(P,(_,T)), pure_type(T).
 direction(P,(in,in)):- head_pred(P,2),type(P,(_,T)), not pure_type(T).
-% tag: quasi-well-founded
 :-
     head_pred(P,A),
     % prev(A, B),
@@ -1219,7 +1236,7 @@ direction(P,(in,in)):- invented(P,2), not inv_pure(_).
 
 direction(P,(in,in,out)):- invented(P,3),inv_pure(_).
 direction(P,(in,in,in)):- invented(P,3),not inv_pure(_).
-% tag: quasi-well-founded
+
 :-
     invented(P,A),
     prev(A, B),
@@ -1239,6 +1256,9 @@ direction(P,(in,in,in)):- invented(P,3),not inv_pure(_).
 	not contain_in_list(3, B2, B1).
 
 :- #count{P:invented(P,_)} > 1.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % For constrain generation of input pointers
@@ -1265,13 +1285,11 @@ body_pred(Name, 2) :- input_pointer(Name, _).
 direction(Name, (in, out)) :- input_pointer(Name, _).
 type(Name, (pointer, T)) :- input_pointer(Name, T).
 
-% tag: Heap functionality
 :-
     input_pointer(Name, _),
     head_literal(1, _, _, Args),
     var_pos(A, Args, 0),
     not body_literal(1, Name, _, (A, _)).
-
 
 :-
     input_pointer(Name, _),
@@ -1283,7 +1301,6 @@ type(Name, (pointer, T)) :- input_pointer(Name, T).
     input_pointer(Name, _),
     #count{A, Vars: body_literal(1, Name, A, Vars)} != 1.
 
-% tag: Basic Reachability
 :-
     input_pointer(Name, _),
     body_literal(T, Name, _, (A, _)),
@@ -1295,8 +1312,6 @@ type(Name, (pointer, T)) :- input_pointer(Name, T).
     var_pos(A, Args, 0),
     not out_from_this(1, A).
 
-
-% tag: Basic Assumptions
 not_in(Name, 0):-
     input_pointer(Name, _).
     
@@ -1315,7 +1330,6 @@ body_pred(Name, 2) :- inner_pointer(Name, _).
 direction(Name, (in, out)) :- inner_pointer(Name, _).
 type(Name, (pointer, T)) :- inner_pointer(Name, T).
 
-% tag: Heap functionality
 :-
     inner_pointer(Name, _),
     body_literal(T, Name, _, (A, B1)),
@@ -1331,7 +1345,6 @@ type(Name, (pointer, T)) :- inner_pointer(Name, T).
     body_literal(T, Name, _, (A, _)),
     not first_in_head(T, A).
 
-% tag: Basic Assumptions
 not_in(Name, 0):-
     inner_pointer(Name, _).
 
@@ -1342,6 +1355,11 @@ not_in(Name, 1):-
 not_in(Name, 2):-
     inner_pointer(Name, _).
 
+% :-
+%     inner_pointer(Name, _),
+%     body_literal(T, Name, _, _),
+%     head_literal(T, P, _, _),
+%     not invented(P, _),
 
 :-
     invented(P, _),
@@ -1447,10 +1465,7 @@ eq(C):-body_literal(C,same_ptr,_,(0,_)).
     not null(2),
     not eq(2).
 
-% tag: Restricted use of null
-:-
-    body_literal(T, nullptr, _, (A,)),
-    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
     var(Var),

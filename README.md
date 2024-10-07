@@ -1,9 +1,9 @@
-# ASE24-360 
+# Sippy
 
-This repository contains the code for the paper "ASE24-360: Inductive Synthesis of Inductive Heap Predicates", where three different components are presented:
+This repository contains the code for the paper "Inductive Synthesis of Inductive Heap Predicates", where three different components are presented:
 
 1. **Sippy**: the tool for synthesizing inductive heap predicates from examples, based on open-source tool [Popper](https://github.com/logic-and-learning-lab/Popper), whose benchmark is in the folder `./predicates/experiments`, and implemented in the folder `./popper`.
-2. **VCDryad-benchmark**: the tool and benchmark to generate input graphs for Sippy, shown in the folder `./VCDryad_experiments`.
+2. **Grippy-benchmark**: the tool and benchmark to generate input graphs for Sippy using Grippy, shown in the folder `./graphgen_experiments`.
 3. **SuSLik-benchmark**: the benchmark that uses output of Sippy to synthesize heap-manipulating programs by SuSLik, shown in the folder `./suslik_experiments`.
 
 
@@ -33,7 +33,15 @@ For example, to run the benchmark for the `sll` predicate, you can use the follo
 
 The detailed execution logs will be saved in `./example.log`.
 
-### VCDryad-benchmark
+To compare with Popper, and with or without the use of optimisations, you can use the following commands:
+
+```bash
+./sippy.sh ./predicates/experiments/sll --unopt
+./popper.sh ./predicates/experiments/sll 
+./popper.sh ./predicates/experiments/sll --unopt
+```
+
+### Grippy-benchmark
 
 As an example to generate input graphs for sorted list by find functions, you can use the following commands:
 

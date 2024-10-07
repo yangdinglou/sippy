@@ -9,8 +9,8 @@ po_type(integer).
 input_pointer(left,pointer).
 input_pointer(right,pointer).
 
-body_pred(anypointer, 1).
-body_pred(anynumber, 1).
+body_pred(anypointer, 1):- not unopt.
+body_pred(anynumber, 1):- not unopt.
 body_pred(nullptr,1).
 body_pred(zero,1):-inv_pure(integer).
 body_pred(diff_lessthanone,2):-inv_pure(integer).
@@ -144,9 +144,7 @@ direction(cons,(in,in,out)).
 	body_literal(T, anynumber, _, (A,)).
 
 
-:-
-    body_literal(T, nullptr, _, (A,)),
-    #count{P,Vars : var_in_literal(T,P,Vars,A)} != 2.
+
 
 :-
 	#count{P,A,Vars : body_literal(0,P,A,Vars)} > 3.
