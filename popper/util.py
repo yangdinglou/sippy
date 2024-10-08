@@ -26,6 +26,7 @@ STOP_SCORE=0
 
 global_circle = False
 global_vcd = False
+global_vf = False
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Popper is an ILP system based on learning from failures')
@@ -46,6 +47,7 @@ def parse_args():
     parser.add_argument('--threshold', type=int, default=STOP_SCORE, help='SIPPY: Specified version (the input is the threshold score)')
     parser.add_argument('--circle', default=False, action='store_true', help='For learning the predicate with circle (only work with --threshold))')
     parser.add_argument('--vcd', default=False, action='store_true', help='Output VCDryad predicates')
+    parser.add_argument('--vf', default=False, action='store_true', help='Output VeriFast predicates')
     parser.add_argument('--bkcons', default=False, action='store_true', help='EXPERIMENTAL FEATURE: deduce background constraints from Datalog background')
     return parser.parse_args()
 
@@ -135,6 +137,11 @@ def format_literal(literal):
     args = ','.join(literal.arguments)
     return f'{literal.predicate}({args})'
 
+def format_literal_vf(literal):
+    args = ','.join(literal.arguments)
+    #print(f'{literal.predicate}({args})')
+    return f'{literal.predicate}({args})'
+
 def format_literal2(literal):
     if len(literal.arguments) == 2:
         return (f'{literal.predicate}^({literal.arguments[0].lower()})', {f'subst({literal.arguments[1]})': f'keys^({literal.arguments[0].lower()})'}, None)
@@ -178,7 +185,14 @@ def format_ptrs(inptr, ptrs):
         yield f'{inptr} + {cnt} :-> {ptrs[i]}'
         cnt += 1
     yield f'[{inptr}, {cnt}]'
-  
+
+def format_ptrs_vf(inptr, ptrs):
+    ptrs = dict(sorted(ptrs.items(), key=lambda item: from_domain_to_number(item[0])))
+    cnt = 0
+    for i in ptrs:
+        yield f'{inptr} + {cnt} :-> {ptrs[i]}'
+        cnt += 1
+    yield f'[{inptr}, {cnt}]'
     
 def format_ptrs2(inptr, ptrs):
     ptrs = list(map(lambda x: f'{from_domain_to_type(x)} {x}: {ptrs[x].lower()}', ptrs))
@@ -230,6 +244,47 @@ def format_pure(pure):
     else:
         raise ValueError(f'Unknown pure predicate {pure.predicate}')
 
+def format_pure_vf(pure):
+    if pure.predicate == 'empty':
+        return f'{pure.arguments[0]}==[]'
+    elif pure.predicate == 'nil':
+        return f'{pure.arguments[0]}==[]'
+    elif pure.predicate == 'insert':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + [{pure.arguments[1]}]'
+    elif pure.predicate == 'cons':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + [{pure.arguments[1]}]'
+    elif pure.predicate == 'ord_union':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + {pure.arguments[1]}'
+    elif pure.predicate == 'append':
+        return f'{pure.arguments[2]}=={pure.arguments[0]} + {pure.arguments[1]}'
+    elif pure.predicate == 'min_list':
+        return f'{pure.arguments[1]}==lower({pure.arguments[0]})'
+    elif pure.predicate == 'max_list':
+        return f'{pure.arguments[1]}==upper({pure.arguments[0]})'
+    elif pure.predicate == 'gt_set':
+        return f'{pure.arguments[0]} >= upper({pure.arguments[1]})'
+    elif pure.predicate == 'lt_set':
+        return f'{pure.arguments[0]} <= lower({pure.arguments[1]})'
+    elif pure.predicate == 'gt_list':
+        return f'{pure.arguments[0]} >= upper({pure.arguments[1]})'
+    elif pure.predicate == 'lt_list':
+        return f'{pure.arguments[0]} <= lower({pure.arguments[1]})'
+    elif pure.predicate == 'diff_lessthanone':
+        return f'{pure.arguments[0]}  <= {pure.arguments[1]} + 1 && {pure.arguments[1]}  <= {pure.arguments[0]} + 1'
+    elif pure.predicate == 'my_succ':
+        return f'{pure.arguments[1]}=={pure.arguments[0]} + 1'
+    elif pure.predicate == 'my_prev':
+        return f'{pure.arguments[0]}=={pure.arguments[1]} + 1'
+    elif pure.predicate == 'maxnum':
+        return f'{pure.arguments[2]}==({pure.arguments[0]} <= {pure.arguments[1]} ? {pure.arguments[1]} : {pure.arguments[0]})'
+    elif pure.predicate == 'zero' or pure.predicate == 'nullptr':
+        return f'{pure.arguments[0]}==0'
+    elif pure.predicate == 'same_ptr':
+        return f'{pure.arguments[0]}=={pure.arguments[1]}'
+    elif pure.predicate == 'anypointer' or pure.predicate == 'anynumber':
+        return None
+    else:
+        raise ValueError(f'Unknown pure predicate {pure.predicate}')
 
 def format_pure2(pure):
 
@@ -282,6 +337,39 @@ def format_body(body, head):
 
     for i in tmp_pts:
         tmp = format_ptrs(i, tmp_pts[i])
+        spatial.extend(tmp)
+    if len(spatial)== 0:
+        spatial = ['emp']
+    if len(pure) == 0:
+        pure = ['true']
+    return pred, ' && '.join(pure), ' ** '.join(spatial)
+
+def format_body_vf(body, head):
+    pred = None
+    pure = []
+    spatial = []
+    tmp_pts = {}
+
+    for literal in body:
+        if (literal.predicate == 'nullptr') and (literal.arguments[0] == 'A'):
+            pred = f'{literal.arguments[0]}==0'
+        elif literal.predicate == 'same_ptr' and (literal.arguments[0] == 'A'):
+            pred = f'{literal.arguments[0]}=={literal.arguments[1]}'
+        elif literal.predicate in ['anypointer','anynumber','insert', 'empty','ord_union','min_list','max_list','gt_list','lt_list','diff_lessthanone', 'my_succ', 'my_prev', 'maxnum', 'zero', 'nullptr', 'same_ptr', 'cons', 'append', 'gt_set', 'lt_set', 'nil']:
+            tmppure = format_pure_vf(literal)
+            if tmppure != None:
+                pure.append(tmppure)
+        else:
+            if literal.predicate in head:
+                spatial.append(format_literal_vf(literal))
+            else:
+                if f'{literal.arguments[0]}' in tmp_pts:
+                    tmp_pts[f'{literal.arguments[0]}'][literal.predicate] = f'{literal.arguments[1]}'
+                else:
+                    tmp_pts[f'{literal.arguments[0]}'] = {literal.predicate:f'{literal.arguments[1]}'}
+
+    for i in tmp_pts:
+        tmp = format_ptrs_vf(i, tmp_pts[i])
         spatial.extend(tmp)
     if len(spatial)== 0:
         spatial = ['emp']
@@ -375,6 +463,46 @@ def to_sl_preds(rules, head_types):
         output.append('}')
     return output
 
+def to_vf_preds(rules, head_types):
+    type_to_str = {'pointer':'loc', 'integer':'int', 'set':'interval', 'list':'list'}
+    preds = dict()
+    for rule in rules:
+        head, body = rule
+        head_str = head.predicate
+        head_args = zip(head.arguments, head_types)
+        head_str = f'{head_str}({",".join([f"{type_to_str[typ]} {arg}" for arg, typ in head_args])})'
+        if head_str in preds:
+            preds[head_str].append(body)
+        else:
+            preds[head_str] = [body]
+    output = []
+    heads = [head.split('(')[0] for head in preds]
+    for head in preds:
+        output.append(f'predicate {head} {{')
+        tmppred = None
+        tmppure = None
+        tmpspatial = None
+        for body in preds[head]:
+            # headname = head.split('(')[0]
+            # body_str = ','.join(format_literal(literal) for literal in body)
+            pred, pure, spatial = format_body_vf(body, heads)
+            if pred != None:
+                output.append(f'| {pred} => {{{pure} ; {spatial}}}')
+                if tmppure == None:
+                    tmppred = f"| not ({pred})"
+                else:
+                    output.append(f' not ({pred}) => {{{tmppure} ; {tmpspatial}}}')
+
+            else:
+                if tmppred == None:
+                    tmppure = pure
+                    tmpspatial = spatial
+                else:
+                    output.append(f'{tmppred} => {{{pure} ; {spatial}}}')
+            # output.append(f'|  {pred} => {pure} ; {spatial}')
+        output.append('}')
+    return output
+
 # define pred sorted(a):
 # ((a l= nil) & emp) 
 # ((a |-> loc next: c; int key: e) * sorted^(c) & (e lt-set keys^(c)))
@@ -430,7 +558,12 @@ def print_prog_score(prog, score, cons, head_types):
     print(f'Precision:{precision} Recall:{recall} TP:{tp} FN:{fn} TN:{tn} FP:{fp} Size:{size}')
     print(format_prog(order_prog(prog)))
     
-    out_pred = to_sl_preds(order_prog(prog), head_types) if not global_vcd else to_dryad_preds(order_prog(prog), head_types)
+    if global_vcd: 
+        out_pred = to_dryad_preds(order_prog(prog), head_types)
+    elif global_vf:
+        out_pred = to_vf_preds(order_prog(prog), head_types)
+    else: 
+        out_pred = to_sl_preds(order_prog(prog), head_types) 
     print("Output predicates:")
     for pred in out_pred:
         print(pred)
@@ -536,7 +669,7 @@ def flatten(xs):
     return [item for sublist in xs for item in sublist]
 
 class Settings:
-    def __init__(self, cmd_line=False, info=True, debug=False, unopt=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE, circle = False, vcd = False):
+    def __init__(self, cmd_line=False, info=True, debug=False, show_stats=False, bkcons=False, max_literals=MAX_LITERALS, timeout=TIMEOUT, quiet=False, eval_timeout=EVAL_TIMEOUT, max_examples=MAX_EXAMPLES, max_body=MAX_BODY, max_rules=MAX_RULES, max_vars=MAX_VARS, functional_test=False, kbpath=False, ex_file=False, bk_file=False, bias_file=False, threshold = STOP_SCORE, circle = False, vcd = False, vf = False):
 
         if cmd_line:
             args = parse_args()
@@ -561,6 +694,9 @@ class Settings:
             vcd = args.vcd
             global global_vcd
             global_vcd = vcd
+            vf = args.vf
+            global global_vf
+            global_vf = vf
         else:
             if kbpath:
                 self.bk_file, self.ex_file, self.bias_file = load_kbpath(kbpath)
@@ -591,6 +727,7 @@ class Settings:
         self.threshold = threshold
         self.circle = circle
         self.vcd = vcd
+        self.vf = vf
         self.timeout = timeout
         self.eval_timeout = eval_timeout
         self.max_examples = max_examples
