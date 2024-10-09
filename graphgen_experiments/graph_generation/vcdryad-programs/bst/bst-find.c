@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef
 /*D_tag b_node */
@@ -12,6 +13,17 @@ struct b_node {
 
 BNode * build_graph();
 
+bool cmp_with_key(BNode * x, int k, bool larger){
+  if (x == NULL) return true;
+  else {
+    if (larger) {
+      if (x->key < k) return false;
+    } else {
+      if (x->key > k) return false;
+    }
+    return cmp_with_key(x->left, k, larger) && cmp_with_key(x->right, k, larger);
+  }
+}
 // _(dryad)
 int bst_find_rec(BNode * x, int k)
   /*D_requires bst^(x)) */
@@ -20,19 +32,19 @@ int bst_find_rec(BNode * x, int k)
   if (x == NULL) {
     return 0;
   } else {
+      if (x->left != NULL) {
+        assert(cmp_with_key(x->left, x->key, false));
+        assert(x->left!=x->right);
+      }
+      if (x->right != NULL) {
+        assert(cmp_with_key(x->right, x->key, true));
+      }
       if (k == x->key) {
         return 1;
       } else if (k < x->key) {
-        if (x->left != NULL) {
-          assert(x->left->key <= x->key);
-          assert(x->left!=x->right);
-        }
         int r = bst_find_rec(x->left, k);
         return r;
       } else {
-        if (x->right != NULL) {
-          assert(x->right->key >= x->key);
-        }
         int r = bst_find_rec(x->right, k);
         return r;
     }
@@ -54,18 +66,6 @@ int main() {
   ret = bst_find_rec(root3, 3);
   BNode * root4 = build_graph();
   ret = bst_find_rec(root4, 4);
-  BNode * root5 = build_graph();
-  ret = bst_find_rec(root5, 5);
-  BNode * root6 = build_graph();
-  ret = bst_find_rec(root6, 6);
-  BNode * root7 = build_graph();
-  ret = bst_find_rec(root7, 7);
-  BNode * root8 = build_graph();
-  ret = bst_find_rec(root8, 8);
-  BNode * root9 = build_graph();
-  ret = bst_find_rec(root9, 9);
-  BNode * root10 = build_graph();
-  ret = bst_find_rec(root10, 10);
 
 
   return 0;

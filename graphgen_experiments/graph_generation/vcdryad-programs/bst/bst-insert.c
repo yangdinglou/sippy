@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef
 /*D_tag b_node */
@@ -11,7 +12,17 @@ struct b_node {
 } BNode;
 
 BNode * build_graph();
-
+bool cmp_with_key(BNode * x, int k, bool larger){
+  if (x == NULL) return true;
+  else {
+    if (larger) {
+      if (x->key < k) return false;
+    } else {
+      if (x->key > k) return false;
+    }
+    return cmp_with_key(x->left, k, larger) && cmp_with_key(x->right, k, larger);
+  }
+}
 BNode * bst_insert_rec(BNode * x, int k)
   /*D_requires (bst^(x) & (~ (k i-in keys^(x)))) */
   /*D_ensures  (bst^(ret) & (keys^(ret) s= (old(keys^(x)) union (singleton k)))) */
@@ -27,10 +38,13 @@ BNode * bst_insert_rec(BNode * x, int k)
 
     return leaf;
   } else if (k < x->key) {
-    assert(x->left!=x->right || (x->left==NULL && x->right==NULL));
-    if(x->left != NULL) {
-      assert(x->left->key <= x->key);
-    }
+    if (x->left != NULL) {
+        assert(cmp_with_key(x->left, x->key, false));
+        assert(x->left!=x->right);
+      }
+      if (x->right != NULL) {
+        assert(cmp_with_key(x->right, x->key, true));
+      }
     BNode * l = x->left;
     BNode * r = x->right;
     BNode * tmp = bst_insert_rec(l, k);
@@ -39,10 +53,13 @@ BNode * bst_insert_rec(BNode * x, int k)
 
     return x;
   } else {
-    assert(x->left!=x->right || (x->left==NULL && x->right==NULL));
-    if(x->right != NULL) {
-      assert(x->right->key >= x->key);
-    }
+    if (x->left != NULL) {
+        assert(cmp_with_key(x->left, x->key, false));
+        assert(x->left!=x->right);
+      }
+      if (x->right != NULL) {
+        assert(cmp_with_key(x->right, x->key, true));
+      }
     BNode * l = x->left;
     BNode * r = x->right;
     BNode * tmp = bst_insert_rec(r, k);

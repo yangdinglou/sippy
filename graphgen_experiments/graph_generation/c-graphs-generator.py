@@ -21,7 +21,8 @@ class GraphGenerator:
         # self.outputbk.write(f"num_of_nodes({node}).\n") TODO
         self.outputexs = open("exs.pl", "w")
     def init_solver(self,number):
-        self.control = Control(['-Wnone',"--rand-freq=0.9"])
+        rand_num = randint(1,100)
+        self.control = Control(['-Wnone',"--rand-freq=0.9", f"--seed={rand_num}"])
         self.control.load((Path(__file__).parent / "generator.lp").__str__())
         self.control.add("base", [], f":- not num_of_nodes({number}).")
         self.control.configuration.solve.models = 0
