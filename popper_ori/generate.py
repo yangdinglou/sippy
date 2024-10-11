@@ -228,6 +228,7 @@ class Generator:
         alan = pkg_resources.resource_string(__name__, "lp/alan.pl").decode()
         if settings.unopt:
             alan = pkg_resources.resource_string(__name__, "lp/alan_unopt.pl").decode()
+        encoding.append("unopt.") # this is to disable the auxiliary placeholder
         encoding.append(alan)
         with open(settings.bias_file) as f:
             encoding.append(f.read())
